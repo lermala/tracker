@@ -1,0 +1,27 @@
+.modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, .35);
+    z-index: 1000;
+
+    &.show {
+        display: flex;
+    }
+
+    .modal-content {
+        width: 400px;
+        background: white;
+        border-radius: $bd-radius;
+        padding: 20px;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+}

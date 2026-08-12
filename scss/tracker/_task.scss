@@ -1,0 +1,213 @@
+// ======================================
+// Task
+// ======================================
+
+.task {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    line-height: 20px;
+
+    gap: $gap_default;
+    padding: $pd_default;
+
+    color: $clr_black;
+    transition: .2s;
+
+    // По умолчанию скрываем пустую дату
+    .taskDueDate.is-empty {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    // Кнопку удаления скрываем всегда
+    .deleteButton {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    // Показываем элементы управления при наведении на задачу
+    body:not(.is-dragging) &:hover {
+        border-color: $clr_greyMiddle;
+
+        .taskDueDate.is-empty,
+        .deleteButton {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+
+
+// ======================================
+// Status
+// ======================================
+
+.taskCheckbox {
+    @extend %circle;
+
+    border: 1px solid $clr_task-checkbox;
+    background: transparent;
+
+    span {
+        @extend %circleIcon;
+
+        opacity: 0;
+        transition: opacity .2s ease;
+    }
+
+    // Незавершенная
+    &:not(.is-completed):hover {
+        span {
+            opacity: 1;
+            color: inherit;
+        }
+    }
+
+    // Завершенная
+    &.is-completed {
+        background: $clr_task-checkbox;
+
+        span {
+            opacity: 1;
+        }
+
+        &:hover {
+            background: transparent;
+
+            span {
+                opacity: 0;
+            }
+        }
+    }
+}
+
+// ======================================
+// Content
+// ======================================
+
+.taskContent {
+    display: flex;
+    flex: 1;
+    // align-items: flex-start;
+
+    //font-size: 14px;
+    color: $clr_black;
+    background: transparent;
+    gap: $space-s;
+}
+
+.taskTitle {
+    flex: 1;
+    overflow-wrap: anywhere;
+    cursor: default;
+}
+
+.taskDuration {
+    width: 60px;
+    color: $clr_greyDark;
+}
+
+// ======================================
+// Input
+// ======================================
+
+
+// ======================================
+// Buttons
+// ======================================
+
+.timerControl {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+
+    .timerButton {
+        display: flex;
+
+        padding: 0;
+        margin: 0;
+
+        border: none;
+        background: transparent;
+        cursor: pointer;
+
+        @extend %ef_hover_btn;
+
+        &:active {
+            transform: scale(.95);
+        }
+
+        span {
+            // icon
+            font-size: 18px;
+            color: $clr_greyDark;
+            line-height: 1;
+        }
+    }
+}
+
+.taskDueDate {
+    @extend %taskBadge;
+
+    &.is-empty {
+        opacity: 0;
+        background: transparent;
+        border-color: $clr_greyMiddle;
+    }
+
+    &.is-overdue {
+        color: $clr_red;
+        // border-color: rgba($clr_red, .2);
+        background: rgba($clr_red, .1);
+        //font-weight: 500;
+    }
+
+    &.is-today {
+        color: $clr_orange;
+        background: rgba($clr_orange, .1);
+    }
+
+    &.is-tomorrow {
+        color: $clr_green;
+        background: rgba($clr_green, .1);
+    }
+
+    &.is-this-week {
+        color: $clr_blue;
+        background: rgba($clr_blue, .1);
+    }
+
+    &.is-next-week {}
+}
+
+// общее
+
+%taskBadge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+
+    padding: 2px $space-s;
+    border-radius: 12px;
+
+    background: rgba($clr_greyDark, .1);
+
+    border: 1px solid transparent;
+    color: $clr_greyDark;
+
+    font-size: 12px;
+    line-height: 1.2;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s,
+        opacity .2s;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}

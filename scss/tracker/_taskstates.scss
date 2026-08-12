@@ -1,0 +1,64 @@
+.task {
+
+    // наведение на задачу (body:not(.is-dragging) - для отключения во время DnD)
+    body:not(.is-dragging) &:hover {
+        border-color: $clr_greyMiddle;
+        // box-shadow: $shadow;
+    }
+
+    // Завершенная задача
+    &.is-completed {
+        .taskTitle {
+            color: $clr_greyDark;
+        }
+
+        .taskDuration {
+            opacity: .6;
+        }
+    }
+
+    // Задача с запущенным таймером
+    &.is-running {
+        .timerControl {
+            color: $clr_black;
+            color: $clr_accent;
+
+            animation: runningPulse 1.8s ease-in-out infinite;
+
+            span {
+                color: $clr_accent;
+                font-weight: 500;
+            }
+        }
+    }
+
+    &.is-overdue {}
+
+    // Задача, которую взяли для перетаскивания
+    &.is-chosen {
+        cursor: grabbing;
+        transform: scale(1.01);
+        box-shadow: $shadow-dark;
+        background: white;
+    }
+
+    &.is-ghost {
+        opacity: 0.8;
+        background: $clr_grey;
+    }
+
+    &.is-dragging {
+    }
+}
+
+@keyframes runningPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}

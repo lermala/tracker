@@ -1,0 +1,55 @@
+.iconButton {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addButton {
+    display: flex;
+    align-items: center;
+    gap: $gap_default;
+    padding: $pd_default;
+
+    background: transparent;
+    border: none;
+    color: $clr_black;
+    cursor: pointer;
+    font-size: inherit;
+
+    &:hover {
+        color: $clr_accent;
+
+        .addButtonIcon {
+            color: white;
+            background: $clr_accent;
+        }
+    }
+}
+
+.addButtonIcon {
+    @extend %circle;
+
+    span {
+        @extend %circleIcon;
+    }
+}
+
+.deleteButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+
+    color: $clr_greyDark;
+    cursor: pointer;
+
+    @extend %ef_hover_btn;
+
+    span {
+        @extend %icon;
+    }
+}

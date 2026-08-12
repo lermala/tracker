@@ -1,0 +1,89 @@
+.taskGroup {
+    min-width: 0;
+    padding: $space-s;
+
+    border-radius: $bd-radius;
+    //cursor: grabbing;
+
+    &.is-chosen {
+        cursor: grabbing;
+        transform: scale(1.01);
+        box-shadow: $shadow-dark;
+        background: white;
+    }
+
+    &.is-ghost {
+        opacity: 0.8;
+        background: $clr_grey;
+    }
+
+    &.is-dragging {
+        cursor: grabbing;
+    }
+}
+
+.taskGroupHeader {
+    margin-bottom: $space-s;
+    padding: $space-xs;
+}
+
+.taskGroupInfo {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: $space-xs;
+
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+
+    color: inherit;
+    color: $clr_black;
+
+    .taskGroupDeleteButton {
+        @extend .deleteButton;
+        margin-left: auto;
+    }
+}
+
+.taskGroupTitle {}
+
+.taskGroupCounter {
+    color: $clr_greyDark;
+    font-weight: 500;
+}
+
+.taskGroupItems {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+}
+
+.taskGroupDropZone {
+    flex: 1;
+    min-height: 12px;
+}
+
+// КНОПКИ 
+.addCategoryButton {
+    display: flex;
+    width: 100%;
+    padding: $space-m;
+
+    color: $clr_greyDark;
+    border: none;
+    border-radius: $bd-radius;
+
+    background: $clr_grey;
+
+    cursor: pointer;
+
+    .addButtonIcon {
+        flex-shrink: 0;
+    }
+
+    &:hover {
+        color: $clr_accent;
+
+    }
+}

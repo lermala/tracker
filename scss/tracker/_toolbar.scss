@@ -1,0 +1,177 @@
+.trackerToolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    // margin-bottom: $mg_bottom;
+    padding: $space-l $space-xl;
+
+    border-bottom: 1px solid $clr_grey;
+
+    flex-shrink: 0;
+}
+
+// Заголовок
+.tasksHeader {
+    flex-shrink: 0;
+
+    padding: 20px 24px 12px;
+}
+
+.tasksHeaderTitle {
+    margin: 0;
+
+    font-size: $space-xxl;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+// МЕНЮШКА
+.segmentedControl {
+    display: inline-flex;
+    overflow: hidden;
+
+    border: 1px solid $clr_grey;
+    border-radius: $bd-radius;
+}
+
+.segmentedControlButton {
+    @extend %toolbar-button;
+    @extend %toolbar-button;
+    position: relative;
+}
+
+.toolbarButton {
+    @extend %toolbar-button;
+
+    border: 1px solid $clr_grey;
+    border-radius: $bd-radius;
+}
+
+// НАСТРОЙКИ
+
+.settingsGroup {
+    position: relative;
+
+    font-size: inherit;
+}
+
+.settingsButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: none;
+    border-radius: $bd-radius;
+    background: transparent;
+
+    color: $clr_greyDark;
+    cursor: pointer;
+
+    @extend %ef_hover_btn;
+}
+
+.settingsMenu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+
+    width: 200px;
+    padding: 14px;
+
+    color: $clr_black;
+    background: white;
+    border: 1px solid $clr_grey;
+    border-radius: $bd-radius;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+
+    z-index: 100;
+}
+
+.settingsMenuTitle {
+    margin-bottom: $mg_bottom;
+    font-weight: 600;
+}
+
+.settingsItem {
+    position: relative;
+
+    &+& {
+        &+& {
+            margin-top: 16px;
+        }
+    }
+
+    .settingsItemLabel {
+        // margin-bottom: $mg_bottom;
+    }
+
+    .settingsSelect {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        width: 100%;
+        padding: $pd_components;
+
+        font-size: inherit;
+
+        background: transparent;
+        border: 1px solid $clr_grey;
+        border-radius: $bd-radius;
+
+        cursor: pointer;
+
+        &:hover {
+            background: $clr_grey;
+        }
+
+        .material-symbols-rounded {
+            font-size: inherit;
+        }
+    }
+
+    .settingsSelectMenu {
+        position: absolute;
+        top: calc(100% + $space-xs);
+        left: 0;
+
+        width: 100%;
+        padding: $space-xs;
+
+        background: white;
+        border: 1px solid $clr_grey;
+        border-radius: $bd-radius;
+        box-shadow: $shadow-dark;
+
+        z-index: 110;
+    }
+}
+
+.toolbarMenuOption {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    padding: $space-xs $space-s;
+
+    font: inherit;
+    color: $clr_black;
+    text-align: left;
+
+    background: transparent;
+    border: none;
+    border-radius: $bd-radius;
+
+    cursor: pointer;
+
+    &:hover {
+        background: $clr_grey;
+    }
+
+    &.active {
+        color: $clr_accent;
+        font-weight: 600;
+    }
+}

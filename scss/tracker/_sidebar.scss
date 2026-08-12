@@ -1,0 +1,140 @@
+.trackerLayout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar {
+    width: 240px;
+    flex-shrink: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 16px 12px;
+
+    background: rgba($clr_grey, 0.4);
+    border-right: 1px solid $clr_grey;
+
+    transition: width .2s ease;
+
+    &.is-collapsed {
+        width: 48px;
+        border: none;
+        background: transparent;
+
+        .sidebarTitle,
+        .projectList,
+        .addProjectButton {
+            display: none;
+        }
+
+        .sidebarHeader {
+            justify-content: center;
+            padding-inline: 0;
+        }
+    }
+}
+
+.sidebarHeader {
+    padding: 0 8px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebarTitle {
+    font-size: 14px;
+    font-weight: 700;
+    color: $clr_greyUltraDark;
+}
+
+.projectList {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.projectItem,
+.addProjectButton {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 7px 8px;
+
+    border: none;
+    border-radius: $bd-radius;
+
+    background: transparent;
+
+    font: inherit;
+    text-align: left;
+
+    cursor: pointer;
+
+    &:hover {
+        background: $clr_grey;
+    }
+}
+
+.projectItem {
+    &.is-active {
+        background: $clr_grey;
+        background: rgba($clr_accent, 0.1);
+        color: $clr_accent;
+        font-weight: 500;
+    }
+}
+
+.projectColor {
+    width: 8px;
+    height: 8px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+    background: $clr_accent;
+}
+
+.projectTitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.addProjectButton {
+    margin-top: 8px;
+
+    color: $clr_greyDark;
+
+    .material-symbols-rounded {
+        font-size: 18px;
+    }
+}
+
+.sidebarToggleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    border-radius: $bd-radius;
+    cursor: pointer;
+
+    .material-symbols-rounded {
+        font-size: 20px;
+    }
+
+    &:hover {
+        background: $clr_grey;
+    }
+}

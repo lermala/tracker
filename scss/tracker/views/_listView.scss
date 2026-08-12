@@ -1,0 +1,72 @@
+.listView {
+    width: 100%;
+
+    padding-inline: $space-m;
+
+    display: flex;
+    flex-direction: column;
+
+    .taskGroup,
+    >.addCategoryButton {
+        width: 100%;
+        max-width: 800px;
+        margin-inline: auto;
+    }
+
+    .task {
+        position: relative;
+        border: none;
+
+        &::after {
+            // разделитель после задач
+            content: "";
+
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -4px;
+
+            height: 1px;
+            background: $clr_grey;
+        }
+    }
+
+    .taskContent {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .taskTitle {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .taskMeta {
+        display: grid;
+        grid-template-columns: auto 100px;
+        align-items: center;
+        gap: $space-s;
+    }
+
+    .taskDueDate {
+        justify-self: start;
+        width: fit-content;
+    }
+}
+
+.tasksContainer:has(.listView) {
+    .tasksHeader {
+        // padding-inline: $space-m;
+    }
+
+    .tasksHeaderTitle {
+        width: 100%;
+        max-width: 800px;
+        margin-inline: auto;
+
+        text-align: center;
+    }
+}

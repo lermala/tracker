@@ -1,0 +1,59 @@
+.boardView {
+    display: flex;
+    align-items: stretch;
+    gap: $space-s;
+    padding-inline: $space-m;
+
+    min-width: 100%;
+
+    .taskGroup {
+        flex: 0 0 300px;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .addCategoryButton {
+        flex: 0 0 300px;
+        align-self: flex-start;
+    }
+
+    .task {
+        align-items: flex-start;
+        // align-items: center;
+
+        border: 1px solid $clr_grey;
+        border-radius: $bd-radius;
+        //padding: 10px;
+    }
+
+    .taskContent {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+
+        min-width: 0;
+        flex: 1;
+    }
+
+    .taskTitle {
+        width: 100%;
+    }
+
+    .timerControl {
+        display: flex;
+        align-items: center;
+    }
+
+    .taskMeta {
+        display: flex;
+        align-items: center;
+
+        width: 100%;
+    }
+
+    .taskDueDate {
+        margin-left: auto;
+    }
+}

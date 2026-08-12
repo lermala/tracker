@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+
+// colors
+$clr_black: #19191c;
+
+$clr_grey: #eee;
+$clr_greyLight: #d4d4d4;
+$clr_greyMiddle: #b2b5b6;
+$clr_greyDark: #85898a;
+$clr_greyUltraDark: #404041;
+
+$clr_pinkLight: #ed61ca;
+$clr_mandarin: #e74d3b;
+$clr_mandarinDark: #b94d3b;
+$clr_mandarinLight: #cf6957;
+$clr_blue: #0c8ce9;
+
+$clr_red: #ff0000;
+$clr_orange: #e74d3b;
+$clr_yellow: #d6a600;
+$clr_green: #3f7d57;
+$clr_blue: #5074a6;
+$clr_pink: #f574c1;
+
+$clr_accent: $clr_mandarinLight;
+$clr_task-checkbox: $clr_greyUltraDark; // цвет для чекбокса задачи
+
+$shadow: 0 4px 12px rgba(0, 0, 0, .08);
+$shadow-dark: 0 4px 12px rgba(0, 0, 0, .09);
+
+$bd-radius: 4px;
+
+// spaces
+$space-xxs: 4px;
+$space-xs: 6px;
+$space-s: 8px;
+$space-m: 10px;
+$space-l: 14px;
+$space-xl: 20px;
+$space-xxl: 24px;
+
+// margin
+$mg_main: 10%;
+$mg_bottom: 14px;
+
+$pd_default: 10px;
+$pd_components: 6px 12px;
+
+$gap_default: 10px;
+
+// effects
+%ef_default_component {
+    padding: $pd_components;
+    transition: all .6s;
+}
+
+%ef_hover_component {
+    &:hover {
+        background: $clr_grey;
+    }
+}
+
+%ef_hover_btn {
+    transition: background-color .2s ease,
+        border-color .2s ease,
+        transform .15s ease;
+
+    &:hover {
+        transition:
+            transform .2s,
+            opacity .2s;
+
+        transform: scale(1.2);
+    }
+}

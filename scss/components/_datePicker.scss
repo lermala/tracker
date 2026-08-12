@@ -1,0 +1,77 @@
+.datePicker {
+    width: 240px;
+    padding: 8px;
+
+    background: white;
+
+    border: 1px solid $clr_grey;
+    border-radius: $bd-radius;
+
+    box-shadow: $shadow;
+
+    z-index: 1000;
+}
+
+.datePickerOption {
+    width: 100%;
+
+    padding: 7px 8px;
+
+    border: none;
+    border-radius: $bd-radius;
+    background: transparent;
+
+    text-align: left;
+    font-size: 13px;
+
+    cursor: pointer;
+
+    &:hover {
+        background: $clr_grey;
+    }
+}
+
+.datePickerDivider {
+    height: 1px;
+    margin: 6px 0;
+
+    background: $clr_grey;
+}
+
+.datePickerTime {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px;
+
+    border-radius: $bd-radius;
+
+    &:focus-within,
+    &:hover {
+        background: $clr_grey;
+    }
+
+    .material-symbols-rounded {
+        font-size: 18px;
+        color: $clr_greyDark;
+    }
+}
+
+.datePickerTimeInput {
+    width: 100%;
+
+    padding: 0;
+
+    border: none;
+    outline: none;
+    background: transparent;
+
+    font: inherit;
+    font-size: 13px;
+    color: $clr_black;
+
+    &::placeholder {
+        color: $clr_greyDark;
+    }
+}
