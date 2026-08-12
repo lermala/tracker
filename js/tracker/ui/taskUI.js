@@ -27,7 +27,7 @@ function getTaskElements(item) {
     return {
         title: item.querySelector(".taskTitle"),
         duration: item.querySelector(".taskDuration"),
-        dueDate: item.querySelector(".taskDueDate"),
+        dueAt: item.querySelector(".taskDueAt"),
         circle: item.querySelector(".taskCheckbox"),
         deleteButton: item.querySelector(".deleteButton"),
         timerButton: item.querySelector(".timerButton"),
@@ -40,7 +40,7 @@ function cloneTaskTemplate() {
 }
 
 function bindTaskEvents(item, elements, task) {
-    const { circle, title, dueDate, duration, deleteButton, timerButton, timerButtonIcon } = elements;
+    const { circle, title, dueAt, duration, deleteButton, timerButton, timerButtonIcon } = elements;
 
     // обработчик клика на кружок
     bindTaskCheckbox(
@@ -80,15 +80,15 @@ function bindTaskEvents(item, elements, task) {
         startEditDuration(duration, task);
     });
 
-    bindTaskDueDate(
-        dueDate,
+    bindTaskDueAt(
+        dueAt,
         () => task,
         renderCurrentView
     );
 
     item.addEventListener("click", (event) => {
         if (event.target.closest(
-            ".taskCheckbox, .taskTitle, button, .taskDuration, .taskDueDate"
+            ".taskCheckbox, .taskTitle, button, .taskDuration, .taskDueAt"
         )) {
             return;
         }
@@ -102,7 +102,7 @@ function updateTaskUI(task, item, elements) {
     const {
         circle,
         title,
-        dueDate,
+        dueAt,
         duration,
         deleteButton,
         timerButton,
@@ -111,11 +111,11 @@ function updateTaskUI(task, item, elements) {
 
     title.textContent = task.title;
 
-    fillTaskDueDate(elements.dueDate, task);
+    fillTaskDueAt(elements.dueAt, task);
     fillTaskTimer(duration, timerButtonIcon, task);
     fillTaskCheckbox(circle, task);
 
     // Состояния задачи
     item.classList.toggle("is-completed", task.isCompleted);
-    item.classList.toggle("is-running", task.startDate !== null);
+    item.classList.toggle("is-running", task.startedAt !== null);
 }

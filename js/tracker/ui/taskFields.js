@@ -1,38 +1,38 @@
-function fillTaskDueDate(dueDate, task) {
-    dueDate.textContent = task.dueDate
-        ? formatDueDate(task.dueDate)
+function fillTaskDueAt(dueAt, task) {
+    dueAt.textContent = task.dueAt
+        ? formatDueAt(task.dueAt)
         : "Без срока";
 
     // Стили баджа срока выполнения
-    const dueDateStatus = getDueDateStatus(task.dueDate);
-    dueDate.classList.toggle(
+    const dueAtStatus = getDueAtStatus(task.dueAt);
+    dueAt.classList.toggle(
         "is-empty",
-        dueDateStatus === "empty"
+        dueAtStatus === "empty"
     );
-    dueDate.classList.toggle(
+    dueAt.classList.toggle(
         "is-overdue",
-        !task.isCompleted && dueDateStatus === "overdue"
+        !task.isCompleted && dueAtStatus === "overdue"
     );
-    dueDate.classList.toggle(
+    dueAt.classList.toggle(
         "is-today",
-        !task.isCompleted && dueDateStatus === "today"
+        !task.isCompleted && dueAtStatus === "today"
     );
-    dueDate.classList.toggle(
+    dueAt.classList.toggle(
         "is-tomorrow",
-        !task.isCompleted && dueDateStatus === "tomorrow"
+        !task.isCompleted && dueAtStatus === "tomorrow"
     );
-    dueDate.classList.toggle(
+    dueAt.classList.toggle(
         "is-this-week",
-        !task.isCompleted && dueDateStatus === "this-week"
+        !task.isCompleted && dueAtStatus === "this-week"
     );
-    dueDate.classList.toggle(
+    dueAt.classList.toggle(
         "is-next-week",
-        !task.isCompleted && dueDateStatus === "next-week"
+        !task.isCompleted && dueAtStatus === "next-week"
     );
 }
 
-function bindTaskDueDate(dueDate, getTask, onUpdate) {
-    dueDate.addEventListener("click", (event) => {
+function bindTaskDueAt(dueAt, getTask, onUpdate) {
+    dueAt.addEventListener("click", (event) => {
         event.stopPropagation();
 
         const task = getTask();
@@ -40,16 +40,16 @@ function bindTaskDueDate(dueDate, getTask, onUpdate) {
         if (!task) return;
 
         openDatePicker({
-            anchor: dueDate,
-            value: task.dueDate,
+            anchor: dueAt,
+            value: task.dueAt,
             allowTime: true,
 
             onChange: (value) => {
                 updateTask(task.id, {
-                    dueDate: value
+                    dueAt: value
                 });
 
-                fillTaskDueDate(dueDate, task);
+                fillTaskDueAt(dueAt, task);
 
                 onUpdate?.();
             }
@@ -61,7 +61,7 @@ function fillTaskTimer(duration, timerButtonIcon, task) {
     duration.textContent = getCurrentDuration(task);
 
     timerButtonIcon.textContent =
-        task.startDate === null
+        task.startedAt === null
             ? "play_circle"
             : "pause_circle";
 }
@@ -78,13 +78,11 @@ function bindTaskTimer(
 
         if (!task) return;
 
-        if (task.startDate === null) {
+        if (task.startedAt === null) {
             stopAllRunningTasks(task.id);
 
-            task.startDate = Date.now();
-
             updateTask(task.id, {
-                startDate: task.startDate
+                startedAt: Date.now()
             });
         } else {
             stopTask(task);

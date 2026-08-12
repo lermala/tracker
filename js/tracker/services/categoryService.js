@@ -9,7 +9,7 @@ function createCategory(projectId, title = "") {
         id: crypto.randomUUID(),
         projectId,
         title: title.trim(),
-        createDate: Date.now(),
+        createdAt: Date.now(),
         color: "black",
         order: projectCategories.length
     };

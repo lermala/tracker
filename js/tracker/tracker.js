@@ -17,21 +17,41 @@ async function startTracker() {
 // console.log(tasks);
 // console.log(categories);
 
- // migrateTasks();
+
 // migrateCategories();
 
 
-function migrateTasks() {
+function migrateTask(task) {
     let changed = false;
 
-    tasks.forEach(task => {
-        if (task.description === undefined) {
-            task.description = "";
-            changed = true;
-        }
-    });
-
-    if (changed) {
-        saveTasks(tasks);
+    if ("createDate" in task) {
+        task.createdAt = task.createDate;
+        delete task.createDate;
+        changed = true;
     }
+
+    if ("startDate" in task) {
+        task.startedAt = task.startDate;
+        delete task.startDate;
+        changed = true;
+    }
+
+    if ("completeDate" in task) {
+        task.completedAt = task.completeDate;
+        delete task.completeDate;
+        changed = true;
+    }
+
+    if ("dueDate" in task) {
+        task.dueAt = task.dueDate;
+        delete task.dueDate;
+        changed = true;
+    }
+
+    if (!("updatedAt" in task)) {
+        task.updatedAt = task.createdAt ?? Date.now();
+        changed = true;
+    }
+
+    return changed;
 }

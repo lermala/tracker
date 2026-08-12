@@ -15,7 +15,7 @@
     transition: .2s;
 
     // По умолчанию скрываем пустую дату
-    .taskDueDate.is-empty {
+    .taskDueAt.is-empty {
         opacity: 0;
         visibility: hidden;
     }
@@ -30,7 +30,7 @@
     body:not(.is-dragging) &:hover {
         border-color: $clr_greyMiddle;
 
-        .taskDueDate.is-empty,
+        .taskDueAt.is-empty,
         .deleteButton {
             opacity: 1;
             visibility: visible;
@@ -148,7 +148,7 @@
     }
 }
 
-.taskDueDate {
+.taskDueAt {
     @extend %taskBadge;
 
     &.is-empty {

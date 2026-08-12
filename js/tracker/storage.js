@@ -15,7 +15,7 @@ const VIEW = {
 const GROUP = {
     CATEGORY: "category",
     IS_COMPLETED: "status",
-    DUE_DATE: "dueDate"
+    DUE_DATE: "dueAt"
 };
 
 const DEFAULT_VIEW_SETTINGS = {
@@ -35,7 +35,7 @@ const DEFAULT_CATEGORIES = [
         id: DEFAULT_CATEGORY_ID,
         projectId: DEFAULT_PROJECT_ID,
         title: "Входящие",
-        createDate: Date.now(),
+        createdAt: Date.now(),
         color: "green",
         order: 0
     }
@@ -45,7 +45,7 @@ const DEFAULT_PROJECTS = [
     {
         id: DEFAULT_PROJECT_ID,
         title: "Входящие",
-        createDate: Date.now(),
+        createdAt: Date.now(),
         color: "green",
         order: 0
     }

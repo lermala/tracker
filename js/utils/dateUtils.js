@@ -1,7 +1,7 @@
-function formatDueDate(dueDate) {
-    if (!dueDate) return "";
+function formatDueAt(dueAt) {
+    if (!dueAt) return "";
 
-    const date = parseDate(dueDate);
+    const date = parseDate(dueAt);
     const today = startOfToday();
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
@@ -26,7 +26,7 @@ function formatDueDate(dueDate) {
             .replace(".", "");
     }
 
-    const time = getTimeFromDate(dueDate);
+    const time = getTimeFromDate(dueAt);
 
     return time
         ? `${dateText} ${time}`
@@ -41,10 +41,10 @@ function isSameDate(date1, date2) {
     );
 }
 
-function isDueDateOverdue(dueDate) {
-    if (!dueDate) return false;
+function isDueAtOverdue(dueAt) {
+    if (!dueAt) return false;
 
-    const datePart = dueDate.split("T")[0];
+    const datePart = dueAt.split("T")[0];
 
     const [year, month, day] = datePart
         .split("-")
@@ -93,10 +93,10 @@ function startOfToday() {
     return today;
 }
 
-function getDueDateStatus(dueDate) {
-    if (!dueDate) return "empty";
+function getDueAtStatus(dueAt) {
+    if (!dueAt) return "empty";
 
-    const date = parseDate(dueDate);
+    const date = parseDate(dueAt);
     const today = startOfToday();
 
     const tomorrow = new Date(today);

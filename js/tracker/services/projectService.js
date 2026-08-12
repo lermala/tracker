@@ -2,7 +2,7 @@ function createProject(title) {
     const project = {
         id: crypto.randomUUID(),
         title: title.trim(),
-        createDate: Date.now(),
+        createdAt: Date.now(),
         color: "",
         order: 0
     };

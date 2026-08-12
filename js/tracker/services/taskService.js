@@ -4,7 +4,7 @@
 function createTask({
     projectId,
     categoryId = null,
-    dueDate = null
+    dueAt = null
 }) {
     return {
         id: crypto.randomUUID(),
@@ -17,13 +17,18 @@ function createTask({
 
         order: getNextTaskOrder(categoryId),
 
-        isCompleted: false,
+        isCompleted = completedAt !== null,
         isNew: true,
 
-        createDate: Date.now(),
-        startDate: null,
-        completeDate: null,
-        dueDate
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        startedAt: null,
+        completedAt: null,
+        dueAt
+
+/*         get isCompleted() {
+            return this.completedAt !== null;
+        } */
     };
 }
 
@@ -35,7 +40,7 @@ function getTaskById(id) {
 }
 
 function getRunningTask() {
-    return tasks.find(task => task.startDate !== null);
+    return tasks.find(task => task.startedAt !== null);
 }
 
 function getTasksByCategory(categoryId) {
@@ -50,14 +55,15 @@ function getTasksByProject(projectId) {
     );
 }
 
-function getNextTaskOrder(categoryId) {
-    const categoryTasks =
-        tasks.filter(task =>
-            task.categoryId === categoryId
-        );
+function getNextTaskOrder(projectId, categoryId) {
+    const categoryTasks = tasks.filter(task =>
+        task.projectId === projectId &&
+        task.categoryId === categoryId
+    );
 
-    if (categoryTasks.length === 0)
+    if (categoryTasks.length === 0) {
         return 0;
+    }
 
     return Math.max(
         ...categoryTasks.map(task => task.order)
@@ -78,18 +84,18 @@ function toggleTask(id) {
 
     if (!task) return;
 
-    if (!task.isCompleted && task.startDate !== null) {
+    if (!task.isCompleted && task.startedAt !== null) {
         task.duration += Math.floor(
-            (Date.now() - task.startDate) / 1000
+            (Date.now() - task.startedAt) / 1000
         );
-        task.startDate = null;
+        task.startedAt = null;
     }
     task.isCompleted = !task.isCompleted;
 
     if (task.isCompleted) {
-        task.completeDate = Date.now();
+        task.completedAt = Date.now();
     } else {
-        task.completeDate = null;
+        task.completedAt = null;
     }
 
     saveTasks(tasks);
@@ -102,6 +108,8 @@ function updateTask(id, changes) {
     if (!task) return;
 
     Object.assign(task, changes);
+
+    task.updatedAt = Date.now();
 
     saveTasks(tasks);
 }

@@ -68,7 +68,7 @@ function finishEditTask(input, task, save) {
 }
 
 function startEditDuration(duration, task) {
-    if (task.startDate !== null)
+    if (task.startedAt !== null)
         return; // не редактируем запущенный таймер
 
     const input = document.createElement("input");

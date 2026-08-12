@@ -19,7 +19,7 @@ function bindTaskCardEvents() {
         status,
         title,
         description,
-        dueDate
+        dueAt
     } = taskCardElements;
 
     closeButton.addEventListener("click", closeTaskCard);
@@ -71,8 +71,8 @@ function bindTaskCardEvents() {
         renderCurrentView
     );
 
-    bindTaskDueDate(
-        dueDate,
+    bindTaskDueAt(
+        dueAt,
         () => getTaskById(currentTaskId),
         renderCurrentView
     );
@@ -85,7 +85,7 @@ function openTaskCard(task) {
         status,
         title,
         description,
-        dueDate
+        dueAt
     } = taskCardElements;
 
     currentTaskId = task.id;
@@ -96,7 +96,7 @@ function openTaskCard(task) {
     title.textContent = task.title;
     fillTaskDescription(description, task);
 
-    fillTaskDueDate(dueDate, task);
+    fillTaskDueAt(dueAt, task);
 }
 
 function startEditTaskCardTitle(title) {
@@ -157,7 +157,7 @@ function getTaskCardElements() {
         status: document.getElementById("taskCardCheckbox"),
         title: document.getElementById("taskCardTitle"),
         description: document.getElementById("taskCardDescription"),
-        dueDate: document.getElementById("taskCardDueDate")
+        dueAt: document.getElementById("taskCardDueAt")
     };
 }
 

@@ -3,8 +3,8 @@ const durationElements = new Map(); // ссылки на элементы вре
 function getCurrentDuration(task) {
     let seconds = task.duration;
 
-    if (task.startDate !== null) {
-        seconds += Math.floor((Date.now() - task.startDate) / 1000);
+    if (task.startedAt !== null) {
+        seconds += Math.floor((Date.now() - task.startedAt) / 1000);
     }
 
     const hours = Math.floor(seconds / 3600);
@@ -15,18 +15,18 @@ function getCurrentDuration(task) {
 }
 
 function stopTask(task) {
-    if (task.startDate === null)
+    if (task.startedAt === null)
         return;
 
     task.duration += Math.floor(
-        (Date.now() - task.startDate) / 1000
+        (Date.now() - task.startedAt) / 1000
     );
 
-    task.startDate = null;
+    task.startedAt = null;
 
     updateTask(task.id, {
         duration: task.duration,
-        startDate: null
+        startedAt: null
     });
 }
 

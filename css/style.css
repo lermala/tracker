@@ -842,7 +842,7 @@ textarea.textEditor.taskTitle {
   color: #19191c;
   transition: 0.2s;
 }
-.task .taskDueDate.is-empty {
+.task .taskDueAt.is-empty {
   opacity: 0;
   visibility: hidden;
 }
@@ -853,7 +853,7 @@ textarea.textEditor.taskTitle {
 body:not(.is-dragging) .task:hover {
   border-color: #b2b5b6;
 }
-body:not(.is-dragging) .task:hover .taskDueDate.is-empty,
+body:not(.is-dragging) .task:hover .taskDueAt.is-empty,
 body:not(.is-dragging) .task:hover .deleteButton,
 body:not(.is-dragging) .task:hover .taskGroupInfo .taskGroupDeleteButton,
 .taskGroupInfo body:not(.is-dragging) .task:hover .taskGroupDeleteButton {
@@ -927,28 +927,28 @@ body:not(.is-dragging) .task:hover .taskGroupInfo .taskGroupDeleteButton,
   line-height: 1;
 }
 
-.taskDueDate.is-empty {
+.taskDueAt.is-empty {
   opacity: 0;
   background: transparent;
   border-color: #b2b5b6;
 }
-.taskDueDate.is-overdue {
+.taskDueAt.is-overdue {
   color: #ff0000;
   background: rgba(255, 0, 0, 0.1);
 }
-.taskDueDate.is-today {
+.taskDueAt.is-today {
   color: #e74d3b;
   background: rgba(231, 77, 59, 0.1);
 }
-.taskDueDate.is-tomorrow {
+.taskDueAt.is-tomorrow {
   color: #3f7d57;
   background: rgba(63, 125, 87, 0.1);
 }
-.taskDueDate.is-this-week {
+.taskDueAt.is-this-week {
   color: #5074a6;
   background: rgba(80, 116, 166, 0.1);
 }
-.taskDueDate {
+.taskDueAt {
   display: inline-flex;
   align-items: center;
   width: -moz-fit-content;
@@ -964,7 +964,7 @@ body:not(.is-dragging) .task:hover .taskGroupInfo .taskGroupDeleteButton,
   cursor: pointer;
   transition: transform 0.2s, opacity 0.2s;
 }
-.taskDueDate:hover {
+.taskDueAt:hover {
   transform: scale(1.05);
 }
 
@@ -1375,7 +1375,7 @@ body:not(.is-dragging) .task:hover {
   align-items: center;
   gap: 8px;
 }
-.listView .taskDueDate {
+.listView .taskDueAt {
   justify-self: start;
   width: -moz-fit-content;
   width: fit-content;
@@ -1429,7 +1429,7 @@ body:not(.is-dragging) .task:hover {
   align-items: center;
   width: 100%;
 }
-.boardView .taskDueDate {
+.boardView .taskDueAt {
   margin-left: auto;
 }
 
