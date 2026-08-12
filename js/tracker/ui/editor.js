@@ -1,4 +1,8 @@
-function startEditTask(taskElement, task) {
+function startEditTask(
+    taskElement,
+    task,
+    isNew = false
+) {
     const title = taskElement.querySelector(".taskTitle");
 
     startTextEdit(title, {
@@ -9,7 +13,7 @@ function startEditTask(taskElement, task) {
 
         onSave: (value, reason) => {
             if (!value) {
-                if (task.isNew) {
+                if (isNew) {
                     taskElement.remove();
                 }
 
@@ -18,8 +22,8 @@ function startEditTask(taskElement, task) {
 
             task.title = value;
 
-            if (task.isNew) {
-                delete task.isNew;
+            if (isNew) {
+                delete isNew;
                 addTask(task);
             } else {
                 updateTask(task.id, {
@@ -35,36 +39,13 @@ function startEditTask(taskElement, task) {
         },
 
         onCancel: () => {
-            if (task.isNew) {
+            if (isNew) {
                 taskElement.remove();
             } else {
                 renderCurrentView();
             }
         }
     });
-}
-
-function finishEditTask(input, task, save) {
-    const newTitle = input.textContent.trim();
-    if (!save || newTitle === "") {
-        if (!task.isNew) {
-            renderCurrentView();
-        } else {
-            input.closest(".task").remove();
-        }
-        return;
-    }
-    task.title = newTitle;
-
-    if (task.isNew) {
-        delete task.isNew;
-        addTask(task);
-    } else {
-        updateTask(task.id, {
-            title: newTitle
-        });
-    }
-    renderCurrentView();
 }
 
 function startEditDuration(duration, task) {
@@ -157,5 +138,5 @@ function startEditNextTask(task) {
 
     groupItems.append(nextTaskElement);
 
-    startEditTask(nextTaskElement, nextTask);
+    startEditTask(nextTaskElement, nextTask, true);
 }

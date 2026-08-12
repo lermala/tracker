@@ -52,28 +52,25 @@ function moveTask(taskId, targetGroup, fromContainer, toContainer) {
     if (!task) return;
 
     if (targetGroup.field !== null) {
-        task[targetGroup.field] = targetGroup.value;
+        updateTask(taskId, {
+            [targetGroup.field]: targetGroup.value
+        });
     }
 
     if (viewSettings.group === GROUP.CATEGORY) {
-        updateTaskOrder(fromContainer);
+        saveTaskOrder(fromContainer);
 
         if (fromContainer !== toContainer) {
-            updateTaskOrder(toContainer);
+            saveTaskOrder(toContainer);
         }
     }
-
-    saveTasks(tasks);
 }
 
-function updateTaskOrder(container) {
-    [...container.children].forEach((element, index) => {
-        const task = getTaskById(element.dataset.taskId);
+function saveTaskOrder(container) {
+    const taskIds = [...container.children]
+        .map(element => element.dataset.taskId);
 
-        if (!task) return;
-
-        task.order = index;
-    });
+    updateTaskOrder(taskIds);
 }
 
 function initTaskGroupSortable(container) {

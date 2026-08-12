@@ -51,6 +51,13 @@ const DEFAULT_PROJECTS = [
     }
 ];
 
+const TASK_PRIORITY = {
+    NONE: "none",
+    LOW: "low",
+    MEDIUM: "medium",
+    HIGH: "high"
+};
+
 // получить все задачи
 function getTasks() {
     const data = localStorage.getItem(STORAGE_KEY);

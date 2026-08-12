@@ -64,7 +64,7 @@ function bindTaskGroupEvents(item, elements, group) {
             const taskElement = createTaskUI(task);
 
             elements.items.append(taskElement);
-            startEditTask(taskElement, task);
+            startEditTask(taskElement, task, true);
         });
     }
 }

@@ -1,18 +1,19 @@
-
-
 function createCategory(projectId, title = "") {
     if (!projectId) return null;
 
-    const projectCategories = getCategoriesByProject(projectId);
+    const now = Date.now();
 
-    const category = {
+    const category = createCategoryModel({
         id: crypto.randomUUID(),
+
         projectId,
         title: title.trim(),
-        createdAt: Date.now(),
-        color: "black",
-        order: projectCategories.length
-    };
+
+        order: getNextCategoryOrder(projectId),
+
+        createdAt: now,
+        updatedAt: now
+    });
 
     categories.push(category);
     saveCategories(categories);
@@ -20,9 +21,16 @@ function createCategory(projectId, title = "") {
     return category;
 }
 
-function addCategory(category) {
-    categories.push(category);
+function updateCategory(id, changes) {
+    const category = getCategoryById(id);
+
+    if (!category) return;
+
+    Object.assign(category, changes);
+    category.updatedAt = Date.now();
     saveCategories(categories);
+
+    return category;
 }
 
 function getCategoryById(id) {
@@ -39,22 +47,31 @@ function getCategoriesByProject(projectId) {
         );
 }
 
-function updateCategory(id, changes) {
-    const category = getCategoryById(id);
+function getNextCategoryOrder(projectId) {
+    const projectCategories = getCategoriesByProject(projectId);
 
-    if (!category) return;
+    if (projectCategories.length === 0) {
+        return 0;
+    }
 
-    Object.assign(category, changes);
-
-    saveCategories(categories);
-
-    return category;
+    return Math.max(
+        ...projectCategories.map(category => category.order)
+    ) + 1;
 }
 
 function deleteCategory(id) {
-    categories = categories.filter(category => category.id !== id);
+    categories = categories.filter(
+        category => category.id !== id
+    );
 
-    tasks = tasks.filter(task => task.categoryId !== id);
+    const now = Date.now();
+
+    tasks.forEach(task => {
+        if (task.categoryId !== id) return;
+
+        task.categoryId = null;
+        task.updatedAt = now;
+    });
 
     saveCategories(categories);
     saveTasks(tasks);

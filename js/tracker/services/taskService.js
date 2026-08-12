@@ -6,30 +6,24 @@ function createTask({
     categoryId = null,
     dueAt = null
 }) {
-    return {
+    const now = Date.now();
+
+    return createTaskModel({
         id: crypto.randomUUID(),
-        title: "",
-        description: "",
-        duration: 0,
 
         projectId,
         categoryId,
 
-        order: getNextTaskOrder(categoryId),
+        order: getNextTaskOrder(
+            projectId,
+            categoryId
+        ),
 
-        isCompleted = completedAt !== null,
-        isNew: true,
+        createdAt: now,
+        updatedAt: now,
 
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-        startedAt: null,
-        completedAt: null,
         dueAt
-
-/*         get isCompleted() {
-            return this.completedAt !== null;
-        } */
-    };
+    });
 }
 
 
@@ -43,9 +37,12 @@ function getRunningTask() {
     return tasks.find(task => task.startedAt !== null);
 }
 
-function getTasksByCategory(categoryId) {
+function getTasksByCategory(projectId, categoryId) {
     return tasks
-        .filter(task => task.categoryId === categoryId)
+        .filter(task =>
+            task.projectId === projectId &&
+            task.categoryId === categoryId
+        )
         .sort((a, b) => a.order - b.order);
 }
 
@@ -84,19 +81,24 @@ function toggleTask(id) {
 
     if (!task) return;
 
+    // Если завершаем запущенную задачу — останавливаем таймер
     if (!task.isCompleted && task.startedAt !== null) {
         task.duration += Math.floor(
             (Date.now() - task.startedAt) / 1000
         );
+
         task.startedAt = null;
     }
-    task.isCompleted = !task.isCompleted;
 
     if (task.isCompleted) {
-        task.completedAt = Date.now();
-    } else {
+        // Возвращаем выполненную задачу в активные
         task.completedAt = null;
+    } else {
+        // Завершаем задачу
+        task.completedAt = Date.now();
     }
+
+    task.updatedAt = Date.now();
 
     saveTasks(tasks);
 }
@@ -110,6 +112,23 @@ function updateTask(id, changes) {
     Object.assign(task, changes);
 
     task.updatedAt = Date.now();
+
+    saveTasks(tasks);
+}
+
+function updateTaskOrder(taskIds) {
+    const now = Date.now();
+
+    taskIds.forEach((id, index) => {
+        const task = getTaskById(id);
+
+        if (!task) return;
+
+        if (task.order !== index) {
+            task.order = index;
+            task.updatedAt = now;
+        }
+    });
 
     saveTasks(tasks);
 }

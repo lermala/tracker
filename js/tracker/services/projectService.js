@@ -1,11 +1,15 @@
 function createProject(title) {
-    const project = {
+    const now = Date.now();
+
+    const project = createProjectModel({
         id: crypto.randomUUID(),
         title: title.trim(),
-        createdAt: Date.now(),
-        color: "",
-        order: 0
-    };
+
+        order: getNextProjectOrder(),
+
+        createdAt: now,
+        updatedAt: now
+    });
 
     projects.push(project);
     saveProjects(projects);
@@ -23,16 +27,26 @@ function updateProject(id, changes) {
     if (!project) return;
 
     Object.assign(project, changes);
-
+    project.updatedAt = Date.now();
     saveProjects(projects);
 
     return project;
 }
 
+function getNextProjectOrder() {
+    if (projects.length === 0) {
+        return 0;
+    }
+
+    return Math.max(
+        ...projects.map(project => project.order)
+    ) + 1;
+}
+
 function deleteProject(id) {
     projects = projects.filter(project => project.id !== id);
 
-    saveProjects(projects);
+    saveProjects(projects); // todo cascade delete
 }
 
 function getProjects() {
