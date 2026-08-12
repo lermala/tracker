@@ -78,12 +78,17 @@ function deleteCategory(id) {
 }
 
 function updateCategoryOrder(categoryIds) {
+    const now = Date.now();
+
     categoryIds.forEach((id, index) => {
         const category = getCategoryById(id);
 
         if (!category) return;
 
-        category.order = index;
+        if (category.order !== index) {
+            category.order = index;
+            category.updatedAt = now;
+        }
     });
 
     saveCategories(categories);

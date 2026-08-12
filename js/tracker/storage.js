@@ -6,6 +6,8 @@ const PROJECTS_STORAGE_KEY = "projects";
 const DEFAULT_PROJECT_ID = "pj-inbox";
 const DEFAULT_CATEGORY_ID = "inbox";
 
+const now = Date.now();
+
 const VIEW = {
     LIST: "list",
     BOARD: "board",
@@ -14,7 +16,6 @@ const VIEW = {
 
 const GROUP = {
     CATEGORY: "category",
-    IS_COMPLETED: "status",
     DUE_DATE: "dueAt"
 };
 
@@ -35,8 +36,8 @@ const DEFAULT_CATEGORIES = [
         id: DEFAULT_CATEGORY_ID,
         projectId: DEFAULT_PROJECT_ID,
         title: "Входящие",
-        createdAt: Date.now(),
-        color: "green",
+        createdAt: now,
+        updatedAt: now,
         order: 0
     }
 ];
@@ -45,8 +46,8 @@ const DEFAULT_PROJECTS = [
     {
         id: DEFAULT_PROJECT_ID,
         title: "Входящие",
-        createdAt: Date.now(),
-        color: "green",
+        createdAt: now,
+        updatedAt: now,
         order: 0
     }
 ];

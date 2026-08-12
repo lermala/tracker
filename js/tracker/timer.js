@@ -15,17 +15,16 @@ function getCurrentDuration(task) {
 }
 
 function stopTask(task) {
-    if (task.startedAt === null)
-        return;
+    if (task.startedAt === null) return;
 
-    task.duration += Math.floor(
-        (Date.now() - task.startedAt) / 1000
-    );
-
-    task.startedAt = null;
+    const duration =
+        task.duration +
+        Math.floor(
+            (Date.now() - task.startedAt) / 1000
+        );
 
     updateTask(task.id, {
-        duration: task.duration,
+        duration,
         startedAt: null
     });
 }

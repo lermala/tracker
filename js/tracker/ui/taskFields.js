@@ -131,7 +131,7 @@ function fillTaskDescription(description, task) {
 }
 
 function bindTaskDescription(description, getTask, onUpdate) {
-    description.addEventListener("click", () => {
+    description.addEventListener("click", (event) => {
         // Клик по ссылке — просто открываем ссылку,
         // редактирование description не запускаем
         if (event.target.closest("a")) {
@@ -152,8 +152,6 @@ function bindTaskDescription(description, getTask, onUpdate) {
                 updateTask(task.id, {
                     description: value
                 });
-
-                task.description = value;
 
                 fillTaskDescription(description, task);
 

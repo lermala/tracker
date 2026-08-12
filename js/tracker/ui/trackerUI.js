@@ -58,8 +58,6 @@ function createAddCategoryButton() {
             viewSettings.projectId
         );
 
-        category.isNew = true;
-
         renderCurrentView();
 
         const groupElement = trackerView.querySelector(

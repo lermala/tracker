@@ -31,6 +31,7 @@ function filterTasks(tasks) {
         result = result.filter(task => !task.isCompleted);
     }
 
+    // todo
     // незавершенные задачи с дедлайном = сегодня // todo добавить просроченные
     // незавершенные задачи без дедлайна 
     // завершенные сегодня задачи
@@ -60,9 +61,6 @@ function getVisibleTasks() {
 // ====================
 function groupTasks(tasks, group) {
     switch (group) {
-        case GROUP.IS_COMPLETED:
-            return groupTasksByIsCompleted(tasks);
-
         case GROUP.CATEGORY:
             return groupTasksByCategory(tasks);
 
@@ -117,30 +115,6 @@ function groupTasksByCategory(tasks) {
     }
 
     return groups;
-}
-
-function groupTasksByIsCompleted(tasks) {
-    return [
-        {
-            field: "isCompleted",
-            value: false,
-            title: "Активные",
-
-            newTaskData: {
-                isCompleted: false
-            },
-
-            tasks: tasks.filter(task => !task.isCompleted)
-        },
-        {
-            field: "isCompleted",
-            value: true,
-            title: "Выполненные",
-            newTaskData: null,
-
-            tasks: tasks.filter(task => task.isCompleted)
-        }
-    ];
 }
 
 function groupTasksByDueAt(tasks) {

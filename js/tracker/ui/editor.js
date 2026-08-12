@@ -23,7 +23,7 @@ function startEditTask(
             task.title = value;
 
             if (isNew) {
-                delete isNew;
+                task.title = value;
                 addTask(task);
             } else {
                 updateTask(task.id, {
@@ -102,13 +102,13 @@ function finishEditDuration(input, task, save) {
         return;
     }
 
-    task.duration =
+    const duration =
         hours * 3600 +
         minutes * 60 +
         seconds;
 
     updateTask(task.id, {
-        duration: task.duration
+        duration
     });
 
     renderCurrentView();

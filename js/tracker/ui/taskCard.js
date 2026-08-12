@@ -57,7 +57,6 @@ function bindTaskCardEvents() {
                     title: value
                 });
 
-                task.title = value;
                 title.textContent = value;
 
                 renderCurrentView();

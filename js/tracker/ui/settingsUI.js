@@ -13,7 +13,6 @@ const todayOnlyCheckbox = document.getElementById("todayOnlyCheckbox");
 const GROUP_OPTIONS = [
     { value: null, label: "Нет" },
     { value: GROUP.CATEGORY, label: "Категория" },
-    { value: GROUP.IS_COMPLETED, label: "Выполненные" },
     { value: GROUP.DUE_DATE, label: "Контрольный срок" }
 ];
 
