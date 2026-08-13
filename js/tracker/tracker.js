@@ -1,13 +1,25 @@
-let projects = loadProjects();
-let tasks = getTasks();
-let categories = getCategories();
+let projects = [];
+let tasks = [];
+let categories = [];
 
-tasks = tasks.map(prepareTask);
+initApp();
 
-startTracker();
+async function initApp() {
+    try {
+        [projects, categories, tasks] = await Promise.all([
+            getProjectsFromDb(),
+            getCategoriesFromDb(),
+            getTasksFromDb()
+        ]);
 
-function startTracker() {
-    initTaskCard();
+        await startTracker();
+    } catch (error) {
+        console.error("APP INIT ERROR:", error);
+    }
+}
+
+async function startTracker() {
+    await initTaskCard();
 
     initUI();
 

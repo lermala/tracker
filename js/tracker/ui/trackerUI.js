@@ -53,8 +53,8 @@ function setViewClass(viewClass) {
 function createAddCategoryButton() {
     const button = addCategoryTemplate.content.firstElementChild.cloneNode(true);
 
-    button.addEventListener("click", () => {
-        const category = createCategory(
+    button.addEventListener("click", async () => {
+        const category = await createCategory(
             viewSettings.projectId
         );
 
@@ -90,13 +90,13 @@ function startEditTasksHeader() {
         value: project.title,
         className: "tasksHeaderTitle",
 
-        onSave: (value) => {
+        onSave: async (value) => {
             if (!value) {
                 renderTasksHeader();
                 return;
             }
 
-            updateProject(project.id, {
+            await updateProject(project.id, {
                 title: value
             });
 

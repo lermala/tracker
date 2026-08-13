@@ -3,7 +3,7 @@ function createCategoryModel({
     projectId,
 
     title = "",
-    color = "black",
+    color = null,
     order = 0,
 
     createdAt,

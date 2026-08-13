@@ -4,10 +4,9 @@
 function createTask({
     projectId,
     categoryId = null,
-    dueAt = null
+    dueDate = null,
+    dueTime = null
 }) {
-    const now = Date.now();
-
     return createTaskModel({
         id: crypto.randomUUID(),
 
@@ -19,11 +18,27 @@ function createTask({
             categoryId
         ),
 
-        createdAt: now,
-        updatedAt: now,
-
-        dueAt
+        dueDate,
+        dueTime
     });
+}
+
+async function addTask(task) {
+    tasks.push(task);
+
+    try {
+        const savedTask = await createTaskInDb(task);
+
+        Object.assign(task, savedTask);
+
+        return task;
+    } catch (error) {
+        tasks = tasks.filter(
+            item => item.id !== task.id
+        );
+
+        throw error;
+    }
 }
 
 
@@ -70,18 +85,12 @@ function getNextTaskOrder(projectId, categoryId) {
 
 // ===== Изменение =====
 
-function addTask(task) {
-    tasks.push(task);
-    saveTasks(tasks);
-}
-
 // выполнить задачу
-function toggleTask(id) {
+async function toggleTask(id) {
     const task = getTaskById(id);
 
     if (!task) return;
 
-    // Если завершаем запущенную задачу — останавливаем таймер
     if (!task.isCompleted && task.startedAt !== null) {
         task.duration += Math.floor(
             (Date.now() - task.startedAt) / 1000
@@ -91,33 +100,33 @@ function toggleTask(id) {
     }
 
     if (task.isCompleted) {
-        // Возвращаем выполненную задачу в активные
         task.completedAt = null;
     } else {
-        // Завершаем задачу
         task.completedAt = Date.now();
     }
 
-    task.updatedAt = Date.now();
+    const savedTask = await updateTaskInDb(task);
 
-    saveTasks(tasks);
+    Object.assign(task, savedTask);
+
+    return task;
 }
 
 // универсальный апдейт задачи
-function updateTask(id, changes) {
+async function updateTask(id, changes) {
     const task = getTaskById(id);
 
     if (!task) return;
 
     Object.assign(task, changes);
+    const savedTask = await updateTaskInDb(task);
+    Object.assign(task, savedTask);
 
-    task.updatedAt = Date.now();
-
-    saveTasks(tasks);
+    return task;
 }
 
-function updateTaskOrder(taskIds) {
-    const now = Date.now();
+async function updateTaskOrder(taskIds) {
+    const changedTasks = [];
 
     taskIds.forEach((id, index) => {
         const task = getTaskById(id);
@@ -126,14 +135,19 @@ function updateTaskOrder(taskIds) {
 
         if (task.order !== index) {
             task.order = index;
-            task.updatedAt = now;
+            changedTasks.push(task);
         }
     });
 
-    saveTasks(tasks);
+    await Promise.all(
+        changedTasks.map(task =>
+            updateTaskInDb(task)
+        )
+    );
 }
 
-function deleteTask(id) {
+async function deleteTask(id) {
+    await deleteTaskFromDb(id);
+
     tasks = tasks.filter(task => task.id !== id);
-    saveTasks(tasks);
 }

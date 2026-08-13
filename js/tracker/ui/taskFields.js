@@ -1,38 +1,45 @@
-function fillTaskDueAt(dueAt, task) {
-    dueAt.textContent = task.dueAt
-        ? formatDueAt(task.dueAt)
+function fillTaskDueDate(dueDate, task) {
+    dueDate.textContent = task.dueDate
+        ? formatDueDate(
+            task.dueDate,
+            task.dueTime
+        )
         : "Без срока";
 
     // Стили баджа срока выполнения
-    const dueAtStatus = getDueAtStatus(task.dueAt);
-    dueAt.classList.toggle(
+    const status = getDueDateStatus(task.dueDate);
+    dueDate.classList.toggle(
         "is-empty",
-        dueAtStatus === "empty"
+        status === "empty"
     );
-    dueAt.classList.toggle(
+    dueDate.classList.toggle(
         "is-overdue",
-        !task.isCompleted && dueAtStatus === "overdue"
+        !task.isCompleted && status === "overdue"
     );
-    dueAt.classList.toggle(
+    dueDate.classList.toggle(
         "is-today",
-        !task.isCompleted && dueAtStatus === "today"
+        !task.isCompleted && status === "today"
     );
-    dueAt.classList.toggle(
+    dueDate.classList.toggle(
         "is-tomorrow",
-        !task.isCompleted && dueAtStatus === "tomorrow"
+        !task.isCompleted && status === "tomorrow"
     );
-    dueAt.classList.toggle(
+    dueDate.classList.toggle(
         "is-this-week",
-        !task.isCompleted && dueAtStatus === "this-week"
+        !task.isCompleted && status === "this-week"
     );
-    dueAt.classList.toggle(
+    dueDate.classList.toggle(
         "is-next-week",
-        !task.isCompleted && dueAtStatus === "next-week"
+        !task.isCompleted && status === "next-week"
     );
 }
 
-function bindTaskDueAt(dueAt, getTask, onUpdate) {
-    dueAt.addEventListener("click", (event) => {
+function bindTaskDueDate(
+    dueDateElement,
+    getTask,
+    onUpdate
+) {
+    dueDateElement.addEventListener("click", (event) => {
         event.stopPropagation();
 
         const task = getTask();
@@ -40,16 +47,25 @@ function bindTaskDueAt(dueAt, getTask, onUpdate) {
         if (!task) return;
 
         openDatePicker({
-            anchor: dueAt,
-            value: task.dueAt,
+            anchor: dueDateElement,
+
+            value: {
+                date: task.dueDate,
+                time: task.dueTime
+            },
+
             allowTime: true,
 
-            onChange: (value) => {
-                updateTask(task.id, {
-                    dueAt: value
+            onChange: async ({ date, time }) => {
+                await updateTask(task.id, {
+                    dueDate: date,
+                    dueTime: time
                 });
 
-                fillTaskDueAt(dueAt, task);
+                fillTaskDueDate(
+                    dueDateElement,
+                    task
+                );
 
                 onUpdate?.();
             }
@@ -71,22 +87,14 @@ function bindTaskTimer(
     getTask,
     onUpdate
 ) {
-    timerButton.addEventListener("click", (event) => {
+    timerButton.addEventListener("click", async (event) => {
         event.stopPropagation();
 
         const task = getTask();
 
         if (!task) return;
 
-        if (task.startedAt === null) {
-            stopAllRunningTasks(task.id);
-
-            updateTask(task.id, {
-                startedAt: Date.now()
-            });
-        } else {
-            stopTask(task);
-        }
+        await toggleTaskTimer(task);
 
         onUpdate?.();
     });
@@ -107,8 +115,9 @@ function bindTaskCheckbox(status, getTask, onToggle) {
 
         if (!task) return;
 
-        const toggle = () => {
-            toggleTask(task.id);
+        const toggle = async () => {
+            await toggleTask(task.id);
+
             fillTaskCheckbox(status, task);
         };
 
@@ -132,8 +141,6 @@ function fillTaskDescription(description, task) {
 
 function bindTaskDescription(description, getTask, onUpdate) {
     description.addEventListener("click", (event) => {
-        // Клик по ссылке — просто открываем ссылку,
-        // редактирование description не запускаем
         if (event.target.closest("a")) {
             return;
         }
@@ -148,12 +155,15 @@ function bindTaskDescription(description, getTask, onUpdate) {
             enterToSave: false,
             className: "taskCardDescription",
 
-            onSave: (value) => {
-                updateTask(task.id, {
+            onSave: async (value) => {
+                await updateTask(task.id, {
                     description: value
                 });
 
-                fillTaskDescription(description, task);
+                fillTaskDescription(
+                    description,
+                    task
+                );
 
                 onUpdate?.();
             }

@@ -11,7 +11,7 @@ function startEditTask(
         enterToSave: true,
         className: "taskTitle",
 
-        onSave: (value, reason) => {
+        onSave: async (value, reason) => {
             if (!value) {
                 if (isNew) {
                     taskElement.remove();
@@ -20,13 +20,14 @@ function startEditTask(
                 return;
             }
 
-            task.title = value;
+            let savePromise;
 
             if (isNew) {
                 task.title = value;
-                addTask(task);
+
+                savePromise = addTask(task);
             } else {
-                updateTask(task.id, {
+                savePromise = updateTask(task.id, {
                     title: value
                 });
             }
@@ -36,6 +37,8 @@ function startEditTask(
             if (reason === "enter") {
                 startEditNextTask(task);
             }
+
+            task = await savePromise;
         },
 
         onCancel: () => {
@@ -48,34 +51,42 @@ function startEditTask(
     });
 }
 
-function startEditDuration(duration, task) {
-    if (task.startedAt !== null)
-        return; // не редактируем запущенный таймер
+async function finishEditDuration(input, task, save) {
+    if (!save) {
+        renderCurrentView();
+        return;
+    }
 
-    const input = document.createElement("input");
-
-    input.type = "text";
-    input.className = "taskInput timeInput";
-    input.value = getCurrentDuration(task);
-
-    duration.replaceWith(input);
-
-    requestAnimationFrame(() => {
-        input.focus();
-        input.select();
-    });
-
-    input.addEventListener("blur", () =>
-        finishEditDuration(input, task, true)
+    const match = input.value.match(
+        /^(\d{1,2}):(\d{2}):(\d{2})$/
     );
 
-    input.addEventListener("keydown", (event) => {
-        if (event.key === "Enter")
-            finishEditDuration(input, task, true);
+    if (!match) {
+        alert("Формат: ЧЧ:ММ:СС");
+        renderCurrentView();
+        return;
+    }
 
-        if (event.key === "Escape")
-            finishEditDuration(input, task, false);
+    const hours = Number(match[1]);
+    const minutes = Number(match[2]);
+    const seconds = Number(match[3]);
+
+    if (minutes > 59 || seconds > 59) {
+        alert("Минуты и секунды должны быть меньше 60");
+        renderCurrentView();
+        return;
+    }
+
+    const duration =
+        hours * 3600 +
+        minutes * 60 +
+        seconds;
+
+    await updateTask(task.id, {
+        duration
     });
+
+    renderCurrentView();
 }
 
 function finishEditDuration(input, task, save) {

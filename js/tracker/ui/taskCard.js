@@ -19,7 +19,7 @@ function bindTaskCardEvents() {
         status,
         title,
         description,
-        dueAt
+        dueDate
     } = taskCardElements;
 
     closeButton.addEventListener("click", closeTaskCard);
@@ -33,8 +33,8 @@ function bindTaskCardEvents() {
     bindTaskCheckbox(
         status,
         () => getTaskById(currentTaskId),
-        toggle => {
-            toggle();
+        async toggle => {
+            await toggle();
             renderCurrentView();
         }
     );
@@ -50,10 +50,10 @@ function bindTaskCardEvents() {
             enterToSave: true,
             className: "taskCardTitle",
 
-            onSave: (value) => {
+            onSave: async (value) => {
                 if (!value) return;
 
-                updateTask(task.id, {
+                await updateTask(task.id, {
                     title: value
                 });
 
@@ -70,8 +70,8 @@ function bindTaskCardEvents() {
         renderCurrentView
     );
 
-    bindTaskDueAt(
-        dueAt,
+    bindTaskDueDate(
+        dueDate,
         () => getTaskById(currentTaskId),
         renderCurrentView
     );
@@ -84,7 +84,7 @@ function openTaskCard(task) {
         status,
         title,
         description,
-        dueAt
+        dueDate
     } = taskCardElements;
 
     currentTaskId = task.id;
@@ -95,51 +95,7 @@ function openTaskCard(task) {
     title.textContent = task.title;
     fillTaskDescription(description, task);
 
-    fillTaskDueAt(dueAt, task);
-}
-
-function startEditTaskCardTitle(title) {
-    title.contentEditable = "true";
-    title.focus();
-
-    const oldTitle = title.textContent;
-    let cancelled = false;
-
-    title.addEventListener("blur", () => {
-        title.contentEditable = "false";
-
-        if (cancelled) {
-            title.textContent = oldTitle;
-            return;
-        }
-
-        const newTitle = title.textContent.trim();
-
-        if (!newTitle) {
-            title.textContent = oldTitle;
-            return;
-        }
-
-        updateTask(currentTaskId, {
-            title: newTitle
-        });
-
-        renderCurrentView();
-    }, { once: true });
-
-    title.addEventListener("keydown", event => {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            title.blur();
-        }
-
-        if (event.key === "Escape") {
-            event.preventDefault();
-
-            cancelled = true;
-            title.blur();
-        }
-    }, { once: true });
+    fillTaskDueDate(dueDate, task);
 }
 
 function closeTaskCard() {
@@ -156,7 +112,7 @@ function getTaskCardElements() {
         status: document.getElementById("taskCardCheckbox"),
         title: document.getElementById("taskCardTitle"),
         description: document.getElementById("taskCardDescription"),
-        dueAt: document.getElementById("taskCardDueAt")
+        dueDate: document.getElementById("taskCardDueDate")
     };
 }
 

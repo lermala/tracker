@@ -11,9 +11,7 @@ function openDatePicker({
     const picker = document.createElement("div");
     picker.className = "datePicker";
 
-    let selectedDate = value
-        ? value.split("T")[0]
-        : null;
+    let selectedDate = value?.date ?? null;
 
     picker.innerHTML = `
     <div class="datePickerQuickActions">
@@ -65,41 +63,42 @@ function openDatePicker({
     const calendar = picker.querySelector(".datePickerCalendar");
     const timeInput = picker.querySelector(".datePickerTimeInput");
 
-    if (timeInput && value?.includes("T")) {
-        timeInput.value = value.split("T")[1].slice(0, 5);
+    if (timeInput) {
+        timeInput.value = value?.time ?? "";
     }
 
     renderCalendar({
         container: calendar,
-        value,
+        value: selectedDate,
 
         onSelect: (date) => {
             selectedDate = date;
 
-            const time = timeInput?.value;
-
-            const result = time
-                ? `${selectedDate}T${time}`
-                : selectedDate;
-
-            onChange?.(result);
+            onChange?.({
+                date: selectedDate,
+                time: getTimeValue(timeInput)
+            });
         }
     });
 
     bindDatePickerEvents({
         picker,
-        value,
-        allowTime,
         onChange,
         timeInput,
 
         getSelectedDate: () => selectedDate,
+
         setSelectedDate: (date) => {
             selectedDate = date;
         }
     });
 }
 
+function getTimeValue(timeInput) {
+    if (!timeInput) return null;
+
+    return normalizeTime(timeInput.value);
+}
 
 function positionDatePicker(picker, anchor) {
     const rect = anchor.getBoundingClientRect();
@@ -109,19 +108,16 @@ function positionDatePicker(picker, anchor) {
     picker.style.left = `${rect.left}px`;
 }
 
-
-
 function bindDatePickerEvents({
     picker,
-    value,
-    allowTime,
     onChange,
     timeInput,
     getSelectedDate,
     setSelectedDate
 }) {
     picker.addEventListener("click", (event) => {
-        const option = event.target.closest("[data-action]");
+        const option =
+            event.target.closest("[data-action]");
 
         if (!option) return;
 
@@ -141,20 +137,22 @@ function bindDatePickerEvents({
                 break;
 
             case "clear":
-                selectDate(null);
+                clearDate();
                 break;
         }
     });
 
-    // Сохранение времени
     function saveTime() {
-        const time = normalizeTime(timeInput.value);
+        const time = normalizeTime(
+            timeInput.value
+        );
 
         if (!time) return;
 
         let selectedDate = getSelectedDate();
 
-        // Если даты нет — ставим сегодня
+        // Если ввели только время —
+        // автоматически ставим сегодняшний день
         if (!selectedDate) {
             selectedDate = getDateOffset(0);
             setSelectedDate(selectedDate);
@@ -162,38 +160,49 @@ function bindDatePickerEvents({
 
         timeInput.value = time;
 
-        onChange?.(`${selectedDate}T${time}`);
+        onChange?.({
+            date: selectedDate,
+            time
+        });
     }
 
-    // Сохраняем при уходе из поля
-    timeInput?.addEventListener("blur", saveTime);
+    timeInput?.addEventListener(
+        "blur",
+        saveTime
+    );
 
-    // Или по Enter
-    timeInput?.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-            event.preventDefault();
+    timeInput?.addEventListener(
+        "keydown",
+        (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
 
-            saveTime();
-            timeInput.blur();
+                saveTime();
+                timeInput.blur();
+            }
         }
-    });
+    );
 
     function selectDate(date) {
-        if (!date) {
-            setSelectedDate(null);
-            onChange?.(null);
-            return;
-        }
-
         setSelectedDate(date);
 
-        const time = timeInput?.value;
+        onChange?.({
+            date,
+            time: getTimeValue(timeInput)
+        });
+    }
 
-        const result = time
-            ? `${date}T${time}`
-            : date;
+    function clearDate() {
+        setSelectedDate(null);
 
-        onChange?.(result);
+        if (timeInput) {
+            timeInput.value = "";
+        }
+
+        onChange?.({
+            date: null,
+            time: null
+        });
     }
 }
 

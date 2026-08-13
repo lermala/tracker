@@ -1,7 +1,5 @@
-function createCategory(projectId, title = "") {
+async function createCategory(projectId, title = "") {
     if (!projectId) return null;
-
-    const now = Date.now();
 
     const category = createCategoryModel({
         id: crypto.randomUUID(),
@@ -9,26 +7,23 @@ function createCategory(projectId, title = "") {
         projectId,
         title: title.trim(),
 
-        order: getNextCategoryOrder(projectId),
-
-        createdAt: now,
-        updatedAt: now
+        order: getNextCategoryOrder(projectId)
     });
 
-    categories.push(category);
-    saveCategories(categories);
+    const savedCategory = await createCategoryInDb(category);
 
-    return category;
+    categories.push(savedCategory);
+
+    return savedCategory;
 }
 
-function updateCategory(id, changes) {
+async function updateCategory(id, changes) {
     const category = getCategoryById(id);
-
     if (!category) return;
 
     Object.assign(category, changes);
-    category.updatedAt = Date.now();
-    saveCategories(categories);
+    const savedCategory = await updateCategoryInDb(category);
+    Object.assign(category, savedCategory);
 
     return category;
 }
@@ -59,26 +54,22 @@ function getNextCategoryOrder(projectId) {
     ) + 1;
 }
 
-function deleteCategory(id) {
+async function deleteCategory(id) {
+    await deleteCategoryFromDb(id);
+
     categories = categories.filter(
         category => category.id !== id
     );
 
-    const now = Date.now();
-
     tasks.forEach(task => {
-        if (task.categoryId !== id) return;
-
-        task.categoryId = null;
-        task.updatedAt = now;
+        if (task.categoryId === id) {
+            task.categoryId = null;
+        }
     });
-
-    saveCategories(categories);
-    saveTasks(tasks);
 }
 
-function updateCategoryOrder(categoryIds) {
-    const now = Date.now();
+async function updateCategoryOrder(categoryIds) {
+    const changedCategories = [];
 
     categoryIds.forEach((id, index) => {
         const category = getCategoryById(id);
@@ -87,9 +78,13 @@ function updateCategoryOrder(categoryIds) {
 
         if (category.order !== index) {
             category.order = index;
-            category.updatedAt = now;
+            changedCategories.push(category);
         }
     });
 
-    saveCategories(categories);
+    await Promise.all(
+        changedCategories.map(category =>
+            updateCategoryInDb(category)
+        )
+    );
 }

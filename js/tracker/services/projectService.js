@@ -1,34 +1,31 @@
-function createProject(title) {
-    const now = Date.now();
-
+async function createProject(title) {
     const project = createProjectModel({
         id: crypto.randomUUID(),
         title: title.trim(),
-
-        order: getNextProjectOrder(),
-
-        createdAt: now,
-        updatedAt: now
+        order: getNextProjectOrder()
     });
 
-    projects.push(project);
-    saveProjects(projects);
+    const savedProject = await createProjectInDb(project);
 
-    return project;
+    projects.push(savedProject);
+
+    return savedProject;
 }
 
 function getProjectById(id) {
     return projects.find(project => project.id === id);
 }
 
-function updateProject(id, changes) {
+async function updateProject(id, changes) {
     const project = getProjectById(id);
 
     if (!project) return;
 
     Object.assign(project, changes);
-    project.updatedAt = Date.now();
-    saveProjects(projects);
+
+    const savedProject = await updateProjectInDb(project);
+
+    Object.assign(project, savedProject); // нужно ли это вообще?
 
     return project;
 }
@@ -43,10 +40,10 @@ function getNextProjectOrder() {
     ) + 1;
 }
 
-function deleteProject(id) {
-    projects = projects.filter(project => project.id !== id);
+async function deleteProject(id) {
+    await deleteProjectFromDb(id);
 
-    saveProjects(projects); // todo cascade delete
+    projects = projects.filter(project => project.id !== id);
 }
 
 function getProjects() {

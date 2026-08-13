@@ -1,9 +1,9 @@
-/* const TASK_PRIORITY = {
+const TASK_PRIORITY = {
     NONE: "none",
     LOW: "low",
     MEDIUM: "medium",
     HIGH: "high"
-}; */
+};
 
 function createTaskModel({
     id,
@@ -26,7 +26,8 @@ function createTaskModel({
 
     startedAt = null,
     completedAt = null,
-    dueAt = null
+    dueDate = null,
+    dueTime = null
 }) {
     return prepareTask({
         id,
@@ -50,7 +51,9 @@ function createTaskModel({
 
         startedAt,
         completedAt,
-        dueAt
+        
+        dueDate,
+        dueTime
     });
 }
 

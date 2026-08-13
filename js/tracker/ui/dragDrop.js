@@ -13,13 +13,15 @@ function initTaskSortable(container) {
             document.body.classList.add("is-dragging");
         },
 
-        onEnd(event) {
+        async onEnd(event) {
             document.body.classList.remove("is-dragging");
 
             const taskId = event.item.dataset.taskId;
             const targetGroup = event.to.taskGroup;
 
-            moveTask(
+            if (!targetGroup) return;
+
+            await moveTask(
                 taskId,
                 targetGroup,
                 event.from,
@@ -46,31 +48,36 @@ function initTaskSortable(container) {
     });
 }
 
-function moveTask(taskId, targetGroup, fromContainer, toContainer) {
+async function moveTask(
+    taskId,
+    targetGroup,
+    fromContainer,
+    toContainer
+) {
     const task = getTaskById(taskId);
 
     if (!task) return;
 
     if (targetGroup.field !== null) {
-        updateTask(taskId, {
+        await updateTask(taskId, {
             [targetGroup.field]: targetGroup.value
         });
     }
 
     if (viewSettings.group === GROUP.CATEGORY) {
-        saveTaskOrder(fromContainer);
+        await saveTaskOrder(fromContainer);
 
         if (fromContainer !== toContainer) {
-            saveTaskOrder(toContainer);
+            await saveTaskOrder(toContainer);
         }
     }
 }
 
-function saveTaskOrder(container) {
+async function saveTaskOrder(container) {
     const taskIds = [...container.children]
         .map(element => element.dataset.taskId);
 
-    updateTaskOrder(taskIds);
+    await updateTaskOrder(taskIds);
 }
 
 function initTaskGroupSortable(container) {
@@ -94,18 +101,18 @@ function initTaskGroupSortable(container) {
             document.body.classList.add("is-dragging");
         },
 
-        onEnd() {
+        async onEnd() {
             document.body.classList.remove("is-dragging");
 
-            saveTaskGroupOrder(container);
+            await saveTaskGroupOrder(container);
         }
     });
 }
 
-function saveTaskGroupOrder(container) {
+async function saveTaskGroupOrder(container) {
     const groupIds = [
         ...container.querySelectorAll(".taskGroup")
     ].map(group => group.dataset.groupValue);
 
-    updateCategoryOrder(groupIds);
+    await updateCategoryOrder(groupIds);
 }

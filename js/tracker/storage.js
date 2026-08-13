@@ -1,12 +1,4 @@
-const STORAGE_KEY = "tasks";
-const CATEGORIES_KEY = "tracker_categories";
 const VIEW_SETTINGS_KEY = "tracker-view-settings";
-const PROJECTS_STORAGE_KEY = "projects";
-
-const DEFAULT_PROJECT_ID = "pj-inbox";
-const DEFAULT_CATEGORY_ID = "inbox";
-
-const now = Date.now();
 
 const VIEW = {
     LIST: "list",
@@ -16,7 +8,7 @@ const VIEW = {
 
 const GROUP = {
     CATEGORY: "category",
-    DUE_DATE: "dueAt"
+    DUE_DATE: "dueDate"
 };
 
 const DEFAULT_VIEW_SETTINGS = {
@@ -28,55 +20,8 @@ const DEFAULT_VIEW_SETTINGS = {
     todayOnly: false,
     view: VIEW.LIST,
     group: GROUP.CATEGORY,
-    projectId: DEFAULT_PROJECT_ID
+    projectId: null
 };
-
-const DEFAULT_CATEGORIES = [
-    {
-        id: DEFAULT_CATEGORY_ID,
-        projectId: DEFAULT_PROJECT_ID,
-        title: "Входящие",
-        createdAt: now,
-        updatedAt: now,
-        order: 0
-    }
-];
-
-const DEFAULT_PROJECTS = [
-    {
-        id: DEFAULT_PROJECT_ID,
-        title: "Входящие",
-        createdAt: now,
-        updatedAt: now,
-        order: 0
-    }
-];
-
-const TASK_PRIORITY = {
-    NONE: "none",
-    LOW: "low",
-    MEDIUM: "medium",
-    HIGH: "high"
-};
-
-// получить все задачи
-function getTasks() {
-    const data = localStorage.getItem(STORAGE_KEY);
-
-    if (data) {
-        return JSON.parse(data);
-    }
-
-    return [];
-}
-
-// сохранить массив задач
-function saveTasks(tasks) {
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(tasks)
-    );
-}
 
 function getViewSettings() {
     const saved = JSON.parse(
@@ -94,45 +39,4 @@ function saveViewSettings(settings) {
         VIEW_SETTINGS_KEY,
         JSON.stringify(settings)
     );
-}
-
-function getCategories() {
-    const data = localStorage.getItem(CATEGORIES_KEY);
-
-    if (data) {
-        return JSON.parse(data);
-    }
-
-    return DEFAULT_CATEGORIES.map(category => ({ ...category }));
-}
-
-function saveCategories(categories) {
-    localStorage.setItem(
-        CATEGORIES_KEY,
-        JSON.stringify(categories)
-    );
-}
-
-
-// ПРОЕКТЫ
-
-function saveProjects(projects) {
-    localStorage.setItem(
-        PROJECTS_STORAGE_KEY,
-        JSON.stringify(projects)
-    );
-}
-
-function loadProjects() {
-    const data = localStorage.getItem(PROJECTS_STORAGE_KEY);
-
-    if (data) {
-        return JSON.parse(data);
-    }
-
-    return DEFAULT_PROJECTS.map(project => ({ ...project }));
-}
-
-function getCurrentProjectId() {
-    return viewSettings.projectId;
 }

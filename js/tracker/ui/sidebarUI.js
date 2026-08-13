@@ -102,7 +102,7 @@ function startCreateProject() {
     input.addEventListener("blur", finish);
 }
 
-function finishCreateProject(input) {
+async function finishCreateProject(input) {
     if (!input.isConnected) return;
 
     const title = input.value.trim();
@@ -112,7 +112,7 @@ function finishCreateProject(input) {
         return;
     }
 
-    const project = createProject(title);
+    const project = await createProject(title);
 
     if (!project) {
         cancelCreateProject(input);

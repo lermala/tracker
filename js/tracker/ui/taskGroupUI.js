@@ -41,14 +41,18 @@ function bindTaskGroupEvents(item, elements, group) {
         });
 
         // Удаление категории
-        elements.deleteButton.addEventListener("click", () => {
+        elements.deleteButton.addEventListener("click", async () => {
             const confirmed = confirm(
-                `Удалить категорию «${group.title}» и все задачи в ней?`
+                `Удалить категорию «${group.title}»? Все задачи в ней перейдут в (Без категории)?`
             );
 
             if (!confirmed) return;
 
-            deleteTaskGroup(group.field, group.value);
+            await deleteTaskGroup(
+                group.field,
+                group.value
+            );
+
             renderCurrentView();
         });
     }
@@ -98,17 +102,17 @@ function startEditTaskGroup(groupElement, isNew = false) {
         value: title.textContent.trim(),
         className: "taskGroupTitle",
 
-        onSave: (value) => {
+        onSave: async (value) => {
             if (!value) {
                 if (isNew) {
-                    deleteTaskGroup(groupField, groupValue);
+                    await deleteTaskGroup(groupField, groupValue);
                 }
 
                 renderCurrentView();
                 return;
             }
 
-            updateTaskGroup(
+            await updateTaskGroup(
                 groupField,
                 groupValue,
                 value
@@ -117,9 +121,9 @@ function startEditTaskGroup(groupElement, isNew = false) {
             renderCurrentView();
         },
 
-        onCancel: () => {
+        onCancel: async () => {
             if (isNew) {
-                deleteTaskGroup(groupField, groupValue);
+                await deleteTaskGroup(groupField, groupValue);
             }
 
             renderCurrentView();
@@ -127,30 +131,20 @@ function startEditTaskGroup(groupElement, isNew = false) {
     });
 }
 
-function updateTaskGroup(field, value, title) {
+async function updateTaskGroup(field, value, title) {
     switch (field) {
         case "categoryId":
-            updateCategory(value, {
-                title: title
-            });
-            break;
-
-        case "statusId":
-            updateStatus(value, {
+            await updateCategory(value, {
                 title: title
             });
             break;
     }
 }
 
-function deleteTaskGroup(field, value) {
+async function deleteTaskGroup(field, value) {
     switch (field) {
         case "categoryId":
-            deleteCategory(value);
-            break;
-
-        case "statusId":
-            deleteStatus(value);
+            await deleteCategory(value);
             break;
     }
 }

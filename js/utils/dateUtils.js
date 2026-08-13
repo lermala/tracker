@@ -1,7 +1,7 @@
-function formatDueAt(dueAt) {
-    if (!dueAt) return "";
+function formatDueDate(dueDate, dueTime = null) {
+    if (!dueDate) return "";
 
-    const date = parseDate(dueAt);
+    const date = parseDate(dueDate);
     const today = startOfToday();
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
@@ -26,10 +26,8 @@ function formatDueAt(dueAt) {
             .replace(".", "");
     }
 
-    const time = getTimeFromDate(dueAt);
-
-    return time
-        ? `${dateText} ${time}`
+    return dueTime
+        ? `${dateText} ${dueTime}`
         : dateText;
 }
 
@@ -39,24 +37,6 @@ function isSameDate(date1, date2) {
         date1.getMonth() === date2.getMonth() &&
         date1.getDate() === date2.getDate()
     );
-}
-
-function isDueAtOverdue(dueAt) {
-    if (!dueAt) return false;
-
-    const datePart = dueAt.split("T")[0];
-
-    const [year, month, day] = datePart
-        .split("-")
-        .map(Number);
-
-    const due = new Date(year, month - 1, day);
-    due.setHours(0, 0, 0, 0);
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    return due < today;
 }
 
 function getDateOffset(days) {
@@ -76,9 +56,9 @@ function formatDateForStorage(date) {
 }
 
 function parseDate(value) {
-    const datePart = value.split("T")[0];
+    if (!value) return null;
 
-    const [year, month, day] = datePart
+    const [year, month, day] = value
         .split("-")
         .map(Number);
 
@@ -93,10 +73,10 @@ function startOfToday() {
     return today;
 }
 
-function getDueAtStatus(dueAt) {
-    if (!dueAt) return "empty";
+function getDueDateStatus(dueDate) {
+    if (!dueDate) return "empty";
 
-    const date = parseDate(dueAt);
+    const date = parseDate(dueDate);
     const today = startOfToday();
 
     const tomorrow = new Date(today);
@@ -145,15 +125,31 @@ function getEndOfWeek(date) {
     return result;
 }
 
-function getTimeFromDate(value) {
-    if (!value?.includes("T")) {
+/* function getTimeFromDate(value) {
+    if (!value) return null;
+
+    if (typeof value === "number") {
+        const date = new Date(value);
+
+        const hours = String(
+            date.getHours()
+        ).padStart(2, "0");
+
+        const minutes = String(
+            date.getMinutes()
+        ).padStart(2, "0");
+
+        return `${hours}:${minutes}`;
+    }
+
+    if (!value.includes("T")) {
         return null;
     }
 
     return value
         .split("T")[1]
         .slice(0, 5);
-}
+} */
 
 function normalizeTime(value) {
     const input = value.trim();
@@ -212,12 +208,8 @@ function normalizeTime(value) {
 function isToday(value) {
     if (!value) return false;
 
-    const date = typeof value === "string"
-        ? parseDate(value)
-        : new Date(value);
-
     return isSameDate(
-        date,
+        parseDate(value),
         startOfToday()
     );
 }

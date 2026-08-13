@@ -38,9 +38,9 @@ function filterTasks(tasks) {
     if (viewSettings.todayOnly) {
         result = result.filter(task =>
             (task.completedAt == null || isToday(task.completedAt)) // незавершена или завершена сегодня
-            // isToday(task.dueAt) // срок исполнения =сегодня
-            //(task.completedAt == null && task.dueAt == null) ||
-            //isToday(task.dueAt) ||
+            // isToday(task.dueDate) // срок исполнения =сегодня
+            //(task.completedAt == null && task.dueDate == null) ||
+            //isToday(task.dueDate) ||
         );
     }
 
@@ -65,7 +65,7 @@ function groupTasks(tasks, group) {
             return groupTasksByCategory(tasks);
 
         case GROUP.DUE_DATE:
-            return groupTasksByDueAt(tasks);
+            return groupTasksByDueDate(tasks);
 
         default:
             return [
@@ -117,85 +117,85 @@ function groupTasksByCategory(tasks) {
     return groups;
 }
 
-function groupTasksByDueAt(tasks) {
+function groupTasksByDueDate(tasks) {
     return [
         {
-            field: "dueAt",
+            field: "dueDate",
             value: "overdue",
             title: "Просрочено",
             newTaskData: null,
 
             tasks: tasks.filter(task =>
-                getDueAtStatus(task.dueAt) === "overdue"
+                getDueDateStatus(task.dueDate) === "overdue"
             )
         },
         {
-            field: "dueAt",
+            field: "dueDate",
             value: "today",
             title: "Сегодня",
 
             newTaskData: {
-                dueAt: getDateOffset(0)
+                dueDate: getDateOffset(0)
             },
 
             tasks: tasks.filter(task =>
-                getDueAtStatus(task.dueAt) === "today"
+                getDueDateStatus(task.dueDate) === "today"
             )
         },
         {
-            field: "dueAt",
+            field: "dueDate",
             value: "tomorrow",
             title: "Завтра",
 
             newTaskData: {
-                dueAt: getDateOffset(1)
+                dueDate: getDateOffset(1)
             },
 
             tasks: tasks.filter(task =>
-                getDueAtStatus(task.dueAt) === "tomorrow"
+                getDueDateStatus(task.dueDate) === "tomorrow"
             )
         },
         {
-            field: "dueAt",
+            field: "dueDate",
             value: "this-week",
             title: "На этой неделе",
             newTaskData: null,
 
             tasks: tasks.filter(task =>
-                getDueAtStatus(task.dueAt) === "this-week"
+                getDueDateStatus(task.dueDate) === "this-week"
             )
         },
         {
-            field: "dueAt",
+            field: "dueDate",
             value: "next-week",
             title: "На следующей неделе",
             newTaskData: null,
 
             tasks: tasks.filter(task =>
-                getDueAtStatus(task.dueAt) === "next-week"
+                getDueDateStatus(task.dueDate) === "next-week"
             )
         },
         {
-            field: "dueAt",
+            field: "dueDate",
             value: "default",
             title: "Позже",
             newTaskData: null,
 
             tasks: tasks.filter(task =>
-                getDueAtStatus(task.dueAt) === "default"
+                getDueDateStatus(task.dueDate) === "default"
             )
         },
         {
-            field: "dueAt",
+            field: "dueDate",
             value: "empty",
             title: "Без срока",
 
             newTaskData: {
-                dueAt: null
+                dueDate: null
             },
 
             tasks: tasks.filter(task =>
-                getDueAtStatus(task.dueAt) === "empty"
+                getDueDateStatus(task.dueDate) === "empty"
             )
         }
     ].filter(group =>
