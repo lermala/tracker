@@ -42,13 +42,19 @@ function cloneTaskTemplate() {
 function bindTaskEvents(item, elements, task) {
     const { circle, title, dueDate, duration, deleteButton, timerButton, timerButtonIcon } = elements;
 
-    // обработчик клика на кружок
     bindTaskCheckbox(
         circle,
         () => task,
-        async toggle => {
-            await animateTaskReorder(async () => {
-                await toggle();
+        toggle => {
+            animateTaskReorder(() => {
+                toggle().catch(error => {
+                    console.error(
+                        "TOGGLE TASK ERROR:",
+                        error
+                    );
+
+                    renderCurrentView();
+                });
 
                 renderCurrentView();
             });
@@ -63,9 +69,18 @@ function bindTaskEvents(item, elements, task) {
     deleteButton.addEventListener("click", (event) => {
         event.stopPropagation();
 
-        animateTaskDelete(item, async () => {
-            await deleteTask(task.id);
+        animateTaskDelete(item, () => {
+            deleteTask(task.id).catch(error => {
+                console.error(
+                    "DELETE TASK ERROR:",
+                    error
+                );
 
+                // deleteTask сделал rollback
+                renderCurrentView();
+            });
+
+            // задача уже удалена из локального tasks
             renderCurrentView();
         });
     });

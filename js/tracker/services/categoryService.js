@@ -1,7 +1,9 @@
-async function createCategory(projectId, title = "") {
+// ===== Создание =====
+
+function createCategory(projectId, title = "") {
     if (!projectId) return null;
 
-    const category = createCategoryModel({
+    return createCategoryModel({
         id: crypto.randomUUID(),
 
         projectId,
@@ -9,27 +11,37 @@ async function createCategory(projectId, title = "") {
 
         order: getNextCategoryOrder(projectId)
     });
-
-    const savedCategory = await createCategoryInDb(category);
-
-    categories.push(savedCategory);
-
-    return savedCategory;
 }
 
-async function updateCategory(id, changes) {
-    const category = getCategoryById(id);
-    if (!category) return;
+async function addCategory(category) {
+    categories.push(category);
 
-    Object.assign(category, changes);
-    const savedCategory = await updateCategoryInDb(category);
-    Object.assign(category, savedCategory);
+    try {
+        const savedCategory =
+            await createCategoryInDb(category);
 
-    return category;
+        Object.assign(
+            category,
+            savedCategory
+        );
+
+        return category;
+    } catch (error) {
+        categories = categories.filter(
+            item => item.id !== category.id
+        );
+
+        throw error;
+    }
 }
+
+
+// ===== Получение =====
 
 function getCategoryById(id) {
-    return categories.find(category => category.id === id);
+    return categories.find(
+        category => category.id === id
+    );
 }
 
 function getCategoriesByProject(projectId) {
@@ -43,16 +55,76 @@ function getCategoriesByProject(projectId) {
 }
 
 function getNextCategoryOrder(projectId) {
-    const projectCategories = getCategoriesByProject(projectId);
+    const projectCategories =
+        getCategoriesByProject(projectId);
 
     if (projectCategories.length === 0) {
         return 0;
     }
 
     return Math.max(
-        ...projectCategories.map(category => category.order)
+        ...projectCategories.map(
+            category => category.order
+        )
     ) + 1;
 }
+
+
+// ===== Изменение =====
+
+async function updateCategory(id, changes) {
+    const category = getCategoryById(id);
+
+    if (!category) return null;
+
+    const previous = { ...category };
+
+    Object.assign(category, changes);
+
+    try {
+        const savedCategory =
+            await updateCategoryInDb(category);
+
+        Object.assign(
+            category,
+            savedCategory
+        );
+
+        return category;
+    } catch (error) {
+        Object.assign(
+            category,
+            previous
+        );
+
+        throw error;
+    }
+}
+
+async function updateCategoryOrder(categoryIds) {
+    const changedCategories = [];
+
+    categoryIds.forEach((id, index) => {
+        const category = getCategoryById(id);
+
+        if (!category) return;
+
+        if (category.order !== index) {
+            category.order = index;
+
+            changedCategories.push(category);
+        }
+    });
+
+    await Promise.all(
+        changedCategories.map(category =>
+            updateCategoryInDb(category)
+        )
+    );
+}
+
+
+// ===== Удаление =====
 
 async function deleteCategory(id) {
     await deleteCategoryFromDb(id);
@@ -66,25 +138,4 @@ async function deleteCategory(id) {
             task.categoryId = null;
         }
     });
-}
-
-async function updateCategoryOrder(categoryIds) {
-    const changedCategories = [];
-
-    categoryIds.forEach((id, index) => {
-        const category = getCategoryById(id);
-
-        if (!category) return;
-
-        if (category.order !== index) {
-            category.order = index;
-            changedCategories.push(category);
-        }
-    });
-
-    await Promise.all(
-        changedCategories.map(category =>
-            updateCategoryInDb(category)
-        )
-    );
 }

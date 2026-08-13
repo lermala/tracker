@@ -22,7 +22,10 @@ function bindTaskCardEvents() {
         dueDate
     } = taskCardElements;
 
-    closeButton.addEventListener("click", closeTaskCard);
+    closeButton.addEventListener(
+        "click",
+        closeTaskCard
+    );
 
     overlay.addEventListener("click", event => {
         if (event.target === overlay) {
@@ -33,14 +36,33 @@ function bindTaskCardEvents() {
     bindTaskCheckbox(
         status,
         () => getTaskById(currentTaskId),
-        async toggle => {
-            await toggle();
+        toggle => {
+            toggle().catch(error => {
+                console.error(
+                    "TOGGLE TASK ERROR:",
+                    error
+                );
+
+                const task =
+                    getTaskById(currentTaskId);
+
+                if (task) {
+                    fillTaskCheckbox(
+                        status,
+                        task
+                    );
+                }
+
+                renderCurrentView();
+            });
+
             renderCurrentView();
         }
     );
 
     title.addEventListener("click", () => {
-        const task = getTaskById(currentTaskId);
+        const task =
+            getTaskById(currentTaskId);
 
         if (!task) return;
 
@@ -50,14 +72,25 @@ function bindTaskCardEvents() {
             enterToSave: true,
             className: "taskCardTitle",
 
-            onSave: async (value) => {
+            onSave: (value) => {
                 if (!value) return;
 
-                await updateTask(task.id, {
+                updateTask(task.id, {
                     title: value
+                }).catch(error => {
+                    console.error(
+                        "UPDATE TASK TITLE ERROR:",
+                        error
+                    );
+
+                    title.textContent =
+                        task.title;
+
+                    renderCurrentView();
                 });
 
-                title.textContent = value;
+                title.textContent =
+                    task.title;
 
                 renderCurrentView();
             }

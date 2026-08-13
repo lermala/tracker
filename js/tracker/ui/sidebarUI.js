@@ -36,13 +36,17 @@ function createProjectElement(project) {
         project.id === viewSettings.projectId
     );
 
-    button.innerHTML = `
-        <span class="projectColor"></span>
+    const color = document.createElement("span");
+    color.className = "projectColor";
 
-        <span class="projectTitle">
-            ${project.title}
-        </span>
-    `;
+    const title = document.createElement("span");
+    title.className = "projectTitle";
+    title.textContent = project.title;
+
+    button.append(
+        color,
+        title
+    );
 
     button.addEventListener("click", () => {
         selectProject(project.id);
@@ -52,6 +56,10 @@ function createProjectElement(project) {
 }
 
 function selectProject(projectId) {
+    if (viewSettings.projectId === projectId) {
+        return;
+    }
+
     viewSettings.projectId = projectId;
 
     saveViewSettings(viewSettings);
@@ -102,7 +110,7 @@ function startCreateProject() {
     input.addEventListener("blur", finish);
 }
 
-async function finishCreateProject(input) {
+function finishCreateProject(input) {
     if (!input.isConnected) return;
 
     const title = input.value.trim();
@@ -112,17 +120,27 @@ async function finishCreateProject(input) {
         return;
     }
 
-    const project = await createProject(title);
+    const project = createProject(title);
 
     if (!project) {
         cancelCreateProject(input);
         return;
     }
 
-    /*     createCategory(
-            "Без раздела",
-            project.id
-        ); */
+    addProject(project).catch(error => {
+        console.error(
+            "CREATE PROJECT ERROR:",
+            error
+        );
+
+        // addProject сам откатит projects
+        renderProjects();
+
+        // если мы уже успели выбрать этот проект
+        if (viewSettings.projectId === project.id) {
+            selectFallbackProject();
+        }
+    });
 
     input.remove();
     addProjectButton.classList.remove("hidden");
@@ -152,4 +170,18 @@ function toggleSidebar() {
     sidebarToggleButton.title = isCollapsed
         ? "Развернуть"
         : "Свернуть";
+}
+
+function selectFallbackProject() {
+    const projects = getProjects();
+
+    const projectId =
+        projects[0]?.id ?? null;
+
+    viewSettings.projectId = projectId;
+
+    saveViewSettings(viewSettings);
+
+    renderProjects();
+    renderCurrentView();
 }

@@ -60,13 +60,13 @@ async function createProjectInDb(project) {
 }
 
 async function updateProjectInDb(project) {
+    const row = projectToDb(project);
+
+    delete row.id;
+
     const { data, error } = await supabaseClient
         .from("projects")
-        .update({
-            title: project.title,
-            color: project.color,
-            position: project.order
-        })
+        .update(row)
         .eq("id", project.id)
         .select()
         .single();
@@ -145,14 +145,13 @@ async function createCategoryInDb(category) {
 }
 
 async function updateCategoryInDb(category) {
+    const row = categoryToDb(category);
+
+    delete row.id;
+
     const { data, error } = await supabaseClient
         .from("categories")
-        .update({
-            project_id: category.projectId,
-            title: category.title,
-            color: category.color,
-            position: category.order
-        })
+        .update(row)
         .eq("id", category.id)
         .select()
         .single();

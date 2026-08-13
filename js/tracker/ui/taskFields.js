@@ -56,8 +56,8 @@ function bindTaskDueDate(
 
             allowTime: true,
 
-            onChange: async ({ date, time }) => {
-                await updateTask(task.id, {
+            onChange: ({ date, time }) => {
+                updateTask(task.id, {
                     dueDate: date,
                     dueTime: time
                 });
@@ -94,7 +94,7 @@ function bindTaskTimer(
 
         if (!task) return;
 
-        await toggleTaskTimer(task);
+        toggleTaskTimer(task);
 
         onUpdate?.();
     });
@@ -115,10 +115,15 @@ function bindTaskCheckbox(status, getTask, onToggle) {
 
         if (!task) return;
 
-        const toggle = async () => {
-            await toggleTask(task.id);
+        const toggle = () => {
+            const promise = toggleTask(task.id);
 
-            fillTaskCheckbox(status, task);
+            fillTaskCheckbox(
+                status,
+                task
+            );
+
+            return promise;
         };
 
         onToggle(toggle);
@@ -155,8 +160,8 @@ function bindTaskDescription(description, getTask, onUpdate) {
             enterToSave: false,
             className: "taskCardDescription",
 
-            onSave: async (value) => {
-                await updateTask(task.id, {
+            onSave: (value) => {
+                updateTask(task.id, {
                     description: value
                 });
 

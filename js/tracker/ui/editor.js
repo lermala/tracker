@@ -11,7 +11,7 @@ function startEditTask(
         enterToSave: true,
         className: "taskTitle",
 
-        onSave: async (value, reason) => {
+        onSave: (value, reason) => {
             if (!value) {
                 if (isNew) {
                     taskElement.remove();
@@ -24,7 +24,6 @@ function startEditTask(
 
             if (isNew) {
                 task.title = value;
-
                 savePromise = addTask(task);
             } else {
                 savePromise = updateTask(task.id, {
@@ -32,13 +31,21 @@ function startEditTask(
                 });
             }
 
+            savePromise.catch(error => {
+                console.error(
+                    "SAVE TASK ERROR:",
+                    error
+                );
+
+                renderCurrentView();
+            });
+
+            // UI обновляем сразу
             renderCurrentView();
 
             if (reason === "enter") {
                 startEditNextTask(task);
             }
-
-            task = await savePromise;
         },
 
         onCancel: () => {
@@ -51,7 +58,7 @@ function startEditTask(
     });
 }
 
-async function finishEditDuration(input, task, save) {
+function finishEditDuration(input, task, save) {
     if (!save) {
         renderCurrentView();
         return;
@@ -82,44 +89,15 @@ async function finishEditDuration(input, task, save) {
         minutes * 60 +
         seconds;
 
-    await updateTask(task.id, {
-        duration
-    });
-
-    renderCurrentView();
-}
-
-function finishEditDuration(input, task, save) {
-    if (!save) {
-        renderCurrentView();
-        return;
-    }
-
-    const match = input.value.match(/^(\d{1,2}):(\d{2}):(\d{2})$/);
-
-    if (!match) {
-        alert("Формат: ЧЧ:ММ:СС");
-        renderCurrentView();
-        return;
-    }
-
-    const hours = Number(match[1]);
-    const minutes = Number(match[2]);
-    const seconds = Number(match[3]);
-
-    if (minutes > 59 || seconds > 59) {
-        alert("Минуты и секунды должны быть меньше 60");
-        renderCurrentView();
-        return;
-    }
-
-    const duration =
-        hours * 3600 +
-        minutes * 60 +
-        seconds;
-
     updateTask(task.id, {
         duration
+    }).catch(error => {
+        console.error(
+            "UPDATE TASK DURATION ERROR:",
+            error
+        );
+
+        renderCurrentView();
     });
 
     renderCurrentView();

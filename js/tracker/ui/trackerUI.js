@@ -51,12 +51,24 @@ function setViewClass(viewClass) {
 }
 
 function createAddCategoryButton() {
-    const button = addCategoryTemplate.content.firstElementChild.cloneNode(true);
+    const button =
+        addCategoryTemplate.content.firstElementChild.cloneNode(true);
 
-    button.addEventListener("click", async () => {
-        const category = await createCategory(
+    button.addEventListener("click", () => {
+        const category = createCategory(
             viewSettings.projectId
         );
+
+        if (!category) return;
+
+        addCategory(category).catch(error => {
+            console.error(
+                "CREATE CATEGORY ERROR:",
+                error
+            );
+
+            renderCurrentView();
+        });
 
         renderCurrentView();
 
@@ -64,7 +76,12 @@ function createAddCategoryButton() {
             `[data-group-field="categoryId"][data-group-value="${category.id}"]`
         );
 
-        startEditTaskGroup(groupElement, true);
+        if (!groupElement) return;
+
+        startEditTaskGroup(
+            groupElement,
+            true
+        );
     });
 
     return button;
@@ -90,16 +107,26 @@ function startEditTasksHeader() {
         value: project.title,
         className: "tasksHeaderTitle",
 
-        onSave: async (value) => {
+        onSave: (value) => {
             if (!value) {
                 renderTasksHeader();
                 return;
             }
 
-            await updateProject(project.id, {
+            updateProject(project.id, {
                 title: value
+            }).catch(error => {
+                console.error(
+                    "UPDATE PROJECT ERROR:",
+                    error
+                );
+
+                // updateProject уже сделал rollback
+                renderProjects();
+                renderTasksHeader();
             });
 
+            // локальная модель уже обновлена
             renderProjects();
             renderTasksHeader();
         },

@@ -14,8 +14,10 @@ function getCurrentDuration(task) {
     return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 }
 
-async function stopTask(task) {
-    if (task.startedAt === null) return;
+function stopTask(task) {
+    if (task.startedAt === null) {
+        return Promise.resolve(task);
+    }
 
     const duration =
         task.duration +
@@ -23,7 +25,7 @@ async function stopTask(task) {
             (Date.now() - task.startedAt) / 1000
         );
 
-    await updateTask(task.id, {
+    return updateTask(task.id, {
         duration,
         startedAt: null
     });
@@ -37,29 +39,34 @@ function updateRunningTimers() {
     });
 }
 
-async function stopAllRunningTasks(currentTaskId) { // todo запущена может быть только одна задача одновременно
+function stopAllRunningTasks(currentTaskId) { // todo запущена может быть только одна задача одновременно
     const runningTasks = tasks.filter(task =>
         task.id !== currentTaskId &&
         task.startedAt !== null
     );
 
-    await Promise.all(
+    return Promise.all(
         runningTasks.map(task =>
             stopTask(task)
         )
     );
 }
 
-
-async function toggleTaskTimer(task) {
+function toggleTaskTimer(task) {
     if (task.startedAt !== null) {
-        await stopTask(task);
-        return;
+        return stopTask(task);
     }
 
-    await stopAllRunningTasks(task.id);
+    const stopPromise =
+        stopAllRunningTasks(task.id);
 
-    await updateTask(task.id, {
-        startedAt: Date.now()
-    });
+    const startPromise =
+        updateTask(task.id, {
+            startedAt: Date.now()
+        });
+
+    return Promise.all([
+        stopPromise,
+        startPromise
+    ]);
 }

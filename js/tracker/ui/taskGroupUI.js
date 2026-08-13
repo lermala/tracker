@@ -102,28 +102,56 @@ function startEditTaskGroup(groupElement, isNew = false) {
         value: title.textContent.trim(),
         className: "taskGroupTitle",
 
-        onSave: async (value) => {
+        onSave: (value) => {
             if (!value) {
                 if (isNew) {
-                    await deleteTaskGroup(groupField, groupValue);
+                    deleteTaskGroup(
+                        groupField,
+                        groupValue
+                    ).catch(error => {
+                        console.error(
+                            "DELETE TASK GROUP ERROR:",
+                            error
+                        );
+
+                        renderCurrentView();
+                    });
                 }
 
                 renderCurrentView();
                 return;
             }
 
-            await updateTaskGroup(
+            updateTaskGroup(
                 groupField,
                 groupValue,
                 value
-            );
+            ).catch(error => {
+                console.error(
+                    "UPDATE TASK GROUP ERROR:",
+                    error
+                );
 
+                renderCurrentView();
+            });
+
+            // Рисуем сразу, не ждём Supabase
             renderCurrentView();
         },
 
-        onCancel: async () => {
+        onCancel: () => {
             if (isNew) {
-                await deleteTaskGroup(groupField, groupValue);
+                deleteTaskGroup(
+                    groupField,
+                    groupValue
+                ).catch(error => {
+                    console.error(
+                        "DELETE TASK GROUP ERROR:",
+                        error
+                    );
+
+                    renderCurrentView();
+                });
             }
 
             renderCurrentView();

@@ -1,33 +1,36 @@
-async function createProject(title) {
-    const project = createProjectModel({
+// ===== Создание =====
+
+function createProject(title) {
+    return createProjectModel({
         id: crypto.randomUUID(),
+
         title: title.trim(),
+
         order: getNextProjectOrder()
     });
-
-    const savedProject = await createProjectInDb(project);
-
-    projects.push(savedProject);
-
-    return savedProject;
 }
+
+async function addProject(project) {
+    projects.push(project);
+
+    try {
+        const savedProject = await createProjectInDb(project);
+        Object.assign(project, savedProject);
+
+        return project;
+    } catch (error) {
+        projects = projects.filter(
+            item => item.id !== project.id
+        );
+
+        throw error;
+    }
+}
+
+// ===== Получение =====
 
 function getProjectById(id) {
     return projects.find(project => project.id === id);
-}
-
-async function updateProject(id, changes) {
-    const project = getProjectById(id);
-
-    if (!project) return;
-
-    Object.assign(project, changes);
-
-    const savedProject = await updateProjectInDb(project);
-
-    Object.assign(project, savedProject); // нужно ли это вообще?
-
-    return project;
 }
 
 function getNextProjectOrder() {
@@ -40,12 +43,59 @@ function getNextProjectOrder() {
     ) + 1;
 }
 
-async function deleteProject(id) {
-    await deleteProjectFromDb(id);
-
-    projects = projects.filter(project => project.id !== id);
-}
-
 function getProjects() {
     return projects;
+}
+
+
+// ===== Изменение =====
+
+async function updateProject(id, changes) {
+    const project = getProjectById(id);
+
+    if (!project) return null;
+
+    const previous = { ...project };
+
+    Object.assign(project, changes);
+
+    try {
+        const savedProject =
+            await updateProjectInDb(project);
+
+        Object.assign(
+            project,
+            savedProject
+        );
+
+        return project;
+    } catch (error) {
+        Object.assign(
+            project,
+            previous
+        );
+
+        throw error;
+    }
+}
+
+async function deleteProject(id) {
+    const project = getProjectById(id);
+
+    if (!project) return;
+
+    const index = projects.findIndex(
+        project => project.id === id
+    );
+
+    projects.splice(index, 1);
+
+    try {
+        await deleteProjectFromDb(id);
+    } catch (error) {
+        projects.splice(index, 0, project);
+
+        throw error;
+    }
+    // todo delete local categories and tasks
 }

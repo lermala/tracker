@@ -85,44 +85,62 @@ function getNextTaskOrder(projectId, categoryId) {
 
 // ===== Изменение =====
 
-// выполнить задачу
-async function toggleTask(id) {
-    const task = getTaskById(id);
-
-    if (!task) return;
-
-    if (!task.isCompleted && task.startedAt !== null) {
-        task.duration += Math.floor(
-            (Date.now() - task.startedAt) / 1000
-        );
-
-        task.startedAt = null;
-    }
-
-    if (task.isCompleted) {
-        task.completedAt = null;
-    } else {
-        task.completedAt = Date.now();
-    }
-
-    const savedTask = await updateTaskInDb(task);
-
-    Object.assign(task, savedTask);
-
-    return task;
-}
-
-// универсальный апдейт задачи
 async function updateTask(id, changes) {
     const task = getTaskById(id);
 
-    if (!task) return;
+    if (!task) return null;
+
+    const previous = { ...task };
 
     Object.assign(task, changes);
-    const savedTask = await updateTaskInDb(task);
-    Object.assign(task, savedTask);
 
-    return task;
+    try {
+        const savedTask =
+            await updateTaskInDb(task);
+
+        Object.assign(
+            task,
+            savedTask
+        );
+
+        return task;
+    } catch (error) {
+        Object.assign(
+            task,
+            previous
+        );
+
+        throw error;
+    }
+}
+
+function toggleTask(id) {
+    const task = getTaskById(id);
+
+    if (!task) {
+        return Promise.resolve(null);
+    }
+
+    const changes = {};
+
+    // Если завершаем запущенную задачу —
+    // фиксируем накопленное время и останавливаем таймер
+    if (!task.isCompleted && task.startedAt !== null) {
+        changes.duration =
+            task.duration +
+            Math.floor(
+                (Date.now() - task.startedAt) / 1000
+            );
+
+        changes.startedAt = null;
+    }
+
+    changes.completedAt =
+        task.isCompleted
+            ? null
+            : Date.now();
+
+    return updateTask(id, changes);
 }
 
 async function updateTaskOrder(taskIds) {
@@ -147,7 +165,23 @@ async function updateTaskOrder(taskIds) {
 }
 
 async function deleteTask(id) {
-    await deleteTaskFromDb(id);
+    const index = tasks.findIndex(
+        task => task.id === id
+    );
 
-    tasks = tasks.filter(task => task.id !== id);
+    if (index === -1) return;
+
+    const task = tasks[index];
+
+    // Сразу удаляем локально
+    tasks.splice(index, 1);
+
+    try {
+        await deleteTaskFromDb(id);
+    } catch (error) {
+        // Если БД не удалила — возвращаем задачу
+        tasks.splice(index, 0, task);
+
+        throw error;
+    }
 }
