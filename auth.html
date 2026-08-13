@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tracker — Вход</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="authPage">
+
+    <main class="authForm">
+        <div class="authHeader">
+            <h1 class="authTitle">Вход</h1>
+
+            <p class="authSubtitle">
+                Войдите, чтобы продолжить работу
+            </p>
+        </div>
+
+        <div class="authFields">
+            <label class="authField">
+                <span class="authLabel">Email</span>
+
+                <input class="authInput authEmail" type="email" placeholder="name@example.com" autocomplete="email">
+            </label>
+
+            <label class="authField">
+                <span class="authLabel">Пароль</span>
+
+                <input class="authInput authPassword" type="password" placeholder="Введите пароль"
+                    autocomplete="current-password">
+            </label>
+        </div>
+
+        <div class="authError"></div>
+
+        <button class="authSubmit" type="button">
+            Войти
+        </button>
+
+        <button class="authSwitch" type="button">
+            Нет аккаунта? Зарегистрироваться
+        </button>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/services/authService.js"></script>
+
+    <script src="js/ui/authUI.js"></script>
+    <script src="js/authApp.js"></script>
+
+</body>
+
+</html>

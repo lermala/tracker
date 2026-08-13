@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
 
-    padding: 16px 12px;
+    padding: $space_l $space_s;
 
     background: rgba($clr_grey, 0.4);
     border-right: 1px solid $clr_grey;
@@ -23,6 +23,8 @@
         border: none;
         background: transparent;
 
+        .sidebarUser,
+        .sidebarUserButton,
         .sidebarTitle,
         .projectList,
         .addProjectButton {
@@ -37,22 +39,155 @@
 }
 
 .sidebarHeader {
-    padding: 0 8px 8px;
+    // padding: $space_m $space_m;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .sidebarUser {
+        position: relative;
+
+        min-width: 0;
+        flex: 1;
+    }
+
+    .sidebarUserButton {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        max-width: 100%;
+        padding: 6px;
+
+        background: transparent;
+        border: none;
+        border-radius: $bd-radius;
+
+        cursor: pointer;
+
+        &:hover {
+            background: $clr_grey;
+        }
+    }
+
+    .sidebarUserAvatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+
+        border-radius: 50%;
+
+        background: $clr_greyMiddle;
+        background: $clr_accent;
+        color: white;
+
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .sidebarUserName {
+        min-width: 0;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        font-weight: 500;
+    }
+
+    .sidebarUserArrow {
+        flex-shrink: 0;
+        font-size: 18px;
+    }
 }
 
-.sidebarTitle {
-    font-size: 14px;
-    font-weight: 700;
-    color: $clr_greyUltraDark;
+.sidebarContent {
+    padding: $space_xs;
+
+    .sidebarTitle {
+        padding: $space_s $space_xxs;
+        margin-top: $mg_bottom;
+
+        font-size: 14px;
+        line-height: 1.2;
+        font-weight: 700;
+        color: $clr_greyUltraDark;
+
+    }
+
+    .projectList {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
 }
 
-.projectList {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+.sidebarUserMenu {
+    position: absolute;
+
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+
+    z-index: 100;
+
+    padding: 6px;
+
+    background: white;
+    border: 1px solid $clr_grey;
+    border-radius: $bd-radius;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+
+    .sidebarUserInfo {
+        padding: 8px;
+
+        border-bottom: 1px solid $clr_grey;
+    }
+
+    .sidebarUserMenuName {
+        font-weight: 500;
+    }
+
+    .sidebarUserEmail {
+        margin-top: 2px;
+
+        font-size: 12px;
+        opacity: .6;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .sidebarUserMenuItem {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        width: 100%;
+
+        margin-top: 4px;
+        padding: 8px;
+
+        background: transparent;
+        border: none;
+        border-radius: $bd-radius;
+
+        cursor: pointer;
+
+        &:hover {
+            background: $clr_grey;
+        }
+
+        .material-symbols-rounded {
+            font-size: 18px;
+        }
+    }
 }
 
 .projectItem,

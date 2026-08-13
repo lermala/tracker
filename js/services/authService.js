@@ -1,3 +1,8 @@
+// тестовый акк
+// kddmts36@mailbinmart.com
+// test123
+
+
 async function signUp(email, password) {
     const { data, error } =
         await supabaseClient.auth.signUp({
@@ -20,7 +25,7 @@ async function signIn(email, password) {
         });
 
     if (error) {
-        throw error;
+        throw error; 
     }
 
     return data;
@@ -44,4 +49,15 @@ async function getCurrentUser() {
     }
 
     return data.user;
+}
+
+async function getCurrentSession() {
+    const { data, error } =
+        await supabaseClient.auth.getSession();
+
+    if (error) {
+        throw error;
+    }
+
+    return data.session;
 }

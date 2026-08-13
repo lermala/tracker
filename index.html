@@ -13,7 +13,34 @@
     <div class="trackerLayout">
         <aside class="sidebar">
             <div class="sidebarHeader">
-                <span class="sidebarTitle">Проекты</span>
+
+                <div class="sidebarUser">
+                    <button class="sidebarUserButton" id="sidebarUserButton">
+                        <span class="sidebarUserAvatar" id="sidebarUserAvatar"></span>
+
+                        <span class="sidebarUserName" id="sidebarUserName"></span>
+
+                        <span class="material-symbols-rounded sidebarUserArrow">
+                            expand_more
+                        </span>
+                    </button>
+
+                    <div class="sidebarUserMenu hidden" id="sidebarUserMenu">
+                        <div class="sidebarUserInfo">
+                            <div class="sidebarUserMenuName" id="sidebarUserMenuName"></div>
+                            <div class="sidebarUserEmail" id="sidebarUserEmail"></div>
+                        </div>
+
+                        <button class="sidebarUserMenuItem" id="signOutButton">
+                            <span class="material-symbols-rounded">
+                                logout
+                            </span>
+
+                            <span>Выйти</span>
+                        </button>
+                    </div>
+                </div>
+
 
                 <button class="sidebarToggleButton" id="sidebarToggleButton" title="Свернуть">
                     <span class="material-symbols-rounded">
@@ -22,15 +49,21 @@
                 </button>
             </div>
 
-            <div class="projectList" id="projectList"></div>
+            <div class="sidebarContent">
+                <div class="sidebarTitle">Проекты</div>
+                <div class="projectList" id="projectList"></div>
 
-            <button class="addProjectButton" id="addProjectButton">
-                <span class="material-symbols-rounded">
-                    add
-                </span>
+                <button class="addProjectButton" id="addProjectButton">
+                    <span class="material-symbols-rounded">
+                        add
+                    </span>
 
-                <span>Добавить проект</span>
-            </button>
+                    <span>Добавить проект</span>
+                </button>
+
+            </div>
+
+
         </aside>
 
         <div class="tasksContainer">

@@ -1,6 +1,10 @@
 const sidebar = document.querySelector(".sidebar");
 const sidebarToggleButton = document.getElementById("sidebarToggleButton");
 
+const sidebarUserButton = document.getElementById("sidebarUserButton");
+const sidebarUserMenu = document.getElementById("sidebarUserMenu");
+const signOutButton = document.getElementById("signOutButton");
+
 const projectList = document.getElementById("projectList");
 const addProjectButton = document.getElementById("addProjectButton");
 
@@ -11,6 +15,21 @@ sidebarToggleButton.addEventListener("click", () => {
 
 addProjectButton.addEventListener("click", () => {
     startCreateProject();
+});
+
+sidebarUserButton.addEventListener("click", event => {
+    event.stopPropagation();
+    sidebarUserMenu.classList.toggle("hidden");
+});
+
+signOutButton.addEventListener("click", () => {
+    logout();
+});
+
+document.addEventListener("click", event => {
+    if (!event.target.closest(".sidebarUser")) {
+        sidebarUserMenu.classList.add("hidden");
+    }
 });
 
 function renderProjects() {
@@ -184,4 +203,25 @@ function selectFallbackProject() {
 
     renderProjects();
     renderCurrentView();
+}
+
+async function renderUser() {
+    const user = await getCurrentUser();
+
+    if (!user) return;
+
+    const email = user.email;
+    const name = email.split("@")[0];
+
+    document.getElementById("sidebarUserAvatar").textContent =
+        name.charAt(0).toUpperCase();
+
+    document.getElementById("sidebarUserName").textContent =
+        name;
+
+    document.getElementById("sidebarUserMenuName").textContent =
+        name;
+
+    document.getElementById("sidebarUserEmail").textContent =
+        email;
 }
