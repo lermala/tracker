@@ -184,72 +184,70 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
-<!-- ===== Models ===== -->
-<script src="js/tracker/models/project.js"></script>
-<script src="js/tracker/models/category.js"></script>
-<script src="js/tracker/models/task.js"></script>
-
-
-<!-- ===== Storage ===== -->
+<!-- ===== Supabase ===== -->
 <script src="js/supabaseClient.js"></script>
-<script src="js/tracker/storage.js"></script>
-<script src="js/tracker/services/authService.js"></script>
-<script src="js/tracker/databaseService.js"></script>
+
+
+<!-- ===== Models ===== -->
+<script src="js/models/project.js"></script>
+<script src="js/models/category.js"></script>
+<script src="js/models/task.js"></script>
+
+
+<!-- ===== API ===== -->
+<script src="js/api/projectApi.js"></script>
+<script src="js/api/categoryApi.js"></script>
+<script src="js/api/taskApi.js"></script>
 
 
 <!-- ===== Utils ===== -->
 <script src="js/utils/dateUtils.js"></script>
 
 
+<!-- ===== Services ===== -->
+<script src="js/services/authService.js"></script>
+<script src="js/services/localStorageService.js"></script>
 
-
-
-
-
-
-<!-- ===== Tracker: Services ===== -->
-<script src="js/tracker/services/projectService.js"></script>
-<script src="js/tracker/services/categoryService.js"></script>
-<script src="js/tracker/services/taskService.js"></script>
-<script src="js/tracker/services/taskQuery.js"></script>
+<script src="js/services/projectService.js"></script>
+<script src="js/services/categoryService.js"></script>
+<script src="js/services/taskService.js"></script>
+<script src="js/services/taskQuery.js"></script>
+<script src="js/services/timerService.js"></script>
 
 
 <!-- ===== UI Components ===== -->
-<script src="js/tracker/ui/components/datePicker.js"></script>
-<script src="js/tracker/ui/components/calendar.js"></script>
-<script src="js/tracker/ui/components/textEditor.js"></script>
+<script src="js/ui/components/datePicker.js"></script>
+<script src="js/ui/components/calendar.js"></script>
+<script src="js/ui/components/textEditor.js"></script>
 
 
+<!-- ===== UI ===== -->
+<script src="js/ui/animations.js"></script>
+<script src="js/ui/dragDrop.js"></script>
 
-<!-- ===== Tracker: UI Components ===== -->
-<script src="js/tracker/ui/animations.js"></script>
-<script src="js/tracker/ui/dragDrop.js"></script>
+<script src="js/ui/sidebarUI.js"></script>
+<script src="js/ui/toolbarUI.js"></script>
+<script src="js/ui/settingsUI.js"></script>
 
-<script src="js/tracker/ui/sidebarUI.js"></script>
-<script src="js/tracker/ui/toolbarUI.js"></script>
-<script src="js/tracker/ui/settingsUI.js"></script>
-
-<script src="js/tracker/ui/taskFields.js"></script>
-<script src="js/tracker/ui/taskUI.js"></script>
-<script src="js/tracker/ui/taskCard.js"></script>
-<script src="js/tracker/ui/categoryUI.js"></script>
-<script src="js/tracker/ui/taskGroupUI.js"></script>
-<script src="js/tracker/ui/editor.js"></script>
-
-
-<!-- ===== Tracker: Views ===== -->
-<script src="js/tracker/views/listView.js"></script>
-<script src="js/tracker/views/boardView.js"></script>
-<script src="js/tracker/views/calendarView.js"></script>
+<script src="js/ui/taskFields.js"></script>
+<script src="js/ui/taskUI.js"></script>
+<script src="js/ui/taskCard.js"></script>
+<script src="js/ui/categoryUI.js"></script>
+<script src="js/ui/taskGroupUI.js"></script>
+<script src="js/ui/editor.js"></script>
 
 
-<!-- ===== Tracker: UI Controller ===== -->
-<script src="js/tracker/ui/trackerUI.js"></script>
+<!-- ===== Views ===== -->
+<script src="js/views/listView.js"></script>
+<script src="js/views/boardView.js"></script>
+<script src="js/views/calendarView.js"></script>
 
-<!-- ===== Timer ===== -->
-<script src="js/tracker/timer.js"></script>
+
+<!-- ===== UI Controller ===== -->
+<script src="js/ui/trackerUI.js"></script>
+
 
 <!-- ===== App ===== -->
-<script src="js/tracker/tracker.js"></script>
+<script src="js/app.js"></script>
 
 </html>
