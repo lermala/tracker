@@ -423,6 +423,53 @@ textarea.textEditor.taskTitle {
   flex: none;
 }
 
+.priorityDot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+}
+.priorityDot[data-priority=high] {
+  background: #e5484d;
+}
+.priorityDot[data-priority=medium] {
+  background: #f5a623;
+}
+.priorityDot[data-priority=low] {
+  background: #4c8bf5;
+}
+.priorityDot[data-priority=none] {
+  background: transparent;
+  border: 1px solid #404041;
+}
+
+.priorityPicker {
+  position: fixed;
+  z-index: 10000;
+  min-width: 180px;
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.priorityPickerOption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  font: inherit;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.priorityPickerOption:hover, .priorityPickerOption.is-selected {
+  background: #eee;
+}
+
 .authPage {
   min-height: 100vh;
   display: flex;
@@ -788,7 +835,19 @@ body:not(.is-dragging) .task:hover .taskGroupInfo .taskGroupDeleteButton,
   opacity: 0;
   transition: opacity 0.2s ease;
 }
-.taskCheckbox:not(.is-completed):hover span {
+.taskCheckbox:not(.is-completed)[data-priority=high] {
+  border: 2px solid #e5484d;
+  background: rgba(229, 72, 77, 0.1);
+}
+.taskCheckbox:not(.is-completed)[data-priority=medium] {
+  border: 2px solid #f5a623;
+  background: rgba(245, 166, 35, 0.1);
+}
+.taskCheckbox:not(.is-completed)[data-priority=low] {
+  border: 2px solid #4c8bf5;
+  background: rgba(76, 139, 245, 0.1);
+}
+.taskCheckbox:not(.is-completed) :hover span {
   opacity: 1;
   color: inherit;
 }
@@ -822,6 +881,17 @@ body:not(.is-dragging) .task:hover .taskGroupInfo .taskGroupDeleteButton,
 .taskDuration {
   width: 60px;
   color: #85898a;
+}
+
+.taskPriority {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.taskPriority .taskPriorityText {
+  white-space: nowrap;
+  color: #19191c;
 }
 
 .timerControl {
@@ -1154,6 +1224,10 @@ body:not(.is-dragging) .task:hover {
   border-radius: 4px;
   overflow: hidden;
 }
+.taskCard .taskDueDate.is-empty {
+  opacity: 1;
+  visibility: visible;
+}
 
 .taskCardHeader {
   height: 36px;
@@ -1224,6 +1298,7 @@ body:not(.is-dragging) .task:hover {
 
 .taskCardProperties {
   padding: 14px;
+  border-left: 1px solid #eee;
   background: rgba(238, 238, 238, 0.4);
   overflow-y: auto;
 }

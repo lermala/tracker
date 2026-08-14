@@ -58,10 +58,27 @@
     }
 
     // Незавершенная
-    &:not(.is-completed):hover {
-        span {
-            opacity: 1;
-            color: inherit;
+    &:not(.is-completed) {
+        &[data-priority="high"] {
+            border: 2px solid $clr_priority_high;
+            background: rgba($clr_priority_high, 0.1);
+        }
+
+        &[data-priority="medium"] {
+            border: 2px solid $clr_priority_medium;
+            background: rgba($clr_priority_medium, 0.1);
+        }
+
+        &[data-priority="low"] {
+            border: 2px solid $clr_priority_low;
+            background: rgba($clr_priority_low, 0.1);
+        }
+
+        :hover {
+            span {
+                opacity: 1;
+                color: inherit;
+            }
         }
     }
 
@@ -107,6 +124,19 @@
 .taskDuration {
     width: 60px;
     color: $clr_greyDark;
+}
+
+.taskPriority {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    
+    cursor: pointer;
+
+    .taskPriorityText {
+        white-space: nowrap;
+        color: $clr_black;
+    }
 }
 
 // ======================================

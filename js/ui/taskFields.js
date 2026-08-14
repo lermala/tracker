@@ -105,6 +105,8 @@ function fillTaskCheckbox(status, task) {
         "is-completed",
         task.isCompleted
     );
+
+    status.dataset.priority = task.priority;
 }
 
 function bindTaskCheckbox(status, getTask, onToggle) {
@@ -167,6 +169,63 @@ function bindTaskDescription(description, getTask, onUpdate) {
 
                 fillTaskDescription(
                     description,
+                    task
+                );
+
+                onUpdate?.();
+            }
+        });
+    });
+}
+
+const TASK_PRIORITY_LABELS = {
+    [TASK_PRIORITY.NONE]: "Без приоритета",
+    [TASK_PRIORITY.LOW]: "Низкий",
+    [TASK_PRIORITY.MEDIUM]: "Средний",
+    [TASK_PRIORITY.HIGH]: "Высокий"
+};
+
+function fillTaskPriority(priorityElement, task) {
+    const dot = priorityElement.querySelector(
+        ".priorityDot"
+    );
+
+    const text = priorityElement.querySelector(
+        ".taskPriorityText"
+    );
+
+    dot.dataset.priority = task.priority;
+
+    if (text) {
+        text.textContent =
+            TASK_PRIORITY_LABELS[task.priority];
+    }
+}
+
+function bindTaskPriority(
+    priorityElement,
+    getTask,
+    onUpdate
+) {
+    priorityElement.addEventListener("click", event => {
+        event.stopPropagation();
+
+        const task = getTask();
+        console.log("TASK:", task);
+
+        if (!task) return;
+
+        openPriorityPicker({
+            anchor: priorityElement,
+            value: task.priority,
+
+            onChange: priority => {
+                updateTask(task.id, {
+                    priority
+                });
+
+                fillTaskPriority(
+                    priorityElement,
                     task
                 );
 

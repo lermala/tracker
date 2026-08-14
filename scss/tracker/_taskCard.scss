@@ -9,6 +9,12 @@
     background: white;
     border-radius: $bd-radius;
     overflow: hidden;
+
+    .taskDueDate.is-empty {
+        opacity: 1;
+        visibility: visible;
+    }
+
 }
 
 // Заголовок с крестиком
@@ -104,14 +110,13 @@
 .taskCardProperties {
     padding: $space-l;
 
-    //border-left: 1px solid $clr_grey;
+    border-left: 1px solid $clr_grey;
     background: rgba($clr_grey, 0.4);
 
     overflow-y: auto;
 
     .taskCardProperty {
         padding-block: $space-s;
-        // padding-bottom: $space-m;
 
         &:not(:last-child) {
             border-bottom: 1px solid $clr_grey;

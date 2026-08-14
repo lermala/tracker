@@ -1,0 +1,64 @@
+.priorityDot {
+    display: block;
+
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+
+    border-radius: 50%;
+
+    &[data-priority="high"] {
+        background: $clr_priority_high;
+    }
+
+    &[data-priority="medium"] {
+        background: $clr_priority_medium;
+    }
+
+    &[data-priority="low"] {
+        background: $clr_priority_low;
+    }
+
+    &[data-priority="none"] {
+        background: transparent;
+        border: 1px solid $clr_greyUltraDark;
+    }
+}
+
+.priorityPicker {
+    position: fixed;
+    z-index: 10000;
+
+    min-width: 180px;
+    //padding: 4px;
+
+    background: white;
+    border: 1px solid $clr_grey;
+    border-radius: $bd-radius;
+
+    box-shadow: $shadow;
+}
+
+.priorityPickerOption {
+    display: flex;
+    align-items: center;
+    gap: $space-m;
+
+    width: 100%;
+
+    padding: $space-m $space-l;
+
+    font: inherit;
+    text-align: left;
+
+    background: transparent;
+    border: none;
+
+
+    cursor: pointer;
+
+    &:hover,
+    &.is-selected {
+        background: $clr_grey;
+    }
+}
