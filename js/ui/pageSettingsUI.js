@@ -9,7 +9,8 @@ const sortMenu = document.getElementById("sortMenu");
 const GROUP_OPTIONS = [
     { value: null, label: "Нет" },
     { value: GROUP.CATEGORY, label: "Категория" },
-    { value: GROUP.DUE_DATE, label: "Контрольный срок" }
+    { value: GROUP.DUE_DATE, label: "Контрольный срок" },
+    { value: GROUP.PROJECT, label: "Проект" }
 ];
 
 const SORT_OPTIONS = [
@@ -18,9 +19,7 @@ const SORT_OPTIONS = [
     { value: "priority", label: "Приоритет" }
 ];
 
-function initSettingsUI() {
-    bindSettingsEvents();
-
+function renderPageSettingsUI() {
     initSettingsToggles();
 
     updateGroupButton();
@@ -103,7 +102,7 @@ function closeSelectMenus() {
 function renderGroupMenu() {
     renderSelectOptions({
         container: groupMenu,
-        options: GROUP_OPTIONS,
+        options: getAvailableGroupOptions(),
         selectedValue: pageSettings.group,
         dataName: "group"
     });
@@ -146,7 +145,6 @@ function renderSelectOptions({
     });
 }
 
-
 function updateGroupButton() {
     groupButtonValue.textContent =
         getOptionLabel(
@@ -154,7 +152,6 @@ function updateGroupButton() {
             pageSettings.group
         );
 }
-
 
 function updateSortButton() {
     sortButtonValue.textContent =
@@ -164,7 +161,6 @@ function updateSortButton() {
         );
 }
 
-
 function getOptionLabel(options, value) {
     return options.find(
         option => option.value === value
@@ -172,30 +168,39 @@ function getOptionLabel(options, value) {
 }
 
 function initSettingsToggles() {
-    createViewSettingToggle(
+    createPageSettingToggle(
         "hideCompletedToggle",
         "hideCompleted"
     );
 
-    createViewSettingToggle(
+    createPageSettingToggle(
         "todayOnlyToggle",
         "todayOnly"
     );
 }
 
-function createViewSettingToggle(containerId, settingName) {
+function createPageSettingToggle(containerId, settingName) {
     const container = document.getElementById(containerId);
 
     const toggle = createToggle({
-        value: viewSettings[settingName],
+        value: pageSettings[settingName],
 
         onChange: value => {
-            viewSettings[settingName] = value;
+            pageSettings[settingName] = value;
 
-            saveViewSettings(viewSettings);
+            saveCurrentPageSettings();
             renderCurrentView();
         }
     });
-    
+
     container.replaceChildren(toggle);
+}
+
+function getAvailableGroupOptions() {
+    const availableGroups =
+        getAvailableGroups(currentPage);
+
+    return GROUP_OPTIONS.filter(option =>
+        availableGroups.includes(option.value)
+    );
 }

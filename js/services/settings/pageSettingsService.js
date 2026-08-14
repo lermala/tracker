@@ -30,11 +30,13 @@ const DEFAULT_PAGE_SETTINGS = {
 
 const AVAILABLE_GROUPS = {
     [PAGE.PROJECT]: [
+        null,
         GROUP.CATEGORY,
         GROUP.DUE_DATE
     ],
 
     [PAGE.MY_TASKS]: [
+        null,
         GROUP.PROJECT,
         GROUP.DUE_DATE
     ]

@@ -3,7 +3,7 @@ const tasksHeaderTitle =
 const addCategoryTemplate = document.getElementById("addCategoryTemplate");
 
 tasksHeaderTitle.addEventListener("click", () => {
-    startEditTasksHeader();
+    startEditProjectTitle();
 });
 
 
@@ -18,25 +18,28 @@ function initTaskUI() {
 }
 
 function renderCurrentView() {
+    renderTasksHeader();
+
     switch (pageSettings.view) {
         case VIEW.LIST:
             setViewClass("listView");
             renderListView();
             break;
+
         case VIEW.BOARD:
             setViewClass("boardView");
             renderBoardView();
             break;
+
         case VIEW.CALENDAR:
             setViewClass("calendarView");
-            renderBoardView();
+            renderCalendarView();
             break;
+
         default:
             setViewClass("listView");
             renderListView();
     }
-
-    renderTasksHeader();
 }
 
 function setViewClass(viewClass) {
@@ -50,6 +53,9 @@ function setViewClass(viewClass) {
 }
 
 function createAddCategoryButton() {
+    const projectId = getCurrentProjectId();
+    if (!projectId) return null;
+
     const button =
         addCategoryTemplate.content.firstElementChild.cloneNode(true);
 
@@ -87,18 +93,26 @@ function createAddCategoryButton() {
 }
 
 function renderTasksHeader() {
-    const project = getProjectById(
-        getCurrentProjectId()
-    );
+    switch (currentPage.type) {
+        case PAGE.MY_TASKS:
+            tasksHeaderTitle.textContent = "Мои задачи";
+            break;
 
-    tasksHeaderTitle.textContent =
-        project?.title ?? "";
+        case PAGE.PROJECT:
+            const project = getProjectById(currentPage.id);
+
+            tasksHeaderTitle.textContent = project?.title ?? "";
+
+            break;
+    }
 }
 
-function startEditTasksHeader() {
-    const project = getProjectById(
-        getCurrentProjectId()
-    );
+function startEditProjectTitle() {
+    if (currentPage.type !== PAGE.PROJECT) {
+        return;
+    }
+
+    const project = getProjectById(currentPage.id);
 
     if (!project) return;
 
@@ -121,12 +135,12 @@ function startEditTasksHeader() {
                 );
 
                 // updateProject уже сделал rollback
-                renderProjects();
+                renderProjectsNavigation();
                 renderTasksHeader();
             });
 
             // локальная модель уже обновлена
-            renderProjects();
+            renderProjectsNavigation();
             renderTasksHeader();
         },
 

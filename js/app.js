@@ -95,3 +95,19 @@ function saveCurrentPageSettings() {
         pageSettings
     );
 }
+
+function selectPage(page) {
+    if (
+        currentPage.type === page.type &&
+        currentPage.id === page.id
+    ) {
+        return;
+    }
+
+    currentPage = page;
+    pageSettings = getPageSettings(currentPage);
+
+    renderNavigation();
+    renderToolbarUI();
+    renderCurrentView();
+}

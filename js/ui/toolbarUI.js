@@ -5,8 +5,14 @@ const settingsMenu = document.getElementById("settingsMenu");
 
 function initToolbarUI() {
     bindTaskToolbarEvents();
+    bindSettingsEvents();
+
+    renderToolbarUI();
+}
+
+function renderToolbarUI() {
     updateViewButtons();
-    initSettingsUI();
+    renderPageSettingsUI();
 }
 
 function bindTaskToolbarEvents() {
@@ -42,3 +48,4 @@ function updateViewButtons() {
         );
     });
 }
+
