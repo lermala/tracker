@@ -11,15 +11,16 @@
     display: flex;
     flex-direction: column;
 
-    padding: $space_l $space_s;
+    padding: $space-l $space-s;
 
-    background: rgba($clr_grey, 0.4);
-    border-right: 1px solid $clr_grey;
+    background: var(--color-surface-secondary);
+    border-right: 1px solid var(--color-border);
 
     transition: width .2s ease;
 
     &.is-collapsed {
         width: 48px;
+
         border: none;
         background: transparent;
 
@@ -39,10 +40,10 @@
 }
 
 .sidebarHeader {
-    // padding: $space_m $space_m;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: var(--color-text);
 
     .sidebarUser {
         position: relative;
@@ -52,38 +53,30 @@
     }
 
     .sidebarUserButton {
-        display: flex;
-        align-items: center;
-        gap: 8px;
+        @extend %button;
+        @extend %hover-surface;
+
+        justify-content: flex-start;
+
+        gap: $space-s;
 
         max-width: 100%;
-        padding: 6px;
-
-        background: transparent;
-        border: none;
-        border-radius: $bd-radius;
-
-        cursor: pointer;
-
-        &:hover {
-            background: $clr_grey;
-        }
+        padding: $space-xs;
     }
 
     .sidebarUserAvatar {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
         width: 24px;
         height: 24px;
         flex-shrink: 0;
 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         border-radius: 50%;
 
-        background: $clr_greyMiddle;
-        background: $clr_accent;
-        color: white;
+        color: var(--color-on-accent);
+        background: var(--color-accent);
 
         font-size: 13px;
         font-weight: 600;
@@ -106,17 +99,17 @@
 }
 
 .sidebarContent {
-    padding: $space_xs;
+    padding: $space-xs;
 
     .sidebarTitle {
-        padding: $space_s $space_xxs;
-        margin-top: $mg_bottom;
+        margin-top: $space-l;
+        padding: $space-s $space-xxs;
+
+        color: var(--color-text);
 
         font-size: 14px;
-        line-height: 1.2;
         font-weight: 700;
-        color: $clr_greyUltraDark;
-
+        line-height: 1.2;
     }
 
     .projectList {
@@ -126,27 +119,23 @@
     }
 }
 
-.sidebarUserMenu {
-    position: absolute;
 
-    top: calc(100% + 4px);
+.sidebarUserMenu {
+    @extend %popover;
+
+    position: absolute;
+    top: calc(100% + $space-xxs);
     left: 0;
     right: 0;
 
     z-index: 100;
 
-    padding: 6px;
-
-    background: white;
-    border: 1px solid $clr_grey;
-    border-radius: $bd-radius;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+    padding: $space-xs;
 
     .sidebarUserInfo {
-        padding: 8px;
+        padding: $space-s;
 
-        border-bottom: 1px solid $clr_grey;
+        border-bottom: 1px solid var(--color-border);
     }
 
     .sidebarUserMenuName {
@@ -156,120 +145,61 @@
     .sidebarUserEmail {
         margin-top: 2px;
 
-        font-size: 12px;
-        opacity: .6;
-
         overflow: hidden;
+
+        color: var(--color-text-secondary);
+
+        font-size: 12px;
+
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
     .sidebarUserMenuItem {
-        display: flex;
-        align-items: center;
-        gap: 8px;
+        @extend %menu-option;
 
-        width: 100%;
-
-        margin-top: 4px;
-        padding: 8px;
-
-        background: transparent;
-        border: none;
-        border-radius: $bd-radius;
-
-        cursor: pointer;
-
-        &:hover {
-            background: $clr_grey;
-        }
-
-        .material-symbols-rounded {
-            font-size: 18px;
-        }
+        margin-top: $space-xxs;
     }
 }
 
-.projectItem,
+
+
+
+.projectItem, 
 .addProjectButton {
-    width: 100%;
+    @extend %menu-option;
 
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    padding: 7px 8px;
-
-    border: none;
-    border-radius: $bd-radius;
-
-    background: transparent;
-
-    font: inherit;
-    text-align: left;
-
-    cursor: pointer;
-
-    &:hover {
-        background: $clr_grey;
-    }
-}
-
-.projectItem {
     &.is-active {
-        background: $clr_grey;
-        background: rgba($clr_accent, 0.1);
-        color: $clr_accent;
-        font-weight: 500;
+        color: var(--color-accent);
+        background: var(--color-accent-soft);
     }
 }
 
 .projectColor {
     width: 8px;
     height: 8px;
-
     flex-shrink: 0;
 
     border-radius: 50%;
-    background: $clr_accent;
+
+    background: var(--color-accent);
 }
 
 .projectTitle {
     overflow: hidden;
+
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .addProjectButton {
-    margin-top: 8px;
-
-    color: $clr_greyDark;
-
-    .material-symbols-rounded {
-        font-size: 18px;
-    }
+    color: var(--color-text-secondary);
 }
 
 .sidebarToggleButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 32px;
-    height: 32px;
-
-    padding: 0;
-    border: none;
-    background: transparent;
-
-    border-radius: $bd-radius;
-    cursor: pointer;
+    @extend %icon-button;
 
     .material-symbols-rounded {
         font-size: 20px;
-    }
-
-    &:hover {
-        background: $clr_grey;
     }
 }

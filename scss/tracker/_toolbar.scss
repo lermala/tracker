@@ -1,20 +1,19 @@
 .trackerToolbar {
     display: flex;
     align-items: center;
-    gap: 8px;
-    // margin-bottom: $mg_bottom;
+    gap: $space-s;
+
     padding: $space-l $space-xl;
 
-    border-bottom: 1px solid $clr_grey;
+    border-bottom: 1px solid var(--color-border);
 
     flex-shrink: 0;
 }
 
-// Заголовок
 .tasksHeader {
     flex-shrink: 0;
 
-    padding: 20px 24px 12px;
+    padding: $space-xl $space-xxl $space-md;
 }
 
 .tasksHeaderTitle {
@@ -25,153 +24,106 @@
     line-height: 1.3;
 }
 
-// МЕНЮШКА
 .segmentedControl {
     display: inline-flex;
     overflow: hidden;
 
-    border: 1px solid $clr_grey;
+    border: 1px solid var(--color-border);
     border-radius: $bd-radius;
 }
 
 .segmentedControlButton {
-    @extend %toolbar-button;
-    @extend %toolbar-button;
-    position: relative;
+    @extend %button;
+
+    padding: $space-xs $space-md;
+
+    &:hover {
+        background: var(--color-accent-soft);
+    }
+
+    &.active {
+        color: var(--color-accent);
+        background: var(--color-accent-soft);
+    }
 }
 
 .toolbarButton {
-    @extend %toolbar-button;
+    @extend .segmentedControlButton;
 
-    border: 1px solid $clr_grey;
-    border-radius: $bd-radius;
+    border: 1px solid var(--color-border);
 }
-
-// НАСТРОЙКИ
 
 .settingsGroup {
     position: relative;
-
-    font-size: inherit;
 }
 
 .settingsButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @extend %icon-button;
 
-    padding: 0;
-
-    border: none;
-    border-radius: $bd-radius;
-    background: transparent;
-
-    color: $clr_greyDark;
-    cursor: pointer;
-
-    @extend %ef_hover_btn;
+    color: var(--color-text-secondary);
 }
 
 .settingsMenu {
+    @extend %popover;
+
     position: absolute;
-    top: calc(100% + 6px);
+    top: calc(100% + $space-xs);
     right: 0;
 
-    width: 200px;
-    padding: 14px;
-
-    color: $clr_black;
-    background: white;
-    border: 1px solid $clr_grey;
-    border-radius: $bd-radius;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
-
     z-index: 100;
+
+    width: 200px;
+    padding: $space-l;
 }
 
 .settingsMenuTitle {
-    margin-bottom: $mg_bottom;
+    margin-bottom: $space-l;
+
     font-weight: 600;
 }
 
 .settingsItem {
     position: relative;
 
-    &+& {
-        &+& {
-            margin-top: 16px;
-        }
-    }
-
-    .settingsItemLabel {
-        // margin-bottom: $mg_bottom;
-    }
-
-    .settingsSelect {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        width: 100%;
-        padding: $pd_components;
-
-        font-size: inherit;
-
-        background: transparent;
-        border: 1px solid $clr_grey;
-        border-radius: $bd-radius;
-
-        cursor: pointer;
-
-        &:hover {
-            background: $clr_grey;
-        }
-
-        .material-symbols-rounded {
-            font-size: inherit;
-        }
-    }
-
-    .settingsSelectMenu {
-        position: absolute;
-        top: calc(100% + $space-xs);
-        left: 0;
-
-        width: 100%;
-        padding: $space-xs;
-
-        background: white;
-        border: 1px solid $clr_grey;
-        border-radius: $bd-radius;
-        box-shadow: $shadow-dark;
-
-        z-index: 110;
+    & + & {
+        margin-top: $space-l;
     }
 }
 
-.toolbarMenuOption {
-    display: flex;
-    align-items: center;
+.settingsSelect {
+    @extend %button;
+    @extend %hover-surface;
+
+    justify-content: space-between;
 
     width: 100%;
-    padding: $space-xs $space-s;
+    padding: $space-xs $space-md;
 
-    font: inherit;
-    color: $clr_black;
-    text-align: left;
+    border: 1px solid var(--color-border);
 
-    background: transparent;
-    border: none;
-    border-radius: $bd-radius;
-
-    cursor: pointer;
-
-    &:hover {
-        background: $clr_grey;
+    .material-symbols-rounded {
+        font-size: inherit;
     }
+}
+
+.settingsSelectMenu {
+    @extend %popover;
+
+    position: absolute;
+    top: calc(100% + $space-xs);
+    left: 0;
+
+    z-index: 110;
+
+    width: 100%;
+    padding: $space-xs;
+}
+
+.toolbarMenuOption {
+    @extend %menu-option;
 
     &.active {
-        color: $clr_accent;
+        color: var(--color-accent);
         font-weight: 600;
     }
 }

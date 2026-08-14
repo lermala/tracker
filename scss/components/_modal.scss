@@ -1,27 +1,26 @@
 .modal {
-    position: fixed;
-    inset: 0;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, .35);
+    @extend %overlay;
+
     z-index: 1000;
+
+    display: none;
 
     &.show {
         display: flex;
     }
+}
 
-    .modal-content {
-        width: 400px;
-        background: white;
-        border-radius: $bd-radius;
-        padding: 20px;
-    }
+.modal-content {
+    @extend %surface;
 
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
+    width: 400px;
+    padding: $space-xl;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: $space-xl;
 }

@@ -14,27 +14,13 @@
 }
 
 .calendarNavButton {
+    @extend %icon-button;
+
     width: 28px;
     height: 28px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 0;
-
-    border: none;
-    border-radius: $bd-radius;
-    background: transparent;
-
-    cursor: pointer;
-
     span {
         font-size: 20px;
-    }
-
-    &:hover {
-        background: $clr_grey;
     }
 }
 
@@ -48,7 +34,7 @@
         text-align: center;
 
         font-size: 11px;
-        color: $clr_greyDark;
+        color: var(--color-text-secondary);
     }
 
     span:nth-child(6),
@@ -64,40 +50,28 @@
 }
 
 .calendarDay {
+    @extend %button;
+
     width: 30px;
     height: 30px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     padding: 0;
 
-    border: none;
-    border-radius: $bd-radius;
-    background: transparent;
+    color: var(--color-text);
 
     font-size: 13px;
 
-    cursor: pointer;
-
-    transition:
-        background .15s,
-        transform .15s;
-
     &:hover {
-        background: $clr_grey;
-        // transform: scale(1.08);
-        @extend %ef_hover_btn;
+        background: var(--color-hover);
     }
 
     &.is-today {
-        color: $clr_accent;
+        color: var(--color-accent);
         font-weight: 600;
     }
 
     &.is-past {
-        color: $clr_greyMiddle;
+        color: var(--color-text-muted);
     }
 
     &.is-weekend {
@@ -105,8 +79,9 @@
     }
 
     &.is-selected {
-        background: $clr_accent;
-        color: white;
+        color: var(--color-on-accent);
+        background: var(--color-accent);
+
         font-weight: 600;
     }
 }

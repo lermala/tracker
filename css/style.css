@@ -92,186 +92,359 @@ h6 {
   font-weight: 400;
 }
 
-.settingsButton, .timerControl .timerButton, .calendarDay:hover, .deleteButton, .taskGroupInfo .taskGroupDeleteButton, .taskCheckbox, .addButtonIcon {
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+.taskPriority, .taskDueDate, .taskCheckbox, .addButtonIcon, .toolbarMenuOption, .projectItem,
+.addProjectButton, .sidebarUserMenu .sidebarUserMenuItem, .priorityPickerOption, .datePickerOption, .addCategoryButton, .settingsSelect, .segmentedControlButton, .toolbarButton, .timerControl .timerButton, .sidebarHeader .sidebarUserButton, .authSwitch, .calendarDay, .authSubmit, .addButton, .taskCardHeader .taskCardCloseButton, .settingsButton, .sidebarToggleButton, .calendarNavButton, .deleteButton, .taskGroupDeleteButton, .iconButton {
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
-.settingsButton:hover, .timerControl .timerButton:hover, .calendarDay:hover, .deleteButton:hover, .taskGroupInfo .taskGroupDeleteButton:hover, .taskCheckbox:hover, .addButtonIcon:hover {
-  transition: transform 0.2s, opacity 0.2s;
-  transform: scale(1.2);
+.taskPriority:active, .taskDueDate:active, .taskCheckbox:active, .addButtonIcon:active, .toolbarMenuOption:active, .projectItem:active,
+.addProjectButton:active, .sidebarUserMenu .sidebarUserMenuItem:active, .priorityPickerOption:active, .datePickerOption:active, .addCategoryButton:active, .settingsSelect:active, .segmentedControlButton:active, .toolbarButton:active, .timerControl .timerButton:active, .sidebarHeader .sidebarUserButton:active, .authSwitch:active, .calendarDay:active, .authSubmit:active, .addButton:active, .taskCardHeader .taskCardCloseButton:active, .settingsButton:active, .sidebarToggleButton:active, .calendarNavButton:active, .deleteButton:active, .taskGroupDeleteButton:active, .iconButton:active {
+  transform: scale(0.97);
+}
+
+.settingsSelect:hover, .sidebarHeader .sidebarUserButton:hover, .toolbarMenuOption:hover, .projectItem:hover,
+.addProjectButton:hover, .sidebarUserMenu .sidebarUserMenuItem:hover, .priorityPickerOption:hover, .datePickerOption:hover, .taskCardHeader .taskCardCloseButton:hover, .settingsButton:hover, .sidebarToggleButton:hover, .calendarNavButton:hover, .deleteButton:hover, .taskGroupDeleteButton:hover, .iconButton:hover {
+  background: var(--color-hover);
+}
+
+.toolbarMenuOption, .projectItem,
+.addProjectButton, .sidebarUserMenu .sidebarUserMenuItem, .priorityPickerOption, .datePickerOption, .addCategoryButton, .settingsSelect, .segmentedControlButton, .toolbarButton, .timerControl .timerButton, .sidebarHeader .sidebarUserButton, .authSwitch, .calendarDay, .authSubmit, .addButton, .taskCardHeader .taskCardCloseButton, .settingsButton, .sidebarToggleButton, .calendarNavButton, .deleteButton, .taskGroupDeleteButton, .iconButton {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.addCategoryButton, .settingsSelect, .segmentedControlButton, .toolbarButton, .timerControl .timerButton, .sidebarHeader .sidebarUserButton, .authSwitch, .calendarDay, .authSubmit, .addButton, .taskCardHeader .taskCardCloseButton, .settingsButton, .sidebarToggleButton, .calendarNavButton, .deleteButton, .taskGroupDeleteButton, .iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.taskCardHeader .taskCardCloseButton, .settingsButton, .sidebarToggleButton, .calendarNavButton, .deleteButton, .taskGroupDeleteButton, .iconButton {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.toolbarMenuOption, .projectItem,
+.addProjectButton, .sidebarUserMenu .sidebarUserMenuItem, .priorityPickerOption, .datePickerOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.taskCard, .authForm, .modal-content, .settingsSelectMenu, .settingsMenu, .sidebarUserMenu, .priorityPicker, .datePicker {
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}
+
+.settingsSelectMenu, .settingsMenu, .sidebarUserMenu, .priorityPicker, .datePicker {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.taskCardOverlay, .modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.task.is-chosen,
+.taskGroup.is-chosen {
+  cursor: grabbing;
+  transform: scale(1.01);
+  background: var(--color-surface);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.09);
+}
+
+.task.is-ghost,
+.taskGroup.is-ghost {
+  opacity: 0.8;
+  background: var(--color-hover);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: "Manrope", sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--color-scrollbar) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-hover);
+}
+
+:root,
+[data-theme=light] {
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f7f7f7;
+  --color-text: #19191c;
+  --color-text-secondary: #85898a;
+  --color-text-muted: #b2b5b6;
+  --color-border: #eeeeee;
+  --color-border-strong: #b2b5b6;
+  --color-hover: #eeeeee;
+  --color-focus: #d4d4d4;
+  --color-control: #404041;
+  --color-checkbox: #404041;
+  --color-checkbox-icon: var(--color-bg);
+  --color-scrollbar: #d4d4d4;
+  --color-scrollbar-hover: #b2b5b6;
+}
+
+[data-theme=dark] {
+  --color-bg: #18181a;
+  --color-surface: #202023;
+  --color-surface-secondary: #27272a;
+  --color-text: #eeeeef;
+  --color-text-secondary: #a4a4a8;
+  --color-text-muted: #74747a;
+  --color-border: #343438;
+  --color-border-strong: #4a4a50;
+  --color-hover: #303034;
+  --color-control: #a4a4a8;
+  --color-checkbox: #66666c;
+  --color-checkbox-icon: var(--color-bg);
+  --color-scrollbar: #4a4a50;
+  --color-scrollbar-hover: #5c5c63;
+}
+
+:root {
+  --color-accent: #cf6957;
+  --color-on-accent: #ffffff;
+  --color-accent-soft: rgba(207, 105, 87, .12);
 }
 
 .taskCheckbox, .addButtonIcon {
-  height: 20px;
   width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 18px;
-  cursor: pointer;
 }
 
-.taskCheckbox span, .addButtonIcon span {
-  color: white;
+.taskCheckbox span {
+  color: var(--color-on-accent);
   font-size: 16px;
 }
 
-.deleteButton span, .taskGroupInfo .taskGroupDeleteButton span {
+.deleteButton span, .taskGroupDeleteButton span {
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 16px;
 }
 
-.toolbarButton, .segmentedControlButton {
-  padding: 6px 12px;
-  background: transparent;
-  color: #19191c;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.15s ease;
-}
-.toolbarButton:hover, .segmentedControlButton:hover {
-  background: rgba(207, 105, 87, 0.12);
-}
-.toolbarButton:active, .segmentedControlButton:active {
-  transform: scale(0.97);
-}
-.active.toolbarButton, .active.segmentedControlButton {
-  background: rgba(207, 105, 87, 0.12);
-  color: #cf6957;
-}
-
-.toolbarButton, .segmentedControlButton {
-  padding: 6px 12px;
-  background: transparent;
-  color: #19191c;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.15s ease;
-}
-.toolbarButton:hover, .segmentedControlButton:hover {
-  background: rgba(207, 105, 87, 0.12);
-}
-.toolbarButton:active, .segmentedControlButton:active {
-  transform: scale(0.97);
-}
-.active.toolbarButton, .active.segmentedControlButton {
-  background: rgba(207, 105, 87, 0.12);
-  color: #cf6957;
-}
-
-.subtitle {
-  font-family: "Manrope", sans-serif;
-  font-weight: 800;
-  width: 100%;
-  padding: 6px 12px;
-  color: #19191c;
-  text-transform: uppercase;
-}
-
-.hidden {
-  display: none !important;
-}
-
+.hidden,
 [hidden] {
   display: none !important;
 }
 
 a {
-  color: #cf6957;
+  color: var(--color-accent);
   text-decoration: none;
 }
 a:hover {
   text-decoration: underline;
 }
 
-.modal {
+.taskDueDate {
+  display: inline-flex;
+  align-items: center;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 8px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: var(--color-text-secondary);
+  background: var(--color-hover);
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.taskDueDate:hover {
+  transform: scale(1.05);
+}
+
+.settingsSelectMenu, .settingsMenu, .sidebarUserMenu, .priorityPicker, .datePicker {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.toolbarMenuOption, .projectItem,
+.addProjectButton, .sidebarUserMenu .sidebarUserMenuItem, .priorityPickerOption, .datePickerOption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  font: inherit;
+  color: var(--color-text);
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+.toolbarMenuOption:hover, .projectItem:hover,
+.addProjectButton:hover, .sidebarUserMenu .sidebarUserMenuItem:hover, .priorityPickerOption:hover, .datePickerOption:hover {
+  background: var(--color-hover);
+}
+
+.taskCard, .authForm, .modal-content, .settingsSelectMenu, .settingsMenu, .sidebarUserMenu, .priorityPicker, .datePicker {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}
+
+.taskCardOverlay, .modal {
   position: fixed;
   inset: 0;
-  display: none;
-  justify-content: center;
+  display: flex;
   align-items: center;
+  justify-content: center;
   background: rgba(0, 0, 0, 0.35);
+}
+
+.modal {
   z-index: 1000;
+  display: none;
 }
 .modal.show {
   display: flex;
 }
-.modal .modal-content {
+
+.modal-content {
   width: 400px;
-  background: white;
-  border-radius: 4px;
   padding: 20px;
 }
-.modal .modal-header {
+
+.modal-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.iconButton {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .addButton {
-  display: flex;
-  align-items: center;
+  justify-content: flex-start;
   gap: 10px;
   padding: 10px;
-  background: transparent;
-  border: none;
-  color: #19191c;
-  cursor: pointer;
-  font-size: inherit;
 }
 .addButton:hover {
-  color: #cf6957;
+  color: var(--color-accent);
 }
 .addButton:hover .addButtonIcon {
-  color: white;
-  background: #cf6957;
+  color: var(--color-on-accent);
+  background: var(--color-accent);
 }
 
-.deleteButton, .taskGroupInfo .taskGroupDeleteButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  color: #85898a;
-  cursor: pointer;
+.deleteButton, .taskGroupDeleteButton {
+  color: var(--color-text-secondary);
 }
+.deleteButton:hover, .taskGroupDeleteButton:hover {
+  color: var(--color-danger);
+}
+.authSubmit {
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+}
+.authSubmit:hover {
+  opacity: 0.9;
+}
+
+.authInput {
+  width: 100%;
+  padding: 0 12px;
+  font: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+.authInput:hover {
+  border-color: var(--color-border-strong);
+}
+.authInput:focus {
+  border-color: var(--color-accent);
+}
+.authInput::-moz-placeholder {
+  color: var(--color-text-secondary);
+}
+.authInput::placeholder {
+  color: var(--color-text-secondary);
+}
+
 .datePicker {
   width: 240px;
   padding: 8px;
-  background: white;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   z-index: 1000;
-}
-
-.datePickerOption {
-  width: 100%;
-  padding: 7px 8px;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
-  text-align: left;
-  font-size: 13px;
-  cursor: pointer;
-}
-.datePickerOption:hover {
-  background: #eee;
 }
 
 .datePickerDivider {
   height: 1px;
   margin: 6px 0;
-  background: #eee;
+  background: var(--color-border);
 }
 
 .datePickerTime {
@@ -282,11 +455,11 @@ a:hover {
   border-radius: 4px;
 }
 .datePickerTime:focus-within, .datePickerTime:hover {
-  background: #eee;
+  background: var(--color-hover);
 }
 .datePickerTime .material-symbols-rounded {
   font-size: 18px;
-  color: #85898a;
+  color: var(--color-text-secondary);
 }
 
 .datePickerTimeInput {
@@ -297,13 +470,13 @@ a:hover {
   background: transparent;
   font: inherit;
   font-size: 13px;
-  color: #19191c;
+  color: var(--color-text);
 }
 .datePickerTimeInput::-moz-placeholder {
-  color: #85898a;
+  color: var(--color-text-secondary);
 }
 .datePickerTimeInput::placeholder {
-  color: #85898a;
+  color: var(--color-text-secondary);
 }
 
 .calendarHeader {
@@ -322,20 +495,9 @@ a:hover {
 .calendarNavButton {
   width: 28px;
   height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
-  cursor: pointer;
 }
 .calendarNavButton span {
   font-size: 20px;
-}
-.calendarNavButton:hover {
-  background: #eee;
 }
 
 .calendarWeekdays {
@@ -346,7 +508,7 @@ a:hover {
 .calendarWeekdays span {
   text-align: center;
   font-size: 11px;
-  color: #85898a;
+  color: var(--color-text-secondary);
 }
 .calendarWeekdays span:nth-child(6),
 .calendarWeekdays span:nth-child(7) {
@@ -362,33 +524,26 @@ a:hover {
 .calendarDay {
   width: 30px;
   height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 0;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
+  color: var(--color-text);
   font-size: 13px;
-  cursor: pointer;
-  transition: background 0.15s, transform 0.15s;
 }
 .calendarDay:hover {
-  background: #eee;
+  background: var(--color-hover);
 }
 .calendarDay.is-today {
-  color: #cf6957;
+  color: var(--color-accent);
   font-weight: 600;
 }
 .calendarDay.is-past {
-  color: #b2b5b6;
+  color: var(--color-text-muted);
 }
 .calendarDay.is-weekend {
   font-weight: 700;
 }
 .calendarDay.is-selected {
-  background: #cf6957;
-  color: white;
+  color: var(--color-on-accent);
+  background: var(--color-accent);
   font-weight: 600;
 }
 
@@ -409,7 +564,7 @@ a:hover {
   color: inherit;
 }
 .textEditor:focus {
-  outline-color: #d4d4d4;
+  outline-color: var(--color-focus);
 }
 
 textarea.textEditor {
@@ -421,6 +576,16 @@ textarea.textEditor.taskTitle {
   width: 100%;
   min-width: 0;
   flex: none;
+}
+
+.priorityPicker {
+  position: fixed;
+  z-index: 10000;
+  min-width: 180px;
+}
+
+.priorityPickerOption.is-selected {
+  background: var(--color-hover);
 }
 
 .priorityDot {
@@ -441,33 +606,7 @@ textarea.textEditor.taskTitle {
 }
 .priorityDot[data-priority=none] {
   background: transparent;
-  border: 1px solid #404041;
-}
-
-.priorityPicker {
-  position: fixed;
-  z-index: 10000;
-  min-width: 180px;
-  background: white;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.priorityPickerOption {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 10px 14px;
-  font: inherit;
-  text-align: left;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-.priorityPickerOption:hover, .priorityPickerOption.is-selected {
-  background: #eee;
+  border: 1px solid var(--color-control);
 }
 
 .authPage {
@@ -476,7 +615,7 @@ textarea.textEditor.taskTitle {
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: rgba(238, 238, 238, 0.4);
+  background: var(--color-bg);
 }
 
 .authForm {
@@ -485,101 +624,25 @@ textarea.textEditor.taskTitle {
   display: flex;
   flex-direction: column;
   padding: 32px;
-  background: white;
-  border: 1px solid #eee;
-  border-radius: 4px;
-}
-
-.authHeader {
-  margin-bottom: 28px;
-}
-
-.authTitle {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.authSubtitle {
-  margin: 8px 0 0;
-  font-size: 14px;
-  color: #85898a;
-}
-
-.authFields {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.authField {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.authLabel {
-  font-size: 13px;
-  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .authInput {
-  width: 100%;
   height: 40px;
-  padding: 0 12px;
-  font: inherit;
-  background: white;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  outline: none;
-  transition: border-color 0.15s;
-}
-.authInput:focus {
-  border-color: #b2b5b6;
-}
-.authInput::-moz-placeholder {
-  color: #85898a;
-}
-.authInput::placeholder {
-  color: #85898a;
-}
-
-.authError {
-  min-height: 18px;
-  margin-top: 8px;
-  font-size: 13px;
-  color: #ff0000;
 }
 
 .authSubmit {
   height: 40px;
   margin-top: 6px;
-  font: inherit;
   font-weight: 500;
-  color: white;
-  background: #cf6957;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: opacity 0.15s, transform 0.1s;
-}
-.authSubmit:hover {
-  opacity: 0.9;
-}
-.authSubmit:active {
-  transform: scale(0.98);
 }
 
 .authSwitch {
   align-self: center;
-  margin-top: 16px;
+  margin-top: 20px;
   padding: 4px;
-  font: inherit;
+  color: var(--color-accent);
   font-size: 13px;
-  color: #cf6957;
-  background: transparent;
-  border: none;
-  cursor: pointer;
 }
 .authSwitch:hover {
   text-decoration: underline;
@@ -597,8 +660,8 @@ textarea.textEditor.taskTitle {
   display: flex;
   flex-direction: column;
   padding: 14px 8px;
-  background: rgba(238, 238, 238, 0.4);
-  border-right: 1px solid #eee;
+  background: var(--color-surface-secondary);
+  border-right: 1px solid var(--color-border);
   transition: width 0.2s ease;
 }
 .sidebar.is-collapsed {
@@ -622,6 +685,7 @@ textarea.textEditor.taskTitle {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: var(--color-text);
 }
 .sidebarHeader .sidebarUser {
   position: relative;
@@ -629,30 +693,21 @@ textarea.textEditor.taskTitle {
   flex: 1;
 }
 .sidebarHeader .sidebarUserButton {
-  display: flex;
-  align-items: center;
+  justify-content: flex-start;
   gap: 8px;
   max-width: 100%;
   padding: 6px;
-  background: transparent;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.sidebarHeader .sidebarUserButton:hover {
-  background: #eee;
 }
 .sidebarHeader .sidebarUserAvatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 24px;
   height: 24px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
-  background: #b2b5b6;
-  background: #cf6957;
-  color: white;
+  color: var(--color-on-accent);
+  background: var(--color-accent);
   font-size: 13px;
   font-weight: 600;
 }
@@ -672,12 +727,12 @@ textarea.textEditor.taskTitle {
   padding: 6px;
 }
 .sidebarContent .sidebarTitle {
-  padding: 8px 4px;
   margin-top: 14px;
+  padding: 8px 4px;
+  color: var(--color-text);
   font-size: 14px;
-  line-height: 1.2;
   font-weight: 700;
-  color: #404041;
+  line-height: 1.2;
 }
 .sidebarContent .projectList {
   display: flex;
@@ -692,69 +747,30 @@ textarea.textEditor.taskTitle {
   right: 0;
   z-index: 100;
   padding: 6px;
-  background: white;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 .sidebarUserMenu .sidebarUserInfo {
   padding: 8px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border);
 }
 .sidebarUserMenu .sidebarUserMenuName {
   font-weight: 500;
 }
 .sidebarUserMenu .sidebarUserEmail {
   margin-top: 2px;
-  font-size: 12px;
-  opacity: 0.6;
   overflow: hidden;
+  color: var(--color-text-secondary);
+  font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .sidebarUserMenu .sidebarUserMenuItem {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
   margin-top: 4px;
-  padding: 8px;
-  background: transparent;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.sidebarUserMenu .sidebarUserMenuItem:hover {
-  background: #eee;
-}
-.sidebarUserMenu .sidebarUserMenuItem .material-symbols-rounded {
-  font-size: 18px;
 }
 
-.projectItem,
-.addProjectButton {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 8px;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-.projectItem:hover,
-.addProjectButton:hover {
-  background: #eee;
-}
-
-.projectItem.is-active {
-  background: #eee;
-  background: rgba(207, 105, 87, 0.1);
-  color: #cf6957;
-  font-weight: 500;
+.projectItem.is-active,
+.addProjectButton.is-active {
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
 }
 
 .projectColor {
@@ -762,7 +778,7 @@ textarea.textEditor.taskTitle {
   height: 8px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: #cf6957;
+  background: var(--color-accent);
 }
 
 .projectTitle {
@@ -772,68 +788,47 @@ textarea.textEditor.taskTitle {
 }
 
 .addProjectButton {
-  margin-top: 8px;
-  color: #85898a;
-}
-.addProjectButton .material-symbols-rounded {
-  font-size: 18px;
+  color: var(--color-text-secondary);
 }
 
-.sidebarToggleButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  border-radius: 4px;
-  cursor: pointer;
-}
 .sidebarToggleButton .material-symbols-rounded {
   font-size: 20px;
-}
-.sidebarToggleButton:hover {
-  background: #eee;
 }
 
 .task {
   display: flex;
   align-items: flex-start;
   width: 100%;
-  line-height: 20px;
   gap: 10px;
   padding: 10px;
-  color: #19191c;
-  transition: 0.2s;
+  color: var(--color-text);
+  line-height: 20px;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
-.task .taskDueDate.is-empty {
-  opacity: 0;
-  visibility: hidden;
-}
-.task .deleteButton, .task .taskGroupInfo .taskGroupDeleteButton, .taskGroupInfo .task .taskGroupDeleteButton {
+.task .taskDueDate.is-empty,
+.task .deleteButton,
+.task .taskGroupDeleteButton {
   opacity: 0;
   visibility: hidden;
 }
 body:not(.is-dragging) .task:hover {
-  border-color: #b2b5b6;
+  border-color: var(--color-border-strong);
 }
 body:not(.is-dragging) .task:hover .taskDueDate.is-empty,
 body:not(.is-dragging) .task:hover .deleteButton,
-body:not(.is-dragging) .task:hover .taskGroupInfo .taskGroupDeleteButton,
-.taskGroupInfo body:not(.is-dragging) .task:hover .taskGroupDeleteButton {
+body:not(.is-dragging) .task:hover .taskGroupDeleteButton {
   opacity: 1;
   visibility: visible;
 }
 
 .taskCheckbox {
-  border: 1px solid #404041;
+  border: 1px solid var(--color-checkbox);
   background: transparent;
 }
 .taskCheckbox span {
   opacity: 0;
   transition: opacity 0.2s ease;
+  color: var(--color-checkbox-icon);
 }
 .taskCheckbox:not(.is-completed)[data-priority=high] {
   border: 2px solid #e5484d;
@@ -847,12 +842,12 @@ body:not(.is-dragging) .task:hover .taskGroupInfo .taskGroupDeleteButton,
   border: 2px solid #4c8bf5;
   background: rgba(76, 139, 245, 0.1);
 }
-.taskCheckbox:not(.is-completed) :hover span {
+.taskCheckbox:not(.is-completed):hover span {
   opacity: 1;
   color: inherit;
 }
 .taskCheckbox.is-completed {
-  background: #404041;
+  background: var(--color-checkbox);
 }
 .taskCheckbox.is-completed span {
   opacity: 1;
@@ -867,9 +862,9 @@ body:not(.is-dragging) .task:hover .taskGroupInfo .taskGroupDeleteButton,
 .taskContent {
   display: flex;
   flex: 1;
-  color: #19191c;
-  background: transparent;
   gap: 8px;
+  color: var(--color-text);
+  background: transparent;
 }
 
 .taskTitle {
@@ -880,47 +875,39 @@ body:not(.is-dragging) .task:hover .taskGroupInfo .taskGroupDeleteButton,
 
 .taskDuration {
   width: 60px;
-  color: #85898a;
+  color: var(--color-text-secondary);
 }
 
 .taskPriority {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
 }
 .taskPriority .taskPriorityText {
+  color: var(--color-text);
   white-space: nowrap;
-  color: #19191c;
 }
 
 .timerControl {
   display: flex;
-  gap: 2px;
   align-items: center;
+  gap: 2px;
 }
 .timerControl .timerButton {
-  display: flex;
   padding: 0;
-  margin: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
 }
-.timerControl .timerButton:active {
-  transform: scale(0.95);
+.timerControl .timerButton:hover {
+  color: var(--color-accent);
 }
 .timerControl .timerButton span {
   font-size: 18px;
-  color: #85898a;
+  color: var(--color-text-secondary);
   line-height: 1;
 }
-
-.taskDueDate.is-empty {
-  opacity: 0;
-  background: transparent;
-  border-color: #b2b5b6;
+.timerControl .timerButton:hover span {
+  color: inherit;
 }
+
 .taskDueDate.is-overdue {
   color: #ff0000;
   background: rgba(255, 0, 0, 0.1);
@@ -937,54 +924,30 @@ body:not(.is-dragging) .task:hover .taskGroupInfo .taskGroupDeleteButton,
   color: #5074a6;
   background: rgba(80, 116, 166, 0.1);
 }
-.taskDueDate {
-  display: inline-flex;
-  align-items: center;
-  width: -moz-fit-content;
-  width: fit-content;
-  padding: 2px 8px;
-  border-radius: 12px;
-  background: rgba(133, 137, 138, 0.1);
-  border: 1px solid transparent;
-  color: #85898a;
-  font-size: 12px;
-  line-height: 1.2;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: transform 0.2s, opacity 0.2s;
-}
-.taskDueDate:hover {
-  transform: scale(1.05);
+
+.task.is-dragging,
+.taskGroup.is-dragging {
+  cursor: grabbing;
 }
 
 body:not(.is-dragging) .task:hover {
-  border-color: #b2b5b6;
+  border-color: var(--color-border-strong);
 }
 .task.is-completed .taskTitle {
-  color: #85898a;
+  color: var(--color-text-secondary);
 }
 .task.is-completed .taskDuration {
   opacity: 0.6;
 }
 .task.is-running .timerControl {
-  color: #19191c;
-  color: #cf6957;
+  color: var(--color-accent);
   animation: runningPulse 1.8s ease-in-out infinite;
 }
 .task.is-running .timerControl span {
-  color: #cf6957;
+  color: var(--color-accent);
   font-weight: 500;
 }
-.task.is-chosen {
-  cursor: grabbing;
-  transform: scale(1.01);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.09);
-  background: white;
-}
-.task.is-ghost {
-  opacity: 0.8;
-  background: #eee;
-}
+
 @keyframes runningPulse {
   0%, 100% {
     transform: scale(1);
@@ -1016,7 +979,7 @@ body:not(.is-dragging) .task:hover {
   align-items: center;
   gap: 8px;
   padding: 14px 20px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border);
   flex-shrink: 0;
 }
 
@@ -1035,48 +998,40 @@ body:not(.is-dragging) .task:hover {
 .segmentedControl {
   display: inline-flex;
   overflow: hidden;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
 }
 
-.segmentedControlButton {
-  position: relative;
+.segmentedControlButton, .toolbarButton {
+  padding: 6px 12px;
+}
+.segmentedControlButton:hover, .toolbarButton:hover {
+  background: var(--color-accent-soft);
+}
+.segmentedControlButton.active, .active.toolbarButton {
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
 }
 
 .toolbarButton {
-  border: 1px solid #eee;
-  border-radius: 4px;
+  border: 1px solid var(--color-border);
 }
 
 .settingsGroup {
   position: relative;
-  font-size: inherit;
 }
 
 .settingsButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
-  color: #85898a;
-  cursor: pointer;
+  color: var(--color-text-secondary);
 }
 
 .settingsMenu {
   position: absolute;
   top: calc(100% + 6px);
   right: 0;
+  z-index: 100;
   width: 200px;
   padding: 14px;
-  color: #19191c;
-  background: white;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  z-index: 100;
 }
 
 .settingsMenuTitle {
@@ -1087,58 +1042,31 @@ body:not(.is-dragging) .task:hover {
 .settingsItem {
   position: relative;
 }
-.settingsItem + .settingsItem + .settingsItem + .settingsItem {
-  margin-top: 16px;
+.settingsItem + .settingsItem {
+  margin-top: 14px;
 }
-.settingsItem .settingsSelect {
-  display: flex;
-  align-items: center;
+
+.settingsSelect {
   justify-content: space-between;
   width: 100%;
   padding: 6px 12px;
-  font-size: inherit;
-  background: transparent;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  cursor: pointer;
+  border: 1px solid var(--color-border);
 }
-.settingsItem .settingsSelect:hover {
-  background: #eee;
-}
-.settingsItem .settingsSelect .material-symbols-rounded {
+.settingsSelect .material-symbols-rounded {
   font-size: inherit;
 }
-.settingsItem .settingsSelectMenu {
+
+.settingsSelectMenu {
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
+  z-index: 110;
   width: 100%;
   padding: 6px;
-  background: white;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.09);
-  z-index: 110;
 }
 
-.toolbarMenuOption {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 6px 8px;
-  font: inherit;
-  color: #19191c;
-  text-align: left;
-  background: transparent;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.toolbarMenuOption:hover {
-  background: #eee;
-}
 .toolbarMenuOption.active {
-  color: #cf6957;
+  color: var(--color-accent);
   font-weight: 600;
 }
 
@@ -1146,19 +1074,6 @@ body:not(.is-dragging) .task:hover {
   min-width: 0;
   padding: 8px;
   border-radius: 4px;
-}
-.taskGroup.is-chosen {
-  cursor: grabbing;
-  transform: scale(1.01);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.09);
-  background: white;
-}
-.taskGroup.is-ghost {
-  opacity: 0.8;
-  background: #eee;
-}
-.taskGroup.is-dragging {
-  cursor: grabbing;
 }
 
 .taskGroupHeader {
@@ -1169,20 +1084,20 @@ body:not(.is-dragging) .task:hover {
 .taskGroupInfo {
   display: flex;
   align-items: center;
-  width: 100%;
   gap: 6px;
+  width: 100%;
+  color: var(--color-text);
   font-size: 18px;
   font-weight: 700;
   line-height: 1.4;
-  color: inherit;
-  color: #19191c;
 }
-.taskGroupInfo .taskGroupDeleteButton {
+
+.taskGroupDeleteButton {
   margin-left: auto;
 }
 
 .taskGroupCounter {
-  color: #85898a;
+  color: var(--color-text-secondary);
   font-weight: 500;
 }
 
@@ -1198,20 +1113,17 @@ body:not(.is-dragging) .task:hover {
 }
 
 .addCategoryButton {
-  display: flex;
+  justify-content: flex-start;
   width: 100%;
   padding: 10px;
-  color: #85898a;
-  border: none;
-  border-radius: 4px;
-  background: #eee;
-  cursor: pointer;
+  color: var(--color-text-secondary);
+  background: var(--color-hover);
+}
+.addCategoryButton:hover {
+  color: var(--color-accent);
 }
 .addCategoryButton .addButtonIcon {
   flex-shrink: 0;
-}
-.addCategoryButton:hover {
-  color: #cf6957;
 }
 
 .taskCard {
@@ -1220,8 +1132,6 @@ body:not(.is-dragging) .task:hover {
   max-height: min(900px, 100vh - 48px);
   display: flex;
   flex-direction: column;
-  background: white;
-  border-radius: 4px;
   overflow: hidden;
 }
 .taskCard .taskDueDate.is-empty {
@@ -1236,24 +1146,10 @@ body:not(.is-dragging) .task:hover {
   justify-content: flex-end;
   align-items: center;
   padding-inline: 10px;
-  border-bottom: 1px solid #eee;
-}
-.taskCardHeader .taskCardCloseButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px;
-  border: none;
-  background: transparent;
-  border-radius: 4px;
-  cursor: pointer;
+  border-bottom: 1px solid var(--color-border);
 }
 .taskCardHeader .taskCardCloseButton span {
   font-size: 18px;
-  color: #404041;
-}
-.taskCardHeader .taskCardCloseButton:hover {
-  background: #eee;
 }
 
 .taskCardLayout {
@@ -1289,7 +1185,7 @@ body:not(.is-dragging) .task:hover {
   margin-top: 14px;
   font-size: 14px;
   line-height: 1.5;
-  color: #19191c;
+  color: var(--color-text);
   white-space: pre-wrap;
 }
 .taskCardContent .taskCardMain .taskCardBody .taskCardDescription.is-empty {
@@ -1298,30 +1194,24 @@ body:not(.is-dragging) .task:hover {
 
 .taskCardProperties {
   padding: 14px;
-  border-left: 1px solid #eee;
-  background: rgba(238, 238, 238, 0.4);
   overflow-y: auto;
+  background: var(--color-surface-secondary);
+  border-left: 1px solid var(--color-border);
 }
 .taskCardProperties .taskCardProperty {
   padding-block: 8px;
 }
 .taskCardProperties .taskCardProperty:not(:last-child) {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border);
 }
 .taskCardProperties .taskCardPropertyLabel {
   margin-bottom: 6px;
+  color: var(--color-text-secondary);
   font-size: 12px;
-  color: #85898a;
 }
 
 .taskCardOverlay {
-  position: fixed;
-  inset: 0;
   z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.25);
 }
 .taskCardOverlay.hidden {
   display: none;
@@ -1350,7 +1240,7 @@ body:not(.is-dragging) .task:hover {
   right: 0;
   bottom: -4px;
   height: 1px;
-  background: #eee;
+  background: var(--color-border);
 }
 .listView .taskContent {
   display: grid;
@@ -1400,23 +1290,19 @@ body:not(.is-dragging) .task:hover {
 }
 .boardView .task {
   align-items: flex-start;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
 }
 .boardView .taskContent {
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: flex-start;
-  gap: 6px;
   min-width: 0;
-  flex: 1;
+  gap: 6px;
 }
 .boardView .taskTitle {
   width: 100%;
-}
-.boardView .timerControl {
-  display: flex;
-  align-items: center;
 }
 .boardView .taskMeta {
   display: flex;
@@ -1425,73 +1311,4 @@ body:not(.is-dragging) .task:hover {
 }
 .boardView .taskDueDate {
   margin-left: auto;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-}
-
-html {
-  height: 100%;
-}
-
-body {
-  font-family: "Manrope", sans-serif;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.header {
-  font-weight: 700;
-  background-color: #19191c;
-  color: #b2b5b6;
-  width: 100%;
-  height: 45px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 10px;
-  border-bottom: 1px solid #85898a;
-  flex: 0 0 auto;
-}
-.header__title {
-  font-size: 20px;
-  font-weight: 600;
-  color: #eee;
-  word-spacing: 3px;
-  font-family: "Manrope", sans-serif;
-}
-.header .menuHorizontal > ul {
-  display: flex;
-}
-.header .menuHorizontal > ul > li {
-  margin-right: 20px;
-}
-.header .menuHorizontal > ul > li:last-child {
-  margin-right: 0px;
-}
-
-.content {
-  display: flex;
-  flex: 1 1 auto;
-  min-height: 0;
-  justify-content: space-between;
-}
-.content__wheel {
-  margin: 0px auto;
-  padding: 20px 0px;
-}
-.content__wheel #wheelBalance {
-  border: 1px solid #000;
-}
-.content__menu {
-  display: flex;
-  width: 280px;
-}
-
-footer {
-  /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
-  flex: 0 0 auto;
 }

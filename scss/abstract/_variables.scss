@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+
+// ===== Fixed colors =====
+
+$clr-overdue: #ff0000;
+$clr-today: #e74d3b;
+$clr-tomorrow: #3f7d57;
+$clr-this-week: #5074a6;
+
+
+// ===== Semantic fixed colors =====
+
+$clr-priority-high: #e5484d;
+$clr-priority-medium: #f5a623;
+$clr-priority-low: #4c8bf5;
+
+$clr-success: #4f9d69;
+$clr-danger: #e5484d;
+
+// ===== Spacing =====
+
+$space-xxs: 4px;
+$space-xs: 6px;
+$space-s: 8px;
+$space-m: 10px;
+$space-md: 12px;
+$space-l: 14px;
+$space-xl: 20px;
+$space-xxl: 24px;
+
+// ===== Other =====
+$shadow: 0 4px 12px rgba(0, 0, 0, .08);
+$shadow-dark: 0 4px 12px rgba(0, 0, 0, .09);
+
+$bd-radius: 4px;

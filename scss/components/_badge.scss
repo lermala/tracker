@@ -1,0 +1,27 @@
+%badge {
+    display: inline-flex;
+    align-items: center;
+
+    width: fit-content;
+
+    padding: 2px $space-s;
+
+    border: 1px solid transparent;
+    border-radius: 12px;
+
+    color: var(--color-text-secondary);
+    background: var(--color-hover);
+
+    font-size: 12px;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+%interactive-badge {
+    @extend %badge;
+    @extend %interactive;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}

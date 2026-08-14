@@ -1,60 +1,40 @@
 .datePicker {
+    @extend %popover;
+
     width: 240px;
-    padding: 8px;
-
-    background: white;
-
-    border: 1px solid $clr_grey;
-    border-radius: $bd-radius;
-
-    box-shadow: $shadow;
+    padding: $space-s;
 
     z-index: 1000;
 }
 
 .datePickerOption {
-    width: 100%;
-
-    padding: 7px 8px;
-
-    border: none;
-    border-radius: $bd-radius;
-    background: transparent;
-
-    text-align: left;
-    font-size: 13px;
-
-    cursor: pointer;
-
-    &:hover {
-        background: $clr_grey;
-    }
+    @extend %menu-option;
 }
 
 .datePickerDivider {
     height: 1px;
-    margin: 6px 0;
+    margin: $space-xs 0;
 
-    background: $clr_grey;
+    background: var(--color-border);
 }
 
 .datePickerTime {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: $space-s;
 
-    padding: 8px;
+    padding: $space-s;
 
     border-radius: $bd-radius;
 
     &:focus-within,
     &:hover {
-        background: $clr_grey;
+        background: var(--color-hover);
     }
 
     .material-symbols-rounded {
         font-size: 18px;
-        color: $clr_greyDark;
+        color: var(--color-text-secondary);
     }
 }
 
@@ -65,13 +45,14 @@
 
     border: none;
     outline: none;
+
     background: transparent;
 
     font: inherit;
     font-size: 13px;
-    color: $clr_black;
+    color: var(--color-text);
 
     &::placeholder {
-        color: $clr_greyDark;
+        color: var(--color-text-secondary);
     }
 }

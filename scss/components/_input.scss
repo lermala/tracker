@@ -1,0 +1,29 @@
+%input {
+    width: 100%;
+
+    padding: 0 $space-md;
+
+    font: inherit;
+    color: var(--color-text);
+
+    background: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+    border-radius: $bd-radius;
+
+    outline: none;
+
+    transition: border-color .15s ease;
+
+    &:hover {
+        border-color: var(--color-border-strong);
+    }
+
+    &:focus {
+        border-color: var(--color-accent);
+    }
+
+    &::placeholder {
+        color: var(--color-text-secondary);
+    }
+}

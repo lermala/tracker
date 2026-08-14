@@ -1,0 +1,135 @@
+// ======================================
+// Interaction
+// ======================================
+
+%interactive {
+    cursor: pointer;
+
+    transition:
+        background-color .15s ease,
+        color .15s ease,
+        border-color .15s ease,
+        transform .15s ease;
+
+    &:active {
+        transform: scale(.97);
+    }
+}
+
+%hover-surface {
+    &:hover {
+        background: var(--color-hover);
+    }
+}
+
+%hover-accent {
+    &:hover {
+        color: var(--color-accent);
+        background: var(--color-accent-soft);
+    }
+}
+
+
+// ======================================
+// Controls
+// ======================================
+
+%control-reset {
+    margin: 0;
+    padding: 0;
+
+    font: inherit;
+    color: inherit;
+
+    background: transparent;
+    border: none;
+
+    appearance: none;
+}
+
+%button {
+    @extend %control-reset;
+    @extend %interactive;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: $bd-radius;
+}
+
+%icon-button {
+    @extend %button;
+    @extend %hover-surface;
+
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
+}
+
+%menu-option {
+    @extend %control-reset;
+    @extend %interactive;
+    @extend %hover-surface;
+
+    display: flex;
+    align-items: center;
+    gap: $space-s;
+
+    width: 100%;
+    padding: $space-s $space-m;
+
+    border-radius: $bd-radius;
+
+    text-align: left;
+}
+
+
+// ======================================
+// Surfaces
+// ======================================
+
+%surface {
+    color: var(--color-text);
+    background: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+    border-radius: $bd-radius;
+}
+
+%popover {
+    @extend %surface;
+
+    box-shadow: $shadow;
+}
+
+%overlay {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, .25);
+}
+
+
+// ======================================
+// Drag & Drop
+// ======================================
+
+%drag-chosen {
+    cursor: grabbing;
+
+    transform: scale(1.01);
+
+    background: var(--color-surface);
+    box-shadow: $shadow-dark;
+}
+
+%drag-ghost {
+    opacity: .8;
+    background: var(--color-hover);
+}

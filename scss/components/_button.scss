@@ -1,55 +1,50 @@
 .iconButton {
-    width: 32px;
-    height: 32px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @extend %icon-button;
 }
 
 .addButton {
-    display: flex;
-    align-items: center;
-    gap: $gap_default;
-    padding: $pd_default;
+    @extend %button;
 
-    background: transparent;
-    border: none;
-    color: $clr_black;
-    cursor: pointer;
-    font-size: inherit;
+    justify-content: flex-start;
+
+    gap: $space-m;
+    padding: $space-m;
 
     &:hover {
-        color: $clr_accent;
+        color: var(--color-accent);
 
         .addButtonIcon {
-            color: white;
-            background: $clr_accent;
+            color: var(--color-on-accent);
+            background: var(--color-accent);
         }
     }
 }
 
 .addButtonIcon {
     @extend %circle;
-
-    span {
-        @extend %circleIcon;
-    }
 }
 
 .deleteButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @extend %icon-button;
 
-    background: transparent;
+    color: var(--color-text-secondary);
 
-    color: $clr_greyDark;
-    cursor: pointer;
-
-    @extend %ef_hover_btn;
+    &:hover {
+        color: var(--color-danger);
+    }
 
     span {
         @extend %icon;
+    }
+}
+
+%button-primary {
+    @extend %button;
+
+    color: var(--color-on-accent);
+    background: var(--color-accent);
+
+    &:hover {
+        opacity: .9;
     }
 }

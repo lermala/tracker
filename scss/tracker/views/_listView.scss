@@ -18,7 +18,6 @@
         border: none;
 
         &::after {
-            // разделитель после задач
             content: "";
 
             position: absolute;
@@ -27,41 +26,38 @@
             bottom: -4px;
 
             height: 1px;
-            background: $clr_grey;
+
+            background: var(--color-border);
         }
     }
 
-    .taskContent {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: start;
-        width: 100%;
-        min-width: 0;
-    }
+.taskContent {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    width: 100%;
+    min-width: 0;
+}
 
-    .taskTitle {
-        flex: 1;
-        min-width: 0;
-    }
+.taskTitle {
+    flex: 1;
+    min-width: 0;
+}
 
-    .taskMeta {
-        display: grid;
-        grid-template-columns: auto 100px;
-        align-items: center;
-        gap: $space-s;
-    }
+.taskMeta {
+    display: grid;
+    grid-template-columns: auto 100px;
+    align-items: center;
+    gap: $space-s;
+}
 
-    .taskDueDate {
-        justify-self: start;
-        width: fit-content;
-    }
+.taskDueDate {
+    justify-self: start;
+    width: fit-content;
+}
 }
 
 .tasksContainer:has(.listView) {
-    .tasksHeader {
-        // padding-inline: $space-m;
-    }
-
     .tasksHeaderTitle {
         width: 100%;
         max-width: 800px;

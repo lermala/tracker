@@ -1,21 +1,22 @@
 %circle {
-    height: 20px;
+    @extend %interactive;
+
     width: 20px;
-    border-radius: $bd-radius;
+    height: 20px;
 
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: $bd-radius;
 
     font-size: 18px;
-
-    cursor: pointer;
-
-    @extend %ef_hover_btn;
 }
 
 %circleIcon {
-    color: white;
+    color: var(--color-on-accent);
     font-size: 16px;
 }
 
@@ -28,9 +29,9 @@
 }
 
 %toolbar-button {
-    padding: $pd_components;
     background: transparent;
-    color: $clr_black;
+    color: var(--color-text);
+
     cursor: pointer;
 
     transition:
@@ -38,7 +39,7 @@
         transform .15s ease;
 
     &:hover {
-        background: rgba($clr_accent, .12);
+        background: var(--color-accent-soft);
     }
 
     &:active {
@@ -46,54 +47,18 @@
     }
 
     &.active {
-        background: rgba($clr_accent, .12);
-        color: $clr_accent;
+        background: var(--color-accent-soft);
+        color: var(--color-accent);
     }
 }
 
-%toolbar-button {
-    padding: $pd_components;
-    background: transparent;
-    color: $clr_black;
-    cursor: pointer;
-
-    transition:
-        background-color .2s ease,
-        transform .15s ease;
-
-    &:hover {
-        background: rgba($clr_accent, .12);
-    }
-
-    &:active {
-        transform: scale(.97);
-    }
-
-    &.active {
-        background: rgba($clr_accent, .12);
-        color: $clr_accent;
-    }
-}
-
-.subtitle {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 800;
-    width: 100%;
-    padding: $pd_components;
-    color: $clr_black;
-    text-transform: uppercase;
-}
-
-.hidden {
-    display: none !important;;
-}
-
+.hidden,
 [hidden] {
     display: none !important;
 }
 
 a {
-    color: $clr_accent;
+    color: var(--color-accent);
     text-decoration: none;
 
     &:hover {

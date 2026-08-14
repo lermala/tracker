@@ -1,7 +1,22 @@
-@import "_nullstyle";
-@import "_variables"; // миксины, цвета, шрифты
+@import "abstract/_nullstyle";
+@import "abstract/_variables";
+@import "abstract/_placeholders";
+
+
+@import "base/_base";
+
+
+
+@import "themes/_light";
+@import "themes/_dark";
+@import "themes/_accent";
+
+
 @import "_common"; // общие элементы
 
+@import "components/_badge";
+@import "components/_popover";
+@import "components/_surface";
 @import "components/_modal";
 @import "components/_button";
 @import "components/_input";
@@ -10,7 +25,8 @@
 @import "components/_textEditor";
 @import "components/_priorityPicker";
 
-@import "tracker/_auth";
+@import "pages/_auth";
+
 @import "tracker/_sidebar";
 @import "tracker/_task";
 @import "tracker/_taskstates";
@@ -22,87 +38,3 @@
 @import "tracker/views/_listView";
 @import "tracker/views/_boardView";
 @import "tracker/views/_calendarView";
-
-
-* {
-    padding: 0;
-    margin: 0;
-}
-
-html {
-    height: 100%;
-}
-
-body {
-    font-family: 'Manrope', sans-serif;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.header {
-    font-weight: 700;
-    background-color: $clr_black;
-    color: $clr_greyMiddle;
-    width: 100%;
-    height: 45px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
-    border-bottom: 1px solid $clr_greyDark;
-    flex: 0 0 auto; // todo
-
-    &__title {
-        font-size: 20px;
-        font-weight: 600;
-        color: $clr_grey;
-        word-spacing: 3px;
-        font-family: 'Manrope', sans-serif;
-    }
-
-    &__menu {}
-
-    .menuHorizontal {
-        >ul {
-            display: flex;
-
-            >li {
-                margin-right: 20px;
-
-                &:last-child {
-                    margin-right: 0px;
-                }
-            }
-        }
-    }
-}
-
-.content {
-    display: flex;
-    flex: 1 1 auto;
-    min-height: 0;
-
-    justify-content: space-between;
-
-    &__wheel {
-        margin: 0px auto;
-        padding: 20px 0px;
-
-        .canvasContainer {}
-
-        #wheelBalance {
-            border: 1px solid #000;
-        }
-    }
-
-    &__menu {
-        display: flex;
-        width: 280px;
-    }
-}
-
-footer {
-    /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
-    flex: 0 0 auto;
-}

@@ -3,23 +3,6 @@
     padding: $space-s;
 
     border-radius: $bd-radius;
-    //cursor: grabbing;
-
-    &.is-chosen {
-        cursor: grabbing;
-        transform: scale(1.01);
-        box-shadow: $shadow-dark;
-        background: white;
-    }
-
-    &.is-ghost {
-        opacity: 0.8;
-        background: $clr_grey;
-    }
-
-    &.is-dragging {
-        cursor: grabbing;
-    }
 }
 
 .taskGroupHeader {
@@ -30,26 +13,25 @@
 .taskGroupInfo {
     display: flex;
     align-items: center;
-    width: 100%;
     gap: $space-xs;
+
+    width: 100%;
+
+    color: var(--color-text);
 
     font-size: 18px;
     font-weight: 700;
     line-height: 1.4;
-
-    color: inherit;
-    color: $clr_black;
-
-    .taskGroupDeleteButton {
-        @extend .deleteButton;
-        margin-left: auto;
-    }
 }
 
-.taskGroupTitle {}
+.taskGroupDeleteButton {
+    @extend .deleteButton;
+
+    margin-left: auto;
+}
 
 .taskGroupCounter {
-    color: $clr_greyDark;
+    color: var(--color-text-secondary);
     font-weight: 500;
 }
 
@@ -64,26 +46,22 @@
     min-height: 12px;
 }
 
-// КНОПКИ 
 .addCategoryButton {
-    display: flex;
+    @extend %button;
+
+    justify-content: flex-start;
+
     width: 100%;
     padding: $space-m;
 
-    color: $clr_greyDark;
-    border: none;
-    border-radius: $bd-radius;
+    color: var(--color-text-secondary);
+    background: var(--color-hover);
 
-    background: $clr_grey;
-
-    cursor: pointer;
+    &:hover {
+        color: var(--color-accent);
+    }
 
     .addButtonIcon {
         flex-shrink: 0;
-    }
-
-    &:hover {
-        color: $clr_accent;
-
     }
 }

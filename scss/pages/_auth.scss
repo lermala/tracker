@@ -1,0 +1,57 @@
+.authPage {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: $space-xxl;
+
+    background: var(--color-bg);
+}
+
+.authForm {
+    @extend %surface;
+
+    width: 100%;
+    max-width: 360px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 32px;
+
+    box-shadow: $shadow;
+}
+
+.authInput {
+    @extend %input;
+
+    height: 40px;
+}
+
+.authSubmit {
+    @extend %button-primary;
+
+    height: 40px;
+    margin-top: $space-xs;
+
+    font-weight: 500;
+}
+
+.authSwitch {
+    @extend %button;
+
+    align-self: center;
+
+    margin-top: $space-xl;
+    padding: $space-xxs;
+
+    color: var(--color-accent);
+
+    font-size: 13px;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

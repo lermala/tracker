@@ -9,6 +9,7 @@
 
     border: none;
     border-radius: 1px;
+
     outline: 1px solid transparent;
     outline-offset: 3px;
 
@@ -18,7 +19,7 @@
     color: inherit;
 
     &:focus {
-        outline-color: $clr_greyLight;
+        outline-color: var(--color-focus);
     }
 }
 
@@ -27,8 +28,8 @@ textarea.textEditor {
     overflow: hidden;
 }
 
- textarea.textEditor.taskTitle {
-        width: 100%;
-        min-width: 0;
-        flex: none;
-    }
+textarea.textEditor.taskTitle {
+    width: 100%;
+    min-width: 0;
+    flex: none;
+}

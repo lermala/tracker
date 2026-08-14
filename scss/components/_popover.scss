@@ -1,0 +1,39 @@
+// ===== Popover =====
+
+%popover {
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    border: 1px solid var(--color-border);
+    border-radius: $bd-radius;
+
+    box-shadow: $shadow;
+}
+
+
+// ===== Menu option =====
+
+%menu-option {
+    display: flex;
+    align-items: center;
+    gap: $space-m;
+
+    width: 100%;
+    padding: $space-m $space-l;
+
+    font: inherit;
+    color: var(--color-text);
+    text-align: left;
+
+    background: transparent;
+    border: none;
+    border-radius: $bd-radius;
+
+    cursor: pointer;
+
+    transition: background-color .15s;
+
+    &:hover {
+        background: var(--color-hover);
+    }
+}

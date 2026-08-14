@@ -1,0 +1,27 @@
+[data-theme="dark"] {
+    // Backgrounds
+    --color-bg: #18181a;
+    --color-surface: #202023;
+    --color-surface-secondary: #27272a;
+
+    // Text
+    --color-text: #eeeeef;
+    --color-text-secondary: #a4a4a8;
+    --color-text-muted: #74747a;
+
+    // Borders
+    --color-border: #343438;
+    --color-border-strong: #4a4a50;
+
+    // Interaction
+    --color-hover: #303034;
+
+    // Controls
+    --color-control: #a4a4a8;
+    --color-checkbox: #66666c;
+    --color-checkbox-icon: var(--color-bg);
+
+    // Other
+    --color-scrollbar: #4a4a50;
+    --color-scrollbar-hover: #5c5c63;
+}
