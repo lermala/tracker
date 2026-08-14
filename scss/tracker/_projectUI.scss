@@ -1,0 +1,41 @@
+.projectMenu {
+    @extend %popover;
+
+    z-index: 1000;
+
+    width: 200px;
+}
+
+.projectMenuButton {
+    @extend %icon-button;
+
+    flex-shrink: 0;
+
+    width: 22px;
+    height: 22px;
+
+    opacity: 0;
+
+    .material-symbols-rounded {
+        font-size: 18px;
+    }
+}
+
+.projectItem {
+    &:hover,
+    &.is-active {
+        .projectMenuButton {
+            opacity: 1;
+        }
+    }
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .projectMenuButton {
+        opacity: 1;
+    }
+}
+
+.projectColorPicker {
+    padding: $space-xs 0;
+}

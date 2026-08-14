@@ -41,12 +41,12 @@ function renderProjectsNavigation() {
 }
 
 function createProjectElementNavigation(project) {
-    const button = document.createElement("button");
+    const item = document.createElement("div");
 
-    button.className = "sidebarNavItem projectItem";
-    button.dataset.projectId = project.id;
+    item.className = "sidebarNavItem projectItem";
+    item.dataset.projectId = project.id;
 
-    button.classList.toggle(
+    item.classList.toggle(
         "is-active",
         project.id === getCurrentProjectId()
     );
@@ -54,20 +54,46 @@ function createProjectElementNavigation(project) {
     const color = document.createElement("span");
     color.className = "projectColor";
 
+    color.style.setProperty(
+        "--project-color",
+        project.color || "var(--color-text-muted)"
+    );
+
     const title = document.createElement("span");
     title.className = "sidebarNavTitle";
     title.textContent = project.title;
 
-    button.append(
+    const menuButton = document.createElement("button");
+    menuButton.type = "button";
+    menuButton.className = "projectMenuButton";
+    menuButton.title = "Действия с проектом";
+
+    menuButton.innerHTML = `
+        <span class="material-symbols-rounded">
+            more_horiz
+        </span>
+    `;
+
+    item.append(
         color,
-        title
+        title,
+        menuButton
     );
 
-    button.addEventListener("click", () => {
+    item.addEventListener("click", () => {
         selectProject(project.id);
     });
 
-    return button;
+    menuButton.addEventListener("click", event => {
+        event.stopPropagation();
+
+        openProjectMenu(
+            project,
+            menuButton
+        );
+    });
+
+    return item;
 }
 
 function selectProject(projectId) {

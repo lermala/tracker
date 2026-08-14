@@ -92,19 +92,19 @@ h6 {
   font-weight: 400;
 }
 
-.taskPriority, .taskDueDate, .taskCheckbox, .addButtonIcon, .addCategoryButton, .settingsSelect, .segmentedControlButton, .toolbarButton, .timerControl .timerButton, .sidebarHeader .sidebarUserButton, .authSwitch, .colorPickerOption, .calendarDay, .authSubmit, .addButton, .sidebarNavItem, .sidebarUserMenu .sidebarUserMenuItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCardHeader .taskCardCloseButton, .settingsButton, .sidebarToggleButton, .calendarNavButton, .deleteButton, .taskGroupDeleteButton, .iconButton {
+.taskPriority, .taskDueDate, .taskCheckbox, .addButtonIcon, .addCategoryButton, .settingsSelect, .segmentedControlButton, .toolbarButton, .timerControl .timerButton, .sidebarHeader .sidebarUserButton, .authSwitch, .colorPickerOption, .calendarDay, .authSubmit, .addButton, .sidebarNavItem, .sidebarUserMenu .sidebarUserMenuItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCardHeader .taskCardCloseButton, .settingsButton, .projectMenuButton, .sidebarToggleButton, .calendarNavButton, .deleteButton, .taskGroupDeleteButton, .iconButton {
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
-.taskPriority:active, .taskDueDate:active, .taskCheckbox:active, .addButtonIcon:active, .addCategoryButton:active, .settingsSelect:active, .segmentedControlButton:active, .toolbarButton:active, .timerControl .timerButton:active, .sidebarHeader .sidebarUserButton:active, .authSwitch:active, .colorPickerOption:active, .calendarDay:active, .authSubmit:active, .addButton:active, .sidebarNavItem:active, .sidebarUserMenu .sidebarUserMenuItem:active, .priorityPickerOption:active, .datePickerOption:active, .menuItem:active, .toggleButton:active, .taskCardHeader .taskCardCloseButton:active, .settingsButton:active, .sidebarToggleButton:active, .calendarNavButton:active, .deleteButton:active, .taskGroupDeleteButton:active, .iconButton:active {
+.taskPriority:active, .taskDueDate:active, .taskCheckbox:active, .addButtonIcon:active, .addCategoryButton:active, .settingsSelect:active, .segmentedControlButton:active, .toolbarButton:active, .timerControl .timerButton:active, .sidebarHeader .sidebarUserButton:active, .authSwitch:active, .colorPickerOption:active, .calendarDay:active, .authSubmit:active, .addButton:active, .sidebarNavItem:active, .sidebarUserMenu .sidebarUserMenuItem:active, .priorityPickerOption:active, .datePickerOption:active, .menuItem:active, .toggleButton:active, .taskCardHeader .taskCardCloseButton:active, .settingsButton:active, .projectMenuButton:active, .sidebarToggleButton:active, .calendarNavButton:active, .deleteButton:active, .taskGroupDeleteButton:active, .iconButton:active {
   transform: scale(0.97);
 }
 
-.settingsSelect:hover, .sidebarHeader .sidebarUserButton:hover, .sidebarNavItem:hover, .sidebarUserMenu .sidebarUserMenuItem:hover, .priorityPickerOption:hover, .datePickerOption:hover, .menuItem:hover, .taskCardHeader .taskCardCloseButton:hover, .settingsButton:hover, .sidebarToggleButton:hover, .calendarNavButton:hover, .deleteButton:hover, .taskGroupDeleteButton:hover, .iconButton:hover {
+.settingsSelect:hover, .sidebarHeader .sidebarUserButton:hover, .sidebarNavItem:hover, .sidebarUserMenu .sidebarUserMenuItem:hover, .priorityPickerOption:hover, .datePickerOption:hover, .menuItem:hover, .taskCardHeader .taskCardCloseButton:hover, .settingsButton:hover, .projectMenuButton:hover, .sidebarToggleButton:hover, .calendarNavButton:hover, .deleteButton:hover, .taskGroupDeleteButton:hover, .iconButton:hover {
   background: var(--color-hover);
 }
 
-.addCategoryButton, .settingsSelect, .segmentedControlButton, .toolbarButton, .timerControl .timerButton, .sidebarHeader .sidebarUserButton, .authSwitch, .colorPickerOption, .calendarDay, .authSubmit, .addButton, .sidebarNavItem, .sidebarUserMenu .sidebarUserMenuItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCardHeader .taskCardCloseButton, .settingsButton, .sidebarToggleButton, .calendarNavButton, .deleteButton, .taskGroupDeleteButton, .iconButton {
+.addCategoryButton, .settingsSelect, .segmentedControlButton, .toolbarButton, .timerControl .timerButton, .sidebarHeader .sidebarUserButton, .authSwitch, .colorPickerOption, .calendarDay, .authSubmit, .addButton, .sidebarNavItem, .sidebarUserMenu .sidebarUserMenuItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCardHeader .taskCardCloseButton, .settingsButton, .projectMenuButton, .sidebarToggleButton, .calendarNavButton, .deleteButton, .taskGroupDeleteButton, .iconButton {
   margin: 0;
   padding: 0;
   font: inherit;
@@ -116,20 +116,20 @@ h6 {
           appearance: none;
 }
 
-.addCategoryButton, .settingsSelect, .segmentedControlButton, .toolbarButton, .timerControl .timerButton, .sidebarHeader .sidebarUserButton, .authSwitch, .colorPickerOption, .calendarDay, .authSubmit, .addButton, .sidebarNavItem, .sidebarUserMenu .sidebarUserMenuItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCardHeader .taskCardCloseButton, .settingsButton, .sidebarToggleButton, .calendarNavButton, .deleteButton, .taskGroupDeleteButton, .iconButton {
+.addCategoryButton, .settingsSelect, .segmentedControlButton, .toolbarButton, .timerControl .timerButton, .sidebarHeader .sidebarUserButton, .authSwitch, .colorPickerOption, .calendarDay, .authSubmit, .addButton, .sidebarNavItem, .sidebarUserMenu .sidebarUserMenuItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCardHeader .taskCardCloseButton, .settingsButton, .projectMenuButton, .sidebarToggleButton, .calendarNavButton, .deleteButton, .taskGroupDeleteButton, .iconButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
 }
 
-.taskCardHeader .taskCardCloseButton, .settingsButton, .sidebarToggleButton, .calendarNavButton, .deleteButton, .taskGroupDeleteButton, .iconButton {
+.taskCardHeader .taskCardCloseButton, .settingsButton, .projectMenuButton, .sidebarToggleButton, .calendarNavButton, .deleteButton, .taskGroupDeleteButton, .iconButton {
   width: 32px;
   height: 32px;
   flex-shrink: 0;
 }
 
-.taskCard, .authForm, .modal-content, .settingsSelectMenu, .settingsMenu, .sidebarUserMenu, .priorityPicker, .datePicker {
+.taskCard, .authForm, .modal-content, .settingsSelectMenu, .settingsMenu, .projectMenu, .sidebarUserMenu, .priorityPicker, .datePicker {
   color: var(--color-text);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -334,7 +334,7 @@ a:hover {
   filter: brightness(1.1);
 }
 
-.settingsSelectMenu, .settingsMenu, .sidebarUserMenu, .priorityPicker, .datePicker {
+.settingsSelectMenu, .settingsMenu, .projectMenu, .sidebarUserMenu, .priorityPicker, .datePicker {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -388,7 +388,7 @@ a:hover {
   font-size: 16px;
 }
 
-.taskCard, .authForm, .modal-content, .settingsSelectMenu, .settingsMenu, .sidebarUserMenu, .priorityPicker, .datePicker {
+.taskCard, .authForm, .modal-content, .settingsSelectMenu, .settingsMenu, .projectMenu, .sidebarUserMenu, .priorityPicker, .datePicker {
   background: var(--color-surface);
   color: var(--color-text);
   border: 1px solid var(--color-border);
@@ -451,8 +451,9 @@ a:hover {
   opacity: 0.9;
 }
 
-.authInput {
+.projectInput, .authInput {
   width: 100%;
+  min-width: 0;
   padding: 0 12px;
   font: inherit;
   color: var(--color-text);
@@ -462,16 +463,16 @@ a:hover {
   outline: none;
   transition: border-color 0.15s ease;
 }
-.authInput:hover {
+.projectInput:hover, .authInput:hover {
   border-color: var(--color-border-strong);
 }
-.authInput:focus {
+.projectInput:focus, .authInput:focus {
   border-color: var(--color-accent);
 }
-.authInput::-moz-placeholder {
+.projectInput::-moz-placeholder, .authInput::-moz-placeholder {
   color: var(--color-text-secondary);
 }
-.authInput::placeholder {
+.projectInput::placeholder, .authInput::placeholder {
   color: var(--color-text-secondary);
 }
 
@@ -885,6 +886,7 @@ textarea.textEditor.taskTitle {
   font-size: 20px;
 }
 .sidebarNavItem .sidebarNavTitle {
+  flex: 1;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -896,21 +898,26 @@ textarea.textEditor.taskTitle {
   height: 8px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: var(--color-accent);
+  background: var(--project-color);
 }
 .projectItem {
   /*     .projectTitle {
-          overflow: hidden;
+      overflow: hidden;
 
-          text-overflow: ellipsis;
-          white-space: nowrap;
-      } */
+      text-overflow: ellipsis;
+      white-space: nowrap;
+  } */
 }
 
 .addProjectButton {
   /*     .material-symbols-rounded {
       font-size: 16px;
   } */
+}
+
+.projectInput {
+  height: 32px;
+  padding-inline: 8px;
 }
 
 @media (max-width: 768px) {
@@ -932,6 +939,34 @@ textarea.textEditor.taskTitle {
     font-size: 14px;
   }
 }
+.projectMenu {
+  z-index: 1000;
+  width: 200px;
+}
+
+.projectMenuButton {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  opacity: 0;
+}
+.projectMenuButton .material-symbols-rounded {
+  font-size: 18px;
+}
+
+.projectItem:hover .projectMenuButton, .projectItem.is-active .projectMenuButton {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .projectMenuButton {
+    opacity: 1;
+  }
+}
+.projectColorPicker {
+  padding: 6px 0;
+}
+
 .task {
   display: flex;
   align-items: flex-start;

@@ -11,7 +11,7 @@ function startCreateProject() {
     const input = document.createElement("input");
 
     input.className = "projectInput";
-    input.placeholder = "Название проекта";
+    input.placeholder = "Название проекта"; // 
 
     addProjectButton.before(input);
     addProjectButton.classList.add("hidden");
@@ -92,4 +92,89 @@ function cancelCreateProject(input) {
 
     input.remove();
     addProjectButton.classList.remove("hidden");
+}
+
+function startRenameProject(project) {
+    const item = document.querySelector(
+        `[data-project-id="${project.id}"]`
+    );
+
+    const title = item?.querySelector(
+        ".sidebarNavTitle"
+    );
+
+    if (!title) return;
+
+    startTextEdit(title, {
+        value: project.title,
+        className: "projectInput",
+
+        onSave: value => {
+            if (!value || value === project.title) {
+                renderProjectsNavigation();
+                return;
+            }
+
+            updateProject(project.id, {
+                title: value
+            }).catch(error => {
+                console.error(
+                    "UPDATE PROJECT ERROR:",
+                    error
+                );
+
+                renderProjectsNavigation();
+                renderTasksHeader();
+            });
+
+            renderProjectsNavigation();
+            renderTasksHeader();
+        },
+
+        onCancel: () => {
+            renderProjectsNavigation();
+        }
+    });
+}
+
+function changeProjectColor(project, color) {
+    console.log(project.color);
+    updateProject(project.id, {
+        color
+    }).catch(error => {
+        console.error(
+            "UPDATE PROJECT COLOR ERROR:",
+            error
+        );
+        renderProjectsNavigation();
+    });
+
+    renderProjectsNavigation();
+
+    console.log(project.color);
+}
+
+async function deleteProjectWithConfirmation(project) {
+    const confirmed = confirm(
+        `Удалить проект «${project.title}»?`
+    );
+
+    if (!confirmed) return;
+
+    try {
+        await deleteProject(project.id);
+
+        if (getCurrentProjectId() === project.id) {
+            selectMyTasks();
+        }
+
+        renderProjectsNavigation();
+    } catch (error) {
+        console.error(
+            "DELETE PROJECT ERROR:",
+            error
+        );
+
+        renderProjectsNavigation();
+    }
 }

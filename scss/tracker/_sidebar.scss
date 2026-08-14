@@ -24,7 +24,8 @@
 
     transition: width .2s ease;
 
-    &.is-collapsed {//
+    &.is-collapsed {
+        //
         width: 0;
         padding-left: 0;
         padding-right: 0;
@@ -209,6 +210,7 @@
     }
 
     .sidebarNavTitle {
+        flex: 1;
         min-width: 0;
 
         overflow: hidden;
@@ -226,10 +228,10 @@
 
         border-radius: 50%;
 
-        background: var(--color-accent);
+        background: var(--project-color);
     }
 
-/*     .projectTitle {
+    /*     .projectTitle {
         overflow: hidden;
 
         text-overflow: ellipsis;
@@ -238,6 +240,7 @@
 }
 
 .addProjectButton {
+    //@extend %menu-option;
     // color: var(--color-text-secondary);
     // line-height: 1.2;
     // @extend .addCategoryButton;
@@ -246,6 +249,14 @@
         font-size: 16px;
     } */
 }
+
+.projectInput { // todo fix сечас у  редактирования другой вид
+    @extend %input;
+
+    height: 32px;
+    padding-inline: $space-s;
+}
+
 
 @media (max-width: 768px) {
     .sidebar {
