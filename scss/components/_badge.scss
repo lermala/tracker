@@ -3,18 +3,24 @@
     align-items: center;
 
     width: fit-content;
-
-    padding: 2px $space-s;
+    min-height: 20px;
+    padding: 1px $space-xs;
 
     border: 1px solid transparent;
-    border-radius: 12px;
+    border-radius: $bd-radius;
 
-    color: var(--color-text-secondary);
-    background: var(--color-hover);
+    color: $clr-badge-grey;
+    background: rgba($clr-badge-grey, .18);
 
     font-size: 12px;
-    line-height: 1.2;
+    font-weight: 500;
+    line-height: 16px;
     white-space: nowrap;
+
+    &.is-empty {
+        background: transparent;
+        border-color: $clr-badge-grey;
+    }
 }
 
 %interactive-badge {
@@ -22,6 +28,6 @@
     @extend %interactive;
 
     &:hover {
-        transform: scale(1.05);
+        filter: brightness(1.1);
     }
 }

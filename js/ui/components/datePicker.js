@@ -58,8 +58,6 @@ function openDatePicker({
 
     activeDatePicker = picker;
 
-    positionDatePicker(picker, anchor);
-
     const calendar = picker.querySelector(".datePickerCalendar");
     const timeInput = picker.querySelector(".datePickerTimeInput");
 
@@ -81,6 +79,8 @@ function openDatePicker({
         }
     });
 
+    positionDatePicker(picker, anchor);
+
     bindDatePickerEvents({
         picker,
         onChange,
@@ -101,11 +101,44 @@ function getTimeValue(timeInput) {
 }
 
 function positionDatePicker(picker, anchor) {
-    const rect = anchor.getBoundingClientRect();
+    const GAP = 6;
+    const VIEWPORT_PADDING = 8;
+
+    const anchorRect = anchor.getBoundingClientRect();
+    const pickerRect = picker.getBoundingClientRect();
+
+    let top = anchorRect.bottom + GAP;
+    let left = anchorRect.left;
+
+    // Если снизу не помещается — открываем вверх
+    if (
+        top + pickerRect.height >
+        window.innerHeight - VIEWPORT_PADDING
+    ) {
+        top =
+            anchorRect.top -
+            pickerRect.height -
+            GAP;
+    }
+
+    // Если справа не помещается — сдвигаем влево
+    if (
+        left + pickerRect.width >
+        window.innerWidth - VIEWPORT_PADDING
+    ) {
+        left =
+            window.innerWidth -
+            pickerRect.width -
+            VIEWPORT_PADDING;
+    }
+
+    // Не даём выйти за верхний и левый край
+    top = Math.max(VIEWPORT_PADDING, top);
+    left = Math.max(VIEWPORT_PADDING, left);
 
     picker.style.position = "fixed";
-    picker.style.top = `${rect.bottom + 6}px`;
-    picker.style.left = `${rect.left}px`;
+    picker.style.top = `${top}px`;
+    picker.style.left = `${left}px`;
 }
 
 function bindDatePickerEvents({

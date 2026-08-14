@@ -8,6 +8,9 @@ function initTaskSortable(container) {
         dragClass: "is-dragging",
 
         fallbackTolerance: 5,
+        delay: 300,
+        delayOnTouchOnly: true,
+        touchStartThreshold: 5,
 
         onStart() {
             document.body.classList.add("is-dragging");
@@ -92,6 +95,10 @@ function initTaskGroupSortable(container) {
         chosenClass: "is-chosen",
         ghostClass: "is-ghost",
         dragClass: "is-dragging",
+
+        delay: 300,
+        delayOnTouchOnly: true,
+        touchStartThreshold: 5,
 
         scroll: container,
         scrollSensitivity: 100,

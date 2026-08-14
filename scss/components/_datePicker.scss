@@ -2,7 +2,12 @@
     @extend %popover;
 
     width: 240px;
+    max-width: calc(100vw - #{$space-m * 2});
+    max-height: calc(100vh - #{$space-m * 2});
+
     padding: $space-s;
+
+    overflow-y: auto;
 
     z-index: 1000;
 }

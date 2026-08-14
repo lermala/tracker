@@ -115,10 +115,12 @@
     padding: $space-xs;
 }
 
-@media (max-width: 700px) {
+@media (max-width: $breakpoint-mobile) {
     .trackerToolbar {
-        padding: $space-m;
         justify-content: space-between;
+        gap: $space-s;
+
+        padding: $space-m;
     }
 
     .tasksHeader {
@@ -126,6 +128,55 @@
     }
 
     .tasksHeaderTitle {
-        font-size: 20px;
+        font-size: $mobile-font-page-title;
+    }
+
+    .segmentedControl {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .segmentedControlButton {
+        flex: 1;
+        min-width: 0;
+
+        min-height: 36px;
+        padding: $space-xs $space-s;
+
+        font-size: $mobile-font-secondary;
+    }
+
+    .toolbarButton {
+        min-height: 36px;
+        padding: $space-xs $space-s;
+
+        font-size: $mobile-font-secondary;
+    }
+
+    .settingsButton {
+        flex-shrink: 0;
+
+        width: 36px;
+        height: 36px;
+
+        .material-symbols-rounded {
+            font-size: 20px;
+        }
+    }
+
+    .settingsMenu {
+        width: min(240px, calc(100vw - 16px));
+        max-height: calc(100vh - 16px);
+
+        overflow-y: auto;
+    }
+
+    .settingsSelect {
+        min-height: 36px;
+        font-size: $mobile-font-primary;
+    }
+
+    .settingsSelectMenu {
+        font-size: $mobile-font-primary;
     }
 }

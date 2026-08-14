@@ -3,18 +3,28 @@
 
 
 // ===== Fixed colors =====
+// badge text
+$clr-badge-red: #e06c75;
+$clr-badge-orange: #d19a66;
+$clr-badge-yellow: #c9a94f;
+$clr-badge-green: #6aab7b;
+$clr-badge-blue: #6f91c7;
+$clr-badge-purple: #9a7bbd;
+$clr-badge-pink: #c77d9d;
+$clr-badge-grey: #8b8b8b;
 
-$clr-overdue: #ff0000;
-$clr-today: #e74d3b;
-$clr-tomorrow: #3f7d57;
-$clr-this-week: #5074a6;
+$clr-overdue: $clr-badge-red;
+$clr-today: $clr-badge-orange;
+$clr-tomorrow: $clr-badge-green;
+$clr-this-week: $clr-badge-blue;
+// $clr-later: $clr-badge-grey;
 
 
 // ===== Semantic fixed colors =====
 
-$clr-priority-high: #e5484d;
-$clr-priority-medium: #f5a623;
-$clr-priority-low: #4c8bf5;
+$clr-priority-high: $clr-badge-red;
+$clr-priority-medium: $clr-badge-orange;
+$clr-priority-low: $clr-badge-blue;
 
 $clr-success: #4f9d69;
 $clr-danger: #e5484d;
@@ -35,3 +45,12 @@ $shadow: 0 4px 12px rgba(0, 0, 0, .08);
 $shadow-dark: 0 4px 12px rgba(0, 0, 0, .09);
 
 $bd-radius: 4px;
+
+
+// ===== Mobile ======
+$mobile-font-primary: 16px;
+$mobile-font-secondary: 14px;
+$mobile-font-title: 17px;
+$mobile-font-page-title: 22px;
+
+$breakpoint-mobile: 768px;

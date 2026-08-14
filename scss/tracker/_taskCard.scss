@@ -125,11 +125,25 @@
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: $breakpoint-mobile) {
     .taskCard {
         width: calc(100vw - 16px);
         min-height: 0;
         max-height: calc(100vh - 16px);
+    }
+
+    .taskCardHeader {
+        height: 44px;
+        padding-inline: $space-m;
+
+        .taskCardCloseButton {
+            width: 32px;
+            height: 32px;
+
+            span {
+                font-size: 20px;
+            }
+        }
     }
 
     .taskCardLayout {
@@ -138,21 +152,49 @@
     }
 
     .taskCardContent {
-        padding: $space-l;
+        padding: $space-l $space-m;
         overflow: visible;
+
+        .taskCardMain {
+            gap: $space-m;
+
+            .taskCheckbox {
+                margin-top: 2px;
+                width: 22px;
+                height: 22px;
+            }
+
+            .taskCardBody {
+                .taskCardTitle {
+                    font-size: $mobile-font-title;
+                    line-height: 1.35;
+                }
+
+                .taskCardDescription {
+                    margin-top: $space-m;
+
+                    font-size: $mobile-font-primary;
+                    line-height: 1.5;
+                }
+            }
+        }
     }
 
     .taskCardProperties {
-        padding: $space-l;
+        padding: $space-m;
         overflow: visible;
 
         border-left: none;
         border-top: 1px solid var(--color-border);
-    }
 
-    .taskCardContent {
-        .taskCardMain {
-            gap: $space-m;
+        .taskCardProperty {
+            padding-block: $space-m;
+        }
+
+        .taskCardPropertyLabel {
+            margin-bottom: $space-xs;
+
+            font-size: $mobile-font-secondary;
         }
     }
 }

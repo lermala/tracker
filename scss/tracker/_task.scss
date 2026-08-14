@@ -173,30 +173,54 @@
 
     &.is-overdue {
         color: $clr-overdue;
-        background: rgba($clr-overdue, .1);
+        background: rgba($clr-overdue, .18);
     }
 
     &.is-today {
         color: $clr-today;
-        background: rgba($clr-today, .1);
+        background: rgba($clr-today, .18);
     }
 
     &.is-tomorrow {
         color: $clr-tomorrow;
-        background: rgba($clr-tomorrow, .1);
+        background: rgba($clr-tomorrow, .18);
     }
 
     &.is-this-week {
         color: $clr-this-week;
-        background: rgba($clr-this-week, .1);
+        background: rgba($clr-this-week, .18);
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
     .task {
         .taskDueDate.is-empty {
             opacity: 1;
             visibility: visible;
+        }
+
+        .taskTitle {
+            font-size: $mobile-font-primary;
+            line-height: 21px;
+        }
+
+        .taskTimer,
+        .taskDueDate {
+            font-size: $mobile-font-secondary;
+        }
+
+        .taskGroupTitle {
+            font-size: $mobile-font-title;
+        }
+
+        .tasksHeaderTitle {
+            font-size: $mobile-font-page-title;
+        }
+
+        .sidebarNavItem,
+        .addProjectButton,
+        .sidebarUserName {
+            font-size: $mobile-font-primary;
         }
     }
 }

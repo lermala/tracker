@@ -314,18 +314,24 @@ a:hover {
   align-items: center;
   width: -moz-fit-content;
   width: fit-content;
-  padding: 2px 8px;
+  min-height: 20px;
+  padding: 1px 6px;
   border: 1px solid transparent;
-  border-radius: 12px;
-  color: var(--color-text-secondary);
-  background: var(--color-hover);
+  border-radius: 4px;
+  color: #8b8b8b;
+  background: rgba(139, 139, 139, 0.18);
   font-size: 12px;
-  line-height: 1.2;
+  font-weight: 500;
+  line-height: 16px;
   white-space: nowrap;
+}
+.is-empty.taskDueDate {
+  background: transparent;
+  border-color: #8b8b8b;
 }
 
 .taskDueDate:hover {
-  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 .settingsSelectMenu, .settingsMenu, .sidebarUserMenu, .priorityPicker, .datePicker {
@@ -471,7 +477,10 @@ a:hover {
 
 .datePicker {
   width: 240px;
+  max-width: calc(100vw - 20px);
+  max-height: calc(100vh - 20px);
   padding: 8px;
+  overflow-y: auto;
   z-index: 1000;
 }
 
@@ -660,13 +669,13 @@ textarea.textEditor.taskTitle {
   border-radius: 50%;
 }
 .priorityDot[data-priority=high] {
-  background: #e5484d;
+  background: #e06c75;
 }
 .priorityDot[data-priority=medium] {
-  background: #f5a623;
+  background: #d19a66;
 }
 .priorityDot[data-priority=low] {
-  background: #4c8bf5;
+  background: #6f91c7;
 }
 .priorityDot[data-priority=none] {
   background: transparent;
@@ -756,11 +765,8 @@ textarea.textEditor.taskTitle {
   border: none;
   background: transparent;
 }
-.sidebar.is-collapsed .sidebarUser,
 .sidebar.is-collapsed .sidebarUserButton,
-.sidebar.is-collapsed .sidebarTitle,
-.sidebar.is-collapsed .projectList,
-.sidebar.is-collapsed .addProjectButton {
+.sidebar.is-collapsed .sidebarContent {
   display: none;
 }
 .sidebar.is-collapsed .sidebarHeader {
@@ -907,6 +913,25 @@ textarea.textEditor.taskTitle {
   } */
 }
 
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+    padding: 8px;
+  }
+  .sidebarNavItem,
+  .addProjectButton {
+    gap: 8px;
+    min-height: 36px;
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+  .sidebarTitle {
+    font-size: 13px;
+  }
+  .sidebarUserName {
+    font-size: 14px;
+  }
+}
 .task {
   display: flex;
   align-items: flex-start;
@@ -943,16 +968,16 @@ body:not(.is-dragging) .task:hover .taskGroupDeleteButton {
   color: var(--color-checkbox-icon);
 }
 .taskCheckbox:not(.is-completed)[data-priority=high] {
-  border: 2px solid #e5484d;
-  background: rgba(229, 72, 77, 0.1);
+  border: 2px solid #e06c75;
+  background: rgba(224, 108, 117, 0.1);
 }
 .taskCheckbox:not(.is-completed)[data-priority=medium] {
-  border: 2px solid #f5a623;
-  background: rgba(245, 166, 35, 0.1);
+  border: 2px solid #d19a66;
+  background: rgba(209, 154, 102, 0.1);
 }
 .taskCheckbox:not(.is-completed)[data-priority=low] {
-  border: 2px solid #4c8bf5;
-  background: rgba(76, 139, 245, 0.1);
+  border: 2px solid #6f91c7;
+  background: rgba(111, 145, 199, 0.1);
 }
 .taskCheckbox:not(.is-completed):hover span {
   opacity: 1;
@@ -1021,26 +1046,45 @@ body:not(.is-dragging) .task:hover .taskGroupDeleteButton {
 }
 
 .taskDueDate.is-overdue {
-  color: #ff0000;
-  background: rgba(255, 0, 0, 0.1);
+  color: #e06c75;
+  background: rgba(224, 108, 117, 0.18);
 }
 .taskDueDate.is-today {
-  color: #e74d3b;
-  background: rgba(231, 77, 59, 0.1);
+  color: #d19a66;
+  background: rgba(209, 154, 102, 0.18);
 }
 .taskDueDate.is-tomorrow {
-  color: #3f7d57;
-  background: rgba(63, 125, 87, 0.1);
+  color: #6aab7b;
+  background: rgba(106, 171, 123, 0.18);
 }
 .taskDueDate.is-this-week {
-  color: #5074a6;
-  background: rgba(80, 116, 166, 0.1);
+  color: #6f91c7;
+  background: rgba(111, 145, 199, 0.18);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .task .taskDueDate.is-empty {
     opacity: 1;
     visibility: visible;
+  }
+  .task .taskTitle {
+    font-size: 16px;
+    line-height: 21px;
+  }
+  .task .taskTimer,
+  .task .taskDueDate {
+    font-size: 14px;
+  }
+  .task .taskGroupTitle {
+    font-size: 17px;
+  }
+  .task .tasksHeaderTitle {
+    font-size: 22px;
+  }
+  .task .sidebarNavItem,
+  .task .addProjectButton,
+  .task .sidebarUserName {
+    font-size: 16px;
   }
 }
 .task.is-dragging,
@@ -1175,16 +1219,53 @@ body:not(.is-dragging) .task:hover {
   padding: 6px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .trackerToolbar {
-    padding: 10px;
     justify-content: space-between;
+    gap: 8px;
+    padding: 10px;
   }
   .tasksHeader {
     padding: 14px 10px 10px;
   }
   .tasksHeaderTitle {
+    font-size: 22px;
+  }
+  .segmentedControl {
+    flex: 1;
+    min-width: 0;
+  }
+  .segmentedControlButton, .toolbarButton {
+    flex: 1;
+    min-width: 0;
+    min-height: 36px;
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+  .toolbarButton {
+    min-height: 36px;
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+  .settingsButton {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+  }
+  .settingsButton .material-symbols-rounded {
     font-size: 20px;
+  }
+  .settingsMenu {
+    width: min(240px, 100vw - 16px);
+    max-height: calc(100vh - 16px);
+    overflow-y: auto;
+  }
+  .settingsSelect {
+    min-height: 36px;
+    font-size: 16px;
+  }
+  .settingsSelectMenu {
+    font-size: 16px;
   }
 }
 .taskGroup {
@@ -1334,28 +1415,60 @@ body:not(.is-dragging) .task:hover {
   display: none;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .taskCard {
     width: calc(100vw - 16px);
     min-height: 0;
     max-height: calc(100vh - 16px);
+  }
+  .taskCardHeader {
+    height: 44px;
+    padding-inline: 10px;
+  }
+  .taskCardHeader .taskCardCloseButton {
+    width: 32px;
+    height: 32px;
+  }
+  .taskCardHeader .taskCardCloseButton span {
+    font-size: 20px;
   }
   .taskCardLayout {
     display: block;
     overflow-y: auto;
   }
   .taskCardContent {
-    padding: 14px;
+    padding: 14px 10px;
     overflow: visible;
   }
+  .taskCardContent .taskCardMain {
+    gap: 10px;
+  }
+  .taskCardContent .taskCardMain .taskCheckbox {
+    margin-top: 2px;
+    width: 22px;
+    height: 22px;
+  }
+  .taskCardContent .taskCardMain .taskCardBody .taskCardTitle {
+    font-size: 17px;
+    line-height: 1.35;
+  }
+  .taskCardContent .taskCardMain .taskCardBody .taskCardDescription {
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
   .taskCardProperties {
-    padding: 14px;
+    padding: 10px;
     overflow: visible;
     border-left: none;
     border-top: 1px solid var(--color-border);
   }
-  .taskCardContent .taskCardMain {
-    gap: 10px;
+  .taskCardProperties .taskCardProperty {
+    padding-block: 10px;
+  }
+  .taskCardProperties .taskCardPropertyLabel {
+    margin-bottom: 6px;
+    font-size: 14px;
   }
 }
 .listView {
@@ -1468,9 +1581,11 @@ body:not(.is-dragging) .task:hover {
   display: flex;
   align-items: center;
   width: 100%;
+  gap: 8px;
 }
 .boardView .taskDueDate {
   margin-left: auto;
+  flex-shrink: 0;
 }
 
 @media (max-width: 700px) {

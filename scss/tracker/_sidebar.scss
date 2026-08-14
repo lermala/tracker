@@ -24,7 +24,7 @@
 
     transition: width .2s ease;
 
-    &.is-collapsed {
+    &.is-collapsed {//
         width: 0;
         padding-left: 0;
         padding-right: 0;
@@ -32,11 +32,8 @@
         border: none;
         background: transparent;
 
-        .sidebarUser,
         .sidebarUserButton,
-        .sidebarTitle,
-        .projectList,
-        .addProjectButton {
+        .sidebarContent {
             display: none;
         }
 
@@ -248,4 +245,28 @@
     /*     .material-symbols-rounded {
         font-size: 16px;
     } */
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+        padding: $space-s;
+    }
+
+    .sidebarNavItem,
+    .addProjectButton {
+        gap: $space-s;
+        min-height: 36px;
+        padding: $space-xs $space-s;
+
+        font-size: 14px;
+    }
+
+    .sidebarTitle {
+        font-size: 13px;
+    }
+
+    .sidebarUserName {
+        font-size: 14px;
+    }
 }

@@ -10,7 +10,7 @@ function fillTaskDueDate(dueDate, task) {
     const status = getDueDateStatus(task.dueDate);
     dueDate.classList.toggle(
         "is-empty",
-        status === "empty"
+        task.dueDate == null
     );
     dueDate.classList.toggle(
         "is-overdue",

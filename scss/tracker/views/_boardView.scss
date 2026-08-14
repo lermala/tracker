@@ -43,12 +43,13 @@
     .taskMeta {
         display: flex;
         align-items: center;
-
         width: 100%;
+        gap: $space-s;
     }
 
     .taskDueDate {
         margin-left: auto;
+        flex-shrink: 0;
     }
 }
 
