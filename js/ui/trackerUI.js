@@ -18,8 +18,7 @@ function initTaskUI() {
 }
 
 function renderCurrentView() {
-    // console.log(viewSettings);
-    switch (viewSettings.view) {
+    switch (pageSettings.view) {
         case VIEW.LIST:
             setViewClass("listView");
             renderListView();
@@ -56,7 +55,7 @@ function createAddCategoryButton() {
 
     button.addEventListener("click", () => {
         const category = createCategory(
-            viewSettings.projectId
+            getCurrentProjectId()
         );
 
         if (!category) return;
@@ -89,7 +88,7 @@ function createAddCategoryButton() {
 
 function renderTasksHeader() {
     const project = getProjectById(
-        viewSettings.projectId
+        getCurrentProjectId()
     );
 
     tasksHeaderTitle.textContent =
@@ -98,7 +97,7 @@ function renderTasksHeader() {
 
 function startEditTasksHeader() {
     const project = getProjectById(
-        viewSettings.projectId
+        getCurrentProjectId()
     );
 
     if (!project) return;

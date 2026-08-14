@@ -17,15 +17,10 @@ function sortTasks(tasks) {
 // ====================
 
 function filterTasks(tasks) {
-    let result = [...tasks];
-
-    // Текущий проект
-    result = result.filter(
-        task => task.projectId === viewSettings.projectId
-    );
+    let result = filterTasksByPage(tasks);
 
     // Скрыть завершённые
-    if (viewSettings.hideCompleted) {
+    if (pageSettings.hideCompleted) {
         result = result.filter(task => !task.isCompleted);
     }
 
@@ -33,7 +28,7 @@ function filterTasks(tasks) {
     // незавершенные задачи с дедлайном = сегодня // todo добавить просроченные
     // незавершенные задачи без дедлайна 
     // завершенные сегодня задачи
-    if (viewSettings.todayOnly) {
+    if (pageSettings.todayOnly) {
         result = result.filter(task =>
             (task.completedAt == null || isToday(task.completedAt)) // незавершена или завершена сегодня
             // isToday(task.dueDate) // срок исполнения =сегодня
@@ -43,6 +38,27 @@ function filterTasks(tasks) {
     }
 
     return result;
+}
+
+function filterTasksByPage(tasks) {
+    const page = currentPage;
+
+    switch (page.type) {
+        case PAGE.PROJECT:
+            return tasks.filter(
+                task => task.projectId === page.id
+            );
+
+        case PAGE.MY_TASKS:
+            return tasks.filter(
+                task =>
+                    task.assigneeId === currentUser.id ||
+                    task.createdById === currentUser.id
+            );
+
+        default:
+            return tasks;
+    }
 }
 
 function getVisibleTasks() {
@@ -65,6 +81,9 @@ function groupTasks(tasks, group) {
         case GROUP.DUE_DATE:
             return groupTasksByDueDate(tasks);
 
+        case GROUP.PROJECT:
+            return groupTasksByProject(tasks);
+
         default:
             return [
                 {
@@ -80,7 +99,7 @@ function groupTasks(tasks, group) {
 
 function groupTasksByCategory(tasks) {
     const projectCategories = getCategoriesByProject(
-        viewSettings.projectId
+        getCurrentProjectId()
     );
 
     const groups = projectCategories.map(category => ({
@@ -113,6 +132,18 @@ function groupTasksByCategory(tasks) {
     }
 
     return groups;
+}
+
+function groupTasksByProject(tasks) {
+    return projects
+        .map(project => ({
+            id: project.id,
+            title: project.title,
+            tasks: tasks.filter(
+                task => task.projectId === project.id
+            )
+        }))
+        .filter(group => group.tasks.length > 0);
 }
 
 function groupTasksByDueDate(tasks) {

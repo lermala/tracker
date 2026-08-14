@@ -1,10 +1,18 @@
-let viewSettings = getViewSettings();
+let currentUser = null;
 
 let projects = [];
 let tasks = [];
 let categories = [];
 
 let timerInterval = null;
+
+let currentPage = {
+    type: PAGE.MY_TASKS
+};
+let currentProjectId = null;
+
+let viewSettings = getViewSettings();
+let pageSettings = getPageSettings(currentPage);
 
 applyAppearance(getAppearance());
 initApp();
@@ -25,6 +33,8 @@ async function initApp() {
 }
 
 async function loadTracker() {
+    currentUser = await getCurrentUser();
+
     [projects, categories, tasks] = await Promise.all([
         getProjectsFromDb(),
         getCategoriesFromDb(),
@@ -66,7 +76,22 @@ function stopTracker() {
         timerInterval = null;
     }
 
+    currentUser = null;
+
     projects = [];
     categories = [];
     tasks = [];
+}
+
+function getCurrentProjectId() {
+    return currentPage.type === PAGE.PROJECT
+        ? currentPage.id
+        : null;
+}
+
+function saveCurrentPageSettings() {
+    savePageSettings(
+        currentPage,
+        pageSettings
+    );
 }

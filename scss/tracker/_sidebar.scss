@@ -198,35 +198,54 @@
 }
 
 
-
-
-.projectItem,
-.addProjectButton {
+.sidebarNavItem {
     @extend %menu-option;
 
     &.is-active {
         color: var(--color-accent);
         background: var(--color-accent-soft);
     }
+
+    .sidebarNavIcon {
+        flex-shrink: 0;
+        font-size: 20px;
+    }
+
+    .sidebarNavTitle {
+        min-width: 0;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 }
 
-.projectColor {
-    width: 8px;
-    height: 8px;
-    flex-shrink: 0;
+.projectItem {
+    .projectColor {
+        // margin-left: $space-xxs;
+        width: 8px;
+        height: 8px;
+        flex-shrink: 0;
 
-    border-radius: 50%;
+        border-radius: 50%;
 
-    background: var(--color-accent);
-}
+        background: var(--color-accent);
+    }
 
-.projectTitle {
-    overflow: hidden;
+/*     .projectTitle {
+        overflow: hidden;
 
-    text-overflow: ellipsis;
-    white-space: nowrap;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    } */
 }
 
 .addProjectButton {
-    color: var(--color-text-secondary);
+    // color: var(--color-text-secondary);
+    // line-height: 1.2;
+    // @extend .addCategoryButton;
+
+    /*     .material-symbols-rounded {
+        font-size: 16px;
+    } */
 }

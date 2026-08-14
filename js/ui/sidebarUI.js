@@ -5,6 +5,8 @@ const sidebarUserButton = document.getElementById("sidebarUserButton");
 const sidebarUserMenu = document.getElementById("sidebarUserMenu");
 const signOutButton = document.getElementById("signOutButton");
 
+const myTasksButton = document.getElementById("myTasksButton");
+
 const projectList = document.getElementById("projectList");
 const addProjectButton = document.getElementById("addProjectButton");
 
@@ -15,7 +17,7 @@ function initSidebarUI() {
     bindEventsSidebar()
     initAppearanceSettings();
 
-    renderProjects();
+    renderSidebarNavigation();
 }
 
 function applySidebarState(isCollapsed) {
@@ -43,6 +45,8 @@ function toggleSidebar() {
 
 function bindEventsSidebar() {
     sidebarToggleButton.addEventListener("click", toggleSidebar);
+
+    myTasksButton.addEventListener("click", selectMyTasks);
 
     addProjectButton.addEventListener("click", () => {
         startCreateProject();
@@ -79,19 +83,19 @@ function renderProjects() {
 function createProjectElement(project) {
     const button = document.createElement("button");
 
-    button.className = "projectItem";
+    button.className = "sidebarNavItem projectItem";
     button.dataset.projectId = project.id;
 
     button.classList.toggle(
         "is-active",
-        project.id === viewSettings.projectId
+        project.id === getCurrentProjectId()
     );
 
     const color = document.createElement("span");
     color.className = "projectColor";
 
     const title = document.createElement("span");
-    title.className = "projectTitle";
+    title.className = "sidebarNavTitle";
     title.textContent = project.title;
 
     button.append(
@@ -107,16 +111,16 @@ function createProjectElement(project) {
 }
 
 function selectProject(projectId) {
-    if (viewSettings.projectId === projectId) {
-        return;
-    }
+    selectPage({
+        type: PAGE.PROJECT,
+        id: projectId
+    });
+}
 
-    viewSettings.projectId = projectId;
-
-    saveViewSettings(viewSettings);
-
-    renderProjects();
-    renderCurrentView();
+function selectMyTasks() {
+    selectPage({
+        type: PAGE.MY_TASKS
+    });
 }
 
 function startCreateProject() {
@@ -188,7 +192,7 @@ function finishCreateProject(input) {
         renderProjects();
 
         // если мы уже успели выбрать этот проект
-        if (viewSettings.projectId === project.id) {
+        if (getCurrentProjectId() === project.id) {
             selectFallbackProject();
         }
     });
@@ -206,26 +210,11 @@ function cancelCreateProject(input) {
     addProjectButton.classList.remove("hidden");
 }
 
-function selectFallbackProject() {
-    const projects = getProjects();
-
-    const projectId =
-        projects[0]?.id ?? null;
-
-    viewSettings.projectId = projectId;
-
-    saveViewSettings(viewSettings);
-
-    renderProjects();
-    renderCurrentView();
-}
-
 async function renderUser() {
-    const user = await getCurrentUser();
+    // const user = await getCurrentUser();
+    if (!currentUser) return;
 
-    if (!user) return;
-
-    const email = user.email;
+    const email = currentUser.email;
     const name = email.split("@")[0];
 
     document.getElementById("sidebarUserAvatar").textContent =
@@ -277,4 +266,51 @@ function initAppearanceSettings() {
 
     themeContainer.replaceChildren(themeToggle);
     accentContainer.replaceChildren(accentPicker);
+}
+
+async function showMyTasks() {
+    const user = await getCurrentUser();
+
+    const myTasks = tasks.filter(task =>
+        task.assigneeId === user.id ||
+        task.createdById === user.id
+    );
+
+    console.log("CURRENT USER:", user.id);
+    console.log("MY TASKS:", myTasks);
+}
+
+function selectPage(page) {
+    if (
+        currentPage.type === page.type &&
+        currentPage.id === page.id
+    ) {
+        return;
+    }
+
+    currentPage = page;
+    pageSettings = getPageSettings(currentPage);
+
+    renderSidebarNavigation();
+    renderCurrentView();
+}
+
+function selectFallbackProject() {
+    const projectId = projects[0]?.id ?? null;
+
+    selectPage({
+        type: PAGE.PROJECT,
+        id: projectId
+    });
+}
+
+function renderSidebarNavigation() {
+    const page = currentPage;
+
+    myTasksButton.classList.toggle(
+        "is-active",
+        page.type === PAGE.MY_TASKS
+    );
+
+    renderProjects();
 }

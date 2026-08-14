@@ -64,7 +64,7 @@ async function moveTask(
         });
     }
 
-    if (viewSettings.group === GROUP.CATEGORY) {
+    if (pageSettings.group === GROUP.CATEGORY) {
         await saveTaskOrder(fromContainer);
 
         if (fromContainer !== toContainer) {
@@ -81,7 +81,7 @@ async function saveTaskOrder(container) {
 }
 
 function initTaskGroupSortable(container) {
-    if (viewSettings.group !== GROUP.CATEGORY) return;
+    if (pageSettings.group !== GROUP.CATEGORY) return;
 
     new Sortable(container, {
         animation: 150,

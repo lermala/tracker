@@ -47,12 +47,12 @@ function bindSettingsEvents() {
 
         const value = button.dataset.group;
 
-        viewSettings.group =
+        pageSettings.group =
             value === "null"
                 ? null
                 : value;
 
-        saveViewSettings(viewSettings);
+        saveCurrentPageSettings()
 
         updateGroupButton();
         renderGroupMenu();
@@ -68,9 +68,9 @@ function bindSettingsEvents() {
 
         if (!button) return;
 
-        viewSettings.sort = button.dataset.sort;
+        pageSettings.sort = button.dataset.sort;
 
-        saveViewSettings(viewSettings);
+        saveCurrentPageSettings()
 
         updateSortButton();
         renderSortMenu();
@@ -104,7 +104,7 @@ function renderGroupMenu() {
     renderSelectOptions({
         container: groupMenu,
         options: GROUP_OPTIONS,
-        selectedValue: viewSettings.group,
+        selectedValue: pageSettings.group,
         dataName: "group"
     });
 }
@@ -114,7 +114,7 @@ function renderSortMenu() {
     renderSelectOptions({
         container: sortMenu,
         options: SORT_OPTIONS,
-        selectedValue: viewSettings.sort,
+        selectedValue: pageSettings.sort,
         dataName: "sort"
     });
 }
@@ -151,7 +151,7 @@ function updateGroupButton() {
     groupButtonValue.textContent =
         getOptionLabel(
             GROUP_OPTIONS,
-            viewSettings.group
+            pageSettings.group
         );
 }
 
@@ -160,7 +160,7 @@ function updateSortButton() {
     sortButtonValue.textContent =
         getOptionLabel(
             SORT_OPTIONS,
-            viewSettings.sort
+            pageSettings.sort
         );
 }
 

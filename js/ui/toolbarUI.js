@@ -15,8 +15,8 @@ function bindTaskToolbarEvents() {
 
         if (!button) return;
 
-        viewSettings.view = button.dataset.view;
-        saveViewSettings(viewSettings);
+        pageSettings.view = button.dataset.view;
+        saveCurrentPageSettings()
 
         updateViewButtons();
         renderCurrentView();
@@ -38,7 +38,7 @@ function updateViewButtons() {
     viewSwitcher.querySelectorAll("[data-view]").forEach(button => {
         button.classList.toggle(
             "active",
-            button.dataset.view === viewSettings.view
+            button.dataset.view === pageSettings.view
         );
     });
 }

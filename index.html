@@ -81,11 +81,20 @@
             </div>
 
             <div class="sidebarContent">
+                <div class="sidebarTitle">Личное</div>
+                <button class="sidebarNavItem" id="myTasksButton">
+                    <span class="material-symbols-rounded sidebarNavIcon">
+                        check_circle
+                    </span>
+
+                    <span class="sidebarNavTitle">Мои задачи</span>
+                </button>
+
                 <div class="sidebarTitle">Проекты</div>
                 <div class="projectList" id="projectList"></div>
 
-                <button class="addProjectButton" id="addProjectButton">
-                    <span class="material-symbols-rounded">
+                <button class="addProjectButton sidebarNavItem" id="addProjectButton">
+                    <span class="material-symbols-rounded addButtonIcon">
                         add
                     </span>
 
@@ -93,8 +102,6 @@
                 </button>
 
             </div>
-
-
         </aside>
 
         <div class="tasksContainer">
@@ -290,7 +297,8 @@
 
 <!-- ===== Services ===== -->
 <script src="js/services/authService.js"></script>
-<script src="js/services/localStorageService.js"></script>
+<script src="js/services/settings/viewSettingsService.js"></script>
+<script src="js/services/settings/pageSettingsService.js"></script>
 
 <script src="js/services/appearenceService.js"></script>
 <script src="js/services/projectService.js"></script>

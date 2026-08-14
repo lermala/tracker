@@ -1,26 +1,6 @@
 const VIEW_SETTINGS_KEY = "tracker-view-settings";
 
-const VIEW = {
-    LIST: "list",
-    BOARD: "board",
-    CALENDAR: "calendar"
-};
-
-const GROUP = {
-    CATEGORY: "category",
-    DUE_DATE: "dueDate"
-};
-
 const DEFAULT_VIEW_SETTINGS = {
-    filter: "all",
-    sort: "created",
-    sortDirection: "desc",
-    search: "",
-    hideCompleted: false,
-    todayOnly: false,
-    view: VIEW.LIST,
-    group: GROUP.CATEGORY,
-    projectId: null,
     sidebarCollapsed: false
 };
 
@@ -36,6 +16,8 @@ function getViewSettings() {
 }
 
 function saveViewSettings(settings) {
+    console.log("savePageSettings");
+    
     localStorage.setItem(
         VIEW_SETTINGS_KEY,
         JSON.stringify(settings)

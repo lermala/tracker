@@ -119,7 +119,7 @@ function startEditNextTask(task) {
     if (!group?.newTaskData) return;
 
     const nextTask = createTask({
-        projectId: viewSettings.projectId,
+        projectId: getCurrentProjectId(),
         ...group.newTaskData
     });
 

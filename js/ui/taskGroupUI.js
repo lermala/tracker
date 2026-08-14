@@ -61,7 +61,7 @@ function bindTaskGroupEvents(item, elements, group) {
     if (group.newTaskData != null) {
         elements.addButton.addEventListener("click", () => {
             const task = createTask({
-                projectId: viewSettings.projectId,
+                projectId: getCurrentProjectId(),
                 ...group.newTaskData
             });
 
