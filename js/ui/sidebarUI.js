@@ -8,29 +8,37 @@ const signOutButton = document.getElementById("signOutButton");
 const projectList = document.getElementById("projectList");
 const addProjectButton = document.getElementById("addProjectButton");
 
+initSidebarUI();
 
-sidebarToggleButton.addEventListener("click", () => {
-    toggleSidebar();
-});
+function initSidebarUI() {
+    bindEventsSidebar()
+    initAppearanceSettings();
+}
 
-addProjectButton.addEventListener("click", () => {
-    startCreateProject();
-});
+function bindEventsSidebar() {
+    sidebarToggleButton.addEventListener("click", () => {
+        toggleSidebar();
+    });
 
-sidebarUserButton.addEventListener("click", event => {
-    event.stopPropagation();
-    sidebarUserMenu.classList.toggle("hidden");
-});
+    addProjectButton.addEventListener("click", () => {
+        startCreateProject();
+    });
 
-signOutButton.addEventListener("click", () => {
-    logout();
-});
+    sidebarUserButton.addEventListener("click", event => {
+        event.stopPropagation();
+        sidebarUserMenu.classList.toggle("hidden");
+    });
 
-document.addEventListener("click", event => {
-    if (!event.target.closest(".sidebarUser")) {
-        sidebarUserMenu.classList.add("hidden");
-    }
-});
+    signOutButton.addEventListener("click", () => {
+        logout();
+    });
+
+    document.addEventListener("click", event => {
+        if (!event.target.closest(".sidebarUser")) {
+            sidebarUserMenu.classList.add("hidden");
+        }
+    });
+}
 
 function renderProjects() {
     projectList.innerHTML = "";
@@ -224,4 +232,42 @@ async function renderUser() {
 
     document.getElementById("sidebarUserEmail").textContent =
         email;
+}
+
+function initAppearanceSettings() {
+    const themeContainer =
+        document.getElementById("themeToggle");
+
+    const accentContainer =
+        document.getElementById("accentColorPicker");
+
+    if (!themeContainer || !accentContainer) {
+        return;
+    }
+
+    const appearance = getAppearance();
+
+    const themeToggle = createToggle({
+        value: appearance.theme === "dark",
+
+        onChange: isDark => {
+            setTheme(
+                isDark
+                    ? "dark"
+                    : "light"
+            );
+        }
+    });
+
+    const accentPicker = createColorPicker({
+        colors: DEFAULT_COLOR_PALETTE,
+        value: appearance.accent,
+
+        onChange: color => {
+            setAccent(color);
+        }
+    });
+
+    themeContainer.replaceChildren(themeToggle);
+    accentContainer.replaceChildren(accentPicker);
 }

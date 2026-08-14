@@ -2,13 +2,9 @@ const groupButton = document.getElementById("groupButton");
 const groupButtonValue = document.getElementById("groupButtonValue");
 const groupMenu = document.getElementById("groupMenu");
 
-// const filterButton = document.getElementById("filterButton");
 const sortButton = document.getElementById("sortButton");
+const sortButtonValue = document.getElementById("sortButtonValue");
 const sortMenu = document.getElementById("sortMenu");
-const sortOptions = document.querySelectorAll(".sortOption");
-
-const hideCompletedCheckbox = document.getElementById("hideCompletedCheckbox");
-const todayOnlyCheckbox = document.getElementById("todayOnlyCheckbox");
 
 const GROUP_OPTIONS = [
     { value: null, label: "Нет" },
@@ -16,29 +12,45 @@ const GROUP_OPTIONS = [
     { value: GROUP.DUE_DATE, label: "Контрольный срок" }
 ];
 
+const SORT_OPTIONS = [
+    { value: "created", label: "Дата создания" },
+    { value: "dueDate", label: "Контрольный срок" },
+    { value: "priority", label: "Приоритет" }
+];
+
 function initSettingsUI() {
     bindSettingsEvents();
 
-    hideCompletedCheckbox.checked = viewSettings.hideCompleted;
-    todayOnlyCheckbox.checked = viewSettings.todayOnly;
+    initSettingsToggles();
 
     updateGroupButton();
+    updateSortButton();
+
     renderGroupMenu();
+    renderSortMenu();
 }
 
 function bindSettingsEvents() {
     groupButton.addEventListener("click", () => {
-        groupMenu.classList.toggle("hidden");
-        sortMenu.classList.add("hidden");
+        toggleSelectMenu(groupMenu);
     });
+
+    sortButton.addEventListener("click", () => {
+        toggleSelectMenu(sortMenu);
+    });
+
 
     groupMenu.addEventListener("click", event => {
         const button = event.target.closest("[data-group]");
 
         if (!button) return;
 
-        const group = button.dataset.group;
-        viewSettings.group = group === "null" ? null : group;
+        const value = button.dataset.group;
+
+        viewSettings.group =
+            value === "null"
+                ? null
+                : value;
 
         saveViewSettings(viewSettings);
 
@@ -50,63 +62,140 @@ function bindSettingsEvents() {
         renderCurrentView();
     });
 
-    sortButton.addEventListener("click", () => {
-        sortMenu.classList.toggle("hidden");
-        groupMenu.classList.add("hidden");
-    });
 
-    sortOptions.forEach(option => {
-        option.addEventListener("click", () => {
-            viewSettings.sort = option.dataset.sort;
-            saveViewSettings(viewSettings);
+    sortMenu.addEventListener("click", event => {
+        const button = event.target.closest("[data-sort]");
 
-            sortOptions.forEach(btn =>
-                btn.classList.remove("active")
-            );
-            option.classList.add("active");
-            sortMenu.classList.add("hidden");
+        if (!button) return;
 
-            renderCurrentView();
-        });
-    });
-
-    hideCompletedCheckbox.addEventListener("change", () => {
-        viewSettings.hideCompleted = hideCompletedCheckbox.checked;
+        viewSettings.sort = button.dataset.sort;
 
         saveViewSettings(viewSettings);
-        renderCurrentView();
-    });
 
-    todayOnlyCheckbox.addEventListener("change", () => {
-        viewSettings.todayOnly = todayOnlyCheckbox.checked;
+        updateSortButton();
+        renderSortMenu();
 
-        saveViewSettings(viewSettings);
+        sortMenu.classList.add("hidden");
+
         renderCurrentView();
     });
 }
+
+
+function toggleSelectMenu(menu) {
+    const isHidden =
+        menu.classList.contains("hidden");
+
+    closeSelectMenus();
+
+    if (isHidden) {
+        menu.classList.remove("hidden");
+    }
+}
+
+
+function closeSelectMenus() {
+    groupMenu.classList.add("hidden");
+    sortMenu.classList.add("hidden");
+}
+
 
 function renderGroupMenu() {
-    groupMenu.innerHTML = "";
-
-    GROUP_OPTIONS.forEach(group => {
-        const button = document.createElement("button");
-
-        button.className = "toolbarMenuOption";
-        button.dataset.group = group.value;
-        button.textContent = group.label;
-
-        if (group.value === viewSettings.group) {
-            button.classList.add("active");
-        }
-
-        groupMenu.appendChild(button);
+    renderSelectOptions({
+        container: groupMenu,
+        options: GROUP_OPTIONS,
+        selectedValue: viewSettings.group,
+        dataName: "group"
     });
 }
 
+
+function renderSortMenu() {
+    renderSelectOptions({
+        container: sortMenu,
+        options: SORT_OPTIONS,
+        selectedValue: viewSettings.sort,
+        dataName: "sort"
+    });
+}
+
+
+function renderSelectOptions({
+    container,
+    options,
+    selectedValue,
+    dataName
+}) {
+    container.innerHTML = "";
+
+    options.forEach(option => {
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "menuItem";
+
+        button.dataset[dataName] = option.value;
+        button.textContent = option.label;
+
+        button.classList.toggle(
+            "is-selected",
+            option.value === selectedValue
+        );
+
+        container.append(button);
+    });
+}
+
+
 function updateGroupButton() {
-    const currentGroup = GROUP_OPTIONS.find(
-        group => group.value === viewSettings.group
+    groupButtonValue.textContent =
+        getOptionLabel(
+            GROUP_OPTIONS,
+            viewSettings.group
+        );
+}
+
+
+function updateSortButton() {
+    sortButtonValue.textContent =
+        getOptionLabel(
+            SORT_OPTIONS,
+            viewSettings.sort
+        );
+}
+
+
+function getOptionLabel(options, value) {
+    return options.find(
+        option => option.value === value
+    )?.label ?? "";
+}
+
+function initSettingsToggles() {
+    createViewSettingToggle(
+        "hideCompletedToggle",
+        "hideCompleted"
     );
 
-    groupButtonValue.textContent = currentGroup?.label ?? "Нет";
+    createViewSettingToggle(
+        "todayOnlyToggle",
+        "todayOnly"
+    );
+}
+
+function createViewSettingToggle(containerId, settingName) {
+    const container = document.getElementById(containerId);
+
+    const toggle = createToggle({
+        value: viewSettings[settingName],
+
+        onChange: value => {
+            viewSettings[settingName] = value;
+
+            saveViewSettings(viewSettings);
+            renderCurrentView();
+        }
+    });
+    
+    container.replaceChildren(toggle);
 }

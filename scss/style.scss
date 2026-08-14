@@ -14,6 +14,7 @@
 
 @import "_common"; // общие элементы
 
+@import "components/_toggle";
 @import "components/_badge";
 @import "components/_popover";
 @import "components/_surface";
@@ -23,6 +24,7 @@
 @import "components/_datePicker";
 @import "components/_calendar";
 @import "components/_textEditor";
+@import "components/_colorPicker";
 @import "components/_priorityPicker";
 
 @import "pages/_auth";

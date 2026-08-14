@@ -31,11 +31,6 @@
         .addProjectButton {
             display: none;
         }
-
-        .sidebarHeader {
-            justify-content: center;
-            padding-inline: 0;
-        }
     }
 }
 
@@ -52,7 +47,7 @@
         flex: 1;
     }
 
-    .sidebarUserButton {
+    .sidebarUserButton { // кнопка с email в заголовке
         @extend %button;
         @extend %hover-surface;
 
@@ -99,7 +94,7 @@
 }
 
 .sidebarContent {
-    padding: $space-xs;
+    //padding: $space-xs;
 
     .sidebarTitle {
         margin-top: $space-l;
@@ -119,7 +114,6 @@
     }
 }
 
-
 .sidebarUserMenu {
     @extend %popover;
 
@@ -129,30 +123,47 @@
     right: 0;
 
     z-index: 100;
-
-    padding: $space-xs;
+    width: 200px;
 
     .sidebarUserInfo {
-        padding: $space-s;
+        .sidebarUserEmail {
+            margin-top: 2px;
 
+            overflow: hidden;
+
+            color: var(--color-text-secondary);
+
+            font-size: 12px;
+
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .userSettings {        
+        border-top: 1px solid var(--color-border);
         border-bottom: 1px solid var(--color-border);
-    }
 
-    .sidebarUserMenuName {
-        font-weight: 500;
-    }
+        .userSetting {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-    .sidebarUserEmail {
-        margin-top: 2px;
+        .userSettingColors {
+            display: block;
+        }
 
-        overflow: hidden;
+        .userSettingColors .userSettingLabel {
+            display: block;
+            margin-bottom: $space-s;
+        }
 
-        color: var(--color-text-secondary);
+        .userSettingLabel {
+            color: var(--color-text-secondary);
 
-        font-size: 12px;
-
-        text-overflow: ellipsis;
-        white-space: nowrap;
+            font-size: 12px;
+        }
     }
 
     .sidebarUserMenuItem {
@@ -165,7 +176,7 @@
 
 
 
-.projectItem, 
+.projectItem,
 .addProjectButton {
     @extend %menu-option;
 

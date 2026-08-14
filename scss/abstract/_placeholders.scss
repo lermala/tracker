@@ -68,23 +68,6 @@
     flex-shrink: 0;
 }
 
-%menu-option {
-    @extend %control-reset;
-    @extend %interactive;
-    @extend %hover-surface;
-
-    display: flex;
-    align-items: center;
-    gap: $space-s;
-
-    width: 100%;
-    padding: $space-s $space-m;
-
-    border-radius: $bd-radius;
-
-    text-align: left;
-}
-
 
 // ======================================
 // Surfaces
@@ -98,12 +81,6 @@
     border-radius: $bd-radius;
 }
 
-%popover {
-    @extend %surface;
-
-    box-shadow: $shadow;
-}
-
 %overlay {
     position: fixed;
     inset: 0;
@@ -114,7 +91,6 @@
 
     background: rgba(0, 0, 0, .25);
 }
-
 
 // ======================================
 // Drag & Drop

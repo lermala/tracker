@@ -4,6 +4,7 @@ let categories = [];
 
 let timerInterval = null;
 
+applyAppearance(getAppearance());
 initApp();
 
 async function initApp() {

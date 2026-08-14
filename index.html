@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -26,18 +26,49 @@
                     </button>
 
                     <div class="sidebarUserMenu hidden" id="sidebarUserMenu">
-                        <div class="sidebarUserInfo">
-                            <div class="sidebarUserMenuName" id="sidebarUserMenuName"></div>
-                            <div class="sidebarUserEmail" id="sidebarUserEmail"></div>
+
+                        <!-- Аккаунт -->
+                        <div class="menuSection">
+                            <div class="sidebarUserInfo">
+                                <div class="sidebarUserMenuName" id="sidebarUserMenuName"></div>
+
+                                <div class="sidebarUserEmail" id="sidebarUserEmail"></div>
+                            </div>
                         </div>
 
-                        <button class="sidebarUserMenuItem" id="signOutButton">
-                            <span class="material-symbols-rounded">
-                                logout
-                            </span>
+                        <!-- Настройки -->
+                        <div class="menuSection">
+                            <div class="menuSectionTitle">
+                                Оформление
+                            </div>
 
-                            <span>Выйти</span>
-                        </button>
+                            <div class="menuSetting">
+                                <div class="toggleButton" id="themeToggle"></div>
+                                <span class="menuSettingLabel">
+                                    Тёмная тема
+                                </span>
+                            </div>
+
+                            <div class="menuSetting menuSettingVertical">
+                                <span class="menuSettingLabel">
+                                    Акцент
+                                </span>
+
+                                <div id="accentColorPicker"></div>
+                            </div>
+                        </div>
+
+                        <!-- Действия -->
+                        <div class="menuSection">
+                            <button class="menuItem" id="signOutButton" type="button">
+                                <span class="material-symbols-rounded menuItemIcon">
+                                    logout
+                                </span>
+
+                                <span>Выйти</span>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
 
@@ -92,56 +123,76 @@
                     </button>
 
                     <div class="settingsMenu hidden" id="settingsMenu">
-                        <div class="settingsMenuTitle">
-                            Настройки
-                        </div>
 
-                        <!-- Группировка -->
-                        <div class="settingsItem">
-                            <div class="settingsItemLabel">
-                                Группировка
+                        <!-- Представление -->
+                        <div class="menuSection">
+                            <div class="menuSectionTitle">
+                                Представление
                             </div>
 
-                            <button class="settingsSelect" id="groupButton">
-                                <span id="groupButtonValue">Нет</span>
-                                <span class="material-symbols-rounded">
-                                    expand_more
+                            <div class="menuSetting menuSettingVertical">
+                                <span class="menuSettingLabel">
+                                    Группировка
                                 </span>
-                            </button>
 
-                            <div class="settingsSelectMenu hidden" id="groupMenu"></div>
-                        </div>
+                                <div class="settingsSelectWrapper">
+                                    <button class="settingsSelect" id="groupButton" type="button">
+                                        <span id="groupButtonValue">Нет</span>
 
-                        <!-- Сортировка -->
-                        <div class="settingsItem">
-                            <div class="settingsItemLabel">
-                                Сортировка
+                                        <span class="material-symbols-rounded">
+                                            expand_more
+                                        </span>
+                                    </button>
+
+                                    <div class="settingsSelectMenu hidden" id="groupMenu"></div>
+                                </div>
                             </div>
 
-                            <button class="settingsSelect" id="sortButton">
-                                <span id="sortButtonValue">Дата создания</span>
-                                <span class="material-symbols-rounded">
-                                    expand_more
+                            <div class="menuSetting menuSettingVertical">
+                                <span class="menuSettingLabel">
+                                    Сортировка
                                 </span>
-                            </button>
 
-                            <div class="settingsSelectMenu hidden" id="sortMenu"></div>
+                                <div class="settingsSelectWrapper">
+                                    <button class="settingsSelect" id="sortButton" type="button">
+                                        <span id="sortButtonValue">
+                                            Дата создания
+                                        </span>
+
+                                        <span class="material-symbols-rounded">
+                                            expand_more
+                                        </span>
+                                    </button>
+
+                                    <div class="settingsSelectMenu hidden" id="sortMenu"></div>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Другое -->
-                        <div class="settingsItem settingsCheckboxItem">
-                            <label class="settingsCheckbox">
-                                <input type="checkbox" id="hideCompletedCheckbox">
-                                <span>Скрыть завершенные</span>
-                            </label>
+                        <!-- Фильтры -->
+                        <div class="menuSection">
+                            <div class="menuSectionTitle">
+                                Фильтры
+                            </div>
+
+                            <div class="menuSetting">
+                                <div id="hideCompletedToggle"></div>
+                                <span class="menuSettingLabel">
+                                    Скрыть завершённые
+                                </span>
+
+                            </div>
+
+                            <div class="menuSetting">
+                                <div id="todayOnlyToggle"></div>
+                                <span class="menuSettingLabel">
+                                    Только сегодня
+                                </span>
+
+                            </div>
                         </div>
 
-                        <div class="settingsItem settingsCheckboxItem">
-                            <label class="settingsCheckbox">
-                                <input type="checkbox" id="todayOnlyCheckbox">
-                                <span>Только сегодня</span>
-                            </label>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -241,6 +292,7 @@
 <script src="js/services/authService.js"></script>
 <script src="js/services/localStorageService.js"></script>
 
+<script src="js/services/appearenceService.js"></script>
 <script src="js/services/projectService.js"></script>
 <script src="js/services/categoryService.js"></script>
 <script src="js/services/taskService.js"></script>
@@ -249,6 +301,8 @@
 
 
 <!-- ===== UI Components ===== -->
+<script src="js/ui/components/toggle.js"></script>
+<script src="js/ui/components/colorPicker.js"></script>
 <script src="js/ui/components/datePicker.js"></script>
 <script src="js/ui/components/calendar.js"></script>
 <script src="js/ui/components/textEditor.js"></script>

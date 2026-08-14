@@ -4,11 +4,19 @@
     position: fixed;
     z-index: 10000;
 
-    min-width: 180px;
+    display: grid;
+
+    width: max-content;
+    padding: $space-xxs
 }
 
 .priorityPickerOption {
     @extend %menu-option;
+
+    width: auto;
+
+    //gap: $space-xs;
+    white-space: nowrap;
 
     &.is-selected {
         background: var(--color-hover);

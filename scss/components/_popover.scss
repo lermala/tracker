@@ -1,39 +1,91 @@
-// ===== Popover =====
+// ======================================
+// Popover
+// ======================================
 
 %popover {
-    background: var(--color-surface);
-    color: var(--color-text);
-
-    border: 1px solid var(--color-border);
-    border-radius: $bd-radius;
+    @extend %surface;
 
     box-shadow: $shadow;
 }
 
 
-// ===== Menu option =====
+// ======================================
+// Menu structure
+// ======================================
 
-%menu-option {
+.menuSection {
+    padding: $space-m $space-m;
+
+    & + & {
+        border-top: 1px solid var(--color-border);
+    }
+}
+
+.menuSectionTitle {
+    margin-bottom: $space-xxs;
+
+    color: var(--color-text);
+
+    //font-size: 14px;
+    font-weight: 600;
+}
+
+
+// ======================================
+// Menu settings
+// ======================================
+
+.menuSetting {
     display: flex;
     align-items: center;
-    gap: $space-m;
+
+    gap: $space-s;
+    padding: $space-xs 0;
+
+    color: var(--color-text);
+}
+
+.menuSettingVertical {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-xs;
+}
+
+.menuSettingLabel {
+    color: var(--color-text);
+}
+
+
+// ======================================
+// Menu options
+// ======================================
+
+%menu-option {
+    @extend %button;
+    @extend %hover-surface;
+
+    justify-content: flex-start;
+
+    gap: $space-s;
 
     width: 100%;
-    padding: $space-m $space-l;
+    padding: $space-xs $space-s;
 
-    font: inherit;
     color: var(--color-text);
     text-align: left;
+}
 
-    background: transparent;
-    border: none;
-    border-radius: $bd-radius;
+.menuItem {
+    @extend %menu-option;
+    padding-inline: 0;
 
-    cursor: pointer;
-
-    transition: background-color .15s;
-
-    &:hover {
-        background: var(--color-hover);
+    &.is-selected {
+        color: var(--color-accent);
+        background: var(--color-accent-soft);
     }
+}
+
+.menuItemIcon {
+    flex-shrink: 0;
+    font-size: 16px;
 }

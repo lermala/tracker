@@ -1,0 +1,33 @@
+.colorPicker {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: $space-s;
+}
+
+.colorPickerOption {
+    @extend %button;
+
+    width: 18px;
+    height: 18px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--picker-color);
+
+    transition:
+        transform .15s ease,
+        outline-color .15s ease;
+
+    &:hover {
+        transform: scale(1.12);
+    }
+
+    &.is-selected {
+        outline: 2px solid var(--color-text);
+        outline-offset: 2px;
+    }
+}
