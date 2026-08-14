@@ -1,3 +1,5 @@
+let viewSettings = getViewSettings();
+
 let projects = [];
 let tasks = [];
 let categories = [];

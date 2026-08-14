@@ -8,17 +8,41 @@ const signOutButton = document.getElementById("signOutButton");
 const projectList = document.getElementById("projectList");
 const addProjectButton = document.getElementById("addProjectButton");
 
-initSidebarUI();
 
 function initSidebarUI() {
+    applySidebarState(viewSettings.sidebarCollapsed);
+
     bindEventsSidebar()
     initAppearanceSettings();
+
+    renderProjects();
+}
+
+function applySidebarState(isCollapsed) {
+    sidebar.classList.toggle("is-collapsed", isCollapsed);
+
+    const icon = sidebarToggleButton.querySelector(
+        ".material-symbols-rounded"
+    );
+
+    icon.textContent = isCollapsed
+        ? "left_panel_open"
+        : "left_panel_close";
+
+    sidebarToggleButton.title = isCollapsed
+        ? "Развернуть"
+        : "Свернуть";
+}
+
+function toggleSidebar() {
+    viewSettings.sidebarCollapsed = !viewSettings.sidebarCollapsed;
+
+    saveViewSettings(viewSettings);
+    applySidebarState(viewSettings.sidebarCollapsed);
 }
 
 function bindEventsSidebar() {
-    sidebarToggleButton.addEventListener("click", () => {
-        toggleSidebar();
-    });
+    sidebarToggleButton.addEventListener("click", toggleSidebar);
 
     addProjectButton.addEventListener("click", () => {
         startCreateProject();
@@ -180,23 +204,6 @@ function cancelCreateProject(input) {
 
     input.remove();
     addProjectButton.classList.remove("hidden");
-}
-
-function toggleSidebar() {
-    const isCollapsed =
-        sidebar.classList.toggle("is-collapsed");
-
-    const icon = sidebarToggleButton.querySelector(
-        ".material-symbols-rounded"
-    );
-
-    icon.textContent = isCollapsed
-        ? "left_panel_open"
-        : "left_panel_close";
-
-    sidebarToggleButton.title = isCollapsed
-        ? "Развернуть"
-        : "Свернуть";
 }
 
 function selectFallbackProject() {

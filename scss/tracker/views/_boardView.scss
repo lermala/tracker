@@ -51,3 +51,14 @@
         margin-left: auto;
     }
 }
+
+@media (max-width: 700px) {
+    .boardView {
+        padding-inline: $space-s;
+
+        .taskGroup,
+        .addCategoryButton {
+            flex-basis: min(300px, calc(100vw - 32px));
+        }
+    }
+}

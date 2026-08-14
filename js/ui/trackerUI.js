@@ -8,7 +8,7 @@ tasksHeaderTitle.addEventListener("click", () => {
 
 
 function initUI() {
-    renderProjects();
+    initSidebarUI();
     initToolbarUI();
     initTaskUI();
 }

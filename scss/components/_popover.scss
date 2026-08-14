@@ -77,7 +77,7 @@
 
 .menuItem {
     @extend %menu-option;
-    padding-inline: 0;
+    //padding-inline: 0;
 
     &.is-selected {
         color: var(--color-accent);

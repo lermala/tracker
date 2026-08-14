@@ -66,3 +66,26 @@
         text-align: center;
     }
 }
+
+@media (max-width: 700px) {
+    .listView {
+        padding-inline: $space-xs;
+
+        .task {
+            gap: $space-s;
+            padding: $space-m $space-s;
+        }
+
+        .taskContent {
+            grid-template-columns: 1fr;
+            gap: $space-xs;
+        }
+
+        .taskMeta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: $space-s;
+        }
+    }
+}

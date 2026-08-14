@@ -20,7 +20,8 @@ const DEFAULT_VIEW_SETTINGS = {
     todayOnly: false,
     view: VIEW.LIST,
     group: GROUP.CATEGORY,
-    projectId: null
+    projectId: null,
+    sidebarCollapsed: false
 };
 
 function getViewSettings() {

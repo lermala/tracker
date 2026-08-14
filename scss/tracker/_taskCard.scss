@@ -124,3 +124,35 @@
         display: none;
     }
 }
+
+@media (max-width: 700px) {
+    .taskCard {
+        width: calc(100vw - 16px);
+        min-height: 0;
+        max-height: calc(100vh - 16px);
+    }
+
+    .taskCardLayout {
+        display: block;
+        overflow-y: auto;
+    }
+
+    .taskCardContent {
+        padding: $space-l;
+        overflow: visible;
+    }
+
+    .taskCardProperties {
+        padding: $space-l;
+        overflow: visible;
+
+        border-left: none;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .taskCardContent {
+        .taskCardMain {
+            gap: $space-m;
+        }
+    }
+}

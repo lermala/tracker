@@ -1,5 +1,3 @@
-let viewSettings = getViewSettings();
-
 // SORTING
 
 function sortTasks(tasks) {

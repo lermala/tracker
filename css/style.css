@@ -378,9 +378,6 @@ a:hover {
   text-align: left;
 }
 
-.menuItem {
-  padding-inline: 0;
-}
 .menuItem.is-selected {
   color: var(--color-accent);
   background: var(--color-accent-soft);
@@ -744,6 +741,9 @@ textarea.textEditor.taskTitle {
   width: 100%;
   height: 100%;
 }
+.trackerLayout:has(.sidebar.is-collapsed) .trackerToolbar {
+  padding-left: 56px;
+}
 
 .sidebar {
   width: 240px;
@@ -756,7 +756,9 @@ textarea.textEditor.taskTitle {
   transition: width 0.2s ease;
 }
 .sidebar.is-collapsed {
-  width: 48px;
+  width: 0;
+  padding-left: 0;
+  padding-right: 0;
   border: none;
   background: transparent;
 }
@@ -766,6 +768,16 @@ textarea.textEditor.taskTitle {
 .sidebar.is-collapsed .projectList,
 .sidebar.is-collapsed .addProjectButton {
   display: none;
+}
+.sidebar.is-collapsed .sidebarHeader {
+  position: absolute;
+  top: 14px;
+  left: 8px;
+  z-index: 100;
+}
+
+.sidebarToggleButton .material-symbols-rounded {
+  font-size: 20px;
 }
 
 .sidebarHeader {
@@ -886,10 +898,6 @@ textarea.textEditor.taskTitle {
 
 .addProjectButton {
   color: var(--color-text-secondary);
-}
-
-.sidebarToggleButton .material-symbols-rounded {
-  font-size: 20px;
 }
 
 .task {
@@ -1022,6 +1030,12 @@ body:not(.is-dragging) .task:hover .taskGroupDeleteButton {
   background: rgba(80, 116, 166, 0.1);
 }
 
+@media (max-width: 700px) {
+  .task .taskDueDate.is-empty {
+    opacity: 1;
+    visibility: visible;
+  }
+}
 .task.is-dragging,
 .taskGroup.is-dragging {
   cursor: grabbing;
@@ -1154,14 +1168,18 @@ body:not(.is-dragging) .task:hover {
   padding: 6px;
 }
 
-/* .toolbarMenuOption {
-    @extend %menu-option;
-
-    &.active {
-        color: var(--color-accent);
-        font-weight: 600;
-    }
-} */
+@media (max-width: 700px) {
+  .trackerToolbar {
+    padding: 10px;
+    justify-content: space-between;
+  }
+  .tasksHeader {
+    padding: 14px 10px 10px;
+  }
+  .tasksHeaderTitle {
+    font-size: 20px;
+  }
+}
 .taskGroup {
   min-width: 0;
   padding: 8px;
@@ -1309,6 +1327,30 @@ body:not(.is-dragging) .task:hover {
   display: none;
 }
 
+@media (max-width: 700px) {
+  .taskCard {
+    width: calc(100vw - 16px);
+    min-height: 0;
+    max-height: calc(100vh - 16px);
+  }
+  .taskCardLayout {
+    display: block;
+    overflow-y: auto;
+  }
+  .taskCardContent {
+    padding: 14px;
+    overflow: visible;
+  }
+  .taskCardProperties {
+    padding: 14px;
+    overflow: visible;
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+  }
+  .taskCardContent .taskCardMain {
+    gap: 10px;
+  }
+}
 .listView {
   width: 100%;
   padding-inline: 10px;
@@ -1364,6 +1406,25 @@ body:not(.is-dragging) .task:hover {
   text-align: center;
 }
 
+@media (max-width: 700px) {
+  .listView {
+    padding-inline: 6px;
+  }
+  .listView .task {
+    gap: 8px;
+    padding: 10px 8px;
+  }
+  .listView .taskContent {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .listView .taskMeta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
 .boardView {
   display: flex;
   align-items: stretch;
@@ -1403,4 +1464,14 @@ body:not(.is-dragging) .task:hover {
 }
 .boardView .taskDueDate {
   margin-left: auto;
+}
+
+@media (max-width: 700px) {
+  .boardView {
+    padding-inline: 8px;
+  }
+  .boardView .taskGroup,
+  .boardView .addCategoryButton {
+    flex-basis: min(300px, 100vw - 32px);
+  }
 }

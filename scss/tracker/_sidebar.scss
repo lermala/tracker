@@ -2,6 +2,12 @@
     display: flex;
     width: 100%;
     height: 100%;
+
+    &:has(.sidebar.is-collapsed) {
+        .trackerToolbar {
+            padding-left: 56px;
+        }
+    }
 }
 
 .sidebar {
@@ -19,7 +25,9 @@
     transition: width .2s ease;
 
     &.is-collapsed {
-        width: 48px;
+        width: 0;
+        padding-left: 0;
+        padding-right: 0;
 
         border: none;
         background: transparent;
@@ -31,6 +39,21 @@
         .addProjectButton {
             display: none;
         }
+
+        .sidebarHeader {
+            position: absolute;
+            top: $space-l;
+            left: $space-s;
+            z-index: 100;
+        }
+    }
+}
+
+.sidebarToggleButton {
+    @extend %icon-button;
+
+    .material-symbols-rounded {
+        font-size: 20px;
     }
 }
 
@@ -47,7 +70,8 @@
         flex: 1;
     }
 
-    .sidebarUserButton { // кнопка с email в заголовке
+    .sidebarUserButton {
+        // кнопка с email в заголовке
         @extend %button;
         @extend %hover-surface;
 
@@ -140,7 +164,7 @@
         }
     }
 
-    .userSettings {        
+    .userSettings {
         border-top: 1px solid var(--color-border);
         border-bottom: 1px solid var(--color-border);
 
@@ -205,12 +229,4 @@
 
 .addProjectButton {
     color: var(--color-text-secondary);
-}
-
-.sidebarToggleButton {
-    @extend %icon-button;
-
-    .material-symbols-rounded {
-        font-size: 20px;
-    }
 }
