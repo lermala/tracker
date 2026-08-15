@@ -21,3 +21,7 @@ async function deleteProjectMember(
         userId
     );
 }
+
+async function joinProject(projectId) {
+    return await joinProjectInDb(projectId);
+}

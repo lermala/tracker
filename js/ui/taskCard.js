@@ -2,10 +2,22 @@ let currentTaskId = null;
 let taskCardElements = null;
 
 async function initTaskCard() {
-    const response = await fetch("taskCard.html");
+    const response = await fetch(
+        `${BASE_PATH}/taskCard.html`
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            `Failed to load taskCard.html: ${response.status}`
+        );
+    }
+
     const html = await response.text();
 
-    document.body.insertAdjacentHTML("beforeend", html);
+    document.body.insertAdjacentHTML(
+        "beforeend",
+        html
+    );
 
     taskCardElements = getTaskCardElements();
 
@@ -117,7 +129,9 @@ function bindTaskCardEvents() {
     );
 }
 
-function openTaskCard(task) {
+function openTaskCard(task, {
+    updateUrl = true
+} = {}) {
     const {
         overlay,
         closeButton,
@@ -130,6 +144,13 @@ function openTaskCard(task) {
 
     currentTaskId = task.id;
 
+    if (updateUrl) {
+        setEntityUrl(
+            ENTITY_URL.TASK,
+            task.id
+        );
+    }
+
     overlay.classList.remove("hidden");
 
     fillTaskCheckbox(status, task);
@@ -140,11 +161,17 @@ function openTaskCard(task) {
     fillTaskPriority(priority, task);
 }
 
-function closeTaskCard() {
+function closeTaskCard({
+    updateUrl = true
+} = {}) {
     const overlay = document.getElementById("taskCardOverlay");
 
     overlay.classList.add("hidden");
     currentTaskId = null;
+
+    if (updateUrl) {
+        syncUrlWithCurrentPage();
+    }
 }
 
 function getTaskCardElements() {

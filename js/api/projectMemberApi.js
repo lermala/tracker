@@ -53,3 +53,16 @@ async function deleteProjectMemberFromDb(
         throw error;
     }
 }
+
+async function joinProjectInDb(projectId) {
+    const { data, error } = await supabaseClient
+        .rpc("join_project", {
+            target_project_id: projectId
+        });
+
+    if (error) {
+        throw error;
+    }
+
+    return data;
+}

@@ -16,6 +16,7 @@ let viewSettings = getViewSettings();
 let pageSettings = getPageSettings(currentPage);
 
 applyAppearance(getAppearance());
+restoreEntityUrl();
 initApp();
 
 async function initApp() {
@@ -43,7 +44,18 @@ async function loadTracker() {
         getTasksFromDb()
     ]);
 
+    const initialTask = await handleInitialEntityUrl();
+
     await startTracker();
+
+    if (initialTask) {
+        openTaskCard(
+            initialTask,
+            {
+                updateUrl: false
+            }
+        );
+    }
 }
 
 async function startTracker() {
@@ -51,6 +63,7 @@ async function startTracker() {
     await renderUser();
 
     initUI();
+    initEntityRouter();
 
     if (timerInterval === null) {
         timerInterval = setInterval(
@@ -79,6 +92,7 @@ function stopTracker() {
     }
 
     currentUser = null;
+    currentProfile = null;
 
     projects = [];
     categories = [];

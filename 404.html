@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Tracker</title>
+</head>
+
+<body>
+<script>
+    const redirectPath =
+        window.location.pathname +
+        window.location.search +
+        window.location.hash;
+
+    sessionStorage.setItem(
+        "redirectPath",
+        redirectPath
+    );
+
+    const basePath =
+        window.location.hostname.endsWith(".github.io")
+            ? "/tracker"
+            : "";
+
+    window.location.replace(
+        `${window.location.origin}${basePath}/`
+    );
+</script>
+</body>
+</html>

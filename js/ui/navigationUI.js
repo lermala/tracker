@@ -96,19 +96,64 @@ function createProjectElementNavigation(project) {
     return item;
 }
 
-function selectProject(projectId) {
+function selectProject(
+    projectId,
+    {
+        updateUrl = true
+    } = {}
+) {
     selectPage({
         type: PAGE.PROJECT,
         id: projectId
     });
+
+    if (updateUrl) {
+        setEntityUrl(
+            ENTITY_URL.PROJECT,
+            projectId
+        );
+    }
 }
 
-function selectMyTasks() {
+function selectMyTasks({
+    updateUrl = true
+} = {}) {
     selectPage({
         type: PAGE.MY_TASKS
     });
+
+    if (updateUrl) {
+        clearEntityUrl();
+    }
 }
 
 function selectFallbackPage() {
     selectMyTasks();
+}
+
+window.addEventListener("popstate", () => {
+    handleCurrentUrl();
+});
+
+function handleCurrentUrl() {
+    const entity = getEntityFromUrl();
+
+    if (!entity) {
+        selectMyTasks({
+            updateUrl: false
+        });
+
+        return;
+    }
+
+    switch (entity.type) {
+        case ENTITY_URL.PROJECT:
+            selectProject(
+                entity.id,
+                {
+                    updateUrl: false
+                }
+            );
+            break;
+    }
 }
