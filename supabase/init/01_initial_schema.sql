@@ -1,8 +1,59 @@
+-- =========================================================
+-- 1. PROFILES
+-- =========================================================
+
+create table public.profiles (
+    id uuid primary key
+        references auth.users(id)
+        on delete cascade,
+
+    name text not null default '',
+    avatar_path text,
+
+    created_at timestamptz not null default now(),
+    updated_at timestamptz not null default now()
+);
+
+
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+    insert into public.profiles (
+        id,
+        name
+    )
+    values (
+        new.id,
+        coalesce(
+            new.raw_user_meta_data ->> 'name',
+            ''
+        )
+    );
+
+    return new;
+end;
+$$;
+
+
+create trigger on_auth_user_created
+after insert on auth.users
+for each row
+execute function public.handle_new_user();
+
+
+-- =========================================================
+-- 2. PROJECTS
+-- =========================================================
+
 create table public.projects (
     id uuid primary key,
 
     user_id uuid not null
-        references auth.users(id)
+        references public.profiles(id)
         on delete cascade,
 
     title text not null default '',
@@ -16,6 +67,11 @@ create table public.projects (
     constraint projects_position_check
         check (position >= 0)
 );
+
+
+-- =========================================================
+-- 3. CATEGORIES
+-- =========================================================
 
 create table public.categories (
     id uuid primary key,
@@ -36,6 +92,11 @@ create table public.categories (
         check (position >= 0)
 );
 
+
+-- =========================================================
+-- 4. TASKS
+-- =========================================================
+
 create table public.tasks (
     id uuid primary key,
 
@@ -48,11 +109,11 @@ create table public.tasks (
         on delete set null,
 
     created_by_id uuid
-        references profiles(id)
+        references public.profiles(id)
         on delete set null,
 
     assignee_id uuid
-        references profiles(id)
+        references public.profiles(id)
         on delete set null,
 
     title text not null default '',
@@ -88,6 +149,30 @@ create table public.tasks (
         check (position >= 0)
 );
 
+
+-- =========================================================
+-- 5. PROJECT MEMBERS
+-- =========================================================
+
+create table public.project_members (
+    project_id uuid not null
+        references public.projects(id)
+        on delete cascade,
+
+    user_id uuid not null
+        references public.profiles(id)
+        on delete cascade,
+
+    created_at timestamptz not null default now(),
+
+    primary key (project_id, user_id)
+);
+
+
+-- =========================================================
+-- 6. INDEXES
+-- =========================================================
+
 create index projects_user_id_idx
     on public.projects(user_id);
 
@@ -100,193 +185,36 @@ create index tasks_project_id_idx
 create index tasks_category_id_idx
     on public.tasks(category_id);
 
+create index tasks_created_by_id_idx
+    on public.tasks(created_by_id);
+
 create index tasks_assignee_id_idx
     on public.tasks(assignee_id);
 
-
-alter table public.projects enable row level security;
-alter table public.categories enable row level security;
-alter table public.tasks enable row level security;
-
-create policy projects_select_member
-on public.projects
-for select
-to authenticated
-using (
-    user_id = (select auth.uid())
-
-    or exists (
-        select 1
-        from public.project_members pm
-        where pm.project_id = projects.id
-          and pm.user_id = (select auth.uid())
-    )
-);
-
-create policy "projects_insert_own"
-on public.projects
-for insert
-to authenticated
-with check (
-    (select auth.uid()) = user_id
-);
-
-create policy "projects_update_own"
-on public.projects
-for update
-to authenticated
-using (
-    (select auth.uid()) = user_id
-)
-with check (
-    (select auth.uid()) = user_id
-);
-
-create policy "projects_delete_own"
-on public.projects
-for delete
-to authenticated
-using (
-    (select auth.uid()) = user_id
-);
+create index project_members_user_id_idx
+    on public.project_members(user_id);
 
 
-create policy categories_select_member
-on public.categories
-for select
-to authenticated
-using (
-    exists (
-        select 1
-        from public.project_members pm
-        where pm.project_id = categories.project_id
-          and pm.user_id = (select auth.uid())
-    )
-);
-
-
-create policy categories_insert_member
-on public.categories
-for insert
-to authenticated
-with check (
-    exists (
-        select 1
-        from public.project_members pm
-        where pm.project_id = categories.project_id
-          and pm.user_id = (select auth.uid())
-    )
-);
-
-create policy categories_update_member
-on public.categories
-for update
-to authenticated
-using (
-    exists (
-        select 1
-        from public.project_members pm
-        where pm.project_id = categories.project_id
-          and pm.user_id = (select auth.uid())
-    )
-)
-with check (
-    exists (
-        select 1
-        from public.project_members pm
-        where pm.project_id = categories.project_id
-          and pm.user_id = (select auth.uid())
-    )
-);
-
-
-create policy categories_delete_member
-on public.categories
-for delete
-to authenticated
-using (
-    exists (
-        select 1
-        from public.project_members pm
-        where pm.project_id = categories.project_id
-          and pm.user_id = (select auth.uid())
-    )
-);
-
-create policy tasks_select_member
-on public.tasks
-for select
-to authenticated
-using (
-    exists (
-        select 1
-        from public.project_members pm
-        where pm.project_id = tasks.project_id
-          and pm.user_id = (select auth.uid())
-    )
-);
-
-
-create policy tasks_insert_member
-on public.tasks
-for insert
-to authenticated
-with check (
-    exists (
-        select 1
-        from public.project_members pm
-        where pm.project_id = tasks.project_id
-          and pm.user_id = (select auth.uid())
-    )
-);
-
-
-create policy tasks_update_member
-on public.tasks
-for update
-to authenticated
-using (
-    exists (
-        select 1
-        from public.project_members pm
-        where pm.project_id = tasks.project_id
-          and pm.user_id = (select auth.uid())
-    )
-)
-with check (
-    exists (
-        select 1
-        from public.project_members pm
-        where pm.project_id = tasks.project_id
-          and pm.user_id = (select auth.uid())
-    )
-);
-
-
-create policy tasks_delete_member
-on public.tasks
-for delete
-to authenticated
-using (
-    exists (
-        select 1
-        from public.project_members pm
-        where pm.project_id = tasks.project_id
-          and pm.user_id = (select auth.uid())
-    )
-);
-
-
+-- =========================================================
+-- 7. UPDATED_AT TRIGGERS
+-- =========================================================
 
 create or replace function public.set_updated_at()
 returns trigger
 language plpgsql
+set search_path = ''
 as $$
 begin
     new.updated_at = now();
     return new;
 end;
 $$;
+
+
+create trigger profiles_set_updated_at
+before update on public.profiles
+for each row
+execute function public.set_updated_at();
 
 create trigger projects_set_updated_at
 before update on public.projects
@@ -302,3 +230,108 @@ create trigger tasks_set_updated_at
 before update on public.tasks
 for each row
 execute function public.set_updated_at();
+
+
+
+-- =========================================================
+-- 8. PROJECT MEMBERSHIP HELPERS
+-- =========================================================
+
+create or replace function public.is_project_member(
+    target_project_id uuid
+)
+returns boolean
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+    select exists (
+        select 1
+        from public.project_members
+        where project_id = target_project_id
+          and user_id = auth.uid()
+    );
+$$;
+
+revoke all
+on function public.is_project_member(uuid)
+from public;
+
+grant execute
+on function public.is_project_member(uuid)
+to authenticated;
+
+
+create or replace function public.add_project_owner_as_member()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+    insert into public.project_members (
+        project_id,
+        user_id
+    )
+    values (
+        new.id,
+        new.user_id
+    )
+    on conflict (project_id, user_id)
+    do nothing;
+
+    return new;
+end;
+$$;
+
+
+create trigger on_project_created
+after insert on public.projects
+for each row
+execute function public.add_project_owner_as_member();
+
+
+create or replace function public.join_project(
+    target_project_id uuid
+)
+returns uuid
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+    if auth.uid() is null then
+        raise exception 'Not authenticated';
+    end if;
+
+    if not exists (
+        select 1
+        from public.projects
+        where id = target_project_id
+    ) then
+        raise exception 'Project not found';
+    end if;
+
+    insert into public.project_members (
+        project_id,
+        user_id
+    )
+    values (
+        target_project_id,
+        auth.uid()
+    )
+    on conflict (project_id, user_id)
+    do nothing;
+
+    return target_project_id;
+end;
+$$;
+
+revoke all
+on function public.join_project(uuid)
+from public;
+
+grant execute
+on function public.join_project(uuid)
+to authenticated;

@@ -168,3 +168,42 @@ using (
           and pm.user_id = (select auth.uid())
     )
 );
+
+
+
+
+create or replace function public.is_project_member(
+    target_project_id uuid
+)
+returns boolean
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+    select exists (
+        select 1
+        from public.project_members
+        where project_id = target_project_id
+          and user_id = auth.uid()
+    );
+$$;
+
+revoke all
+on function public.is_project_member(uuid)
+from public;
+
+grant execute
+on function public.is_project_member(uuid)
+to authenticated;
+
+drop policy if exists "Users can read own memberships"
+on public.project_members;
+
+create policy "Project members can read memberships"
+on public.project_members
+for select
+to authenticated
+using (
+    public.is_project_member(project_id)
+);
