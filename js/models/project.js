@@ -1,7 +1,8 @@
 function createProjectModel({
     id,
 
-    title = "",
+    title,
+    description = "",
     color = null,
     order = 0,
 
@@ -12,6 +13,7 @@ function createProjectModel({
         id,
 
         title,
+        description,
         color,
         order,
 

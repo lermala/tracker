@@ -5,6 +5,7 @@ function projectFromDb(row) {
         id: row.id,
 
         title: row.title,
+        description: row.description ?? "",
         color: row.color,
         order: row.position,
 
@@ -17,6 +18,7 @@ function projectToDb(project) {
     return {
         id: project.id,
         title: project.title,
+        description: project.description,
         color: project.color,
         position: project.order
     };

@@ -250,14 +250,6 @@
     } */
 }
 
-.projectInput { // todo fix сечас у  редактирования другой вид
-    @extend %input;
-
-    height: 32px;
-    padding-inline: $space-s;
-}
-
-
 @media (max-width: 768px) {
     .sidebar {
         width: 200px;

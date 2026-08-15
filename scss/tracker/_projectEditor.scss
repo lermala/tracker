@@ -1,0 +1,136 @@
+.projectEditorOverlay {
+    @extend %overlay;
+
+    z-index: 1000;
+}
+
+.projectEditor {
+    @extend %surface;
+
+    width: min(540px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+.projectEditorHeader {
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: $space-m $space-l;
+
+    border-bottom: 1px solid var(--color-border);
+}
+
+.projectEditorTitle {
+    margin: 0;
+
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.projectEditorCloseButton {
+    @extend %icon-button;
+
+    .material-symbols-rounded {
+        font-size: 20px;
+    }
+}
+
+.projectEditorContent {
+    display: flex;
+    flex-direction: column;
+    gap: $space-l;
+
+    padding: $space-l;
+
+    overflow-y: auto;
+}
+
+.projectEditorField {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+}
+
+.projectEditorLabel {
+    color: var(--color-text-secondary);
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.projectEditorName {
+    @extend %input;
+}
+
+.projectEditorDescription {
+    @extend %textarea;
+}
+
+.projectEditorColor {
+    padding-top: $space-xxs;
+}
+
+.projectEditorFooter {
+    flex-shrink: 0;
+
+    display: flex;
+    justify-content: flex-end;
+    gap: $space-s;
+
+    padding: $space-m $space-l;
+
+    border-top: 1px solid var(--color-border);
+}
+
+.projectEditorCancelButton {
+    @extend %button-secondary;
+}
+
+.projectEditorSaveButton {
+    @extend %button-primary;
+}
+
+.projectEditorCloseButton {
+    @extend %icon-button;
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .projectEditor {
+        width: calc(100vw - 16px);
+        max-height: calc(100vh - 16px);
+    }
+
+    .projectEditorHeader {
+        padding: $space-m;
+    }
+
+    .projectEditorContent {
+        gap: $space-l;
+        padding: $space-m;
+    }
+
+    .projectEditorFooter {
+        padding: $space-m;
+    }
+
+    .projectEditorTitle {
+        font-size: $mobile-font-title;
+    }
+
+    .projectEditorName,
+    .projectEditorDescription {
+        font-size: $mobile-font-primary;
+    }
+
+    .projectEditorLabel {
+        font-size: $mobile-font-secondary;
+    }
+}

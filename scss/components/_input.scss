@@ -1,8 +1,9 @@
 %input {
     width: 100%;
     min-width: 0;
+    height: 32px;
 
-    padding: 0 $space-md;
+    padding: 0 $space-s;
 
     font: inherit;
     color: var(--color-text);
@@ -21,10 +22,20 @@
     }
 
     &:focus {
-        border-color: var(--color-accent);
+        border-color: var(--color-border-strong);
     }
 
     &::placeholder {
         color: var(--color-text-secondary);
     }
+}
+
+%textarea {
+    @extend %input;
+
+    min-height: 100px;
+    padding: $space-xxs $space-s;
+
+    resize: none;
+    line-height: 1.5;
 }

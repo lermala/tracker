@@ -268,6 +268,58 @@
         </button>
     </template>
 
+    <template id="projectEditorTemplate">
+        <div class="projectEditorOverlay">
+            <div class="projectEditor">
+                <div class="projectEditorHeader">
+                    <h2 class="projectEditorTitle"></h2>
+
+                    <button class="projectEditorCloseButton" type="button">
+                        <span class="material-symbols-rounded">
+                            close
+                        </span>
+                    </button>
+                </div>
+
+                <div class="projectEditorContent">
+                    <label class="projectEditorField">
+                        <span class="projectEditorLabel">
+                            Название
+                        </span>
+
+                        <input class="projectEditorName" type="text" maxlength="120">
+                    </label>
+
+                    <label class="projectEditorField">
+                        <span class="projectEditorLabel">
+                            Описание
+                        </span>
+
+                        <textarea class="projectEditorDescription" rows="5"></textarea>
+                    </label>
+
+                    <div class="projectEditorField">
+                        <span class="projectEditorLabel">
+                            Цвет
+                        </span>
+
+                        <div class="projectEditorColor"></div>
+                    </div>
+                </div>
+
+                <div class="projectEditorFooter">
+                    <button class="projectEditorCancelButton" type="button">
+                        Отмена
+                    </button>
+
+                    <button class="projectEditorSaveButton" type="button">
+                        Сохранить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+
 </body>
 
 <!-- ===== Libs ===== -->
@@ -323,6 +375,7 @@
 
 <script src="js/ui/sidebarUI.js"></script>
 <script src="js/ui/sidebarSettingsUI.js"></script>
+<script src="js/ui/projectEditorUI.js"></script>
 <script src="js/ui/projectMenuUI.js"></script>
 <script src="js/ui/projectUI.js"></script>
 <script src="js/ui/navigationUI.js"></script>

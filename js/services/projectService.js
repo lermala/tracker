@@ -1,10 +1,16 @@
 // ===== Создание =====
 
-function createProject(title) {
+function createProject({
+    title,
+    description = "",
+    color = null
+}) {
     return createProjectModel({
         id: crypto.randomUUID(),
 
         title: title.trim(),
+        description: description.trim(),
+        color,
 
         order: getNextProjectOrder()
     });

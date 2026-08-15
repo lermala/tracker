@@ -17,37 +17,23 @@ function createProjectMenu(project) {
     menu.className = "projectMenu";
 
     menu.innerHTML = `
-        <button class="menuItem" data-action="rename">
+        <button class="menuItem" data-action="edit">
             <span class="material-symbols-rounded menuItemIcon">
                 edit
             </span>
 
-            <span>Переименовать</span>
+            <span>Изменить</span>
         </button>
 
-        <div class="menuSection">
-            <div class="menuSectionTitle">
-                Цвет
-            </div>
+        <button class="menuItem is-danger" data-action="delete">
+            <span class="material-symbols-rounded menuItemIcon">
+                delete
+            </span>
 
-            <div class="projectColorPicker"></div>
-        </div>
+            <span>Удалить</span>
+        </button>
+            `;
 
-        <div class="menuSection">
-            <button
-                class="menuItem is-danger"
-                data-action="delete"
-            >
-                <span class="material-symbols-rounded menuItemIcon">
-                    delete
-                </span>
-
-                <span>Удалить проект</span>
-            </button>
-        </div>
-    `;
-
-    renderProjectColorPicker(menu, project);
     bindProjectMenuEvents(menu, project);
 
     return menu;
@@ -61,9 +47,9 @@ function bindProjectMenuEvents(menu, project) {
         if (!button) return;
 
         switch (button.dataset.action) {
-            case "rename":
+            case "edit":
                 closeProjectMenu();
-                startRenameProject(project);
+                openProjectEditor(project);
                 break;
 
             case "delete":
@@ -82,22 +68,6 @@ function bindProjectMenuEvents(menu, project) {
 
         closeProjectMenu();
     });
-}
-
-function renderProjectColorPicker(menu, project) {
-    const container =
-        menu.querySelector(".projectColorPicker");
-
-    const picker = createColorPicker({
-        colors: DEFAULT_COLOR_PALETTE,
-        value: project.color,
-
-        onChange: color => {
-            changeProjectColor(project, color);
-        }
-    });
-
-    container.replaceChildren(picker);
 }
 
 function positionProjectMenu(menu, anchor) {

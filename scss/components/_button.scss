@@ -40,11 +40,23 @@
 
 %button-primary {
     @extend %button;
+    padding: $space-xs $space-md;
 
     color: var(--color-on-accent);
     background: var(--color-accent);
 
     &:hover {
         opacity: .9;
+    }
+}
+
+%button-secondary {
+    @extend %button;
+    padding: $space-xs $space-md;
+
+    border: 1px solid var(--color-border);
+
+    &:hover {
+        background: var(--color-hover);
     }
 }

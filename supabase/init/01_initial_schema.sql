@@ -6,6 +6,7 @@ create table public.projects (
         on delete cascade,
 
     title text not null default '',
+    description text not null default '',
     color text,
     position integer not null default 0,
 
@@ -24,6 +25,7 @@ create table public.categories (
         on delete cascade,
 
     title text not null default '',
+    description text not null default '',
     color text,
     position integer not null default 0,
 
