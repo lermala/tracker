@@ -24,7 +24,12 @@ async function initApp() {
         const session = await getCurrentSession();
 
         if (!session) {
-            window.location.href = "auth.html";
+            saveUrlBeforeAuth();
+
+            window.location.replace(
+                `${BASE_PATH}/auth.html`
+            );
+
             return;
         }
 

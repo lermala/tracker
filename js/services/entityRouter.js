@@ -93,7 +93,12 @@ async function prepareProjectFromUrl(projectId) {
     let project = getProjectById(projectId);
 
     if (!project) {
-        await joinProject(projectId);
+        const joinResult = await joinProject(projectId);
+
+        console.log(
+            "JOIN RESULT:",
+            joinResult
+        );
 
         [projects, categories, tasks] =
             await Promise.all([
@@ -103,6 +108,11 @@ async function prepareProjectFromUrl(projectId) {
             ]);
 
         project = getProjectById(projectId);
+
+        console.log(
+            "PROJECTS AFTER JOIN:",
+            projects
+        );
     }
 
     if (!project) {
@@ -116,8 +126,7 @@ async function prepareProjectFromUrl(projectId) {
         id: projectId
     };
 
-    pageSettings =
-        getPageSettings(currentPage);
+    pageSettings = getPageSettings(currentPage);
 }
 
 function prepareTaskFromUrl(taskId) {
@@ -164,4 +173,17 @@ function syncUrlWithCurrentPage() {
         default:
             clearEntityUrl();
     }
+}
+
+function saveUrlBeforeAuth() {
+    const entity = getEntityFromUrl();
+
+    if (!entity) {
+        return;
+    }
+
+    sessionStorage.setItem(
+        "redirectAfterAuth",
+        window.location.pathname
+    );
 }

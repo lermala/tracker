@@ -1,3 +1,8 @@
+const AUTH_BASE_PATH =
+    window.location.hostname.endsWith(".github.io") //todo config
+        ? "/tracker"
+        : "";
+
 let authMode = "signIn";
 
 const title = document.querySelector(".authTitle");
@@ -65,8 +70,31 @@ async function handleAuthSubmit() {
             }
         }
 
-        window.location.href = "index.html";
+        redirectAfterAuth();
     } catch (error) {
         errorElement.textContent = error.message;
     }
+}
+
+function redirectAfterAuth() {
+    const redirectPath =
+        sessionStorage.getItem(
+            "redirectAfterAuth"
+        );
+
+    if (redirectPath) {
+        sessionStorage.removeItem(
+            "redirectAfterAuth"
+        );
+
+        window.location.replace(
+            redirectPath
+        );
+
+        return;
+    }
+
+    window.location.replace(
+        `${AUTH_BASE_PATH}/`
+    );
 }
