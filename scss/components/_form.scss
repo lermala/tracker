@@ -1,0 +1,25 @@
+%form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-l;
+}
+
+%form-field {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+}
+
+%form-label {
+    color: var(--color-text);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+%form-description {
+    color: var(--color-text-secondary);
+
+    font-size: 12px;
+    line-height: 1.4;
+}

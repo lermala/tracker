@@ -64,8 +64,6 @@ function getPageSettings(page) {
 }
 
 function savePageSettings(page, settings) {
-    console.log("SAVE PAGE SETTINGS", page, settings);
-
     const saved = JSON.parse(
         localStorage.getItem(PAGE_SETTINGS_KEY) || "{}"
     );

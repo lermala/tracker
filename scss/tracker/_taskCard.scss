@@ -1,14 +1,9 @@
 .taskCard {
-    @extend %surface;
+    @extend %modal;
 
     width: min(900px, calc(100vw - 48px));
     min-height: 800px;
     max-height: min(900px, calc(100vh - 48px));
-
-    display: flex;
-    flex-direction: column;
-
-    overflow: hidden;
 
     .taskDueDate.is-empty {
         opacity: 1;
@@ -16,26 +11,18 @@
     }
 }
 
-// Заголовок с крестиком
 .taskCardHeader {
-    height: 36px;
-    flex-shrink: 0;
+    @extend %modal-header;
 
-    display: flex;
     justify-content: flex-end;
-    align-items: center;
+}
 
-    padding-inline: $space-m;
+.taskCardCloseButton {
+    @extend %modal-close-button;
+}
 
-    border-bottom: 1px solid var(--color-border);
-
-    .taskCardCloseButton {
-        @extend %icon-button;
-
-        span {
-            font-size: 18px;
-        }
-    }
+.taskCardOverlay {
+    @extend %modal-overlay;
 }
 
 // Основная разметка (деление на 2 колонки)
@@ -112,16 +99,6 @@
 
         color: var(--color-text-secondary);
         font-size: 12px;
-    }
-}
-
-.taskCardOverlay {
-    @extend %overlay;
-
-    z-index: 1000;
-
-    &.hidden {
-        display: none;
     }
 }
 

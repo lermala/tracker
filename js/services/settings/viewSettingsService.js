@@ -15,9 +15,7 @@ function getViewSettings() {
     };
 }
 
-function saveViewSettings(settings) {
-    console.log("savePageSettings");
-    
+function saveViewSettings(settings) {    
     localStorage.setItem(
         VIEW_SETTINGS_KEY,
         JSON.stringify(settings)
