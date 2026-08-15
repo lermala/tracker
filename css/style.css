@@ -281,6 +281,38 @@ a:hover {
   text-decoration: underline;
 }
 
+.userBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--color-text);
+  font-size: 13px;
+}
+.userBadge .userBadgeName {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.userBadge.is-compact .userBadgeName {
+  display: none;
+}
+
+.userAvatar {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  font-size: 12px;
+  font-weight: 600;
+}
+
 .toggleButton {
   position: relative;
   width: 30px;
@@ -1022,6 +1054,13 @@ textarea.textEditor.taskTitle {
 }
 .projectColorPicker {
   padding: 6px 0;
+}
+
+.projectEditorMembers {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
 }
 
 .projectEditor {

@@ -1,0 +1,43 @@
+.userBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-s;
+
+    min-width: 0;
+
+    color: var(--color-text);
+
+    font-size: 13px;
+
+    .userBadgeName {
+        min-width: 0;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &.is-compact {
+        .userBadgeName {
+            display: none;
+        }
+    }
+}
+
+.userAvatar {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: var(--color-on-accent);
+    background: var(--color-accent);
+
+    font-size: 12px;
+    font-weight: 600;
+}

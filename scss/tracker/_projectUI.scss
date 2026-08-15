@@ -39,3 +39,10 @@
 .projectColorPicker {
     padding: $space-xs 0;
 }
+
+.projectEditorMembers {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-s;
+}

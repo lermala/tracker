@@ -305,6 +305,14 @@
 
                         <div class="projectEditorColor"></div>
                     </div>
+
+                    <div class="projectEditorField">
+                        <label class="projectEditorLabel">
+                            Участники
+                        </label>
+
+                        <div class="projectEditorMembers" data-project-members></div>
+                    </div>
                 </div>
 
                 <div class="projectEditorFooter">
@@ -332,12 +340,15 @@
 
 
 <!-- ===== Models ===== -->
+<script src="js/models/profile.js"></script>
 <script src="js/models/project.js"></script>
 <script src="js/models/category.js"></script>
 <script src="js/models/task.js"></script>
 
 
 <!-- ===== API ===== -->
+<script src="js/api/profileApi.js"></script>
+<script src="js/api/projectMemberApi.js"></script>
 <script src="js/api/projectApi.js"></script>
 <script src="js/api/categoryApi.js"></script>
 <script src="js/api/taskApi.js"></script>
@@ -349,10 +360,12 @@
 
 <!-- ===== Services ===== -->
 <script src="js/services/authService.js"></script>
+<script src="js/services/profileService.js"></script>
 <script src="js/services/settings/viewSettingsService.js"></script>
 <script src="js/services/settings/pageSettingsService.js"></script>
 
 <script src="js/services/appearenceService.js"></script>
+<script src="js/services/projectMemberService.js"></script>
 <script src="js/services/projectService.js"></script>
 <script src="js/services/categoryService.js"></script>
 <script src="js/services/taskService.js"></script>
@@ -361,7 +374,7 @@
 
 
 <!-- ===== UI Components ===== -->
-<script src="js/ui/components/emptyState.js"></script>
+<script src="js/ui/components/userBadge.js"></script>
 <script src="js/ui/components/toggle.js"></script>
 <script src="js/ui/components/colorPicker.js"></script>
 <script src="js/ui/components/datePicker.js"></script>

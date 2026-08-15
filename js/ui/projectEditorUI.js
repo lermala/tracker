@@ -5,29 +5,15 @@ let activeProjectEditor = null;
 function openProjectEditor(project = null) {
     closeProjectEditor();
 
-    const editor =
-        projectEditorTemplate.content.firstElementChild.cloneNode(true);
+    const editor = projectEditorTemplate.content.firstElementChild.cloneNode(true);
 
-    const title =
-        editor.querySelector(".projectEditorTitle");
-
-    const nameInput =
-        editor.querySelector(".projectEditorName");
-
-    const descriptionInput =
-        editor.querySelector(".projectEditorDescription");
-
-    const colorContainer =
-        editor.querySelector(".projectEditorColor");
-
-    const saveButton =
-        editor.querySelector(".projectEditorSaveButton");
-
-    const cancelButton =
-        editor.querySelector(".projectEditorCancelButton");
-
-    const closeButton =
-        editor.querySelector(".projectEditorCloseButton");
+    const title = editor.querySelector(".projectEditorTitle");
+    const nameInput = editor.querySelector(".projectEditorName");
+    const descriptionInput = editor.querySelector(".projectEditorDescription");
+    const colorContainer = editor.querySelector(".projectEditorColor");
+    const saveButton = editor.querySelector(".projectEditorSaveButton");
+    const cancelButton = editor.querySelector(".projectEditorCancelButton");
+    const closeButton = editor.querySelector(".projectEditorCloseButton");
 
     title.textContent =
         project
@@ -49,6 +35,11 @@ function openProjectEditor(project = null) {
     });
 
     colorContainer.replaceChildren(colorPicker);
+
+    renderProjectEditorMembers(
+        editor,
+        project
+    );
 
     async function handleSave() {
         const title = nameInput.value.trim();
@@ -129,6 +120,46 @@ async function saveProjectEditor({
     } catch (error) {
         console.error(
             "SAVE PROJECT ERROR:",
+            error
+        );
+    }
+}
+
+async function renderProjectEditorMembers(
+    editor,
+    project
+) {
+    const container = editor.querySelector(
+        "[data-project-members]"
+    );
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    // У нового проекта ещё нет membership в БД
+    if (!project) {
+        if (currentProfile) {
+            container.append(
+                createUserBadge(currentProfile)
+            );
+        }
+
+        return;
+    }
+
+    try {
+        const members =
+            await getProjectMembers(project.id);
+
+        members.forEach(profile => {
+            container.append(
+                createUserBadge(profile)
+            );
+        });
+    } catch (error) {
+        console.error(
+            "LOAD PROJECT MEMBERS ERROR:",
             error
         );
     }

@@ -48,11 +48,11 @@ create table public.tasks (
         on delete set null,
 
     created_by_id uuid
-        references auth.users(id)
+        references profiles(id)
         on delete set null,
 
     assignee_id uuid
-        references auth.users(id)
+        references profiles(id)
         on delete set null,
 
     title text not null default '',

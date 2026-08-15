@@ -38,17 +38,17 @@ async function getProjectsFromDb() {
 }
 
 async function createProjectInDb(project) {
-    const user = await getCurrentUser();
-
-    if (!user) {
-        throw new Error("User is not authenticated");
+    if (!currentUser) {
+        throw new Error(
+            "User is not authenticated"
+        );
     }
 
     const { data, error } = await supabaseClient
         .from("projects")
         .insert({
             ...projectToDb(project),
-            user_id: user.id
+            user_id: currentUser.id
         })
         .select()
         .single();

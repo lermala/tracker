@@ -1,4 +1,5 @@
 let currentUser = null;
+let currentProfile = null;
 
 let projects = [];
 let tasks = [];
@@ -34,6 +35,7 @@ async function initApp() {
 
 async function loadTracker() {
     currentUser = await getCurrentUser();
+    currentProfile = await getCurrentProfile();
 
     [projects, categories, tasks] = await Promise.all([
         getProjectsFromDb(),

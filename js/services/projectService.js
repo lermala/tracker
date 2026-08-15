@@ -23,6 +23,11 @@ async function addProject(project) {
         const savedProject = await createProjectInDb(project);
         Object.assign(project, savedProject);
 
+        await addProjectMember(
+            project.id,
+            currentUser.id
+        );
+
         return project;
     } catch (error) {
         projects = projects.filter(
