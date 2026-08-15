@@ -14,6 +14,12 @@ function bindSidebarSettingsEvents() {
         sidebarUserMenu.classList.toggle("hidden");
     });
 
+    settingsButton.addEventListener("click", () => {
+        sidebarUserMenu.classList.add("hidden");
+
+        openSettings();
+    });
+
     signOutButton.addEventListener("click", logout);
 
     document.addEventListener("click", event => {
@@ -23,29 +29,31 @@ function bindSidebarSettingsEvents() {
     });
 }
 
-async function renderUser() {
-    // const user = await getCurrentUser();
-    if (!currentUser) return;
+function renderUser() {
+    if (!currentUser || !currentProfile) return;
 
-    const email = currentUser.email;
-    const name = email.split("@")[0];
+    const name = currentProfile.name;
 
-    document.getElementById("sidebarUserAvatar").textContent =
-        name.charAt(0).toUpperCase();
+    const avatarContainer =
+        document.getElementById(
+            "sidebarUserAvatar"
+        );
+
+    avatarContainer.replaceChildren(
+        createAvatar(currentProfile, {
+            size: 30
+        })
+    );
 
     document.getElementById("sidebarUserName").textContent = name;
     document.getElementById("sidebarUserMenuName").textContent = name;
-    document.getElementById("sidebarUserEmail").textContent = email;
+    document.getElementById("sidebarUserEmail").textContent = currentUser.email;
 }
 
 function initAppearanceSettings() {
-    const themeContainer =
-        document.getElementById("themeToggle");
+    const themeContainer = document.getElementById("themeToggle");
 
-    const accentContainer =
-        document.getElementById("accentColorPicker");
-
-    if (!themeContainer || !accentContainer) {
+    if (!themeContainer) {
         return;
     }
 
@@ -63,15 +71,5 @@ function initAppearanceSettings() {
         }
     });
 
-    const accentPicker = createColorPicker({
-        colors: DEFAULT_COLOR_PALETTE,
-        value: appearance.accent,
-
-        onChange: color => {
-            setAccent(color);
-        }
-    });
-
     themeContainer.replaceChildren(themeToggle);
-    accentContainer.replaceChildren(accentPicker);
 }

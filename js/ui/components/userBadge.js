@@ -1,20 +1,16 @@
-function createUserBadge(profile, {
-    compact = false
-} = {}) {
+function createUserBadge(profile) {
     const badge = document.createElement("div");
 
     badge.className = "userBadge";
-    badge.classList.toggle(
-        "is-compact",
-        compact
-    );
 
-    const avatar = createUserAvatar(profile);
+    const avatar = createAvatar(profile, {
+        size: 24
+    });
 
     const name = document.createElement("span");
+
     name.className = "userBadgeName";
-    name.textContent =
-        profile.name || "Без имени";
+    name.textContent = profile.name;
 
     badge.append(
         avatar,
@@ -22,22 +18,4 @@ function createUserBadge(profile, {
     );
 
     return badge;
-}
-
-function createUserAvatar(profile) {
-    const avatar = document.createElement("div");
-
-    avatar.className = "userAvatar";
-
-    if (profile.avatarPath) {
-        // Подключим картинку, когда сделаем Storage.
-        // Пока оставляем fallback.
-    }
-
-    const name = profile.name?.trim();
-
-    avatar.textContent =
-        name?.charAt(0).toUpperCase() || "?";
-
-    return avatar;
 }

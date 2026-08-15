@@ -1,6 +1,6 @@
 const viewSwitcher = document.getElementById("viewSwitcher");
 
-const settingsButton = document.getElementById("settingsButton");
+const pageSettingsButton = document.getElementById("pageSettingsButton");
 const settingsMenu = document.getElementById("settingsMenu");
 
 function initToolbarUI() {
@@ -28,7 +28,7 @@ function bindTaskToolbarEvents() {
         renderCurrentView();
     });
 
-    settingsButton.addEventListener("click", (event) => {
+    pageSettingsButton.addEventListener("click", (event) => {
         event.stopPropagation();
         settingsMenu.classList.toggle("hidden");
     });

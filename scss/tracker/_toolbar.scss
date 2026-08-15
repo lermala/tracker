@@ -60,7 +60,7 @@
     position: relative;
 }
 
-.settingsButton {
+.pageSettingsButton {
     @extend %icon-button;
 
     color: var(--color-text-secondary);
@@ -153,7 +153,7 @@
         font-size: $mobile-font-secondary;
     }
 
-    .settingsButton {
+    .pageSettingsButton {
         flex-shrink: 0;
 
         width: 36px;

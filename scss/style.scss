@@ -14,6 +14,7 @@
 
 @import "_common"; // общие элементы
 
+@import "components/_avatar";
 @import "components/_userBadge";
 @import "components/_toggle";
 @import "components/_badge";
@@ -33,6 +34,7 @@
 
 @import "tracker/_sidebar";
 @import "tracker/_projectUI";
+@import "tracker/_settings";
 @import "tracker/_projectEditor";
 @import "tracker/_task";
 @import "tracker/_taskstates";

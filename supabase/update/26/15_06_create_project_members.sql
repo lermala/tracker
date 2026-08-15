@@ -37,8 +37,8 @@ begin
     values (
         new.id,
         coalesce(
-            new.raw_user_meta_data ->> 'name',
-            ''
+            nullif(trim(new.raw_user_meta_data ->> 'name'), ''),
+            split_part(new.email, '@', 1)
         )
     );
 

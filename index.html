@@ -16,8 +16,7 @@
 
                 <div class="sidebarUser">
                     <button class="sidebarUserButton" id="sidebarUserButton">
-                        <span class="sidebarUserAvatar" id="sidebarUserAvatar"></span>
-
+                        <div id="sidebarUserAvatar"></div>
                         <span class="sidebarUserName" id="sidebarUserName"></span>
 
                         <span class="material-symbols-rounded sidebarUserArrow">
@@ -38,23 +37,19 @@
 
                         <!-- Настройки -->
                         <div class="menuSection">
-                            <div class="menuSectionTitle">
-                                Оформление
-                            </div>
+                            <button class="menuItem" id="settingsButton" type="button">
+                                <span class="material-symbols-rounded menuItemIcon">
+                                    settings
+                                </span>
+
+                                <span>Настройки</span>
+                            </button>
 
                             <div class="menuSetting">
                                 <div class="toggleButton" id="themeToggle"></div>
                                 <span class="menuSettingLabel">
                                     Тёмная тема
                                 </span>
-                            </div>
-
-                            <div class="menuSetting menuSettingVertical">
-                                <span class="menuSettingLabel">
-                                    Акцент
-                                </span>
-
-                                <div id="accentColorPicker"></div>
                             </div>
                         </div>
 
@@ -123,7 +118,7 @@
 
                 <!-- настройки (шестеренка) -->
                 <div class="settingsGroup">
-                    <button class="settingsButton" id="settingsButton" title="Настройки">
+                    <button class="pageSettingsButton" id="pageSettingsButton" title="Настройки">
                         <span class="material-symbols-rounded">
                             settings
                         </span>
@@ -328,6 +323,118 @@
         </div>
     </template>
 
+    <template id="settingsTemplate">
+        <div class="settingsOverlay">
+            <div class="settingsModal">
+
+                <aside class="settingsSidebar">
+                    <div class="settingsSidebarHeader">
+                        Настройки
+                    </div>
+
+                    <nav class="settingsNav">
+                        <button class="settingsNavItem is-active" type="button" data-settings-section="account">
+                            <span class="material-symbols-rounded">
+                                account_circle
+                            </span>
+
+                            <span>Аккаунт</span>
+                        </button>
+
+                        <button class="settingsNavItem" type="button" data-settings-section="appearance">
+                            <span class="material-symbols-rounded">
+                                palette
+                            </span>
+
+                            <span>Оформление</span>
+                        </button>
+                    </nav>
+                </aside>
+
+                <div class="settingsMain">
+
+                    <div class="settingsHeader">
+                        <h2 class="settingsTitle">
+                            Аккаунт
+                        </h2>
+
+                        <button class="settingsCloseButton" type="button">
+                            <span class="material-symbols-rounded">
+                                close
+                            </span>
+                        </button>
+                    </div>
+
+                    <div class="settingsContent">
+
+                        <section class="settingsSection" data-settings-content="account">
+                            <div class="settingsAvatarField">
+
+                                <div class="settingsAvatarPreview"></div>
+
+                                <div class="settingsAvatarActions">
+                                    <input class="settingsAvatarInput" type="file"
+                                        accept="image/png,image/jpeg,image/webp" hidden>
+
+                                    <button class="settingsAvatarChangeButton" type="button">
+                                        Изменить фото
+                                    </button>
+
+                                    <button class="settingsAvatarDeleteButton" type="button">
+                                        Удалить
+                                    </button>
+
+                                    <div class="settingsAvatarHint">
+                                        JPG, PNG или WebP. Максимум 4 МБ.
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="settingsField">
+                                <span class="settingsLabel">
+                                    Имя
+                                </span>
+
+                                <input class="settingsNameInput" type="text" maxlength="120">
+                            </div>
+                        </section>
+
+                        <section class="settingsSection hidden" data-settings-content="appearance">
+                            <div class="settingsField">
+                                <span class="settingsLabel">
+                                    Тёмная тема
+                                </span>
+
+                                <div id="settingsThemeToggle"></div>
+                            </div>
+
+                            <div class="settingsField">
+                                <span class="settingsLabel">
+                                    Акцентный цвет
+                                </span>
+
+                                <div id="settingsAccentColorPicker"></div>
+                            </div>
+                        </section>
+
+                    </div>
+
+                    <div class="settingsFooter">
+                        <button class="settingsCancelButton" type="button">
+                            Отмена
+                        </button>
+
+                        <button class="settingsSaveButton" type="button">
+                            Сохранить
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </template>
+
 </body>
 
 <!-- ===== Libs ===== -->
@@ -376,6 +483,7 @@
 
 
 <!-- ===== UI Components ===== -->
+<script src="js/ui/components/avatar.js"></script>
 <script src="js/ui/components/userBadge.js"></script>
 <script src="js/ui/components/toggle.js"></script>
 <script src="js/ui/components/colorPicker.js"></script>
@@ -391,6 +499,7 @@
 
 <script src="js/ui/sidebarUI.js"></script>
 <script src="js/ui/sidebarSettingsUI.js"></script>
+<script src="js/ui/settingsUI.js"></script>
 <script src="js/ui/projectEditorUI.js"></script>
 <script src="js/ui/projectMenuUI.js"></script>
 <script src="js/ui/projectUI.js"></script>
