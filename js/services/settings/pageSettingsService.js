@@ -163,7 +163,7 @@ function setTaskPropertyVisible(
         [view]: properties
     };
 
-    savePageSettings();
+    saveCurrentPageSettings();
 }
 
 function isTaskPropertyVisible(property) {

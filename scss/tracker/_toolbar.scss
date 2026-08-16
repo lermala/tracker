@@ -1,28 +1,77 @@
-.trackerToolbar {
-    display: flex;
-    align-items: center;
-    gap: $space-s;
 
-    padding: $space-l $space-xl;
 
-    border-bottom: 1px solid var(--color-border);
 
-    flex-shrink: 0;
-}
 
 .tasksHeader {
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    padding: $space-xl $space-xxl $space-md;
+    gap: $space-m;
+
+    padding: $space-l $space-xl 0;
 }
 
 .tasksHeaderTitle {
+    min-width: 0;
     margin: 0;
 
-    font-size: $space-xxl;
+    font-size: 26px;
     font-weight: 700;
     line-height: 1.3;
+
+    overflow-wrap: anywhere;
 }
+
+.trackerToolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: $space-m;
+
+    padding: $space-l $space-xl;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.pageMenuButton {
+    @extend %icon-button;
+
+    flex-shrink: 0;
+
+    color: var(--color-text-secondary);
+
+    .material-symbols-rounded {
+        font-size: 20px;
+    }
+
+    &:hover {
+        color: var(--color-text);
+        background: var(--color-hover);
+    }
+}
+
+.toolbarAction {
+    @extend %button;
+
+    display: inline-flex;
+    align-items: center;
+    gap: $space-xs;
+
+    color: var(--color-text-secondary);
+
+    .material-symbols-rounded {
+        font-size: 18px;
+    }
+
+    &:hover {
+        color: var(--color-text);
+        background: var(--color-hover);
+    }
+}
+
+
+
 
 .segmentedControl {
     display: inline-flex;
@@ -34,6 +83,8 @@
 
 .segmentedControlButton {
     @extend %button;
+    color: var(--color-text-secondary);
+    font-weight: 500;
 
     padding: $space-xs $space-md;
 
@@ -54,129 +105,58 @@
 }
 
 
-// ====== ОКНО НАСТРОЕК =========
 
-.settingsGroup {
-    position: relative;
-}
 
-.pageSettingsButton {
-    @extend %icon-button;
 
-    color: var(--color-text-secondary);
-}
 
-.settingsMenu {
+
+
+
+
+
+
+
+
+
+
+
+.toolbarMenu {
     @extend %popover;
 
-    position: absolute;
-    top: calc(100% + $space-xs);
-    right: 0;
+    position: fixed;
+    z-index: 10000;
 
-    z-index: 100;
-
-    width: 240px;
+    min-width: 220px;
 }
 
-// ===== Select =====
+.propertyMenuItem {
+    @extend %menu-option;
 
-.settingsSelectWrapper {
-    position: relative;
+    display: flex;
+    align-items: center;
 
     width: 100%;
+
+    cursor: pointer;
 }
 
-.settingsSelect {
-    @extend %button;
-    @extend %hover-surface;
+.menuSetting {
+    @extend %menu-option;
 
-    justify-content: space-between;
+    display: flex;
+    align-items: center;
 
     width: 100%;
-    padding: $space-xs $space-md;
 
-    border: 1px solid var(--color-border);
-
-    .material-symbols-rounded {
-        font-size: inherit;
-    }
+    cursor: pointer;
 }
 
-.settingsSelectMenu {
-    @extend %popover;
-
-    position: absolute;
-    top: calc(100% + $space-xs);
-    left: 0;
-
-    z-index: 110;
-
-    width: 100%;
-    padding: $space-xs;
+.menuSettingLabel {
+    flex: 1;
 }
 
-@media (max-width: $breakpoint-mobile) {
-    .trackerToolbar {
-        justify-content: space-between;
-        gap: $space-s;
-
-        padding: $space-m;
-    }
-
-    .tasksHeader {
-        padding: $space-l $space-m $space-m;
-    }
-
-    .tasksHeaderTitle {
-        font-size: $mobile-font-page-title;
-    }
-
-    .segmentedControl {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .segmentedControlButton {
-        flex: 1;
-        min-width: 0;
-
-        min-height: 36px;
-        padding: $space-xs $space-s;
-
-        font-size: $mobile-font-secondary;
-    }
-
-    .toolbarButton {
-        min-height: 36px;
-        padding: $space-xs $space-s;
-
-        font-size: $mobile-font-secondary;
-    }
-
-    .pageSettingsButton {
-        flex-shrink: 0;
-
-        width: 36px;
-        height: 36px;
-
-        .material-symbols-rounded {
-            font-size: 20px;
-        }
-    }
-
-    .settingsMenu {
-        width: min(240px, calc(100vw - 16px));
-        max-height: calc(100vh - 16px);
-
-        overflow-y: auto;
-    }
-
-    .settingsSelect {
-        min-height: 36px;
-        font-size: $mobile-font-primary;
-    }
-
-    .settingsSelectMenu {
-        font-size: $mobile-font-primary;
-    }
+.toolbarActions {
+    display: flex;
+    align-items: center;
+    gap: $space-l;
 }

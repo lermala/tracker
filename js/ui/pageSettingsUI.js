@@ -1,10 +1,16 @@
+const propertiesButton = document.getElementById("propertiesButton");
+const propertiesMenu = document.getElementById("propertiesMenu");
 const groupButton = document.getElementById("groupButton");
-const groupButtonValue = document.getElementById("groupButtonValue");
 const groupMenu = document.getElementById("groupMenu");
-
+const filterButton = document.getElementById("filterButton");
+const filterMenu = document.getElementById("filterMenu");
 const sortButton = document.getElementById("sortButton");
-const sortButtonValue = document.getElementById("sortButtonValue");
 const sortMenu = document.getElementById("sortMenu");
+
+const hideCompletedCheckbox =
+    document.getElementById(
+        "hideCompletedCheckbox"
+    );
 
 const GROUP_OPTIONS = [
     { value: null, label: "Нет" },
@@ -19,14 +25,204 @@ const SORT_OPTIONS = [
     { value: "priority", label: "Приоритет" }
 ];
 
+
+const toolbarMenus = [
+    propertiesMenu,
+    groupMenu,
+    filterMenu,
+    sortMenu
+];
+
+function closeToolbarMenus() {
+    toolbarMenus.forEach(menu => {
+        menu.classList.add("hidden");
+    });
+}
+
+
+function bindPageSettingsEvents() {
+    propertiesButton.addEventListener(
+        "click",
+        event => {
+            event.stopPropagation();
+
+            openToolbarMenu(
+                propertiesButton,
+                propertiesMenu
+            );
+        }
+    );
+
+    groupButton.addEventListener(
+        "click",
+        event => {
+            event.stopPropagation();
+
+            openToolbarMenu(
+                groupButton,
+                groupMenu
+            );
+        }
+    );
+
+    filterButton.addEventListener(
+        "click",
+        event => {
+            event.stopPropagation();
+
+            openToolbarMenu(
+                filterButton,
+                filterMenu
+            );
+        }
+    );
+
+    sortButton.addEventListener(
+        "click",
+        event => {
+            event.stopPropagation();
+
+            openToolbarMenu(
+                sortButton,
+                sortMenu
+            );
+        }
+    );
+
+    bindGroupMenu();
+    bindSortMenu();
+
+
+    hideCompletedCheckbox.addEventListener(
+        "change",
+        () => {
+            pageSettings.hideCompleted =
+                hideCompletedCheckbox.checked;
+
+            saveCurrentPageSettings();
+            renderCurrentView();
+        }
+    );
+
+    document.addEventListener(
+        "click",
+        event => {
+            if (
+                event.target.closest(
+                    ".toolbarMenu, .toolbarAction"
+                )
+            ) {
+                return;
+            }
+
+            closeToolbarMenus();
+        }
+    );
+}
+
+function bindGroupMenu() {
+    groupMenu.addEventListener(
+        "click",
+        event => {
+            const button =
+                event.target.closest("[data-group]");
+
+            if (!button) return;
+
+            const value =
+                button.dataset.group;
+
+            pageSettings.group =
+                value === "null"
+                    ? null
+                    : value;
+
+            saveCurrentPageSettings();
+
+            renderGroupMenu();
+            closeToolbarMenus();
+
+            renderCurrentView();
+        }
+    );
+}
+
+function bindSortMenu() {
+    sortMenu.addEventListener(
+        "click",
+        event => {
+            const button =
+                event.target.closest("[data-sort]");
+
+            if (!button) return;
+
+            pageSettings.sort =
+                button.dataset.sort;
+
+            saveCurrentPageSettings();
+
+            renderSortMenu();
+            closeToolbarMenus();
+
+            renderCurrentView();
+        }
+    );
+}
+
+
+
 function renderPageSettingsUI() {
-    initSettingsToggles();
-
-    updateGroupButton();
-    updateSortButton();
-
+    renderPropertiesMenu();
     renderGroupMenu();
     renderSortMenu();
+    renderFilterSettings();
+}
+
+function renderPropertiesMenu() {
+    propertiesMenu.replaceChildren();
+
+    Object.entries(
+        TASK_PROPERTY_CONFIG
+    ).forEach(([property, config]) => {
+        const label =
+            document.createElement("label");
+
+        label.className =
+            "propertyMenuItem";
+
+        const checkbox =
+            document.createElement("input");
+
+        checkbox.type = "checkbox";
+        checkbox.className = "checkbox";
+
+        checkbox.checked =
+            isTaskPropertyVisible(property);
+
+        const text =
+            document.createElement("span");
+
+        text.textContent = config.label;
+
+        checkbox.addEventListener(
+            "change",
+            () => {
+                setTaskPropertyVisible(
+                    property,
+                    checkbox.checked
+                );
+
+                renderCurrentView();
+            }
+        );
+
+        label.append(
+            checkbox,
+            text
+        );
+
+        propertiesMenu.append(label);
+    });
 }
 
 function bindSettingsEvents() {
@@ -53,7 +249,6 @@ function bindSettingsEvents() {
 
         saveCurrentPageSettings()
 
-        updateGroupButton();
         renderGroupMenu();
 
         groupMenu.classList.add("hidden");
@@ -71,7 +266,6 @@ function bindSettingsEvents() {
 
         saveCurrentPageSettings()
 
-        updateSortButton();
         renderSortMenu();
 
         sortMenu.classList.add("hidden");
@@ -145,55 +339,10 @@ function renderSelectOptions({
     });
 }
 
-function updateGroupButton() {
-    groupButtonValue.textContent =
-        getOptionLabel(
-            GROUP_OPTIONS,
-            pageSettings.group
-        );
-}
-
-function updateSortButton() {
-    sortButtonValue.textContent =
-        getOptionLabel(
-            SORT_OPTIONS,
-            pageSettings.sort
-        );
-}
-
 function getOptionLabel(options, value) {
     return options.find(
         option => option.value === value
     )?.label ?? "";
-}
-
-function initSettingsToggles() {
-    createPageSettingToggle(
-        "hideCompletedToggle",
-        "hideCompleted"
-    );
-
-    createPageSettingToggle(
-        "todayOnlyToggle",
-        "todayOnly"
-    );
-}
-
-function createPageSettingToggle(containerId, settingName) {
-    const container = document.getElementById(containerId);
-
-    const toggle = createToggle({
-        value: pageSettings[settingName],
-
-        onChange: value => {
-            pageSettings[settingName] = value;
-
-            saveCurrentPageSettings();
-            renderCurrentView();
-        }
-    });
-
-    container.replaceChildren(toggle);
 }
 
 function getAvailableGroupOptions() {
@@ -203,4 +352,68 @@ function getAvailableGroupOptions() {
     return GROUP_OPTIONS.filter(option =>
         availableGroups.includes(option.value)
     );
+}
+
+
+function openToolbarMenu(button, menu) {
+    const isOpen =
+        !menu.classList.contains("hidden");
+
+    closeToolbarMenus();
+
+    if (isOpen) return;
+
+    const rect =
+        button.getBoundingClientRect();
+
+    menu.classList.remove("hidden");
+
+    const menuRect =
+        menu.getBoundingClientRect();
+
+    let left =
+        rect.right - menuRect.width;
+
+    let top =
+        rect.bottom + 6;
+
+    const padding = 8;
+
+    if (left < padding) {
+        left = padding;
+    }
+
+    if (
+        left + menuRect.width >
+        window.innerWidth - padding
+    ) {
+        left =
+            window.innerWidth -
+            menuRect.width -
+            padding;
+    }
+
+    if (
+        top + menuRect.height >
+        window.innerHeight - padding
+    ) {
+        top =
+            rect.top -
+            menuRect.height -
+            6;
+    }
+
+    menu.style.left = `${left}px`;
+    menu.style.top = `${top}px`;
+}
+
+function closeToolbarMenus() {
+    toolbarMenus.forEach(menu => {
+        menu.classList.add("hidden");
+    });
+}
+
+function renderFilterSettings() {
+    hideCompletedCheckbox.checked =
+        pageSettings.hideCompleted;
 }

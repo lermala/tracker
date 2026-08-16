@@ -66,12 +66,18 @@
 }
 
 .tasksContainer:has(.listView) {
-    .tasksHeaderTitle {
+    .tasksHeader,
+    .trackerToolbar,
+    .taskGroup,
+    > .addCategoryButton {
         width: 100%;
         max-width: 800px;
         margin-inline: auto;
+    }
 
-        text-align: center;
+    .tasksHeader,
+    .trackerToolbar {
+        padding-inline: 0;
     }
 }
 

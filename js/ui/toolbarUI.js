@@ -1,11 +1,9 @@
-const viewSwitcher = document.getElementById("viewSwitcher");
-
-const pageSettingsButton = document.getElementById("pageSettingsButton");
-const settingsMenu = document.getElementById("settingsMenu");
+const viewSwitcher =
+    document.getElementById("viewSwitcher");
 
 function initToolbarUI() {
     bindTaskToolbarEvents();
-    bindSettingsEvents();
+    bindPageSettingsEvents();
 
     renderToolbarUI();
 }
@@ -16,36 +14,34 @@ function renderToolbarUI() {
 }
 
 function bindTaskToolbarEvents() {
-    viewSwitcher.addEventListener("click", event => {
-        const button = event.target.closest("[data-view]");
+    viewSwitcher.addEventListener(
+        "click",
+        event => {
+            const button =
+                event.target.closest("[data-view]");
 
-        if (!button) return;
+            if (!button) return;
 
-        pageSettings.view = button.dataset.view;
-        saveCurrentPageSettings()
+            pageSettings.view =
+                button.dataset.view;
 
-        updateViewButtons();
-        renderCurrentView();
-    });
+            saveCurrentPageSettings();
 
-    pageSettingsButton.addEventListener("click", (event) => {
-        event.stopPropagation();
-        settingsMenu.classList.toggle("hidden");
-    });
-
-    document.addEventListener("click", (event) => {
-        if (!event.target.closest(".settingsGroup")) {
-            settingsMenu.classList.add("hidden");
+            updateViewButtons();
+            renderPageSettingsUI();
+            renderCurrentView();
         }
-    });
+    );
 }
 
 function updateViewButtons() {
-    viewSwitcher.querySelectorAll("[data-view]").forEach(button => {
-        button.classList.toggle(
-            "active",
-            button.dataset.view === pageSettings.view
-        );
-    });
+    viewSwitcher
+        .querySelectorAll("[data-view]")
+        .forEach(button => {
+            button.classList.toggle(
+                "active",
+                button.dataset.view ===
+                pageSettings.view
+            );
+        });
 }
-

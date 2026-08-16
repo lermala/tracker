@@ -100,8 +100,17 @@
         </aside>
 
         <div class="tasksContainer">
+            <div class="tasksHeader">
+                <h1 class="tasksHeaderTitle" id="tasksHeaderTitle"></h1>
+
+                <button class="pageMenuButton" id="pageMenuButton" type="button" title="Ещё">
+                    <span class="material-symbols-rounded">
+                        more_horiz
+                    </span>
+                </button>
+            </div>
+
             <div class="trackerToolbar" id="trackerToolbar">
-                <!-- переключатель Список / Доска / Календарь -->
                 <div class="segmentedControl" id="viewSwitcher">
                     <button class="segmentedControlButton" data-view="list">
                         Список
@@ -116,92 +125,42 @@
                     </button>
                 </div>
 
-                <!-- настройки (шестеренка) -->
-                <div class="settingsGroup">
-                    <button class="pageSettingsButton" id="pageSettingsButton" title="Настройки">
-                        <span class="material-symbols-rounded">
-                            settings
-                        </span>
+                <div class="toolbarActions">
+                    <button class="toolbarAction" id="propertiesButton" type="button">
+                        <span>Теги</span>
                     </button>
 
-                    <div class="settingsMenu hidden" id="settingsMenu">
+                    <button class="toolbarAction" id="groupButton" type="button">
+                        <span>Группировка</span>
+                    </button>
 
-                        <!-- Представление -->
-                        <div class="menuSection">
-                            <div class="menuSectionTitle">
-                                Представление
-                            </div>
+                    <button class="toolbarAction" id="filterButton" type="button">
+                        <span>Фильтр</span>
+                    </button>
 
-                            <div class="menuSetting menuSettingVertical">
-                                <span class="menuSettingLabel">
-                                    Группировка
-                                </span>
-
-                                <div class="settingsSelectWrapper">
-                                    <button class="settingsSelect" id="groupButton" type="button">
-                                        <span id="groupButtonValue">Нет</span>
-
-                                        <span class="material-symbols-rounded">
-                                            expand_more
-                                        </span>
-                                    </button>
-
-                                    <div class="settingsSelectMenu hidden" id="groupMenu"></div>
-                                </div>
-                            </div>
-
-                            <div class="menuSetting menuSettingVertical">
-                                <span class="menuSettingLabel">
-                                    Сортировка
-                                </span>
-
-                                <div class="settingsSelectWrapper">
-                                    <button class="settingsSelect" id="sortButton" type="button">
-                                        <span id="sortButtonValue">
-                                            Дата создания
-                                        </span>
-
-                                        <span class="material-symbols-rounded">
-                                            expand_more
-                                        </span>
-                                    </button>
-
-                                    <div class="settingsSelectMenu hidden" id="sortMenu"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Фильтры -->
-                        <div class="menuSection">
-                            <div class="menuSectionTitle">
-                                Фильтры
-                            </div>
-
-                            <div class="menuSetting">
-                                <div id="hideCompletedToggle"></div>
-                                <span class="menuSettingLabel">
-                                    Скрыть завершённые
-                                </span>
-
-                            </div>
-
-                            <div class="menuSetting">
-                                <div id="todayOnlyToggle"></div>
-                                <span class="menuSettingLabel">
-                                    Только сегодня
-                                </span>
-
-                            </div>
-                        </div>
-
-
-                    </div>
+                    <button class="toolbarAction" id="sortButton" type="button">
+                        <span>Сортировка</span>
+                    </button>
                 </div>
             </div>
 
-            <div class="tasksHeader">
-                <h1 class="tasksHeaderTitle" id="tasksHeaderTitle"></h1>
+            <div class="toolbarMenu hidden" id="propertiesMenu"></div>
+
+            <div class="toolbarMenu hidden" id="groupMenu"></div>
+
+            <div class="toolbarMenu hidden" id="filterMenu">
+                <div class="menuSetting">
+                    <label class="menuSetting">
+                        <input class="checkbox" id="hideCompletedCheckbox" type="checkbox">
+
+                        <span class="menuSettingLabel">
+                            Скрыть завершённые
+                        </span>
+                    </label>
+                </div>
             </div>
+
+            <div class="toolbarMenu hidden" id="sortMenu"></div>
 
             <div id="trackerView" class="trackerView"></div>
         </div>
@@ -217,7 +176,7 @@
             <div class="taskContent">
                 <div class="taskTitle"></div>
 
-                <div class="taskMeta">                    
+                <div class="taskMeta">
                     <div class="taskProperties"></div>
                 </div>
 
@@ -503,11 +462,12 @@
 <script src="js/ui/projectUI.js"></script>
 <script src="js/ui/navigationUI.js"></script>
 
+<script src="js/ui/task/taskFields.js"></script>
+<script src="js/ui/task/taskProperties.js"></script>
+
 <script src="js/ui/toolbarUI.js"></script>
 <script src="js/ui/pageSettingsUI.js"></script>
 
-<script src="js/ui/task/taskProperties.js"></script>
-<script src="js/ui/task/taskFields.js"></script>
 <script src="js/ui/task/taskUI.js"></script>
 <script src="js/ui/task/taskCard.js"></script>
 <script src="js/ui/task/editor.js"></script>
