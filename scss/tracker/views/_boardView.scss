@@ -43,8 +43,8 @@
     .taskMeta {
         display: flex;
         align-items: center;
-        width: 100%;
-        gap: $space-s;
+        flex-wrap: wrap;
+        gap: 6px 10px;
     }
 
     .taskDueDate {

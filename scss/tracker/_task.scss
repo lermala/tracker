@@ -168,6 +168,33 @@
     }
 }
 
+.taskAssignee {
+    min-width: 0;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 2px;
+
+    border-radius: $bd-radius;
+
+    cursor: pointer;
+
+    &:hover {
+        background: var(--color-hover);
+    }
+
+    &.is-empty {
+        color: var(--color-text-secondary);
+    }
+
+/*     .taskAssigneeText {
+        font-size: 13px;
+    } */
+
+}
+
 .taskDueDate {
     @extend %interactive-badge;
 

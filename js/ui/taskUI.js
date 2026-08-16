@@ -6,7 +6,7 @@ function initTaskUI() {
 }
 
 function fillTaskData(item, elements, task) {
-    const { circle, title, duration, deleteButton, timerButton, timerButtonIcon } = elements;
+    const { circle, title, duration, deleteButton, timerButton, timerButtonIcon, assignee } = elements;
 
     durationElements.set(task.id, duration); //todo
     updateTaskUI(task, item, elements);
@@ -31,7 +31,8 @@ function getTaskElements(item) {
         circle: item.querySelector(".taskCheckbox"),
         deleteButton: item.querySelector(".deleteButton"),
         timerButton: item.querySelector(".timerButton"),
-        timerButtonIcon: item.querySelector(".timerButton span")
+        timerButtonIcon: item.querySelector(".timerButton span"),
+        assignee: item.querySelector(".taskAssignee")
     };
 }
 
@@ -40,7 +41,7 @@ function cloneTaskTemplate() {
 }
 
 function bindTaskEvents(item, elements, task) {
-    const { circle, title, dueDate, duration, deleteButton, timerButton, timerButtonIcon } = elements;
+    const { circle, title, dueDate, duration, deleteButton, timerButton, timerButtonIcon, assignee } = elements;
 
     bindTaskCheckbox(
         circle,
@@ -103,6 +104,15 @@ function bindTaskEvents(item, elements, task) {
         renderCurrentView
     );
 
+    bindTaskAssignee(
+        elements.assignee,
+        () => getTaskById(task.id),
+        {
+            compact: false,
+            hideEmpty: true
+        }
+    );
+
     item.addEventListener("click", (event) => {
         if (event.target.closest(
             ".taskCheckbox, .taskTitle, button, .taskDuration, .taskDueDate"
@@ -130,6 +140,14 @@ function updateTaskUI(task, item, elements) {
     fillTaskDueDate(elements.dueDate, task);
     fillTaskTimer(duration, timerButtonIcon, task);
     fillTaskCheckbox(circle, task);
+    fillTaskAssignee(
+        elements.assignee,
+        task,
+        {
+            compact: false,
+            hideEmpty: true
+        }
+    );
 
     // Состояния задачи
     item.classList.toggle("is-completed", task.isCompleted);

@@ -28,7 +28,7 @@ function bindTaskCardEvents() {
     const {
         overlay,
         closeButton,
-        status,
+        checkbox,
         title,
         description,
         dueDate,
@@ -47,7 +47,7 @@ function bindTaskCardEvents() {
     });
 
     bindTaskCheckbox(
-        status,
+        checkbox,
         () => getTaskById(currentTaskId),
         toggle => {
             toggle().catch(error => {
@@ -61,7 +61,7 @@ function bindTaskCardEvents() {
 
                 if (task) {
                     fillTaskCheckbox(
-                        status,
+                        checkbox,
                         task
                     );
                 }
@@ -127,6 +127,11 @@ function bindTaskCardEvents() {
         () => getTaskById(currentTaskId),
         renderCurrentView
     );
+
+    bindTaskAssignee(
+        taskCardElements.assignee,
+        () => getTaskById(currentTaskId)
+    );
 }
 
 function openTaskCard(task, {
@@ -135,9 +140,11 @@ function openTaskCard(task, {
     const {
         overlay,
         closeButton,
-        status,
+        checkbox,
         title,
         description,
+        assignee,
+        creator,
         dueDate,
         priority
     } = taskCardElements;
@@ -152,11 +159,18 @@ function openTaskCard(task, {
     }
 
     overlay.classList.remove("hidden");
-
-    fillTaskCheckbox(status, task);
     title.textContent = task.title;
-    fillTaskDescription(description, task);
 
+    fillTaskAssignee(taskCardElements.assignee, task);
+    fillTaskUser(
+        taskCardElements.creator,
+        task.createdById,
+        {
+            emptyText: "Неизвестно"
+        }
+    );
+    fillTaskCheckbox(checkbox, task);
+    fillTaskDescription(description, task);
     fillTaskDueDate(dueDate, task);
     fillTaskPriority(priority, task);
 }
@@ -178,9 +192,13 @@ function getTaskCardElements() {
     return {
         overlay: document.getElementById("taskCardOverlay"),
         closeButton: document.getElementById("taskCardCloseButton"),
-        status: document.getElementById("taskCardCheckbox"),
+
+        checkbox: document.getElementById("taskCardCheckbox"),
         title: document.getElementById("taskCardTitle"),
         description: document.getElementById("taskCardDescription"),
+
+        assignee: document.getElementById("taskCardAssignee"),
+        creator: document.getElementById("taskCardCreator"),
         dueDate: document.getElementById("taskCardDueDate"),
         priority: document.getElementById("taskCardPriority")
     };
@@ -208,4 +226,45 @@ function renderTextWithLinks(element, text) {
             );
         }
     });
+}
+
+async function fillTaskUser(
+    element,
+    profileId,
+    {
+        compact = false,
+        emptyText = ""
+    } = {}
+) {
+    element.replaceChildren();
+
+    if (!profileId) {
+        element.textContent = emptyText;
+        return;
+    }
+
+    try {
+        const profile =
+            await getProfileById(profileId);
+
+        if (!profile) {
+            element.textContent = emptyText;
+            return;
+        }
+
+        element.replaceChildren(
+            createUserBadge(profile, {
+                compact,
+                isCurrentUser:
+                    profile.id === currentProfile?.id
+            })
+        );
+    } catch (error) {
+        console.error(
+            "LOAD TASK USER ERROR:",
+            error
+        );
+
+        element.textContent = emptyText;
+    }
 }

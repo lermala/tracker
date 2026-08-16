@@ -8,6 +8,18 @@ async function getCurrentProfile() {
     );
 }
 
+async function getProfileById(profileId) {
+    if (!profileId) {
+        return null;
+    }
+
+    if (currentProfile?.id === profileId) {
+        return currentProfile;
+    }
+
+    return getProfileByIdFromDb(profileId);
+}
+
 async function updateCurrentProfile(changes) {
     if (!currentProfile) {
         throw new Error("Current profile is not loaded");

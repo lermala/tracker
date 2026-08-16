@@ -234,3 +234,94 @@ function bindTaskPriority(
         });
     });
 }
+
+async function fillTaskAssignee(
+    assigneeElement,
+    task,
+    {
+        compact = false,
+        hideEmpty = false
+    } = {}
+) {
+    assigneeElement.replaceChildren();
+
+    if (!task.assigneeId) {
+        if (hideEmpty) {
+            assigneeElement.classList.add("hidden");
+            return;
+        }
+
+        assigneeElement.classList.remove("hidden");
+        assigneeElement.textContent = "Не назначено";
+
+        return;
+    }
+    assigneeElement.classList.remove("hidden");
+
+    await fillTaskUser(
+        assigneeElement,
+        task.assigneeId,
+        {
+            compact
+        }
+    );
+}
+
+function bindTaskAssignee(
+    assigneeElement,
+    getTask,
+    {
+        compact = false,
+        hideEmpty = false,
+        onUpdate = null
+    } = {}
+) {
+    assigneeElement.addEventListener(
+        "click",
+        async event => {
+            event.stopPropagation();
+
+            const task = getTask();
+
+            if (!task) return;
+
+            try {
+                const members =
+                    await getProjectMembers(task.projectId);
+
+                openUserPicker({
+                    anchor: assigneeElement,
+                    users: members,
+                    selectedId: task.assigneeId,
+                    allowEmpty: true,
+
+                    onSelect: async assigneeId => {
+                        await updateTask(task.id, {
+                            assigneeId
+                        });
+
+                        fillTaskAssignee(
+                            assigneeElement,
+                            task,
+                            {
+                                compact,
+                                hideEmpty
+                            }
+                        );
+
+                        onUpdate?.();
+                    },
+
+                    onInvite: () => {
+                        // позже
+                    }
+                });
+            } catch (error) {
+                console.error(
+                    "LOAD PROJECT MEMBERS ERROR:",
+                    error
+                );
+            }
+        }
+    );
+}
