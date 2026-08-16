@@ -19,7 +19,6 @@
         border-color .15s ease,
         background-color .15s ease;
 
-    .taskDueDate.is-empty,
     .deleteButton {
         opacity: 0;
         visibility: hidden;
@@ -28,7 +27,6 @@
     body:not(.is-dragging) &:hover {
         border-color: var(--color-border-strong);
 
-        .taskDueDate.is-empty,
         .deleteButton {
             opacity: 1;
             visibility: visible;
@@ -104,35 +102,58 @@
 // ======================================
 
 .taskContent {
-    display: flex;
     flex: 1;
-    gap: $space-s;
+    min-width: 0;
 
     color: var(--color-text);
     background: transparent;
 }
 
 .taskTitle {
-    flex: 1;
     overflow-wrap: anywhere;
     cursor: default;
 }
 
-.taskDuration {
-    width: 60px;
+.taskProperties {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: $space-xs $space-s;
+
+    min-width: 0;
+}
+
+.taskProperty {
+    min-width: 0;
+
+    display: inline-flex;
+    align-items: center;
+
+    font-size: 12px;
+    line-height: 16px;
 
     color: var(--color-text-secondary);
 }
 
-.taskPriority {
-    @extend %interactive;
 
-    display: inline-flex;
-    align-items: center;
-    gap: $space-s;
+
+.taskDuration {
+    white-space: nowrap;
+    color: var(--color-text-secondary);
+}
+
+.taskPriority {
+    @extend %interactive-badge;
+
+    gap: $space-xs;
+
+    .priorityDot {
+        flex-shrink: 0;
+    }
 
     .taskPriorityText {
-        color: var(--color-text);
+        color: inherit;
         white-space: nowrap;
     }
 }
@@ -143,39 +164,34 @@
 // ======================================
 
 .timerControl {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 2px;
+    gap: 3px;
 
     .timerButton {
         @extend %button;
 
         padding: 0;
 
+        span {
+            font-size: 17px;
+            line-height: 1;
+
+            color: var(--color-text-secondary);
+        }
+
         &:hover {
             color: var(--color-accent);
-        }
 
-        span {
-            font-size: 18px;
-            color: var(--color-text-secondary);
-            line-height: 1;
-        }
-
-        &:hover span {
-            color: inherit;
+            span {
+                color: inherit;
+            }
         }
     }
 }
 
 .taskAssignee {
-    min-width: 0;
-
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-
-    padding: 2px;
+    gap: $space-xs;
 
     border-radius: $bd-radius;
 
@@ -184,15 +200,6 @@
     &:hover {
         background: var(--color-hover);
     }
-
-    &.is-empty {
-        color: var(--color-text-secondary);
-    }
-
-/*     .taskAssigneeText {
-        font-size: 13px;
-    } */
-
 }
 
 .taskDueDate {
@@ -221,11 +228,6 @@
 
 @media (max-width: 768px) {
     .task {
-        .taskDueDate.is-empty {
-            opacity: 1;
-            visibility: visible;
-        }
-
         .taskTitle {
             font-size: $mobile-font-primary;
             line-height: 21px;

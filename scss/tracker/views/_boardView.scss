@@ -27,12 +27,7 @@
 
     .taskContent {
         display: flex;
-        flex: 1;
         flex-direction: column;
-        align-items: flex-start;
-
-        min-width: 0;
-
         gap: $space-xs;
     }
 
@@ -40,16 +35,10 @@
         width: 100%;
     }
 
-    .taskMeta {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 6px 10px;
-    }
+    .taskProperties {
+        width: 100%;
 
-    .taskDueDate {
-        margin-left: auto;
-        flex-shrink: 0;
+        justify-content: flex-start;
     }
 }
 
@@ -59,7 +48,8 @@
 
         .taskGroup,
         .addCategoryButton {
-            flex-basis: min(300px, calc(100vw - 32px));
+            flex-basis: min(300px,
+                    calc(100vw - 32px));
         }
     }
 }

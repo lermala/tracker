@@ -39,12 +39,6 @@
                 font-size: 16px;
             }
         }
-
-        .taskAssignee {
-            opacity: 0;
-            // visibility: hidden;
-            display: none; 
-        }
     }
 
     .taskContent {
@@ -60,11 +54,9 @@
         min-width: 0;
     }
 
-    .taskMeta {
-        display: grid;
-        grid-template-columns: auto 100px;
-        align-items: center;
-        gap: $space-s;
+    .taskProperties {
+        justify-content: flex-end;
+        flex-wrap: nowrap;
     }
 
     .taskDueDate {

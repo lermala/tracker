@@ -1,4 +1,6 @@
 %badge {
+    --badge-color: #{$clr-badge-grey};
+
     display: inline-flex;
     align-items: center;
 
@@ -9,17 +11,24 @@
     border: 1px solid transparent;
     border-radius: $bd-radius;
 
-    color: $clr-badge-grey;
-    background: rgba($clr-badge-grey, .18);
+    color: var(--badge-color);
+
+    background: color-mix(
+        in srgb,
+        var(--badge-color) 18%,
+        transparent
+    );
 
     font-size: 12px;
     font-weight: 500;
     line-height: 16px;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &.is-empty {
         background: transparent;
-        border-color: $clr-badge-grey;
+        border-color: var(--badge-color);
     }
 }
 
@@ -29,5 +38,17 @@
 
     &:hover {
         filter: brightness(1.1);
+    }
+}
+
+.badge {
+    @extend %badge;
+
+    &.is-interactive {
+        @extend %interactive;
+
+        &:hover {
+            filter: brightness(1.1);
+        }
     }
 }

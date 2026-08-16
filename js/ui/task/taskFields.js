@@ -1,3 +1,6 @@
+// Здесь находится логика отображения 
+// и редактирования отдельных полей Task
+
 function fillTaskDueDate(dueDate, task) {
     dueDate.textContent = task.dueDate
         ? formatDueDate(
@@ -73,7 +76,7 @@ function bindTaskDueDate(
     });
 }
 
-function fillTaskTimer(duration, timerButtonIcon, task) {
+function fillTaskDuration(duration, timerButtonIcon, task) {
     duration.textContent = getCurrentDuration(task);
 
     timerButtonIcon.textContent =
@@ -82,19 +85,19 @@ function fillTaskTimer(duration, timerButtonIcon, task) {
             : "pause_circle";
 }
 
-function bindTaskTimer(
+function bindTaskDuration(
     timerButton,
     getTask,
     onUpdate
 ) {
-    timerButton.addEventListener("click", async (event) => {
+    timerButton.addEventListener("click", async event => {
         event.stopPropagation();
 
         const task = getTask();
 
         if (!task) return;
 
-        toggleTaskTimer(task);
+        await toggleTaskTimer(task);
 
         onUpdate?.();
     });
@@ -211,8 +214,6 @@ function bindTaskPriority(
         event.stopPropagation();
 
         const task = getTask();
-        console.log("TASK:", task);
-
         if (!task) return;
 
         openPriorityPicker({
@@ -235,22 +236,57 @@ function bindTaskPriority(
     });
 }
 
+async function fillTaskUser(
+    element,
+    profileId,
+    {
+        compact = false,
+        emptyText = ""
+    } = {}
+) {
+    element.replaceChildren();
+
+    if (!profileId) {
+        element.textContent = emptyText;
+        return;
+    }
+
+    try {
+        const profile =
+            await getProfileById(profileId);
+
+        if (!profile) {
+            element.textContent = emptyText;
+            return;
+        }
+
+        element.replaceChildren(
+            createUserBadge(profile, {
+                compact,
+                isCurrentUser:
+                    profile.id === currentProfile?.id
+            })
+        );
+    } catch (error) {
+        console.error(
+            "LOAD TASK USER ERROR:",
+            error
+        );
+
+        element.textContent = emptyText;
+    }
+}
+
 async function fillTaskAssignee(
     assigneeElement,
     task,
     {
-        compact = false,
-        hideEmpty = false
+        compact = false
     } = {}
 ) {
     assigneeElement.replaceChildren();
 
     if (!task.assigneeId) {
-        if (hideEmpty) {
-            assigneeElement.classList.add("hidden");
-            return;
-        }
-
         assigneeElement.classList.remove("hidden");
         assigneeElement.textContent = "Не назначено";
 
@@ -272,7 +308,6 @@ function bindTaskAssignee(
     getTask,
     {
         compact = false,
-        hideEmpty = false,
         onUpdate = null
     } = {}
 ) {
@@ -304,8 +339,7 @@ function bindTaskAssignee(
                             assigneeElement,
                             task,
                             {
-                                compact,
-                                hideEmpty
+                                compact
                             }
                         );
 

@@ -6,9 +6,7 @@ function initTaskUI() {
 }
 
 function fillTaskData(item, elements, task) {
-    const { circle, title, duration, deleteButton, timerButton, timerButtonIcon, assignee } = elements;
-
-    durationElements.set(task.id, duration); //todo
+    // durationElements.set(task.id, duration); //todo
     updateTaskUI(task, item, elements);
 }
 
@@ -26,13 +24,9 @@ function createTaskUI(task) {
 function getTaskElements(item) {
     return {
         title: item.querySelector(".taskTitle"),
-        duration: item.querySelector(".taskDuration"),
-        dueDate: item.querySelector(".taskDueDate"),
-        circle: item.querySelector(".taskCheckbox"),
+        taskCheckbox: item.querySelector(".taskCheckbox"),
         deleteButton: item.querySelector(".deleteButton"),
-        timerButton: item.querySelector(".timerButton"),
-        timerButtonIcon: item.querySelector(".timerButton span"),
-        assignee: item.querySelector(".taskAssignee")
+        properties: item.querySelector(".taskProperties"),
     };
 }
 
@@ -41,10 +35,10 @@ function cloneTaskTemplate() {
 }
 
 function bindTaskEvents(item, elements, task) {
-    const { circle, title, dueDate, duration, deleteButton, timerButton, timerButtonIcon, assignee } = elements;
+    const { taskCheckbox, title, deleteButton } = elements;
 
     bindTaskCheckbox(
-        circle,
+        taskCheckbox,
         () => task,
         toggle => {
             animateTaskReorder(() => {
@@ -86,36 +80,9 @@ function bindTaskEvents(item, elements, task) {
         });
     });
 
-    bindTaskTimer(
-        timerButton,
-        () => task,
-        () => {
-            renderCurrentView();
-        }
-    );
-
-    duration.addEventListener("click", () => {
-        startEditDuration(duration, task);
-    });
-
-    bindTaskDueDate(
-        dueDate,
-        () => task,
-        renderCurrentView
-    );
-
-    bindTaskAssignee(
-        elements.assignee,
-        () => getTaskById(task.id),
-        {
-            compact: false,
-            hideEmpty: true
-        }
-    );
-
-    item.addEventListener("click", (event) => {
+    item.addEventListener("click", event => {
         if (event.target.closest(
-            ".taskCheckbox, .taskTitle, button, .taskDuration, .taskDueDate"
+            ".taskCheckbox, .taskTitle, button, .taskProperty, .taskDuration"
         )) {
             return;
         }
@@ -126,27 +93,17 @@ function bindTaskEvents(item, elements, task) {
 
 function updateTaskUI(task, item, elements) {
     const {
-        circle,
+        taskCheckbox,
         title,
-        dueDate,
-        duration,
-        deleteButton,
-        timerButton,
-        timerButtonIcon
+        deleteButton
     } = elements;
 
     title.textContent = task.title;
+    fillTaskCheckbox(taskCheckbox, task);
 
-    fillTaskDueDate(elements.dueDate, task);
-    fillTaskTimer(duration, timerButtonIcon, task);
-    fillTaskCheckbox(circle, task);
-    fillTaskAssignee(
-        elements.assignee,
-        task,
-        {
-            compact: false,
-            hideEmpty: true
-        }
+    renderTaskProperties(
+        elements.properties,
+        task
     );
 
     // Состояния задачи

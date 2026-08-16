@@ -24,33 +24,20 @@
             color: var(--color-text-secondary);
         }
 
-        .taskDuration {
+        .taskProperties {
             opacity: .6;
         }
     }
 
     &.is-running {
-        .timerControl {
+        .taskDurationProperty {
             color: var(--color-accent);
 
-            animation: runningPulse 1.8s ease-in-out infinite;
-
-            span {
+            .taskDuration,
+            .timerButton span {
                 color: var(--color-accent);
                 font-weight: 500;
             }
         }
-    }
-}
-
-@keyframes runningPulse {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.1);
     }
 }

@@ -4,11 +4,6 @@
     width: min(900px, calc(100vw - 48px));
     min-height: 800px;
     max-height: min(900px, calc(100vh - 48px));
-
-    .taskDueDate.is-empty {
-        opacity: 1;
-        visibility: visible;
-    }
 }
 
 .taskCardHeader {
@@ -101,7 +96,7 @@
         font-size: 12px;
     }
 
-    .taskCardUser {
+    .taskCardUser { // todo delete?
         min-height: 28px;
 
         display: flex;
@@ -109,7 +104,6 @@
 
         &.is-empty {
             color: var(--color-text-secondary);
-            font-size: 13px;
         }
     }
 }

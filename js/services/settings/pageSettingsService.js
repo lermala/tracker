@@ -17,6 +17,16 @@ const GROUP = {
     PROJECT: "project"
 };
 
+const TASK_PROPERTY = {
+    ASSIGNEE: "assignee",
+    DUE_DATE: "dueDate",
+    DURATION: "duration",
+    PRIORITY: "priority",
+    PROJECT: "project",
+    CATEGORY: "category",
+    STATUS: "status"
+};
+
 const DEFAULT_PAGE_SETTINGS = {
     filter: "all",
     sort: "created",
@@ -25,7 +35,22 @@ const DEFAULT_PAGE_SETTINGS = {
     hideCompleted: false,
     todayOnly: false,
     view: VIEW.LIST,
-    group: GROUP.DUE_DATE
+    group: GROUP.DUE_DATE,
+
+    visibleProperties: {
+        [VIEW.LIST]: [
+            TASK_PROPERTY.DUE_DATE
+        ],
+
+        [VIEW.BOARD]: [
+            TASK_PROPERTY.DUE_DATE,
+            TASK_PROPERTY.PRIORITY,
+            TASK_PROPERTY.ASSIGNEE,
+            TASK_PROPERTY.PROJECT
+        ],
+
+        [VIEW.CALENDAR]: []
+    }
 };
 
 const AVAILABLE_GROUPS = {
@@ -40,6 +65,20 @@ const AVAILABLE_GROUPS = {
         GROUP.PROJECT,
         GROUP.DUE_DATE
     ]
+};
+
+const DEFAULT_VISIBLE_PROPERTIES = {
+    [VIEW.LIST]: [
+        TASK_PROPERTY.DUE_DATE
+    ],
+
+    [VIEW.BOARD]: [
+        TASK_PROPERTY.ASSIGNEE,
+        TASK_PROPERTY.DURATION,
+        TASK_PROPERTY.DUE_DATE
+    ],
+
+    [VIEW.CALENDAR]: []
 };
 
 function getPageSettings(page) {
@@ -59,7 +98,12 @@ function getPageSettings(page) {
 
     return {
         ...DEFAULT_PAGE_SETTINGS,
-        ...savedSettings
+        ...savedSettings,
+
+        visibleProperties: {
+            ...DEFAULT_PAGE_SETTINGS.visibleProperties,
+            ...savedSettings.visibleProperties
+        }
     };
 }
 
@@ -85,4 +129,44 @@ function savePageSettings(page, settings) {
 
 function getAvailableGroups(page) {
     return AVAILABLE_GROUPS[page.type] ?? [];
+}
+
+function getVisibleTaskProperties() {
+    return (
+        pageSettings.visibleProperties[
+        pageSettings.view
+        ] ?? []
+    );
+}
+
+function setTaskPropertyVisible(
+    property,
+    visible
+) {
+    const view = pageSettings.view;
+    const properties = [
+        ...getVisibleTaskProperties()
+    ];
+    const index = properties.indexOf(property);
+    
+    if (visible && index === -1) {
+        properties.push(property);
+    }
+
+    if (!visible && index !== -1) {
+        properties.splice(index, 1);
+    }
+
+    pageSettings.visibleProperties = {
+        ...pageSettings.visibleProperties,
+
+        [view]: properties
+    };
+
+    savePageSettings();
+}
+
+function isTaskPropertyVisible(property) {
+    return getVisibleTaskProperties()
+        .includes(property);
 }
