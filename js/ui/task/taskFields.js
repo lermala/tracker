@@ -359,3 +359,27 @@ function bindTaskAssignee(
         }
     );
 }
+
+function fillTaskCardBadge(
+    element,
+    entity,
+    emptyText
+) {
+    element.replaceChildren();
+
+    if (!entity) {
+        element.textContent = emptyText;
+        element.classList.add("is-empty");
+
+        return;
+    }
+
+    element.classList.remove("is-empty");
+
+    element.append(
+        createBadge({
+            text: entity.title,
+            color: entity.color
+        })
+    );
+}

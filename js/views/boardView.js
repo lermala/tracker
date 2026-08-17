@@ -1,6 +1,6 @@
 function renderBoardView() {
     trackerView.innerHTML = "";
-    durationElements.clear();
+    cleanupDurationElements();
 
     const visibleTasks = getVisibleTasks();
     const groups = groupTasks(visibleTasks, pageSettings.group);

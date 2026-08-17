@@ -1,4 +1,30 @@
-const durationElements = new Map(); // ссылки на элементы времени
+const durationElements = new Map();
+
+function registerDurationElement(taskId, element) {
+    if (!durationElements.has(taskId)) {
+        durationElements.set(
+            taskId,
+            new Set()
+        );
+    }
+
+    durationElements
+        .get(taskId)
+        .add(element);
+}
+
+function unregisterDurationElement(taskId, element) {
+    const elements =
+        durationElements.get(taskId);
+
+    if (!elements) return;
+
+    elements.delete(element);
+
+    if (elements.size === 0) {
+        durationElements.delete(taskId);
+    }
+}
 
 function getCurrentDuration(task) {
     let seconds = task.duration;
@@ -33,9 +59,17 @@ function stopTask(task) {
 
 function updateRunningTimers() {
     tasks.forEach(task => {
-        const duration = durationElements.get(task.id);
-        if (!duration) return;
-        duration.textContent = getCurrentDuration(task);
+        const elements =
+            durationElements.get(task.id);
+
+        if (!elements) return;
+
+        const duration =
+            getCurrentDuration(task);
+
+        elements.forEach(element => {
+            element.textContent = duration;
+        });
     });
 }
 
@@ -69,4 +103,18 @@ function toggleTaskTimer(task) {
         stopPromise,
         startPromise
     ]);
+}
+
+function cleanupDurationElements() {
+    durationElements.forEach((elements, taskId) => {
+        elements.forEach(element => {
+            if (!element.isConnected) {
+                elements.delete(element);
+            }
+        });
+
+        if (elements.size === 0) {
+            durationElements.delete(taskId);
+        }
+    });
 }

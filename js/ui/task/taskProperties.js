@@ -168,7 +168,7 @@ function createTaskDurationProperty(task) {
         task
     );
 
-    durationElements.set(
+    registerDurationElement(
         task.id,
         timer.duration
     );

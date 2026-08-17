@@ -6,7 +6,6 @@ function initTaskUI() {
 }
 
 function fillTaskData(item, elements, task) {
-    // durationElements.set(task.id, duration); //todo
     updateTaskUI(task, item, elements);
 }
 

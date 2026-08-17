@@ -20,6 +20,7 @@ async function initTaskCard() {
     );
 
     taskCardElements = getTaskCardElements();
+    initTaskCardDuration();
 
     bindTaskCardEvents();
 }
@@ -32,7 +33,10 @@ function bindTaskCardEvents() {
         title,
         description,
         dueDate,
-        priority
+        priority,
+        project,
+        category,
+        duration
     } = taskCardElements;
 
     closeButton.addEventListener(
@@ -132,6 +136,25 @@ function bindTaskCardEvents() {
         taskCardElements.assignee,
         () => getTaskById(currentTaskId)
     );
+
+    bindTaskDuration(
+        taskCardElements.timerControl.button,
+        () => getTaskById(currentTaskId),
+        () => {
+            const task =
+                getTaskById(currentTaskId);
+
+            if (!task) return;
+
+            fillTaskDuration(
+                taskCardElements.timerControl.duration,
+                taskCardElements.timerControl.icon,
+                task
+            );
+
+            renderCurrentView();
+        }
+    );
 }
 
 function openTaskCard(task, {
@@ -146,8 +169,18 @@ function openTaskCard(task, {
         assignee,
         creator,
         dueDate,
-        priority
+        priority,
+        project,
+        category,
+        duration
     } = taskCardElements;
+    
+    if (currentTaskId) {
+        unregisterDurationElement(
+            currentTaskId,
+            taskCardElements.timerControl.duration
+        );
+    }
 
     currentTaskId = task.id;
 
@@ -173,12 +206,41 @@ function openTaskCard(task, {
     fillTaskDescription(description, task);
     fillTaskDueDate(dueDate, task);
     fillTaskPriority(priority, task);
+
+    fillTaskCardBadge(
+        project,
+        getProjectById(task.projectId),
+        "Без проекта"
+    );
+
+    fillTaskCardBadge(
+        category,
+        getCategoryById(task.categoryId),
+        "Без категории"
+    );
+
+    fillTaskDuration(
+        taskCardElements.timerControl.duration,
+        taskCardElements.timerControl.icon,
+        task
+    );
+    registerDurationElement(
+        task.id,
+        taskCardElements.timerControl.duration
+    );
 }
 
 function closeTaskCard({
     updateUrl = true
 } = {}) {
     const overlay = document.getElementById("taskCardOverlay");
+
+    if (currentTaskId) {
+        unregisterDurationElement(
+            currentTaskId,
+            taskCardElements.timerControl.duration
+        );
+    }
 
     overlay.classList.add("hidden");
     currentTaskId = null;
@@ -200,7 +262,11 @@ function getTaskCardElements() {
         assignee: document.getElementById("taskCardAssignee"),
         creator: document.getElementById("taskCardCreator"),
         dueDate: document.getElementById("taskCardDueDate"),
-        priority: document.getElementById("taskCardPriority")
+        priority: document.getElementById("taskCardPriority"),
+
+        duration: document.getElementById("taskCardDuration"),
+        project: document.getElementById("taskCardProject"),
+        category: document.getElementById("taskCardCategory")
     };
 }
 
@@ -226,4 +292,14 @@ function renderTextWithLinks(element, text) {
             );
         }
     });
+}
+
+function initTaskCardDuration() {
+    const duration = createTaskTimer();
+
+    taskCardElements.duration.append(
+        duration.element
+    );
+
+    taskCardElements.timerControl = duration;
 }
