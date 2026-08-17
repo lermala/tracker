@@ -144,23 +144,21 @@
                 </div>
             </div>
 
-            <div class="toolbarMenu hidden" id="propertiesMenu"></div>
+            <div class="dropdown hidden" id="propertiesMenu"></div>
 
-            <div class="toolbarMenu hidden" id="groupMenu"></div>
+            <div class="dropdown hidden" id="groupMenu"></div>
 
-            <div class="toolbarMenu hidden" id="filterMenu">
-                <div class="menuSetting">
-                    <label class="menuSetting">
-                        <input class="checkbox" id="hideCompletedCheckbox" type="checkbox">
+            <div class="dropdown hidden" id="filterMenu">
+                <label class="dropdownItem">
+                    <input class="checkbox" id="hideCompletedCheckbox" type="checkbox">
 
-                        <span class="menuSettingLabel">
-                            Скрыть завершённые
-                        </span>
-                    </label>
-                </div>
+                    <span class="dropdownItemText">
+                        Скрыть завершённые
+                    </span>
+                </label>
             </div>
 
-            <div class="toolbarMenu hidden" id="sortMenu"></div>
+            <div class="dropdown hidden" id="sortMenu"></div>
 
             <div id="trackerView" class="trackerView"></div>
         </div>
@@ -439,6 +437,7 @@
 
 <!-- ===== UI Components ===== -->
 <script src="js/ui/components/avatar.js"></script>
+<script src="js/ui/components/dropdown.js"></script>
 <script src="js/ui/components/badge.js"></script>
 <script src="js/ui/components/userBadge.js"></script>
 <script src="js/ui/components/userPicker.js"></script>

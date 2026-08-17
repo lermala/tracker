@@ -120,16 +120,16 @@
 
 
 
-.toolbarMenu {
+/* .toolbarMenu {
     @extend %popover;
 
     position: fixed;
     z-index: 10000;
 
     min-width: 220px;
-}
+} */
 
-.propertyMenuItem {
+/* .propertyMenuItem {
     @extend %menu-option;
 
     display: flex;
@@ -138,9 +138,9 @@
     width: 100%;
 
     cursor: pointer;
-}
+} */
 
-.menuSetting {
+/* .menuSetting {
     @extend %menu-option;
 
     display: flex;
@@ -153,7 +153,7 @@
 
 .menuSettingLabel {
     flex: 1;
-}
+} */
 
 .toolbarActions {
     display: flex;

@@ -27,3 +27,37 @@ function createUserBadge(profile, {
 
     return badge;
 }
+
+function createEmptyUserBadge({
+    label = "Не назначено",
+    icon = "person"
+} = {}) {
+    const badge =
+        document.createElement("div");
+
+    badge.className =
+        "userBadge is-empty";
+
+    const avatar =
+        document.createElement("span");
+
+    avatar.className =
+        "material-symbols-rounded userBadgeEmptyIcon";
+
+    avatar.textContent = icon;
+
+    const name =
+        document.createElement("span");
+
+    name.className =
+        "userBadgeName";
+
+    name.textContent = label;
+
+    badge.append(
+        avatar,
+        name
+    );
+
+    return badge;
+}

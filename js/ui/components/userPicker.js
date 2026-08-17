@@ -1,5 +1,3 @@
-let activeUserPicker = null;
-
 function openUserPicker({
     anchor,
     users,
@@ -8,79 +6,111 @@ function openUserPicker({
     onSelect,
     onInvite = null
 }) {
-    closeUserPicker();
-
     const picker = document.createElement("div");
-    picker.className = "userPicker";
-
-    const search = document.createElement("input");
-    search.className = "userPickerSearch";
-    search.type = "text";
-    search.placeholder = "Введите имя";
+    picker.className = "dropdown userPicker";
 
     const options = document.createElement("div");
-    options.className = "userPickerOptions";
+    options.className = "dropdownList";
 
-    picker.append(search, options);
+    picker.append(options);
+    document.body.append(picker);
+
+    function selectUser(userId) {
+        closeDropdown();
+
+        onSelect?.(userId);
+    }
 
     function renderOptions(query = "") {
         options.replaceChildren();
 
         const normalizedQuery =
-            query.trim().toLowerCase();
+            query
+                .trim()
+                .toLowerCase();
 
         if (allowEmpty) {
             options.append(
                 createEmptyUserOption({
-                    selected: selectedId === null,
-                    onSelect
+                    selected:
+                        selectedId === null,
+
+                    onSelect: () => {
+                        selectUser(null);
+                    }
                 })
             );
         }
 
-        const filteredUsers = users.filter(user => {
-            const name =
-                user.name?.trim().toLowerCase() ?? "";
+        const filteredUsers =
+            users.filter(user => {
+                if (!normalizedQuery) {
+                    return true;
+                }
 
-            return name.includes(normalizedQuery);
-        });
+                const name =
+                    user.name
+                        ?.trim()
+                        .toLowerCase() ?? "";
+
+                const email =
+                    user.email
+                        ?.trim()
+                        .toLowerCase() ?? "";
+
+                return (
+                    name.includes(
+                        normalizedQuery
+                    ) ||
+                    email.includes(
+                        normalizedQuery
+                    )
+                );
+            });
 
         filteredUsers.forEach(user => {
             options.append(
                 createUserOption({
                     user,
-                    selected: user.id === selectedId,
-                    onSelect
+
+                    selected:
+                        user.id === selectedId,
+
+                    onSelect: () => {
+                        selectUser(user.id);
+                    }
                 })
             );
         });
 
+        if (
+            filteredUsers.length === 0
+        ) {
+            options.append(
+                createUserPickerEmpty()
+            );
+        }
+
         if (onInvite) {
             options.append(
-                createInviteUserOption(onInvite)
+                createDropdownDivider(),
+
+                createInviteUserOption(
+                    () => {
+                        closeDropdown();
+                        onInvite();
+                    }
+                )
             );
         }
     }
 
-    search.addEventListener("input", () => {
-        renderOptions(search.value);
-    });
-
-    document.body.append(picker);
-
-    activeUserPicker = picker;
-
-    positionUserPicker(picker, anchor);
-
     renderOptions();
 
-    search.focus();
-
-    setTimeout(() => {
-        document.addEventListener(
-            "click",
-            handleUserPickerOutsideClick
-        );
+    openDropdown({
+        anchor,
+        dropdown: picker,
+        removeOnClose: true
     });
 }
 
@@ -89,142 +119,131 @@ function createUserOption({
     selected,
     onSelect
 }) {
-    const option = document.createElement("button");
+    const option =
+        document.createElement("button");
 
     option.type = "button";
-    option.className = "userPickerOption";
 
-    const badge = createUserBadge(user, {
-        isCurrentUser: user.id === currentProfile?.id
-    });
+    option.className =
+        "dropdownItem userPickerItem";
 
-    option.append(badge);
+    option.classList.toggle(
+        "is-selected",
+        selected
+    );
 
-    if (selected) {
-        option.append(
-            createUserPickerCheck()
-        );
-    }
+    const badge =
+        createUserBadge(user, {
+            isCurrentUser:
+                user.id === currentProfile?.id
+        });
 
-    option.addEventListener("click", event => {
-        event.stopPropagation();
+    const check =
+        createUserPickerCheck();
 
-        closeUserPicker();
-        onSelect(user.id);
-    });
+    option.append(
+        badge,
+        check
+    );
+
+    option.addEventListener(
+        "click",
+        onSelect
+    );
 
     return option;
 }
+
 
 function createEmptyUserOption({
     selected,
     onSelect
 }) {
     const option = document.createElement("button");
-
     option.type = "button";
-    option.className = "userPickerOption";
+    option.className = "dropdownItem userPickerItem";
+    option.classList.toggle(
+        "is-selected",
+        selected
+    );
 
-    const icon = document.createElement("span");
+    const badge = createEmptyUserBadge();
+    const check = createUserPickerCheck();
+    
+    option.append(
+        badge,
+        check
+    );
 
-    icon.className =
-        "material-symbols-rounded userPickerOptionIcon";
-
-    icon.textContent = "person";
-
-    const label = document.createElement("span");
-
-    label.className = "userPickerOptionLabel";
-    label.textContent = "Не назначено";
-
-    option.append(icon, label);
-
-    if (selected) {
-        option.append(
-            createUserPickerCheck()
-        );
-    }
-
-    option.addEventListener("click", event => {
-        event.stopPropagation();
-
-        closeUserPicker();
-        onSelect(null);
-    });
+    option.addEventListener(
+        "click",
+        onSelect
+    );
 
     return option;
 }
 
+
 function createUserPickerCheck() {
-    const check = document.createElement("span");
-    check.className = "material-symbols-rounded userPickerCheck";
+    const check =
+        document.createElement("span");
+
+    check.className =
+        "material-symbols-rounded dropdownItemCheck";
+
     check.textContent = "check";
 
     return check;
 }
 
-function createInviteUserOption(onInvite) {
-    const option = document.createElement("button");
+
+function createInviteUserOption(
+    onInvite
+) {
+    const option =
+        document.createElement("button");
+
     option.type = "button";
-    option.className = "userPickerOption userPickerInvite";
 
-    const icon = document.createElement("span");
-    icon.className = "material-symbols-rounded userPickerOptionIcon";
-    icon.textContent = "person_add";
+    option.className =
+        "dropdownItem dropdownAction";
 
-    const label = document.createElement("span");
-    label.className = "userPickerOptionLabel";
-    label.textContent = "Пригласить в проект";
+    const icon =
+        document.createElement("span");
 
-    option.append(icon, label);
-    option.addEventListener("click", event => {
-        event.stopPropagation();
+    icon.className =
+        "material-symbols-rounded";
 
-        closeUserPicker();
-        onInvite();
-    });
+    icon.textContent =
+        "person_add";
+
+    const label =
+        document.createElement("span");
+
+    label.className =
+        "dropdownItemText";
+
+    label.textContent =
+        "Пригласить в проект";
+
+    option.append(
+        icon,
+        label
+    );
+
+    option.addEventListener(
+        "click",
+        onInvite
+    );
 
     return option;
 }
 
-function positionUserPicker(picker, anchor) {
-    const rect = anchor.getBoundingClientRect();
 
-    picker.style.left = `${rect.left}px`;
-    picker.style.top = `${rect.bottom + 4}px`;
+function createUserPickerEmpty() {
+    const empty = document.createElement("div");
+    empty.className = "dropdownEmpty";
+    empty.textContent = "Пользователи не найдены";
 
-    const pickerRect =
-        picker.getBoundingClientRect();
-
-    if (pickerRect.right > window.innerWidth - 8) {
-        picker.style.left =
-            `${window.innerWidth - pickerRect.width - 8}px`;
-    }
-
-    if (pickerRect.bottom > window.innerHeight - 8) {
-        picker.style.top =
-            `${rect.top - pickerRect.height - 4}px`;
-    }
-}
-
-function handleUserPickerOutsideClick(event) {
-    if (
-        event.target.closest(".userPicker")
-    ) {
-        return;
-    }
-
-    closeUserPicker();
-}
-
-function closeUserPicker() {
-    if (!activeUserPicker) return;
-
-    activeUserPicker.remove();
-    activeUserPicker = null;
-
-    document.removeEventListener(
-        "click",
-        handleUserPickerOutsideClick
-    );
+    return empty;
 }
