@@ -30,3 +30,17 @@ function createBadge({
 
     return badge;
 }
+
+function createEmptyBadge(
+    text
+) {
+    const badge =
+        document.createElement("span");
+
+    badge.className =
+        "badge is-empty";
+
+    badge.textContent = text;
+
+    return badge;
+}

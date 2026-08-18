@@ -236,20 +236,28 @@ function createTaskProjectProperty(task) {
 }
 
 function createTaskCategoryProperty(task) {
-    const category =
-        getCategoryById(task.categoryId);
-
-    if (!category) {
+    if (!task.categoryId) {
         return null;
     }
 
-    const element = createBadge({
-        text: category.title,
-        color: category.color,
-        className: "taskCategory"
-    });
+    const element =
+        document.createElement("div");
 
-    element.classList.add("taskProperty");
+    element.className =
+        "taskProperty taskCategory";
+
+    fillTaskCategory(
+        element,
+        task
+    );
+
+    bindTaskCategory(
+        element,
+        () => getTaskById(task.id),
+        {
+            onUpdate: renderCurrentView
+        }
+    );
 
     return element;
 }

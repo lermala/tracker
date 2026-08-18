@@ -155,6 +155,19 @@ function bindTaskCardEvents() {
             renderCurrentView();
         }
     );
+
+    bindTaskCategory(
+        category,
+        () => getTaskById(
+            currentTaskId
+        ),
+
+        {
+            onUpdate: () => {
+                renderCurrentView();
+            }
+        }
+    );
 }
 
 function openTaskCard(task, {
@@ -174,7 +187,7 @@ function openTaskCard(task, {
         category,
         duration
     } = taskCardElements;
-    
+
     if (currentTaskId) {
         unregisterDurationElement(
             currentTaskId,
@@ -207,16 +220,14 @@ function openTaskCard(task, {
     fillTaskDueDate(dueDate, task);
     fillTaskPriority(priority, task);
 
-    fillTaskCardBadge(
+    fillTaskProject(
         project,
-        getProjectById(task.projectId),
-        "Без проекта"
+        task
     );
 
-    fillTaskCardBadge(
+    fillTaskCategory(
         category,
-        getCategoryById(task.categoryId),
-        "Без категории"
+        task
     );
 
     fillTaskDuration(

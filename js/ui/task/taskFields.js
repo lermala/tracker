@@ -286,13 +286,19 @@ async function fillTaskAssignee(
 ) {
     assigneeElement.replaceChildren();
 
+    assigneeElement.classList.remove(
+        "hidden"
+    );
+
     if (!task.assigneeId) {
-        assigneeElement.classList.remove("hidden");
-        assigneeElement.textContent = "Не назначено";
+        assigneeElement.append(
+            createEmptyUserBadge({
+                compact
+            })
+        );
 
         return;
     }
-    assigneeElement.classList.remove("hidden");
 
     await fillTaskUser(
         assigneeElement,
@@ -322,33 +328,72 @@ function bindTaskAssignee(
 
             try {
                 const members =
-                    await getProjectMembers(task.projectId);
+                    await getProjectMembers(
+                        task.projectId
+                    );
 
-                openUserPicker({
-                    anchor: assigneeElement,
-                    users: members,
-                    selectedId: task.assigneeId,
-                    allowEmpty: true,
+                openSelectDropdown({
+                    anchor:
+                        assigneeElement,
 
-                    onSelect: async assigneeId => {
-                        await updateTask(task.id, {
-                            assigneeId
-                        });
+                    items:
+                        members,
 
-                        fillTaskAssignee(
-                            assigneeElement,
-                            task,
-                            {
-                                compact
-                            }
-                        );
+                    selectedId:
+                        task.assigneeId,
 
-                        onUpdate?.();
+                    getId:
+                        user => user.id,
+
+                    renderItem:
+                        user =>
+                            createUserBadge(
+                                user,
+                                {
+                                    isCurrentUser:
+                                        user.id ===
+                                        currentProfile?.id
+                                }
+                            ),
+
+                    emptyItem: {
+                        render: () =>
+                            createEmptyUserBadge()
                     },
 
-                    onInvite: () => {
-                        // позже
-                    }
+                    action: {
+                        text:
+                            "Пригласить в проект",
+
+                        icon:
+                            "person_add",
+
+                        onClick: () => {
+                            // позже
+                        }
+                    },
+
+                    onSelect:
+                        async assigneeId => {
+                            await updateTask(
+                                task.id,
+                                {
+                                    assigneeId
+                                }
+                            );
+
+                            await fillTaskAssignee(
+                                assigneeElement,
+                                task,
+                                {
+                                    compact
+                                }
+                            );
+
+                            onUpdate?.();
+                        },
+
+                    width: "250px"
                 });
             } catch (error) {
                 console.error(
@@ -360,26 +405,191 @@ function bindTaskAssignee(
     );
 }
 
-function fillTaskCardBadge(
+function fillTaskEntity(
     element,
     entity,
-    emptyText
+    {
+        emptyText,
+        hideEmpty = false
+    }
 ) {
     element.replaceChildren();
 
     if (!entity) {
-        element.textContent = emptyText;
-        element.classList.add("is-empty");
+        element.classList.toggle(
+            "hidden",
+            hideEmpty
+        );
+
+        if (!hideEmpty) {
+            element.append(
+                createEmptyBadge(
+                    emptyText
+                )
+            );
+        }
 
         return;
     }
 
-    element.classList.remove("is-empty");
+    element.classList.remove("hidden");
 
     element.append(
         createBadge({
             text: entity.title,
             color: entity.color
         })
+    );
+}
+
+function fillTaskCategory(
+    element,
+    task,
+    options = {}
+) {
+    fillTaskEntity(
+        element,
+        getCategoryById(task.categoryId),
+        {
+            emptyText: "Без категории",
+            ...options
+        }
+    );
+}
+
+function bindTaskCategory(
+    categoryElement,
+    getTask,
+    {
+        hideEmpty = false,
+        onUpdate = null
+    } = {}
+) {
+    categoryElement.addEventListener(
+        "click",
+        event => {
+            event.stopPropagation();
+
+            const task = getTask();
+
+            if (!task) return;
+
+            const projectCategories =
+                categories.filter(
+                    category =>
+                        category.projectId ===
+                        task.projectId
+                );
+
+            openSelectDropdown({
+                anchor:
+                    categoryElement,
+
+                items:
+                    projectCategories,
+
+                selectedId:
+                    task.categoryId,
+
+                getId:
+                    category =>
+                        category.id,
+
+                renderItem:
+                    category =>
+                        createBadge({
+                            text:
+                                category.title,
+                            color:
+                                category.color
+                        }),
+
+                emptyItem: {
+                    text:
+                        "Без категории"
+                },
+
+                action: {
+                    text:
+                        "Создать категорию",
+
+                    icon:
+                        "add",
+
+                    placeholder:
+                        "Название категории",
+
+                    onCreate:
+                        async title => {
+                            const category =
+                                createCategory(
+                                    task.projectId,
+                                    title
+                                );
+
+                            if (!category) {
+                                return;
+                            }
+
+                            await addCategory(
+                                category
+                            );
+
+                            await updateTask(
+                                task.id,
+                                {
+                                    categoryId:
+                                        category.id
+                                }
+                            );
+
+                            fillTaskCategory(
+                                categoryElement,
+                                task
+                            );
+
+                            onUpdate?.();
+                        }
+                },
+
+                onSelect:
+                    async categoryId => {
+                        await updateTask(
+                            task.id,
+                            {
+                                categoryId
+                            }
+                        );
+
+                        fillTaskCategory(
+                            categoryElement,
+                            task,
+                            {
+                                hideEmpty
+                            }
+                        );
+
+                        onUpdate?.();
+                    },
+
+                width: "220px"
+            });
+        }
+    );
+}
+
+
+function fillTaskProject(
+    element,
+    task,
+    options = {}
+) {
+    fillTaskEntity(
+        element,
+        getProjectById(task.projectId),
+        {
+            emptyText: "Без проекта",
+            ...options
+        }
     );
 }

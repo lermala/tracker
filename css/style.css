@@ -440,6 +440,17 @@ a:hover {
   text-align: center;
 }
 
+.dropdownCreate {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+}
+
+.dropdownCreateInput {
+  width: 100%;
+  min-width: 0;
+}
+
 .userBadge {
   display: inline-flex;
   align-items: center;
@@ -467,10 +478,6 @@ a:hover {
   height: 20px;
   color: var(--color-text-secondary);
   font-size: 18px;
-}
-
-.userPicker {
-  width: 250px;
 }
 
 .toggleButton {
@@ -519,12 +526,16 @@ a:hover {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: default;
 }
 .is-empty.badge, .is-empty.taskDueDate, .is-empty.taskPriority {
   background: transparent;
   border-color: var(--badge-color);
 }
 
+.taskDueDate, .taskPriority {
+  cursor: pointer;
+}
 .taskDueDate:hover, .taskPriority:hover {
   filter: brightness(1.1);
 }
@@ -708,7 +719,7 @@ a:hover {
   background: var(--color-hover);
 }
 
-.projectEditorName, .settingsNameInput, .authInput, .projectEditorDescription, .dropdownSearchInput {
+.projectEditorName, .settingsNameInput, .authInput, .projectEditorDescription, .dropdownSearchInput, .dropdownCreateInput {
   width: 100%;
   min-width: 0;
   height: 32px;
@@ -721,16 +732,16 @@ a:hover {
   outline: none;
   transition: border-color 0.15s ease;
 }
-.projectEditorName:hover, .settingsNameInput:hover, .authInput:hover, .projectEditorDescription:hover, .dropdownSearchInput:hover {
+.projectEditorName:hover, .settingsNameInput:hover, .authInput:hover, .projectEditorDescription:hover, .dropdownSearchInput:hover, .dropdownCreateInput:hover {
   border-color: var(--color-border-strong);
 }
-.projectEditorName:focus, .settingsNameInput:focus, .authInput:focus, .projectEditorDescription:focus, .dropdownSearchInput:focus {
+.projectEditorName:focus, .settingsNameInput:focus, .authInput:focus, .projectEditorDescription:focus, .dropdownSearchInput:focus, .dropdownCreateInput:focus {
   border-color: var(--color-border-strong);
 }
-.projectEditorName::-moz-placeholder, .settingsNameInput::-moz-placeholder, .authInput::-moz-placeholder, .projectEditorDescription::-moz-placeholder, .dropdownSearchInput::-moz-placeholder {
+.projectEditorName::-moz-placeholder, .settingsNameInput::-moz-placeholder, .authInput::-moz-placeholder, .projectEditorDescription::-moz-placeholder, .dropdownSearchInput::-moz-placeholder, .dropdownCreateInput::-moz-placeholder {
   color: var(--color-text-secondary);
 }
-.projectEditorName::placeholder, .settingsNameInput::placeholder, .authInput::placeholder, .projectEditorDescription::placeholder, .dropdownSearchInput::placeholder {
+.projectEditorName::placeholder, .settingsNameInput::placeholder, .authInput::placeholder, .projectEditorDescription::placeholder, .dropdownSearchInput::placeholder, .dropdownCreateInput::placeholder {
   color: var(--color-text-secondary);
 }
 

@@ -124,3 +124,17 @@
     line-height: 1.4;
     text-align: center;
 }
+
+.dropdownCreate {
+    display: flex;
+    align-items: center;
+
+    padding: $space-xs;
+}
+
+.dropdownCreateInput {
+    @extend %input;
+
+    width: 100%;
+    min-width: 0;
+}

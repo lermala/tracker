@@ -30,7 +30,7 @@ function createUserBadge(profile, {
 
 function createEmptyUserBadge({
     label = "Не назначено",
-    icon = "person"
+    icon = "person" //todo add compact = without icon
 } = {}) {
     const badge =
         document.createElement("div");

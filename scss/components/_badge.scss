@@ -26,6 +26,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
+    cursor: default;
+
     &.is-empty {
         background: transparent;
         border-color: var(--badge-color);
@@ -35,6 +37,8 @@
 %interactive-badge {
     @extend %badge;
     @extend %interactive;
+
+    cursor: pointer;
 
     &:hover {
         filter: brightness(1.1);

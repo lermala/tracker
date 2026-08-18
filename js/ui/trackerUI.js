@@ -53,41 +53,53 @@ function setViewClass(viewClass) {
 }
 
 function createAddCategoryButton() {
-    const projectId = getCurrentProjectId();
+    const projectId =
+        getCurrentProjectId();
+
     if (!projectId) return null;
 
     const button =
-        addCategoryTemplate.content.firstElementChild.cloneNode(true);
+        addCategoryTemplate
+            .content
+            .firstElementChild
+            .cloneNode(true);
 
-    button.addEventListener("click", () => {
-        const category = createCategory(
-            getCurrentProjectId()
-        );
+    button.addEventListener(
+        "click",
+        async () => {
+            const category =
+                createCategory(projectId);
 
-        if (!category) return;
+            if (!category) return;
 
-        addCategory(category).catch(error => {
-            console.error(
-                "CREATE CATEGORY ERROR:",
-                error
-            );
+            try {
+                await addCategory(
+                    category
+                );
+            } catch (error) {
+                console.error(
+                    "CREATE CATEGORY ERROR:",
+                    error
+                );
+
+                return;
+            }
 
             renderCurrentView();
-        });
 
-        renderCurrentView();
+            const groupElement =
+                trackerView.querySelector(
+                    `[data-group-field="categoryId"][data-group-value="${category.id}"]`
+                );
 
-        const groupElement = trackerView.querySelector(
-            `[data-group-field="categoryId"][data-group-value="${category.id}"]`
-        );
+            if (!groupElement) return;
 
-        if (!groupElement) return;
-
-        startEditTaskGroup(
-            groupElement,
-            true
-        );
-    });
+            startEditTaskGroup(
+                groupElement,
+                true
+            );
+        }
+    );
 
     return button;
 }
