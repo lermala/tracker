@@ -30,7 +30,7 @@ const TASK_PROPERTY = {
 const DEFAULT_PAGE_SETTINGS = {
     filter: "all",
     sort: "created",
-    sortDirection: "desc",
+    // sortDirection: "desc",
     search: "",
     hideCompleted: false,
     todayOnly: false,
@@ -44,12 +44,20 @@ const DEFAULT_PAGE_SETTINGS = {
 
         [VIEW.BOARD]: [
             TASK_PROPERTY.DUE_DATE,
-            TASK_PROPERTY.PRIORITY,
-            TASK_PROPERTY.ASSIGNEE,
-            TASK_PROPERTY.PROJECT
+            TASK_PROPERTY.ASSIGNEE
         ],
 
         [VIEW.CALENDAR]: []
+    }
+};
+
+const PAGE_DEFAULT_SETTINGS = {
+    [PAGE.PROJECT]: {
+        group: GROUP.CATEGORY
+    },
+
+    [PAGE.MY_TASKS]: {
+        group: GROUP.DUE_DATE
     }
 };
 
@@ -83,26 +91,42 @@ const DEFAULT_VISIBLE_PROPERTIES = {
 
 function getPageSettings(page) {
     const saved = JSON.parse(
-        localStorage.getItem(PAGE_SETTINGS_KEY) || "{}"
+        localStorage.getItem(
+            PAGE_SETTINGS_KEY
+        ) || "{}"
     );
 
     let savedSettings = {};
 
     if (page.type === PAGE.PROJECT) {
-        savedSettings = saved.projects?.[page.id] ?? {};
+        savedSettings =
+            saved.projects?.[page.id] ?? {};
     }
 
     if (page.type === PAGE.MY_TASKS) {
-        savedSettings = saved.myTasks ?? {};
+        savedSettings =
+            saved.myTasks ?? {};
     }
+
+    const pageDefaults =
+        PAGE_DEFAULT_SETTINGS[
+            page.type
+        ] ?? {};
 
     return {
         ...DEFAULT_PAGE_SETTINGS,
+        ...pageDefaults,
         ...savedSettings,
 
         visibleProperties: {
-            ...DEFAULT_PAGE_SETTINGS.visibleProperties,
-            ...savedSettings.visibleProperties
+            ...DEFAULT_PAGE_SETTINGS
+                .visibleProperties,
+
+            ...pageDefaults
+                .visibleProperties,
+
+            ...savedSettings
+                .visibleProperties
         }
     };
 }

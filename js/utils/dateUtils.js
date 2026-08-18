@@ -6,17 +6,12 @@ function formatDueDate(dueDate, dueTime = null) {
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
 
-    const dayAfterTomorrow = new Date(today);
-    dayAfterTomorrow.setDate(today.getDate() + 2);
-
     let dateText;
 
     if (isSameDate(date, today)) {
         dateText = "Сегодня";
     } else if (isSameDate(date, tomorrow)) {
         dateText = "Завтра";
-    } else if (isSameDate(date, dayAfterTomorrow)) {
-        dateText = "Послезавтра";
     } else {
         dateText = date
             .toLocaleDateString("ru-RU", {

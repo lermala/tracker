@@ -475,11 +475,30 @@ function bindTaskCategory(
             if (!task) return;
 
             const projectCategories =
-                categories.filter(
-                    category =>
-                        category.projectId ===
-                        task.projectId
+                getCategoriesByProject(
+                    task.projectId
                 );
+
+            async function setCategory(
+                categoryId
+            ) {
+                await updateTask(
+                    task.id,
+                    {
+                        categoryId
+                    }
+                );
+
+                fillTaskCategory(
+                    categoryElement,
+                    task,
+                    {
+                        hideEmpty
+                    }
+                );
+
+                onUpdate?.();
+            }
 
             openSelectDropdown({
                 anchor:
@@ -505,8 +524,10 @@ function bindTaskCategory(
                         }),
 
                 emptyItem: {
-                    text:
-                        "Без категории"
+                    render: () =>
+                        createEmptyBadge(
+                            "Без категории"
+                        )
                 },
 
                 action: {
@@ -535,42 +556,14 @@ function bindTaskCategory(
                                 category
                             );
 
-                            await updateTask(
-                                task.id,
-                                {
-                                    categoryId:
-                                        category.id
-                                }
+                            await setCategory(
+                                category.id
                             );
-
-                            fillTaskCategory(
-                                categoryElement,
-                                task
-                            );
-
-                            onUpdate?.();
                         }
                 },
 
                 onSelect:
-                    async categoryId => {
-                        await updateTask(
-                            task.id,
-                            {
-                                categoryId
-                            }
-                        );
-
-                        fillTaskCategory(
-                            categoryElement,
-                            task,
-                            {
-                                hideEmpty
-                            }
-                        );
-
-                        onUpdate?.();
-                    },
+                    setCategory,
 
                 width: "220px"
             });

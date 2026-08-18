@@ -2,14 +2,93 @@
 
 function sortTasks(tasks) {
     return [...tasks].sort((a, b) => {
-        // Завершенные всегда вниз
         if (a.isCompleted !== b.isCompleted) {
-            return Number(a.isCompleted) - Number(b.isCompleted);
+            return (
+                Number(a.isCompleted) -
+                Number(b.isCompleted)
+            );
         }
 
-        // Ручной порядок
-        return (a.order ?? 0) - (b.order ?? 0);
+        let result = 0;
+
+        switch (pageSettings.sort) {
+            case "created":
+                result =
+                    compareNullableNumbers(
+                        b.createdAt,
+                        a.createdAt
+                    );
+                break;
+
+            case "dueDate":
+                result =
+                    compareNullableNumbers(
+                        a.dueDate,
+                        b.dueDate,
+                        true
+                    );
+                break;
+
+            case "priority":
+                result =
+                    compareTaskPriority(
+                        b.priority,
+                        a.priority
+                    );
+                break;
+
+            default:
+                result =
+                    (a.order ?? 0) -
+                    (b.order ?? 0);
+        }
+
+        if (result !== 0) {
+            return result;
+        }
+
+        return (
+            (a.order ?? 0) -
+            (b.order ?? 0)
+        );
     });
+}
+
+function compareNullableNumbers(
+    a,
+    b,
+    nullLast = false
+) {
+    const aEmpty = a == null;
+    const bEmpty = b == null;
+
+    if (aEmpty && bEmpty) {
+        return 0;
+    }
+
+    if (aEmpty) {
+        return nullLast ? 1 : -1;
+    }
+
+    if (bEmpty) {
+        return nullLast ? -1 : 1;
+    }
+
+    return a - b;
+}
+
+const TASK_PRIORITY_ORDER = {
+    [TASK_PRIORITY.NONE]: 0,
+    [TASK_PRIORITY.LOW]: 1,
+    [TASK_PRIORITY.MEDIUM]: 2,
+    [TASK_PRIORITY.HIGH]: 3
+};
+
+function compareTaskPriority(a, b) {
+    return (
+        (TASK_PRIORITY_ORDER[a] ?? 0) -
+        (TASK_PRIORITY_ORDER[b] ?? 0)
+    );
 }
 
 // ====================
@@ -98,40 +177,49 @@ function groupTasks(tasks, group) {
 }
 
 function groupTasksByCategory(tasks) {
-    const projectCategories = getCategoriesByProject(
-        getCurrentProjectId()
-    );
+    const projectCategories =
+        getCategoriesByProject(
+            getCurrentProjectId()
+        );
 
-    const groups = projectCategories.map(category => ({
+    const emptyGroup = {
         field: "categoryId",
-        value: category.id,
-        title: category.title,
+        value: null,
+        title: "(Без категории)",
+
         tasks: tasks.filter(
-            task => task.categoryId === category.id
+            task => !task.categoryId
         ),
+
         newTaskData: {
-            categoryId: category.id
+            categoryId: null
         }
-    }));
+    };
 
-    const tasksWithoutCategory = tasks.filter(
-        task => !task.categoryId
-    );
+    const categoryGroups =
+        projectCategories.map(
+            category => ({
+                field: "categoryId",
+                value: category.id,
+                title: category.title,
 
-    if (tasksWithoutCategory.length > 0) {
-        groups.unshift({
-            field: "categoryId",
-            value: null,
-            title: "(Без категории)",
-            tasks: tasksWithoutCategory,
+                tasks: tasks.filter(
+                    task =>
+                        task.categoryId ===
+                        category.id
+                ),
 
-            newTaskData: {
-                categoryId: null
-            }
-        });
-    }
+                newTaskData: {
+                    categoryId:
+                        category.id
+                }
+            })
+        );
 
-    return groups;
+    return [
+        emptyGroup,
+        ...categoryGroups
+    ];
 }
 
 function groupTasksByProject(tasks) {
@@ -147,88 +235,120 @@ function groupTasksByProject(tasks) {
 }
 
 function groupTasksByDueDate(tasks) {
-    return [
+    const groups = [
+        {
+            field: "dueDate",
+            value: "empty",
+            title: "(Без срока)",
+
+            newTaskData: {
+                dueDate: null
+            },
+
+            tasks: tasks.filter(
+                task =>
+                    getDueDateStatus(
+                        task.dueDate
+                    ) === "empty"
+            )
+        },
+
         {
             field: "dueDate",
             value: "overdue",
             title: "Просрочено",
             newTaskData: null,
 
-            tasks: tasks.filter(task =>
-                getDueDateStatus(task.dueDate) === "overdue"
+            tasks: tasks.filter(
+                task =>
+                    getDueDateStatus(
+                        task.dueDate
+                    ) === "overdue"
             )
         },
+
         {
             field: "dueDate",
             value: "today",
             title: "Сегодня",
 
             newTaskData: {
-                dueDate: getDateOffset(0)
+                dueDate:
+                    getDateOffset(0)
             },
 
-            tasks: tasks.filter(task =>
-                getDueDateStatus(task.dueDate) === "today"
+            tasks: tasks.filter(
+                task =>
+                    getDueDateStatus(
+                        task.dueDate
+                    ) === "today"
             )
         },
+
         {
             field: "dueDate",
             value: "tomorrow",
             title: "Завтра",
 
             newTaskData: {
-                dueDate: getDateOffset(1)
+                dueDate:
+                    getDateOffset(1)
             },
 
-            tasks: tasks.filter(task =>
-                getDueDateStatus(task.dueDate) === "tomorrow"
+            tasks: tasks.filter(
+                task =>
+                    getDueDateStatus(
+                        task.dueDate
+                    ) === "tomorrow"
             )
         },
+
         {
             field: "dueDate",
             value: "this-week",
             title: "На этой неделе",
             newTaskData: null,
 
-            tasks: tasks.filter(task =>
-                getDueDateStatus(task.dueDate) === "this-week"
+            tasks: tasks.filter(
+                task =>
+                    getDueDateStatus(
+                        task.dueDate
+                    ) === "this-week"
             )
         },
+
         {
             field: "dueDate",
             value: "next-week",
             title: "На следующей неделе",
             newTaskData: null,
 
-            tasks: tasks.filter(task =>
-                getDueDateStatus(task.dueDate) === "next-week"
+            tasks: tasks.filter(
+                task =>
+                    getDueDateStatus(
+                        task.dueDate
+                    ) === "next-week"
             )
         },
+
         {
             field: "dueDate",
             value: "default",
             title: "Позже",
             newTaskData: null,
 
-            tasks: tasks.filter(task =>
-                getDueDateStatus(task.dueDate) === "default"
-            )
-        },
-        {
-            field: "dueDate",
-            value: "empty",
-            title: "Без срока",
-
-            newTaskData: {
-                dueDate: null
-            },
-
-            tasks: tasks.filter(task =>
-                getDueDateStatus(task.dueDate) === "empty"
+            tasks: tasks.filter(
+                task =>
+                    getDueDateStatus(
+                        task.dueDate
+                    ) === "default"
             )
         }
-    ].filter(group =>
-        group.tasks.length > 0 ||
-        group.newTaskData !== null
+    ];
+
+    return groups.filter(
+        group =>
+            group.tasks.length > 0 ||
+            group.newTaskData !== null
     );
 }

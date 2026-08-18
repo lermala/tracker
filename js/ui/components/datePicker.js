@@ -23,10 +23,6 @@ function openDatePicker({
             Завтра
         </button>
 
-        <button class="datePickerOption" data-action="dayAfterTomorrow">
-            Послезавтра
-        </button>
-
         <button class="datePickerOption" data-action="clear">
             Без срока
         </button>
@@ -163,10 +159,6 @@ function bindDatePickerEvents({
 
             case "tomorrow":
                 selectDate(getDateOffset(1));
-                break;
-
-            case "dayAfterTomorrow":
-                selectDate(getDateOffset(2));
                 break;
 
             case "clear":
