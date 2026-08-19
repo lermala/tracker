@@ -119,6 +119,52 @@ function initTaskGroupSortable(container) {
     });
 }
 
+function initCalendarSortable() {
+    const containers = document.querySelectorAll(".taskCalendarDayTasks");
+
+    containers.forEach(container => {
+        new Sortable(container, {
+            group: "calendarTasks",
+            animation: 150,
+
+            draggable: ".taskCalendarTask",
+
+            ghostClass: "is-dragging",
+
+            onAdd: event => {
+                event.to
+                    .closest(".taskCalendarDay")
+                    ?.classList.add("is-drop-target");
+            },
+
+            onEnd: async event => {
+                document
+                    .querySelectorAll(".taskCalendarDay.is-drop-target")
+                    .forEach(day => {
+                        day.classList.remove("is-drop-target");
+                    });
+
+                const taskId = event.item.dataset.taskId;
+                const dueDate = event.to.dataset.date;
+
+                const task = getTaskById(taskId);
+
+                if (!task) return;
+
+                if (task.dueDate === dueDate) {
+                    return;
+                }
+
+                await updateTask(task.id, {
+                    dueDate
+                });
+
+                renderCalendarView();
+            }
+        });
+    });
+}
+
 async function saveTaskGroupOrder(container) {
     const groupIds = [
         ...container.querySelectorAll(".taskGroup")
