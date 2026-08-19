@@ -3,11 +3,23 @@
     padding: $space-s;
 
     border-radius: $bd-radius;
+
+    &:hover {
+        .menuButton {
+            opacity: 1;
+        }
+    }
 }
 
 .taskGroupHeader {
-    margin-bottom: $space-s;
-    padding: $space-xs;
+    margin-top: $space-l;
+    margin-bottom: $space-m;
+    //padding: $space-xs;
+}
+
+.taskGroupMenuButton {
+    margin-left: auto;
+    flex-shrink: 0;
 }
 
 .taskGroupInfo {
@@ -19,16 +31,22 @@
 
     color: var(--color-text);
 
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.4;
+    min-height: 20px;
 }
 
-.taskGroupDeleteButton {
-    @extend .deleteButton;
-
-    margin-left: auto;
+.taskGroupTitle {
+    @extend %badge-title;
 }
+
+/* .taskGroup.has-color {
+    .taskGroupTitle {
+        color: var(--task-group-color);
+
+        background: color-mix(in srgb,
+                var(--task-group-color) 18%,
+                transparent);
+    }
+} */
 
 .taskGroupCounter {
     color: var(--color-text-secondary);
@@ -64,4 +82,8 @@
     .addButtonIcon {
         flex-shrink: 0;
     }
+}
+
+.taskGroupSettingsMenu {
+    min-width: 200px;
 }

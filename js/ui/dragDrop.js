@@ -92,6 +92,9 @@ function initTaskGroupSortable(container) {
         draggable: ".taskGroup",
         handle: ".taskGroupHeader",
 
+        filter: "button, input, textarea, select, [contenteditable='true']",
+        preventOnFilter: false,
+
         chosenClass: "is-chosen",
         ghostClass: "is-ghost",
         dragClass: "is-dragging",

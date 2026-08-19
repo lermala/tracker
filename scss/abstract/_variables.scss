@@ -17,7 +17,15 @@ $clr-overdue: $clr-badge-red;
 $clr-today: $clr-badge-orange;
 $clr-tomorrow: $clr-badge-green;
 $clr-this-week: $clr-badge-blue;
-// $clr-later: $clr-badge-grey;
+$clr-later: $clr-badge-grey;
+
+:root {
+    --color-overdue: #{$clr-overdue};
+    --color-today: #{$clr-today};
+    --color-tomorrow: #{$clr-tomorrow};
+    --color-this-week: #{$clr-this-week};
+    --color-later: #{$clr-later};
+}
 
 
 // ===== Semantic fixed colors =====

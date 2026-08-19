@@ -70,6 +70,14 @@
     flex-shrink: 0;
 }
 
+%colored-badge {
+    border-radius: $bd-radius;
+    color: var(--badge-color);
+    background: color-mix(in srgb,
+            var(--badge-color) 18%,
+            transparent);
+}
+
 
 // ======================================
 // Surfaces
