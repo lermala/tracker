@@ -757,17 +757,6 @@ a:hover {
   width: 26px;
   height: 26px;
 }
-.menuButton {
-  /*     &:hover {
-          color: var(--color-text);
-          background: var(--color-hover);
-      }
-
-      &:focus-visible {
-          opacity: 1;
-      } */
-}
-
 .projectEditorSaveButton, .settingsSaveButton, .authSubmit {
   padding: 6px 12px;
   color: var(--color-on-accent);
@@ -870,6 +859,19 @@ a:hover {
   color: var(--color-text-secondary);
 }
 
+@media (max-width: 768px) {
+  .datePicker {
+    position: fixed;
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 8px !important;
+    top: auto !important;
+    width: auto;
+    max-width: none;
+    max-height: calc(100dvh - 14px);
+    overflow-y: auto;
+  }
+}
 .calendarHeader {
   display: grid;
   grid-template-columns: 28px 1fr 28px;
@@ -1332,25 +1334,6 @@ textarea.textEditor.taskTitle {
   } */
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    width: 200px;
-    padding: 8px;
-  }
-  .sidebarNavItem,
-  .addProjectButton {
-    gap: 8px;
-    min-height: 36px;
-    padding: 6px 8px;
-    font-size: 14px;
-  }
-  .sidebarTitle {
-    font-size: 13px;
-  }
-  .sidebarUserName {
-    font-size: 14px;
-  }
-}
 .sidebarUserMenu {
   position: absolute;
   top: calc(100% + 4px);
@@ -1395,6 +1378,54 @@ textarea.textEditor.taskTitle {
   font-size: 20px;
 }
 
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+    padding: 10px 8px;
+  }
+  .sidebarHeader .sidebarUserButton {
+    gap: 8px;
+    min-height: 40px;
+    padding: 6px 8px;
+  }
+  .sidebarHeader .sidebarUserAvatar {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  .sidebarHeader .sidebarUserName {
+    font-size: 15px;
+  }
+  .sidebarHeader .sidebarUserArrow {
+    font-size: 20px;
+  }
+  .sidebarContent .sidebarTitle {
+    margin-top: 10px;
+    padding: 8px 6px;
+    font-size: 14px;
+  }
+  .sidebarNavItem,
+  .addProjectButton {
+    gap: 8px;
+    min-height: 40px;
+    padding: 6px 8px;
+    font-size: 15px;
+  }
+  .sidebarNavItem .sidebarNavIcon {
+    font-size: 21px;
+  }
+  .projectItem .projectColor {
+    width: 9px;
+    height: 9px;
+  }
+  .sidebarToggleButton {
+    width: 36px;
+    height: 36px;
+  }
+  .sidebarToggleButton .material-symbols-rounded {
+    font-size: 21px;
+  }
+}
 .projectItem:hover .menuButton, .projectItem.is-active .menuButton {
   opacity: 1;
   background: transparent;
@@ -1485,6 +1516,54 @@ textarea.textEditor.taskTitle {
   color: var(--color-text-secondary);
 }
 
+@media (max-width: 768px) {
+  .settingsModal {
+    width: calc(100vw - 16px);
+    height: calc(100dvh - 16px);
+    flex-direction: column;
+  }
+  .settingsSidebar {
+    width: 100%;
+    flex-shrink: 0;
+    padding: 10px;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .settingsSidebarHeader {
+    margin-bottom: 8px;
+    padding-inline: 0;
+    font-size: 15px;
+  }
+  .settingsNav {
+    flex-direction: row;
+    gap: 6px;
+    overflow-x: auto;
+  }
+  .settingsNavItem {
+    width: auto;
+    flex-shrink: 0;
+    min-height: 36px;
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+  .settingsMain {
+    min-height: 0;
+    flex: 1;
+  }
+  .settingsHeader {
+    padding-inline: 10px;
+  }
+  .settingsContent {
+    padding: 14px 10px;
+  }
+  .settingsFooter {
+    padding: 10px;
+  }
+  .settingsNameInput {
+    width: 100%;
+    max-width: none;
+  }
+}
 .projectEditor {
   width: min(540px, 100vw - 48px);
 }
@@ -1660,6 +1739,9 @@ body:not(.is-dragging) .task:hover .menuButton {
   .task .sidebarUserName {
     font-size: 16px;
   }
+  .task .menuButton {
+    opacity: 1;
+  }
 }
 .task.is-dragging,
 .taskGroup.is-dragging {
@@ -1744,9 +1826,11 @@ body:not(.is-dragging) .task:hover {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  padding: 4px 4px;
   color: var(--color-text-secondary);
 }
 .toolbarAction .material-symbols-rounded {
+  flex-shrink: 0;
   font-size: 18px;
 }
 .toolbarAction:hover {
@@ -1816,6 +1900,28 @@ body:not(.is-dragging) .task:hover {
   gap: 14px;
 }
 
+@media (max-width: 768px) {
+  .trackerToolbar {
+    gap: 8px;
+    padding: 10px;
+  }
+  .toolbarActions {
+    gap: 4px;
+  }
+  .toolbarAction {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    justify-content: center;
+    padding: 0;
+  }
+  .toolbarAction .material-symbols-rounded {
+    font-size: 20px;
+  }
+  .toolbarActionText {
+    display: none;
+  }
+}
 .taskGroup {
   min-width: 0;
   padding: 8px;

@@ -181,33 +181,6 @@
     } */
 }
 
-@media (max-width: 768px) {
-    .sidebar {
-        width: 200px;
-        padding: $space-s;
-    }
-
-    .sidebarNavItem,
-    .addProjectButton {
-        gap: $space-s;
-        min-height: 36px;
-        padding: $space-xs $space-s;
-
-        font-size: 14px;
-    }
-
-    .sidebarTitle {
-        font-size: 13px;
-    }
-
-    .sidebarUserName {
-        font-size: 14px;
-    }
-}
-
-
-
-
 // ===== Стили для всплывающего окна настроек =====
 
 .sidebarUserMenu {
@@ -262,5 +235,78 @@
 
     .material-symbols-rounded {
         font-size: 20px;
+    }
+}
+
+
+@media (max-width: $breakpoint-mobile) {
+    .sidebar {
+        width: 240px;
+        padding: $space-m $space-s;
+    }
+
+    .sidebarHeader {
+        .sidebarUserButton {
+            gap: $space-s;
+
+            min-height: 40px;
+            padding: $space-xs $space-s;
+        }
+
+        .sidebarUserAvatar {
+            width: 28px;
+            height: 28px;
+
+            font-size: 14px;
+        }
+
+        .sidebarUserName {
+            font-size: 15px;
+        }
+
+        .sidebarUserArrow {
+            font-size: 20px;
+        }
+    }
+
+    .sidebarContent {
+        .sidebarTitle {
+            margin-top: $space-m;
+            padding: $space-s $space-xs;
+
+            font-size: 14px;
+        }
+    }
+
+    .sidebarNavItem,
+    .addProjectButton {
+        gap: $space-s;
+
+        min-height: 40px;
+        padding: $space-xs $space-s;
+
+        font-size: 15px;
+    }
+
+    .sidebarNavItem {
+        .sidebarNavIcon {
+            font-size: 21px;
+        }
+    }
+
+    .projectItem {
+        .projectColor {
+            width: 9px;
+            height: 9px;
+        }
+    }
+
+    .sidebarToggleButton {
+        width: 36px;
+        height: 36px;
+
+        .material-symbols-rounded {
+            font-size: 21px;
+        }
     }
 }

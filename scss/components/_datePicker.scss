@@ -61,3 +61,20 @@
         color: var(--color-text-secondary);
     }
 }
+
+@media (max-width: $breakpoint-mobile) {
+    .datePicker {
+        position: fixed;
+
+        left: $space-s !important;
+        right: $space-s !important;
+        bottom: $space-s !important;
+        top: auto !important;
+
+        width: auto;
+        max-width: none;
+        max-height: calc(100dvh - #{$space-l});
+
+        overflow-y: auto;
+    }
+}

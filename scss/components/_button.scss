@@ -48,15 +48,6 @@
     span {
         @extend %icon;
     }
-
-/*     &:hover {
-        color: var(--color-text);
-        background: var(--color-hover);
-    }
-
-    &:focus-visible {
-        opacity: 1;
-    } */
 }
 
 %button-primary {

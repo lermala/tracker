@@ -138,3 +138,69 @@
     font-size: 12px;
     color: var(--color-text-secondary);
 }
+
+
+@media (max-width: $breakpoint-mobile) {
+    .settingsModal {
+        width: calc(100vw - 16px);
+        height: calc(100dvh - 16px);
+
+        flex-direction: column;
+    }
+
+    .settingsSidebar {
+        width: 100%;
+        flex-shrink: 0;
+
+        padding: $space-m;
+
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .settingsSidebarHeader {
+        margin-bottom: $space-s;
+        padding-inline: 0;
+
+        font-size: 15px;
+    }
+
+    .settingsNav {
+        flex-direction: row;
+        gap: $space-xs;
+
+        overflow-x: auto;
+    }
+
+    .settingsNavItem {
+        width: auto;
+        flex-shrink: 0;
+
+        min-height: 36px;
+        padding: $space-xs $space-s;
+
+        font-size: 14px;
+    }
+
+    .settingsMain {
+        min-height: 0;
+        flex: 1;
+    }
+
+    .settingsHeader {
+        padding-inline: $space-m;
+    }
+
+    .settingsContent {
+        padding: $space-l $space-m;
+    }
+
+    .settingsFooter {
+        padding: $space-m;
+    }
+
+    .settingsNameInput {
+        width: 100%;
+        max-width: none;
+    }
+}
