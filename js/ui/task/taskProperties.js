@@ -217,20 +217,20 @@ function createTaskTimer() {
 
 
 function createTaskProjectProperty(task) {
-    const project =
-        getProjectById(task.projectId);
-
+    const project = getProjectById(task.projectId);
     if (!project) {
         return null;
     }
 
-    const element = createBadge({
-        text: project.title,
-        color: project.color,
-        className: "taskProject"
-    });
+    const element = document.createElement("div");
+    element.className = "taskProperty taskProject";
 
-    element.classList.add("taskProperty");
+    const badge = createBadge({
+            text: project.title,
+            color: project.color
+        });
+
+    element.append(badge);
 
     return element;
 }

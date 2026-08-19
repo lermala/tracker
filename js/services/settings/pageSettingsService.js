@@ -47,7 +47,9 @@ const DEFAULT_PAGE_SETTINGS = {
             TASK_PROPERTY.ASSIGNEE
         ],
 
-        [VIEW.CALENDAR]: []
+        [VIEW.CALENDAR]: [
+            TASK_PROPERTY.PRIORITY
+        ]
     }
 };
 

@@ -235,28 +235,43 @@ function createCalendarDay(
 }
 
 function createCalendarTask(task) {
-    const element = document.createElement("button");
+    const element = document.createElement("div");
     element.className = "taskCalendarTask";
-
     element.dataset.taskId = task.id;
 
     if (task.isCompleted) {
         element.classList.add("is-completed");
     }
 
+    const main = document.createElement("div");
+    main.className = "taskCalendarTaskMain";
+
     if (task.dueTime) {
         const time = document.createElement("span");
         time.className = "taskCalendarTaskTime";
         time.textContent = task.dueTime;
 
-        element.append(time);
+        main.append(time);
     }
 
     const title = document.createElement("span");
     title.className = "taskCalendarTaskTitle";
     title.textContent = task.title || "Без названия";
 
-    element.append(title);
+    main.append(title);
+
+    const properties = document.createElement("div");
+    properties.className = "taskCalendarTaskProperties";
+
+    renderTaskProperties(
+        properties,
+        task
+    );
+
+    element.append(
+        main,
+        properties
+    );
 
     element.addEventListener("click", event => {
         event.stopPropagation();
@@ -265,4 +280,28 @@ function createCalendarTask(task) {
     });
 
     return element;
+}
+
+function createCalendarTaskProperties(task) {
+    const visibleProperties =
+        pageSettings.visibleProperties[VIEW.CALENDAR] || [];
+
+    if (!visibleProperties.length) {
+        return null;
+    }
+
+    const container = document.createElement("div");
+    container.className = "taskCalendarTaskProperties";
+
+    visibleProperties.forEach(property => {
+        const element = createTaskProperty(task, property);
+
+        if (element) {
+            container.append(element);
+        }
+    });
+
+    return container.children.length
+        ? container
+        : null;
 }

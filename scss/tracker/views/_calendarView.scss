@@ -158,7 +158,7 @@
 
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: $space-xxs;
 
     min-height: 80px;
 }
@@ -168,7 +168,8 @@
     min-width: 0;
 
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     gap: $space-s;
 
     padding: $space-xxs $space-xs;
@@ -201,8 +202,21 @@
     }
 }
 
+.taskCalendarTaskMain {
+    width: 100%;
+    min-width: 0;
+
+    display: -webkit-box;
+    overflow: hidden;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    line-height: 1.3;
+}
+
 .taskCalendarTaskTime {
-    flex-shrink: 0;
+    margin-right: 5px;
 
     color: var(--color-text-secondary);
     font-size: 12px;
@@ -210,8 +224,15 @@
 
 .taskCalendarTaskTitle {
     min-width: 0;
+    font-size: 13px;
+    line-height: 1.3;
+}
 
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+.taskCalendarTaskProperties {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
 }
