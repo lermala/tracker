@@ -55,18 +55,22 @@
             }
 
             .taskCardDescription {
-                margin-top: $space-l;
+                min-height: 32px;
 
                 font-size: 14px;
                 line-height: 1.5;
 
-                color: var(--color-text); // color: var(--color-text-secondary);
+                color: var(--color-text);
 
-                white-space: pre-wrap;
+                cursor: text;
 
                 &.is-empty {
-                    opacity: .7;
+                    color: var(--color-text-secondary);
                 }
+            }
+
+            .taskCardDescriptionWrapper {
+                margin-top: $space-l;
             }
         }
     }
@@ -94,17 +98,6 @@
 
         color: var(--color-text-secondary);
         font-size: 12px;
-    }
-
-    .taskCardUser { // todo delete?
-        min-height: 28px;
-
-        display: flex;
-        align-items: center;
-
-        &.is-empty {
-            color: var(--color-text-secondary);
-        }
     }
 }
 

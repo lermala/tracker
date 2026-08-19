@@ -281,30 +281,6 @@ function getTaskCardElements() {
     };
 }
 
-function renderTextWithLinks(element, text) {
-    element.innerHTML = "";
-
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const parts = text.split(urlRegex);
-
-    parts.forEach(part => {
-        if (part.match(/^https?:\/\//)) {
-            const link = document.createElement("a");
-
-            link.href = part;
-            link.textContent = part;
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-
-            element.append(link);
-        } else {
-            element.append(
-                document.createTextNode(part)
-            );
-        }
-    });
-}
-
 function initTaskCardDuration() {
     const duration = createTaskTimer();
 

@@ -135,50 +135,83 @@ function bindTaskCheckbox(status, getTask, onToggle) {
     });
 }
 
-function fillTaskDescription(description, task) {
-    if (task.description) {
-        renderTextWithLinks(
-            description,
-            task.description
+function fillTaskDescription(
+    description,
+    task
+) {
+    if (!task.description) {
+        description.textContent =
+            "Добавить описание";
+
+        description.classList.add(
+            "is-empty"
         );
 
-        description.classList.remove("is-empty");
-    } else {
-        description.textContent = "Добавить описание";
-        description.classList.add("is-empty");
+        return;
     }
+
+    description.classList.remove(
+        "is-empty"
+    );
+
+    renderMarkdown(
+        description,
+        task.description
+    );
 }
 
-function bindTaskDescription(description, getTask, onUpdate) {
-    description.addEventListener("click", (event) => {
-        if (event.target.closest("a")) {
-            return;
-        }
-
-        const task = getTask();
-
-        if (!task) return;
-
-        startTextEdit(description, {
-            value: task.description || "",
-            multiline: true,
-            enterToSave: false,
-            className: "taskCardDescription",
-
-            onSave: (value) => {
-                updateTask(task.id, {
-                    description: value
-                });
-
-                fillTaskDescription(
-                    description,
-                    task
-                );
-
-                onUpdate?.();
+function bindTaskDescription(
+    description,
+    getTask,
+    onUpdate
+) {
+    description.addEventListener(
+        "click",
+        event => {
+            if (
+                event.target.closest("a")
+            ) {
+                return;
             }
-        });
-    });
+
+            const task =
+                getTask();
+
+            if (!task) return;
+
+            startTextEdit(
+                description,
+                {
+                    value:
+                        task.description || "",
+
+                    multiline: true,
+                    enterToSave: false,
+
+                    className:
+                        "markdownEditor",
+
+                    onSave:
+                        async value => {
+                            await updateTask(
+                                task.id,
+                                {
+                                    description:
+                                        value
+                                }
+                            );
+
+                            fillTaskDescription(
+                                description,
+                                task
+                            );
+
+                            onUpdate?.();
+                        }
+                }
+            );
+        }
+    );
 }
 
 const TASK_PRIORITY_LABELS = {
