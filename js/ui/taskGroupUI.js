@@ -101,6 +101,7 @@ function startEditTaskGroup(groupElement, isNew = false) {
     startTextEdit(title, {
         value: title.textContent.trim(),
         className: "taskGroupTitle",
+        maxLength: CATEGORY_LIMITS.TITLE,
 
         onSave: (value) => {
             if (!value) {

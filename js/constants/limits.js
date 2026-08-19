@@ -1,0 +1,12 @@
+const TASK_LIMITS = {
+    TITLE: 255,
+    DESCRIPTION: 10_000
+};
+
+const PROJECT_LIMITS = {
+    TITLE: 100
+};
+
+const CATEGORY_LIMITS = {
+    TITLE: 100
+};

@@ -263,24 +263,21 @@ function createDropdownAction({
 
 function createDropdownCreate({
     placeholder = "",
+    maxLength = null,
     onCreate,
     onCancel = null
 }) {
-    const wrapper =
-        document.createElement("div");
+    const wrapper = document.createElement("div");
+    wrapper.className = "dropdownCreate";
 
-    wrapper.className =
-        "dropdownCreate";
-
-    const input =
-        document.createElement("input");
-
+    const input = document.createElement("input");
     input.type = "text";
-    input.className =
-        "dropdownCreateInput";
-
-    input.placeholder =
-        placeholder;
+    input.className = "dropdownCreateInput";
+    input.placeholder =  placeholder;
+    if (maxLength !== null) {
+        input.maxLength =
+            maxLength;
+    }
 
     wrapper.append(input);
 
@@ -510,6 +507,9 @@ function openSelectDropdown({
                         createDropdownCreate({
                             placeholder:
                                 action.placeholder ?? "",
+
+                            maxLength:
+                                action.maxLength,
 
                             onCreate:
                                 action.onCreate,

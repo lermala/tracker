@@ -56,8 +56,12 @@ create table public.projects (
         references public.profiles(id)
         on delete cascade,
 
-    title text not null default '',
-    description text not null default '',
+    title text not null default ''
+        check (char_length(title) <= 100),
+
+    description text not null default ''
+        check (char_length(description) <= 10000),
+
     color text,
     position integer not null default 0,
 
@@ -80,8 +84,12 @@ create table public.categories (
         references public.projects(id)
         on delete cascade,
 
-    title text not null default '',
-    description text not null default '',
+    title text not null default ''
+        check (char_length(title) <= 100),
+
+    description text not null default ''
+        check (char_length(description) <= 10000),
+
     color text,
     position integer not null default 0,
 
@@ -116,8 +124,11 @@ create table public.tasks (
         references public.profiles(id)
         on delete set null,
 
-    title text not null default '',
-    description text not null default '',
+    title text not null default ''
+        check (char_length(title) <= 255),
+
+    description text not null default ''
+        check (char_length(description) <= 10000),
 
     priority text not null default 'none',
 

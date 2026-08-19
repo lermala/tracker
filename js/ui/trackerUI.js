@@ -131,6 +131,7 @@ function startEditProjectTitle() {
     startTextEdit(tasksHeaderTitle, {
         value: project.title,
         className: "tasksHeaderTitle",
+        maxLength: PROJECT_LIMITS.TITLE,
 
         onSave: (value) => {
             if (!value) {

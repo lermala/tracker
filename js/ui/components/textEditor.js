@@ -1,6 +1,7 @@
 function startTextEdit(element, {
     value = "",
     multiline = false,
+    maxLength = null,
     enterToSave = !multiline,
     className = "",
     onSave,
@@ -14,6 +15,10 @@ function startTextEdit(element, {
 
     editor.className = `textEditor ${className}`;
     editor.value = value;
+
+    if (maxLength !== null) {
+        editor.maxLength = maxLength;
+    }
 
     if (multiline) {
         editor.rows = 1;

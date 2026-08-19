@@ -86,6 +86,7 @@ function bindTaskCardEvents() {
         startTextEdit(title, {
             value: task.title,
             multiline: true,
+            maxLength: TASK_LIMITS.TITLE,
             enterToSave: true,
             className: "taskCardTitle",
 

@@ -186,6 +186,7 @@ function bindTaskDescription(
                         task.description || "",
 
                     multiline: true,
+                    maxLength: TASK_LIMITS.DESCRIPTION,
                     enterToSave: false,
 
                     className:

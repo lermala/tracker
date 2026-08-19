@@ -8,6 +8,7 @@ function startEditTask(
     startTextEdit(title, {
         value: task.title || "",
         multiline: true,
+        maxLength: CATEGORY_LIMITS.TITLE,
         enterToSave: true,
         className: "taskTitle",
 
