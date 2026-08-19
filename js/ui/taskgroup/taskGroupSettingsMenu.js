@@ -76,7 +76,7 @@ function createTaskGroupColorSection({
     const colorPicker =
         createColorPicker({
             colors:
-                DEFAULT_COLOR_PALETTE,
+                ENTITY_COLOR_PALETTE,
 
             value,
 
@@ -84,6 +84,9 @@ function createTaskGroupColorSection({
                 onChange?.(color);
             }
         });
+    colorPicker.classList.add(
+        "is-grid"
+    );
 
     section.append(
         label,

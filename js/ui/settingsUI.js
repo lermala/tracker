@@ -156,8 +156,9 @@ function initSettingsAppearance(modal) {
     });
 
     const accentPicker = createColorPicker({
-        colors: DEFAULT_COLOR_PALETTE,
+        colors: ACCENT_COLOR_PALETTE,
         value: appearance.accent,
+        allowEmpty: false,
 
         onChange: color => {
             setAccent(color);

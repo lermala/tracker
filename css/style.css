@@ -972,8 +972,19 @@ textarea.textEditor.taskTitle {
 .colorPicker {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   gap: 8px;
+}
+.colorPicker.is-grid {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(6, 24px);
+}
+.colorPicker.is-empty {
+  color: var(--color-text-secondary);
+}
+.colorPicker.is-empty .material-symbols-rounded {
+  font-size: 16px;
+  color: var(--color-text-secondary);
 }
 
 .colorPickerOption {
@@ -990,6 +1001,10 @@ textarea.textEditor.taskTitle {
 .colorPickerOption.is-selected {
   outline: 2px solid var(--color-text);
   outline-offset: 2px;
+}
+
+.colorPickerOption.is-empty::before {
+  display: none;
 }
 
 .priorityPicker {

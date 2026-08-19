@@ -283,7 +283,6 @@ function getTaskGroupColor(group) {
     }
 
     if (group.field === "dueDate") {
-        console.log("dueDate " + group.value + " | " + getDueDateGroupColor(group.value));
         return getDueDateGroupColor(group.value);
     }
 

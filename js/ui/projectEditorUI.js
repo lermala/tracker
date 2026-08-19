@@ -26,7 +26,7 @@ function openProjectEditor(project = null) {
     let selectedColor = project?.color ?? null;
 
     const colorPicker = createColorPicker({
-        colors: DEFAULT_COLOR_PALETTE,
+        colors: ENTITY_COLOR_PALETTE,
         value: selectedColor,
 
         onChange: color => {
