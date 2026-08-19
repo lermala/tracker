@@ -139,42 +139,82 @@ using (
 -- TASKS
 -- =========================================================
 
-create policy tasks_select_member
+create policy tasks_select_access
 on public.tasks
 for select
 to authenticated
 using (
-    public.is_project_member(project_id)
+    (
+        project_id is null
+        and created_by_id = auth.uid()
+    )
+    or
+    (
+        project_id is not null
+        and public.is_project_member(project_id)
+    )
 );
 
 
-create policy tasks_insert_member
+create policy tasks_insert_access
 on public.tasks
 for insert
 to authenticated
 with check (
-    public.is_project_member(project_id)
+    (
+        project_id is null
+        and created_by_id = auth.uid()
+    )
+    or
+    (
+        project_id is not null
+        and public.is_project_member(project_id)
+    )
 );
 
 
-create policy tasks_update_member
+create policy tasks_update_access
 on public.tasks
 for update
 to authenticated
 using (
-    public.is_project_member(project_id)
+    (
+        project_id is null
+        and created_by_id = auth.uid()
+    )
+    or
+    (
+        project_id is not null
+        and public.is_project_member(project_id)
+    )
 )
 with check (
-    public.is_project_member(project_id)
+    (
+        project_id is null
+        and created_by_id = auth.uid()
+    )
+    or
+    (
+        project_id is not null
+        and public.is_project_member(project_id)
+    )
 );
 
 
-create policy tasks_delete_member
+create policy tasks_delete_access
 on public.tasks
 for delete
 to authenticated
 using (
-    public.is_project_member(project_id)
+    (
+        project_id is null
+        and created_by_id = auth.uid()
+    )
+    or
+    (
+        project_id is not null
+        and public.is_project_member(project_id)
+    )
 );
 
 

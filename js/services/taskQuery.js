@@ -223,15 +223,43 @@ function groupTasksByCategory(tasks) {
 }
 
 function groupTasksByProject(tasks) {
-    return projects
-        .map(project => ({
-            id: project.id,
+    const emptyGroup = {
+        field: "projectId",
+        value: null,
+        title: "(Без проекта)",
+
+        tasks: tasks.filter(
+            task => !task.projectId
+        ),
+
+        newTaskData: {
+            projectId: null,
+            categoryId: null
+        }
+    };
+
+    const projectGroups =
+        projects.map(project => ({
+            field: "projectId",
+            value: project.id,
             title: project.title,
+
             tasks: tasks.filter(
-                task => task.projectId === project.id
-            )
-        }))
-        .filter(group => group.tasks.length > 0);
+                task =>
+                    task.projectId ===
+                    project.id
+            ),
+
+            newTaskData: {
+                projectId: project.id,
+                categoryId: null
+            }
+        }));
+
+    return [
+        emptyGroup,
+        ...projectGroups
+    ];
 }
 
 function groupTasksByDueDate(tasks) {

@@ -100,7 +100,7 @@ create table public.categories (
 create table public.tasks (
     id uuid primary key,
 
-    project_id uuid not null
+    project_id uuid
         references public.projects(id)
         on delete cascade,
 
