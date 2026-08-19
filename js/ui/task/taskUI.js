@@ -24,7 +24,7 @@ function getTaskElements(item) {
     return {
         title: item.querySelector(".taskTitle"),
         taskCheckbox: item.querySelector(".taskCheckbox"),
-        deleteButton: item.querySelector(".deleteButton"),
+        menuButton: item.querySelector(".menuButton"),
         properties: item.querySelector(".taskProperties"),
     };
 }
@@ -34,7 +34,7 @@ function cloneTaskTemplate() {
 }
 
 function bindTaskEvents(item, elements, task) {
-    const { taskCheckbox, title, deleteButton } = elements;
+    const { taskCheckbox, title, menuButton } = elements;
 
     bindTaskCheckbox(
         taskCheckbox,
@@ -55,33 +55,41 @@ function bindTaskEvents(item, elements, task) {
         }
     );
 
-    // обработчики для редактирования title
-    title.addEventListener("click", () => { //mousedown
-        startEditTask(item, task);
-    });
-
-    deleteButton.addEventListener("click", (event) => {
-        event.stopPropagation();
-
-        animateTaskDelete(item, () => {
-            deleteTask(task.id).catch(error => {
-                console.error(
-                    "DELETE TASK ERROR:",
-                    error
+    bindTaskMenu(
+        menuButton,
+        () => getTaskById(task.id),
+        {
+            onEdit: () => {
+                startEditTask(
+                    item,
+                    task
                 );
+            },
 
-                // deleteTask сделал rollback
-                renderCurrentView();
-            });
+            onDelete: () => {
+                animateTaskDelete(
+                    item,
+                    () => {
+                        deleteTask(task.id)
+                            .catch(error => {
+                                console.error(
+                                    "DELETE TASK ERROR:",
+                                    error
+                                );
 
-            // задача уже удалена из локального tasks
-            renderCurrentView();
-        });
-    });
+                                renderCurrentView();
+                            });
+
+                        renderCurrentView();
+                    }
+                );
+            }
+        }
+    );
 
     item.addEventListener("click", event => {
         if (event.target.closest(
-            ".taskCheckbox, .taskTitle, button, .taskProperty, .taskDuration"
+            ".taskCheckbox, button, .taskProperty, .taskDuration"
         )) {
             return;
         }
@@ -93,8 +101,8 @@ function bindTaskEvents(item, elements, task) {
 function updateTaskUI(task, item, elements) {
     const {
         taskCheckbox,
-        title,
-        deleteButton
+        menuButton,
+        title
     } = elements;
 
     title.textContent = task.title;

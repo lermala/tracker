@@ -53,14 +53,6 @@
     }
 }
 
-.sidebarToggleButton {
-    @extend %icon-button;
-
-    .material-symbols-rounded {
-        font-size: 20px;
-    }
-}
-
 .sidebarHeader {
     display: flex;
     align-items: center;
@@ -105,16 +97,6 @@
         font-weight: 600;
     }
 
-    .sidebarUserName {
-        min-width: 0;
-
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
-        font-weight: 500;
-    }
-
     .sidebarUserArrow {
         flex-shrink: 0;
         font-size: 18px;
@@ -142,66 +124,6 @@
     }
 }
 
-.sidebarUserMenu {
-    @extend %popover;
-
-    position: absolute;
-    top: calc(100% + $space-xxs);
-    left: 0;
-    right: 0;
-
-    z-index: 100;
-    width: 200px;
-
-    .sidebarUserInfo {
-        .sidebarUserEmail {
-            margin-top: 2px;
-
-            overflow: hidden;
-
-            color: var(--color-text-secondary);
-
-            font-size: 12px;
-
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-    }
-
-    .userSettings {
-        border-top: 1px solid var(--color-border);
-        border-bottom: 1px solid var(--color-border);
-
-        .userSetting {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .userSettingColors {
-            display: block;
-        }
-
-        .userSettingColors .userSettingLabel {
-            display: block;
-            margin-bottom: $space-s;
-        }
-
-        .userSettingLabel {
-            color: var(--color-text-secondary);
-
-            font-size: 12px;
-        }
-    }
-
-    .sidebarUserMenuItem {
-        @extend %menu-option;
-
-        margin-top: $space-xxs;
-    }
-}
-
-
 .sidebarNavItem {
     @extend %menu-option;
 
@@ -213,6 +135,7 @@
     .sidebarNavIcon {
         flex-shrink: 0;
         font-size: 20px;
+        color: var(--color-accent);
     }
 
     .sidebarNavTitle {
@@ -237,12 +160,14 @@
         background: var(--project-color);
     }
 
-    /*     .projectTitle {
-        overflow: hidden;
+    .menuButton {
+        width: 20px;
+        height: 20px;
 
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    } */
+        &:hover {
+            color: var(--color-text);
+        }
+    }
 }
 
 .addProjectButton {
@@ -277,5 +202,65 @@
 
     .sidebarUserName {
         font-size: 14px;
+    }
+}
+
+
+
+
+// ===== Стили для всплывающего окна настроек =====
+
+.sidebarUserMenu {
+    @extend %popover;
+
+    position: absolute;
+    top: calc(100% + $space-xxs);
+    left: 0;
+    right: 0;
+
+    z-index: 100;
+    width: 240px;
+}
+
+.sidebarUserMenuHeader {
+    display: flex;
+    align-items: center;
+    gap: $space-s;
+
+    min-width: 0;
+    padding: $space-s;
+}
+
+/* .sidebarUserMenuHeader > .avatar {
+    flex-shrink: 0;
+} */
+
+.sidebarUserMenuInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.sidebarUserMenuName {
+    overflow: hidden;
+    font-weight: 600;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebarUserMenuEmail {
+    overflow: hidden;
+    margin-top: 2px;
+    color: var(--color-text-secondary);
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebarToggleButton {
+    @extend %icon-button;
+
+    .material-symbols-rounded {
+        font-size: 20px;
     }
 }

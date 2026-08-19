@@ -1,38 +1,130 @@
-const sidebarUserButton = document.getElementById("sidebarUserButton");
-const sidebarUserMenu = document.getElementById("sidebarUserMenu");
-const signOutButton = document.getElementById("signOutButton");
+const sidebarUserButton =
+    document.getElementById(
+        "sidebarUserButton"
+    );
 
 function initSidebarSettingsUI() {
     bindSidebarSettingsEvents();
-    initAppearanceSettings();
+    //initAppearanceSettings();
 }
 
 function bindSidebarSettingsEvents() {
-    sidebarUserButton.addEventListener("click", event => {
-        event.stopPropagation();
+    sidebarUserButton.addEventListener(
+        "click",
+        event => {
+            event.stopPropagation();
 
-        sidebarUserMenu.classList.toggle("hidden");
-    });
-
-    settingsButton.addEventListener("click", () => {
-        sidebarUserMenu.classList.add("hidden");
-
-        openSettings();
-    });
-
-    signOutButton.addEventListener("click", logout);
-
-    document.addEventListener("click", event => {
-        if (!event.target.closest(".sidebarUser")) {
-            sidebarUserMenu.classList.add("hidden");
+            openSidebarUserMenu();
         }
+    );
+}
+
+function openSidebarUserMenu() {
+    const dropdown =
+        document.createElement("div");
+
+    dropdown.className =
+        "dropdown sidebarUserMenu";
+
+    dropdown.append(
+        createSidebarUserMenuHeader(),
+
+        createDropdownDivider(),
+
+        createDropdownItem({
+            text: "Настройки",
+            icon: "settings",
+
+            onClick: event => {
+                event.stopPropagation();
+
+                closeDropdown();
+                openSettings();
+            }
+        }),
+
+        createThemeMenuItem(),
+
+        createDropdownDivider(),
+
+        createDropdownItem({
+            text: "Выйти",
+            icon: "logout",
+            destructive: true,
+
+            onClick: event => {
+                event.stopPropagation();
+
+                closeDropdown();
+                logout();
+            }
+        })
+    );
+
+    openDropdown({
+        anchor: sidebarUserButton,
+        dropdown,
+        align: "start",
+        removeOnClose: true
     });
 }
 
-function renderUser() {
-    if (!currentUser || !currentProfile) return;
+function createSidebarUserMenuHeader() {
+    const header =
+        document.createElement("div");
 
-    const name = currentProfile.name;
+    header.className =
+        "sidebarUserMenuHeader";
+
+    const avatar =
+        createAvatar(
+            currentProfile,
+            {
+                size: 32
+            }
+        );
+
+    const info =
+        document.createElement("div");
+
+    info.className =
+        "sidebarUserMenuInfo";
+
+    const name =
+        document.createElement("div");
+
+    name.className =
+        "sidebarUserMenuName";
+
+    name.textContent =
+        currentProfile?.name ?? "";
+
+    const email =
+        document.createElement("div");
+
+    email.className =
+        "sidebarUserMenuEmail";
+
+    email.textContent =
+        currentUser?.email ?? "";
+
+    info.append(
+        name,
+        email
+    );
+
+    header.append(
+        avatar,
+        info
+    );
+
+    return header;
+}
+
+function renderUser() {
+    if (!currentUser || !currentProfile) {
+        return;
+    }
 
     const avatarContainer =
         document.getElementById(
@@ -40,36 +132,105 @@ function renderUser() {
         );
 
     avatarContainer.replaceChildren(
-        createAvatar(currentProfile, {
-            size: 30
-        })
+        createAvatar(
+            currentProfile,
+            {
+                size: 30
+            }
+        )
     );
 
-    document.getElementById("sidebarUserName").textContent = name;
-    document.getElementById("sidebarUserMenuName").textContent = name;
-    document.getElementById("sidebarUserEmail").textContent = currentUser.email;
+    document.getElementById(
+        "sidebarUserName"
+    ).textContent =
+        currentProfile.name;
 }
 
 function initAppearanceSettings() {
-    const themeContainer = document.getElementById("themeToggle");
+    const themeContainer =
+        document.getElementById(
+            "themeToggle"
+        );
 
     if (!themeContainer) {
         return;
     }
 
-    const appearance = getAppearance();
+    const appearance =
+        getAppearance();
 
-    const themeToggle = createToggle({
-        value: appearance.theme === "dark",
+    const themeToggle =
+        createToggle({
+            value:
+                appearance.theme ===
+                "dark",
 
-        onChange: isDark => {
-            setTheme(
-                isDark
-                    ? "dark"
-                    : "light"
-            );
+            onChange: isDark => {
+                setTheme(
+                    isDark
+                        ? "dark"
+                        : "light"
+                );
+            }
+        });
+
+    themeContainer.replaceChildren(
+        themeToggle
+    );
+}
+
+function createThemeMenuItem() {
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "dropdownItem sidebarThemeItem";
+
+    const icon =
+        createDropdownIcon(
+            "dark_mode"
+        );
+
+    const text =
+        document.createElement("span");
+
+    text.className =
+        "dropdownItemText";
+
+    text.textContent =
+        "Тёмная тема";
+
+    const appearance =
+        getAppearance();
+
+    const toggle =
+        createToggle({
+            value:
+                appearance.theme ===
+                "dark",
+
+            onChange: isDark => {
+                setTheme(
+                    isDark
+                        ? "dark"
+                        : "light"
+                );
+            }
+        });
+
+    item.append(
+        icon,
+        text,
+        toggle
+    );
+
+    // Чтобы клик по toggle не закрывал dropdown.
+    item.addEventListener(
+        "pointerdown",
+        event => {
+            event.stopPropagation();
         }
-    });
+    );
 
-    themeContainer.replaceChildren(themeToggle);
+    return item;
 }

@@ -1,38 +1,10 @@
-.projectMenu {
-    @extend %popover;
-
-    z-index: 1000;
-
-    width: 200px;
-}
-
-.projectMenuButton {
-    @extend %icon-button;
-
-    flex-shrink: 0;
-
-    width: 22px;
-    height: 22px;
-
-    opacity: 0;
-
-    .material-symbols-rounded {
-        font-size: 18px;
-    }
-}
-
 .projectItem {
     &:hover,
     &.is-active {
-        .projectMenuButton {
+        .menuButton {
             opacity: 1;
+            background: transparent;
         }
-    }
-}
-
-@media (max-width: $breakpoint-mobile) {
-    .projectMenuButton {
-        opacity: 1;
     }
 }
 

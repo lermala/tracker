@@ -22,93 +22,46 @@ function openPriorityPicker({
     value,
     onChange
 }) {
-    closePriorityPicker();
+    const dropdown =
+        document.createElement("div");
 
-    const menu = document.createElement("div");
-    menu.className = "priorityPicker";
-    menu.id = "priorityPicker";
+    dropdown.className =
+        "dropdown priorityPicker";
 
     PRIORITY_OPTIONS.forEach(option => {
-        const button = document.createElement("button");
+        const dot =
+            document.createElement("span");
 
-        button.className = "priorityPickerOption";
-        button.type = "button";
-        button.dataset.priority = option.value;
+        dot.className =
+            "priorityDot";
 
-        if (option.value === value) {
-            button.classList.add("is-selected");
-        }
+        dot.dataset.priority =
+            option.value;
 
-        const dot = document.createElement("span");
-        dot.className = "priorityDot";
-        dot.dataset.priority = option.value;
+        dropdown.append(
+            createDropdownItem({
+                text: option.label,
+                icon: dot,
 
-        const label = document.createElement("span");
-        label.textContent = option.label;
+                selected:
+                    option.value === value,
 
-        button.append(dot, label);
+                onClick: event => {
+                    event.stopPropagation();
 
-        button.addEventListener("click", event => {
-            event.stopPropagation();
+                    closeDropdown();
 
-            onChange(option.value);
-            closePriorityPicker();
-        });
-
-        menu.append(button);
-    });
-
-    document.body.append(menu);
-
-    positionPriorityPicker(menu, anchor);
-
-    setTimeout(() => {
-        document.addEventListener(
-            "click",
-            handlePriorityPickerOutsideClick
+                    onChange?.(
+                        option.value
+                    );
+                }
+            })
         );
     });
-}
 
-function positionPriorityPicker(menu, anchor) {
-    const anchorRect = anchor.getBoundingClientRect();
-    const menuRect = menu.getBoundingClientRect();
-
-    const gap = 4;
-    const padding = 8;
-
-    let left = anchorRect.left;
-    let top = anchorRect.bottom + gap;
-
-    // Если справа не помещается
-    if (left + menuRect.width > window.innerWidth - padding) {
-        left = window.innerWidth - menuRect.width - padding;
-    }
-
-    // Если снизу не помещается — открываем вверх
-    if (top + menuRect.height > window.innerHeight - padding) {
-        top = anchorRect.top - menuRect.height - gap;
-    }
-
-    menu.style.left = `${left}px`;
-    menu.style.top = `${top}px`;
-}
-
-function handlePriorityPickerOutsideClick(event) {
-    if (event.target.closest("#priorityPicker")) {
-        return;
-    }
-
-    closePriorityPicker();
-}
-
-function closePriorityPicker() {
-    document
-        .getElementById("priorityPicker")
-        ?.remove();
-
-    document.removeEventListener(
-        "click",
-        handlePriorityPickerOutsideClick
-    );
+    openDropdown({
+        anchor,
+        dropdown,
+        removeOnClose: true
+    });
 }

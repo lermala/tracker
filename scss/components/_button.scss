@@ -27,8 +27,6 @@
 .deleteButton {
     @extend %icon-button;
 
-    color: var(--color-text-secondary);
-
     &:hover {
         color: var(--color-danger);
     }
@@ -36,6 +34,29 @@
     span {
         @extend %icon;
     }
+}
+
+.menuButton {
+    @extend %icon-button;
+    
+    flex-shrink: 0;
+    opacity: 0;
+
+    width: 26px;
+    height: 26px;
+
+    span {
+        @extend %icon;
+    }
+
+/*     &:hover {
+        color: var(--color-text);
+        background: var(--color-hover);
+    }
+
+    &:focus-visible {
+        opacity: 1;
+    } */
 }
 
 %button-primary {
@@ -58,5 +79,11 @@
 
     &:hover {
         background: var(--color-hover);
+    }
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .menuButton {
+        opacity: 1;
     }
 }

@@ -65,7 +65,7 @@ function createProjectElementNavigation(project) {
 
     const menuButton = document.createElement("button");
     menuButton.type = "button";
-    menuButton.className = "projectMenuButton";
+    menuButton.className = "menuButton";
     menuButton.title = "Действия с проектом";
 
     menuButton.innerHTML = `

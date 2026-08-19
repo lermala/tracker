@@ -19,7 +19,7 @@
         border-color .15s ease,
         background-color .15s ease;
 
-    .deleteButton {
+    .menuButton {
         opacity: 0;
         visibility: hidden;
     }
@@ -27,7 +27,7 @@
     body:not(.is-dragging) &:hover {
         border-color: var(--color-border-strong);
 
-        .deleteButton {
+        .menuButton {
             opacity: 1;
             visibility: visible;
         }

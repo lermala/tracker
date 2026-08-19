@@ -27,6 +27,10 @@ function openDropdown({
     activeDropdownRemoveOnClose =
         removeOnClose;
 
+    if (!dropdown.isConnected) {
+        document.body.append(dropdown);
+    }
+
     dropdown.classList.remove("hidden");
 
     positionDropdown(
@@ -124,18 +128,22 @@ function createDropdownItem({
     text = null,
     content = null,
     selected = false,
+    destructive = false,
     icon = null,
     onClick = null
 }) {
-    const item =
-        document.createElement("button");
-
+    const item = document.createElement("button");
     item.type = "button";
     item.className = "dropdownItem";
 
     item.classList.toggle(
         "is-selected",
         selected
+    );
+
+    item.classList.toggle(
+        "is-destructive",
+        destructive
     );
 
     if (icon) {
@@ -146,14 +154,15 @@ function createDropdownItem({
 
     if (content) {
         item.append(content);
-    } else if (text !== null) {
+    } else {
         const label =
             document.createElement("span");
 
         label.className =
             "dropdownItemText";
 
-        label.textContent = text;
+        label.textContent =
+            text ?? "";
 
         item.append(label);
     }
@@ -184,24 +193,16 @@ function createDropdownCheckboxItem({
     checked = false,
     onChange = null
 }) {
-    const item =
-        document.createElement("label");
-
+    const item = document.createElement("label");
     item.className = "dropdownItem";
 
-    const checkbox =
-        document.createElement("input");
-
+    const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.className = "checkbox";
     checkbox.checked = checked;
 
-    const label =
-        document.createElement("span");
-
-    label.className =
-        "dropdownItemText";
-
+    const label = document.createElement("span");
+    label.className = "dropdownItemText";
     label.textContent = text;
 
     if (onChange) {
@@ -229,26 +230,16 @@ function createDropdownAction({
     icon = "add",
     onClick = null
 }) {
-    const item =
-        document.createElement("button");
-
+    const item = document.createElement("button");
     item.type = "button";
-
-    item.className =
-        "dropdownItem dropdownAction";
-
+    item.className = "dropdownItem dropdownAction";
     item.append(
         createDropdownIcon(icon)
     );
 
-    const label =
-        document.createElement("span");
-
-    label.className =
-        "dropdownItemText";
-
+    const label = document.createElement("span");
+    label.className = "dropdownItemText";
     label.textContent = text;
-
     item.append(label);
 
     if (onClick) {
@@ -273,7 +264,7 @@ function createDropdownCreate({
     const input = document.createElement("input");
     input.type = "text";
     input.className = "dropdownCreateInput";
-    input.placeholder =  placeholder;
+    input.placeholder = placeholder;
     if (maxLength !== null) {
         input.maxLength =
             maxLength;
@@ -334,12 +325,8 @@ function createDropdownIcon(icon) {
         return icon;
     }
 
-    const element =
-        document.createElement("span");
-
-    element.className =
-        "material-symbols-rounded dropdownItemIcon";
-
+    const element = document.createElement("span");
+    element.className = "material-symbols-rounded dropdownItemIcon";
     element.textContent = icon;
 
     return element;
@@ -347,11 +334,8 @@ function createDropdownIcon(icon) {
 
 
 function createDropdownDivider() {
-    const divider =
-        document.createElement("div");
-
-    divider.className =
-        "dropdownDivider";
+    const divider = document.createElement("div");
+    divider.className = "dropdownDivider";
 
     return divider;
 }
@@ -360,12 +344,8 @@ function createDropdownDivider() {
 function createDropdownEmpty(
     text = "Нет вариантов"
 ) {
-    const empty =
-        document.createElement("div");
-
-    empty.className =
-        "dropdownEmpty";
-
+    const empty = document.createElement("div");
+    empty.className = "dropdownEmpty";
     empty.textContent = text;
 
     return empty;
@@ -536,9 +516,6 @@ function openSelectDropdown({
             actionItem
         );
     }
-
-
-    document.body.append(dropdown);
 
     openDropdown({
         anchor,

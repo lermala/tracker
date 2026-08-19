@@ -1,115 +1,75 @@
-let activeProjectMenu = null;
+function openProjectMenu(
+    project,
+    anchor
+) {
+    const dropdown =
+        document.createElement("div");
 
-function openProjectMenu(project, anchor) {
-    closeProjectMenu();
+    dropdown.className =
+        "dropdown projectMenu";
 
-    const menu = createProjectMenu(project);
+    dropdown.append(
+        createDropdownItem({
+            text: "Изменить",
+            icon: "edit",
 
-    document.body.append(menu);
-    activeProjectMenu = menu;
+            onClick: event => {
+                event.stopPropagation();
 
-    positionProjectMenu(menu, anchor);
-}
-
-function createProjectMenu(project) {
-    const menu = document.createElement("div");
-
-    menu.className = "projectMenu";
-
-    menu.innerHTML = `
-        <button class="menuItem" data-action="edit">
-            <span class="material-symbols-rounded menuItemIcon">
-                edit
-            </span>
-
-            <span>Изменить</span>
-        </button>
-
-        <button class="menuItem is-danger" data-action="delete">
-            <span class="material-symbols-rounded menuItemIcon">
-                delete
-            </span>
-
-            <span>Удалить</span>
-        </button>
-            `;
-
-    bindProjectMenuEvents(menu, project);
-
-    return menu;
-}
-
-function bindProjectMenuEvents(menu, project) {
-    menu.addEventListener("click", event => {
-        const button =
-            event.target.closest("[data-action]");
-
-        if (!button) return;
-
-        switch (button.dataset.action) {
-            case "edit":
-                closeProjectMenu();
+                closeDropdown();
                 openProjectEditor(project);
-                break;
+            }
+        }),
 
-            case "delete":
-                closeProjectMenu();
-                deleteProjectWithConfirmation(project);
-                break;
-        }
-    });
+        createDropdownDivider(),
 
-    document.addEventListener("click", event => {
-        if (!activeProjectMenu) return;
+        createDropdownItem({
+            text: "Удалить",
+            icon: "delete",
+            destructive: true,
 
-        if (activeProjectMenu.contains(event.target)) {
-            return;
-        }
+            onClick: event => {
+                event.stopPropagation();
 
-        closeProjectMenu();
-    });
-}
+                closeDropdown();
 
-function positionProjectMenu(menu, anchor) {
-    const GAP = 6;
-    const VIEWPORT_PADDING = 8;
-
-    const anchorRect = anchor.getBoundingClientRect();
-    const menuRect = menu.getBoundingClientRect();
-
-    let top = anchorRect.bottom + GAP;
-    let left = anchorRect.right - menuRect.width;
-
-    if (
-        top + menuRect.height >
-        window.innerHeight - VIEWPORT_PADDING
-    ) {
-        top =
-            anchorRect.top -
-            menuRect.height -
-            GAP;
-    }
-
-    left = Math.max(
-        VIEWPORT_PADDING,
-        Math.min(
-            left,
-            window.innerWidth -
-            menuRect.width -
-            VIEWPORT_PADDING
-        )
+                deleteProjectWithConfirmation(
+                    project
+                );
+            }
+        })
     );
 
-    top = Math.max(VIEWPORT_PADDING, top);
-
-    menu.style.position = "fixed";
-    menu.style.top = `${top}px`;
-    menu.style.left = `${left}px`;
+    openDropdown({
+        anchor,
+        dropdown,
+        align: "end",
+        removeOnClose: true
+    });
 }
 
-function closeProjectMenu() {
-    if (!activeProjectMenu) return;
+function createProjectDeleteMenuItem(
+    project
+) {
+    const item =
+        createDropdownItem({
+            text: "Удалить",
+            icon: "delete",
 
-    activeProjectMenu.remove();
-    activeProjectMenu = null;
+            onClick: event => {
+                event.stopPropagation();
+
+                closeDropdown();
+
+                deleteProjectWithConfirmation(
+                    project
+                );
+            }
+        });
+
+    item.classList.add(
+        "is-destructive"
+    );
+
+    return item;
 }
