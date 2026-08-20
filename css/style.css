@@ -2221,6 +2221,7 @@ body:not(.is-dragging) .task:hover {
 .boardView .addCategoryButton {
   flex: 0 0 300px;
   align-self: flex-start;
+  margin-top: 14px;
 }
 .boardView .task {
   align-items: flex-start;
@@ -2377,7 +2378,7 @@ body:not(.is-dragging) .task:hover {
   gap: 8px;
   padding: 4px 6px;
   color: var(--color-text);
-  background: transparent;
+  background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: 4px;
   font-size: 13px;

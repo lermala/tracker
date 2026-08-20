@@ -21,6 +21,19 @@ function openProjectMenu(
             }
         }),
 
+        createDropdownItem({
+            text: "Скопировать ссылку",
+            icon: "link",
+            onClick: async () => {
+                await copyEntityUrl(
+                    ENTITY_URL.PROJECT,
+                    project.id
+                );
+
+                closeDropdown();
+            }
+        }),
+
         createDropdownDivider(),
 
         createDropdownItem({

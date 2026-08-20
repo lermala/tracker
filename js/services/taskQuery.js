@@ -9,9 +9,17 @@ function sortTasks(tasks) {
             );
         }
 
-        let result = 0;
+        let result = 0; //
 
         switch (pageSettings.sort) {
+            case "manual":
+                result =
+                    compareNullableNumbers(
+                        a.order,
+                        b.order
+                    );
+                break;
+                
             case "created":
                 result =
                     compareNullableNumbers(
@@ -22,10 +30,9 @@ function sortTasks(tasks) {
 
             case "dueDate":
                 result =
-                    compareNullableNumbers(
-                        a.dueDate,
-                        b.dueDate,
-                        true
+                    compareTaskDueDate(
+                        a,
+                        b
                     );
                 break;
 
@@ -52,6 +59,73 @@ function sortTasks(tasks) {
             (b.order ?? 0)
         );
     });
+}
+
+function compareTaskDueDate(a, b) {
+    const dateResult =
+        compareNullableValues(
+            a.dueDate,
+            b.dueDate,
+            true
+        );
+
+    if (dateResult !== 0) {
+        return dateResult;
+    }
+
+    return compareNullableValues(
+        a.dueTime,
+        b.dueTime,
+        true
+    );
+}
+
+function compareNullableValues(
+    a,
+    b,
+    nullLast = false
+) {
+    const aEmpty = a == null;
+    const bEmpty = b == null;
+
+    if (aEmpty && bEmpty) {
+        return 0;
+    }
+
+    if (aEmpty) {
+        return nullLast ? 1 : -1;
+    }
+
+    if (bEmpty) {
+        return nullLast ? -1 : 1;
+    }
+
+    return String(a).localeCompare(
+        String(b)
+    );
+}
+
+function compareNullableTimes(
+    a,
+    b,
+    nullLast = false
+) {
+    const aEmpty = a == null;
+    const bEmpty = b == null;
+
+    if (aEmpty && bEmpty) {
+        return 0;
+    }
+
+    if (aEmpty) {
+        return nullLast ? 1 : -1;
+    }
+
+    if (bEmpty) {
+        return nullLast ? -1 : 1;
+    }
+
+    return a.localeCompare(b);
 }
 
 function compareNullableNumbers(

@@ -34,6 +34,10 @@ const GROUP_OPTIONS = [
 
 const SORT_OPTIONS = [
     {
+        value: "manual",
+        label: "Нет"
+    },
+    {
         value: "created",
         label: "Дата создания"
     },

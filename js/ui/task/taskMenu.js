@@ -83,8 +83,13 @@ function openTaskMenu({
             text: "Скопировать ссылку",
             icon: "link",
 
-            onClick: () => {
-                // позже
+            onClick: async () => {
+                await copyEntityUrl(
+                    ENTITY_URL.TASK,
+                    task.id
+                );
+
+                closeDropdown();
             }
         }),
 
@@ -130,10 +135,10 @@ function createTaskMenuAction({
             }
         });
 
-/*     item.classList.toggle(
-        "is-destructive",
-        destructive
-    ); */
+    /*     item.classList.toggle(
+            "is-destructive",
+            destructive
+        ); */
 
     return item;
 }

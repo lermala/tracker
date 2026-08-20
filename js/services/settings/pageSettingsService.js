@@ -29,7 +29,7 @@ const TASK_PROPERTY = {
 
 const DEFAULT_PAGE_SETTINGS = {
     filter: "all",
-    sort: "created",
+    sort: "dueDate",
     // sortDirection: "desc",
     search: "",
     hideCompleted: false,

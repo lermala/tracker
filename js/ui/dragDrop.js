@@ -3,6 +3,8 @@ function initTaskSortable(container) {
         group: "tasks",
         animation: 150,
 
+        sort: pageSettings.sort === "manual",
+
         chosenClass: "is-chosen",
         ghostClass: "is-ghost",
         dragClass: "is-dragging",
@@ -67,7 +69,10 @@ async function moveTask(
         });
     }
 
-    if (pageSettings.group === GROUP.CATEGORY) {
+    if (
+        pageSettings.group === GROUP.CATEGORY &&
+        pageSettings.sort === "manual"
+    ) {
         await saveTaskOrder(fromContainer);
 
         if (fromContainer !== toContainer) {
