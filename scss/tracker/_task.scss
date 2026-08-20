@@ -7,17 +7,21 @@
     align-items: flex-start;
 
     width: 100%;
-
     gap: $space-m;
     padding: $space-m;
 
     color: var(--color-text);
-
     line-height: 20px;
 
     transition:
         border-color .15s ease,
         background-color .15s ease;
+
+    .taskCheckbox,
+    .menuButton,
+    .taskOpenButton {
+        flex-shrink: 0;
+    }
 
     .menuButton {
         opacity: 0;
@@ -102,16 +106,46 @@
 // ======================================
 
 .taskContent {
-    flex: 1;
+    flex: 1 1 0;
     min-width: 0;
 
     color: var(--color-text);
     background: transparent;
+
+    flex: 1 1 0;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .taskTitle {
+    width: 100%;
+    min-width: 0;
+
     overflow-wrap: anywhere;
+
     cursor: default;
+
+    line-height: 1.3;
+}
+
+.taskDescription {
+    width: 100%;
+    min-width: 0;
+
+    //margin-bottom: 2px;
+
+    overflow: hidden;
+
+    color: var(--color-text-secondary);
+
+    font-size: 13px;
+    line-height: 1.2;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .taskProperties {
@@ -233,6 +267,7 @@
             line-height: 21px;
         }
 
+        .taskDescription,
         .taskTimer,
         .taskDueDate {
             font-size: $mobile-font-secondary;

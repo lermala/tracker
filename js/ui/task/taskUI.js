@@ -105,8 +105,14 @@ function updateTaskUI(task, item, elements) {
         title
     } = elements;
 
-    title.textContent = task.title;
     fillTaskCheckbox(taskCheckbox, task);
+
+    title.textContent = task.title;
+
+    renderTaskDescription(
+        title,
+        task
+    );
 
     renderTaskProperties(
         elements.properties,
@@ -116,4 +122,34 @@ function updateTaskUI(task, item, elements) {
     // Состояния задачи
     item.classList.toggle("is-completed", task.isCompleted);
     item.classList.toggle("is-running", task.startedAt !== null);
+}
+
+function renderTaskDescription(
+    title,
+    task
+) {
+    const current = title.nextElementSibling;
+    if (current?.classList.contains("taskDescription")) {
+        current.remove();
+    }
+
+    const description = createTaskDescription(task);
+    if (!description) {
+        return;
+    }
+
+    title.after(description);
+}
+
+function createTaskDescription(task) {
+    const description = task.description?.trim();
+    if (!description) {
+        return null;
+    }
+
+    const element = document.createElement("div");
+    element.className = "taskDescription";
+    element.textContent = getTaskDescriptionPreview(description);
+
+    return element;
 }

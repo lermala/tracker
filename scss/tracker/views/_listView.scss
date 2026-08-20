@@ -50,8 +50,25 @@
     }
 
     .taskTitle {
-        flex: 1;
+        grid-column: 1;
+        grid-row: 1;
         min-width: 0;
+    }
+
+    .taskDescription {
+        grid-column: 1;
+        grid-row: 2;
+
+        min-width: 0;
+
+        margin-top: $space-xxs;
+    }
+
+    .taskMeta {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+
+        align-self: start;
     }
 
     .taskProperties {
@@ -66,10 +83,11 @@
 }
 
 .tasksContainer:has(.listView) {
+
     .tasksHeader,
     .trackerToolbar,
     .taskGroup,
-    > .addCategoryButton {
+    >.addCategoryButton {
         width: 100%;
         max-width: 800px;
         margin-inline: auto;

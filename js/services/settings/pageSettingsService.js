@@ -18,6 +18,7 @@ const GROUP = {
 };
 
 const TASK_PROPERTY = {
+    DESCRIPTION: "description",
     ASSIGNEE: "assignee",
     DUE_DATE: "dueDate",
     DURATION: "duration",

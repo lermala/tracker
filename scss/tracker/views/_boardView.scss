@@ -36,10 +36,22 @@
         width: 100%;
     }
 
+    .taskDescription {
+        display: -webkit-box;
+
+        white-space: normal;
+        text-overflow: initial;
+
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+
     .taskProperties {
         width: 100%;
 
         justify-content: flex-start;
+
+        // margin-top: $space-xxs;
     }
 }
 

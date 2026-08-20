@@ -40,9 +40,7 @@ function renderTaskProperties(
         getVisibleTaskProperties();
 
     properties.forEach(property => {
-        const config =
-            TASK_PROPERTY_CONFIG[property];
-
+        const config = TASK_PROPERTY_CONFIG[property];
         if (!config) return;
 
         const element =
@@ -226,9 +224,9 @@ function createTaskProjectProperty(task) {
     element.className = "taskProperty taskProject";
 
     const badge = createBadge({
-            text: project.title,
-            color: project.color
-        });
+        text: project.title,
+        color: project.color
+    });
 
     element.append(badge);
 
@@ -240,12 +238,8 @@ function createTaskCategoryProperty(task) {
         return null;
     }
 
-    const element =
-        document.createElement("div");
-
-    element.className =
-        "taskProperty taskCategory";
-
+    const element = document.createElement("div");
+    element.className = "taskProperty taskCategory";
     fillTaskCategory(
         element,
         task
@@ -261,3 +255,21 @@ function createTaskCategoryProperty(task) {
 
     return element;
 }
+
+function createTaskDescription(task) {
+    const description = task.description?.trim();
+
+    if (!description) {
+        return null;
+    }
+
+    const element = document.createElement("div");
+    element.className = "taskDescription";
+    element.textContent =
+        getTaskDescriptionPreview(
+            description
+        );
+
+    return element;
+}
+
