@@ -1,0 +1,232 @@
+.timesheetView {
+    width: 100%;
+    max-width: 1100px;
+    margin-inline: auto;
+    padding-inline: $space-m;
+    padding-top: $space-l;
+}
+
+.timesheetFilters {
+    display: flex;
+    align-items: center;
+    gap: $space-m;
+
+    margin-bottom: $space-l;
+}
+
+.timesheetPeriod {
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+}
+
+.timesheetDateButton {
+    @extend %button;
+
+    display: inline-flex;
+    align-items: center;
+    gap: $space-xs;
+
+    height: 34px;
+    padding: 0 $space-s;
+
+    border: 1px solid var(--color-border);
+    border-radius: $bd-radius;
+
+    background: var(--color-background);
+    color: var(--color-text);
+
+    font-size: 14px;
+
+    span.material-symbols-rounded {
+        font-size: 17px;
+        color: var(--color-text-secondary);
+    }
+
+    &:hover {
+        background: var(--color-hover);
+    }
+}
+
+.timesheetPeriodSeparator {
+    color: var(--color-text-secondary);
+}
+
+.timesheetProjectSelect {
+    height: 34px;
+    min-width: 180px;
+    padding: 0 $space-s;
+
+    border: 1px solid var(--color-border);
+    border-radius: $bd-radius;
+
+    background: var(--color-background);
+    color: var(--color-text);
+
+    font: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    &:hover {
+        border-color: var(--color-text-secondary);
+    }
+
+    &:focus {
+        border-color: var(--color-accent);
+    }
+}
+
+.timesheetContent {
+    width: 100%;
+}
+
+.timesheetTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    th,
+    td {
+        padding: $space-s;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    th {
+        // color: var(--color-text-secondary);
+        // // font-size: 12px;
+        font-weight: 700; 
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    td {
+        font-size: 14px;
+    }
+
+    // Проект
+    th:nth-child(1),
+    td:nth-child(1) {
+        width: 15%;
+    }
+
+    // Задача
+    th:nth-child(2),
+    td:nth-child(2) {
+        width: 27%;
+    }
+
+    // Начало
+    th:nth-child(3),
+    td:nth-child(3) {
+        width: 10%;
+    }
+
+    // Окончание
+    th:nth-child(4),
+    td:nth-child(4) {
+        width: 11%;
+    }
+
+    // Время
+    th:nth-child(5),
+    td:nth-child(5) {
+        width: 11%;
+    }
+
+    // Примечание
+    th:nth-child(6),
+    td:nth-child(6) {
+        width: 26%;
+    }
+}
+
+.timesheetDayRow {
+    td {
+        padding-top: $space-m;
+        padding-bottom: $space-xs;
+
+        background: var(--color-surface-secondary);
+        font-weight: 500; 
+
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    td:nth-child(5) {
+        text-align: left;
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+.timesheetEntryRow {
+    td {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    &:hover td {
+        background: var(--color-hover);
+    }
+
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5) {
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+.timesheetEntryRow {
+    td:nth-child(2),
+    td:nth-child(6) {
+        overflow-wrap: anywhere;
+    }
+
+    td:nth-child(6) {
+        color: var(--color-text-secondary);
+    }
+}
+
+.timesheetEmptyRow {
+    td {
+        padding: $space-s;
+
+        color: var(--color-text-secondary);
+        font-size: 13px;
+
+        border-bottom: 1px solid var(--color-border);
+    }
+}
+
+.timesheetTotal {
+    display: flex;
+    justify-content: flex-end;
+
+    padding: $space-m $space-s;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.timesheetNoteCell {
+    color: var(--color-text-secondary);
+    cursor: text;
+
+    &.is-editing {
+        padding: 0;
+    }
+}
+
+.timesheetNoteInput {
+    width: 100%;
+    min-width: 0;
+    padding: $space-s;
+
+    color: var(--color-text);
+    background: var(--color-background);
+
+    border: 1px solid var(--color-accent);
+    border-radius: $bd-radius;
+
+    font: inherit;
+    outline: none;
+}

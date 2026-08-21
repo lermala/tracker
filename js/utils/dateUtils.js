@@ -252,3 +252,29 @@ function formatTime(date) {
         }
     );
 }
+
+function formatDateWithWeekday(date) {
+    const weekday = date
+        .toLocaleDateString("ru-RU", {
+            weekday: "short"
+        })
+        .replace(".", "");
+
+    const day = date.getDate();
+
+    const month = date
+        .toLocaleDateString("ru-RU", {
+            month: "short"
+        })
+        .replace(".", "");
+
+    return `${weekday}, ${day} ${month}`;
+}
+
+function formatShortDate(date) {
+    return date.toLocaleDateString("ru-RU", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    });
+}

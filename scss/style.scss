@@ -41,10 +41,12 @@
 @import "tracker/_projectEditor";
 @import "tracker/_task";
 @import "tracker/_taskstates";
-@import "tracker/_tracker"; // интерфейс трекера и задач
 @import "tracker/_toolbar"; // интерфейс меню трекера
 @import "tracker/_taskgroup";
 @import "tracker/_taskCard";
+
+@import "tracker/_tracker"; // интерфейс трекера и задач
+@import "tracker/_timesheetUI";
 
 @import "tracker/views/_listView";
 @import "tracker/views/_boardView";

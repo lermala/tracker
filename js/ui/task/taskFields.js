@@ -81,7 +81,7 @@ function fillTaskDuration(duration, timerButtonIcon, task) {
     const isRunning = getActiveTimeEntry()?.taskId === task.id;
 
     timerButtonIcon.textContent =
-        isRunning
+        !isRunning
             ? "play_circle"
             : "pause_circle";
 }

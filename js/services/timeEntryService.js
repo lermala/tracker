@@ -167,3 +167,28 @@ function getTaskDuration(taskId) {
             0
         );
 }
+
+
+async function updateTimeEntry(id, changes) {
+    const entry = getTimeEntryById(id);
+    if (!entry) return null;
+
+    const previous = { ...entry };
+
+    Object.assign(entry, changes);
+
+    try {
+        const savedEntry = await updateTimeEntryInDb(entry);
+
+        Object.assign(entry, savedEntry);
+
+        return entry;
+    } catch (error) {
+        Object.assign(entry, previous);
+        throw error;
+    }
+}
+
+function getTimeEntryById(id) {
+    return timeEntries.find(entry => entry.id === id);
+}

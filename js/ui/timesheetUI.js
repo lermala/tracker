@@ -8,14 +8,15 @@ let timesheetPeriod = {
 function renderTimesheetView() {
     trackerView.innerHTML = "";
 
-    const filters =
-        createTimesheetFilters();
+    const filters = createTimesheetFilters();
+    const days =
+        getTimesheetDays({
+            from: timesheetPeriod.from,
+            to: timesheetPeriod.to,
+            projectId: timesheetProjectId
+        });
 
-    const entries =
-        getFilteredTimesheetEntries();
-
-    const content =
-        createTimesheetContent(entries);
+    const content = createTimesheetContent(days);
 
     trackerView.append(
         filters,
@@ -25,249 +26,220 @@ function renderTimesheetView() {
 
 
 function createTimesheetFilters() {
-    const filters =
-        document.createElement("div");
+    const filters = document.createElement("div");
+    filters.className = "timesheetFilters";
 
-    filters.className =
-        "timesheetFilters";
+    const period = document.createElement("div");
+    period.className = "timesheetPeriod";
 
-    const fromInput =
-        document.createElement("input");
-
-    fromInput.type = "date";
-    fromInput.className =
-        "timesheetDateInput";
-
-    fromInput.value =
-        formatDateForStorage(
-            timesheetPeriod.from
-        );
-
-    const toInput =
-        document.createElement("input");
-
-    toInput.type = "date";
-    toInput.className =
-        "timesheetDateInput";
-
-    toInput.value =
-        formatDateForStorage(
-            timesheetPeriod.to
-        );
-
-
-    fromInput.addEventListener(
-        "change",
-        () => {
-            const date =
-                parseDate(fromInput.value);
-
-            if (!date) return;
-
+    const fromButton = createTimesheetDateButton({
+        date: timesheetPeriod.from,
+        onChange: date => {
             date.setHours(0, 0, 0, 0);
-
             timesheetPeriod.from = date;
 
             renderTimesheetView();
         }
-    );
+    });
 
-    toInput.addEventListener(
-        "change",
-        () => {
-            const date =
-                parseDate(toInput.value);
+    const separator = document.createElement("span");
+    separator.className = "timesheetPeriodSeparator";
+    separator.textContent = "—";
 
-            if (!date) return;
-
-            date.setHours(
-                23,
-                59,
-                59,
-                999
-            );
-
+    const toButton = createTimesheetDateButton({
+        date: timesheetPeriod.to,
+        onChange: date => {
+            date.setHours(23, 59, 59, 999);
             timesheetPeriod.to = date;
 
             renderTimesheetView();
         }
-    );
-
-
-    const projectSelect =
-        document.createElement("select");
-
-    projectSelect.className =
-        "timesheetProjectSelect";
-
-    const allProjectsOption =
-        document.createElement("option");
-
-    allProjectsOption.value = "";
-    allProjectsOption.textContent =
-        "Все проекты";
-
-    projectSelect.append(
-        allProjectsOption
-    );
-
-    projects.forEach(project => {
-        const option =
-            document.createElement("option");
-
-        option.value = project.id;
-        option.textContent = project.title;
-
-        projectSelect.append(option);
     });
 
-    projectSelect.value =
-        timesheetProjectId ?? "";
+    const projectSelect = createTimesheetProjectSelect();
 
-
-    projectSelect.addEventListener(
-        "change",
-        () => {
-            timesheetProjectId =
-                projectSelect.value || null;
-
-            renderTimesheetView();
-        }
+    period.append(
+        fromButton,
+        separator,
+        toButton
     );
 
-
-
     filters.append(
-        fromInput,
-        toInput,
+        period,
         projectSelect
     );
 
     return filters;
 }
 
-function createTimesheetContent(entries) {
-    const content =
-        document.createElement("div");
+function createTimesheetDateButton({
+    date,
+    onChange
+}) {
+    const button = document.createElement("button");
 
-    content.className =
-        "timesheetContent";
+    button.type = "button";
+    button.className = "timesheetDateButton";
 
-    if (entries.length === 0) {
-        const empty =
-            document.createElement("div");
+    const icon = document.createElement("span");
+    icon.className = "material-symbols-rounded";
+    icon.textContent = "calendar_today";
 
-        empty.className =
-            "timesheetEmpty";
+    const text = document.createElement("span");
+    text.textContent = formatShortDate(date);
 
-        empty.textContent =
-            "За выбранный период записей нет";
+    button.append(icon, text);
 
-        content.append(empty);
+    button.addEventListener("click", event => {
+        event.stopPropagation();
 
-        return content;
-    }
+        openDatePicker({
+            anchor: button,
 
-    const table =
-        document.createElement("table");
+            value: {
+                date: formatDateForStorage(date),
+                time: null
+            },
 
-    table.className =
-        "timesheetTable";
+            allowTime: false,
+
+            onChange: ({ date: selectedDate }) => {
+                if (!selectedDate) return;
+
+                onChange(
+                    parseDate(selectedDate)
+                );
+            }
+        });
+    });
+
+    return button;
+}
+
+function createTimesheetProjectSelect() {
+    const select = document.createElement("select");
+    select.className = "timesheetProjectSelect";
+
+    const allOption = document.createElement("option");
+    allOption.value = "";
+    allOption.textContent = "Все проекты";
+
+    select.append(allOption);
+
+    [...projects]
+        .sort((a, b) =>
+            a.title.localeCompare(b.title, "ru")
+        )
+        .forEach(project => {
+            const option = document.createElement("option");
+
+            option.value = project.id;
+            option.textContent = project.title;
+
+            select.append(option);
+        });
+
+    select.value = timesheetProjectId ?? "";
+
+    select.addEventListener("change", () => {
+        timesheetProjectId = select.value || null;
+        renderTimesheetView();
+    });
+
+    return select;
+}
+
+
+
+function createTimesheetContent(days) {
+    const content = document.createElement("div");
+    content.className = "timesheetContent";
+
+    const table = document.createElement("table");
+    table.className = "timesheetTable";
 
     table.innerHTML = `
         <thead>
             <tr>
                 <th>Проект</th>
                 <th>Задача</th>
-                <th>Примечание</th>
                 <th>Начало</th>
                 <th>Окончание</th>
                 <th>Время</th>
+                <th>Примечание</th>
             </tr>
         </thead>
     `;
 
-    const body =
-        document.createElement("tbody");
+    const body = document.createElement("tbody");
 
-    entries.forEach(entry => {
-        body.append(
-            createTimesheetRow(entry)
-        );
+    days.forEach(day => {
+        appendTimesheetDay(body, day);
     });
 
     table.append(body);
 
-    const totalSeconds =
-        entries.reduce(
-            (total, entry) =>
-                total +
-                getTimeEntryDuration(entry),
-            0
-        );
+    const total = createTimesheetTotal(days);
 
-    const total =
-        document.createElement("div");
-
-    total.className =
-        "timesheetTotal";
-
-    total.textContent =
-        `Итого: ${formatDuration(totalSeconds)}`;
-
-    content.append(
-        table,
-        total
-    );
+    content.append(table, total);
 
     return content;
 }
 
 
-function createTimesheetRow(entry) {
-    const row =
-        document.createElement("tr");
+function createTimesheetRow(segment) {
+    const row = document.createElement("tr");
+    row.className = "timesheetEntryRow";
 
-    const task =
-        getTaskById(entry.taskId);
-
+    const entry = segment.entry;
+    const task = getTaskById(entry.taskId);
     const project = task
         ? getProjectById(task.projectId)
         : null;
 
-    const startedAt =
-        new Date(entry.startedAt);
-
-    const endedAt = entry.endedAt
-        ? new Date(entry.endedAt)
-        : null;
+    const startedAt = new Date(segment.startedAt);
+    const endedAt = new Date(segment.endedAt);
 
     row.append(
+        createTimesheetCell(project?.title),
+        createTimesheetCell(task?.title),
+        createTimesheetCell(formatTime(startedAt)),
         createTimesheetCell(
-            project?.title ?? "—"
+            segment.isRunning
+                ? "Сейчас"
+                : formatTime(endedAt)
         ),
         createTimesheetCell(
-            task?.title ?? "—"
+            formatDuration(segment.duration)
         ),
-        createTimesheetCell(
-            entry.note || "—"
-        ),
-        createTimesheetCell(
-            formatTime(startedAt)
-        ),
-        createTimesheetCell(
-            endedAt
-                ? formatTime(endedAt)
-                : "Сейчас"
-        ),
-        createTimesheetCell(
-            formatDuration(
-                getTimeEntryDuration(entry)
-            )
-        )
+        createTimesheetNoteCell(entry)
     );
 
     return row;
+}
+
+function createTimesheetNoteCell(entry) {
+    const cell = document.createElement("td");
+    cell.className = "timesheetNoteCell";
+
+    fillTimesheetNoteCell(cell, entry);
+
+    cell.addEventListener("click", event => {
+        event.stopPropagation();
+
+        if (cell.classList.contains("is-editing")) {
+            return;
+        }
+
+        startEditTimesheetNote(cell, entry);
+    });
+
+    return cell;
+}
+
+function fillTimesheetNoteCell(cell, entry) {
+    cell.textContent = entry.note;
+    cell.classList.toggle("is-empty", !entry.note);
 }
 
 function createTimesheetCell(text) {
@@ -279,24 +251,129 @@ function createTimesheetCell(text) {
     return cell;
 }
 
-function getFilteredTimesheetEntries() {
-    const entries =
-        getTimeEntriesByPeriod(
-            timesheetPeriod.from,
-            timesheetPeriod.to
-        );
+function appendTimesheetDay(body, day) {
+    body.append(createTimesheetDayRow(day));
 
-    if (!timesheetProjectId) {
-        return entries;
+    if (day.entries.length === 0) {
+        body.append(createTimesheetEmptyRow());
+        return;
     }
 
-    return entries.filter(entry => {
-        const task =
-            getTaskById(entry.taskId);
-
-        return (
-            task?.projectId ===
-            timesheetProjectId
-        );
+    day.entries.forEach(segment => {
+        body.append(createTimesheetRow(segment));
     });
+}
+
+function createTimesheetDayRow(day) {
+    const row = document.createElement("tr");
+    row.className = "timesheetDayRow";
+
+    const dateCell = document.createElement("td");
+    dateCell.colSpan = 4;
+    dateCell.textContent = formatDateWithWeekday(day.date);
+
+    const totalLabelCell = document.createElement("td");
+    totalLabelCell.textContent = formatDuration(day.totalDuration);
+
+    const emptyCell = document.createElement("td");
+
+    row.append(
+        dateCell,
+        totalLabelCell,
+        emptyCell
+    );
+
+    return row;
+}
+
+function createTimesheetEmptyRow() {
+    const row = document.createElement("tr");
+    row.className = "timesheetEmptyRow";
+
+    const cell = document.createElement("td");
+    cell.colSpan = 6;
+    cell.textContent = "Нет записей";
+
+    row.append(cell);
+
+    return row;
+}
+
+function createTimesheetTotal(days) {
+    const total = document.createElement("div");
+    total.className = "timesheetTotal";
+
+    const duration = getTimesheetTotal(days);
+    total.textContent = `Итого за период: ${formatDuration(duration)}`;
+
+    return total;
+}
+
+function startEditTimesheetNote(cell, entry) {
+    cell.classList.add("is-editing");
+    cell.innerHTML = "";
+
+    const input = document.createElement("input");
+
+    input.type = "text";
+    input.className = "timesheetNoteInput";
+    input.value = entry.note ?? "";
+    input.placeholder = "Добавить примечание";
+
+    cell.append(input);
+
+    input.focus();
+    input.select();
+
+    let finished = false;
+
+    const save = async () => {
+        if (finished) return;
+        finished = true;
+
+        const note = input.value.trim();
+
+        try {
+            await updateTimeEntry(
+                entry.id,
+                {
+                    note: note || null
+                }
+            );
+        } catch (error) {
+            console.error(
+                "UPDATE TIME ENTRY NOTE ERROR:",
+                error
+            );
+        }
+
+        cell.classList.remove("is-editing");
+        fillTimesheetNoteCell(cell, entry);
+    };
+
+    const cancel = () => {
+        if (finished) return;
+        finished = true;
+
+        cell.classList.remove("is-editing");
+        fillTimesheetNoteCell(cell, entry);
+    };
+
+    input.addEventListener("click", event => {
+        event.stopPropagation();
+    });
+
+    input.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            input.blur();
+        }
+
+        if (event.key === "Escape") {
+            event.preventDefault();
+            cancel();
+        }
+    });
+
+    input.addEventListener("blur", save);
 }

@@ -97,14 +97,15 @@ h6 {
   --color-today: #d19a66;
   --color-tomorrow: #6aab7b;
   --color-this-week: #6f91c7;
+  
   --color-later: #8b8b8b;
 }
 
-.badge.is-interactive, .taskDueDate, .taskPriority, .taskCheckbox, .addButtonIcon, .taskCalendarTodayButton, .addCategoryButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .timerControl .timerButton, .sidebarHeader .sidebarUserButton, .authSwitch, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton {
+.badge.is-interactive, .taskDueDate, .taskPriority, .taskCheckbox, .addButtonIcon, .taskCalendarTodayButton, .timesheetDateButton, .addCategoryButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton {
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
-.badge.is-interactive:active, .taskDueDate:active, .taskPriority:active, .taskCheckbox:active, .addButtonIcon:active, .taskCalendarTodayButton:active, .addCategoryButton:active, .segmentedControlButton:active, .toolbarButton:active, .toolbarAction:active, .timerControl .timerButton:active, .sidebarHeader .sidebarUserButton:active, .authSwitch:active, .colorPickerOption:active, .calendarDay:active, .projectEditorCancelButton:active, .settingsAvatarDeleteButton:active, .settingsAvatarChangeButton:active, .settingsCancelButton:active, .projectEditorSaveButton:active, .settingsSaveButton:active, .authSubmit:active, .addButton:active, .settingsNavItem:active, .sidebarNavItem:active, .priorityPickerOption:active, .datePickerOption:active, .menuItem:active, .toggleButton:active, .taskCalendarNavigationButton:active, .pageMenuButton:active, .sidebarToggleButton:active, .calendarNavButton:active, .menuButton:active, .deleteButton:active, .iconButton:active, .taskCardCloseButton:active, .projectEditorCloseButton:active, .settingsCloseButton:active {
+.badge.is-interactive:active, .taskDueDate:active, .taskPriority:active, .taskCheckbox:active, .addButtonIcon:active, .taskCalendarTodayButton:active, .timesheetDateButton:active, .addCategoryButton:active, .segmentedControlButton:active, .toolbarButton:active, .toolbarAction:active, .sidebarHeader .sidebarUserButton:active, .authSwitch:active, .timerControl .timerButton:active, .colorPickerOption:active, .calendarDay:active, .projectEditorCancelButton:active, .settingsAvatarDeleteButton:active, .settingsAvatarChangeButton:active, .settingsCancelButton:active, .projectEditorSaveButton:active, .settingsSaveButton:active, .authSubmit:active, .addButton:active, .settingsNavItem:active, .sidebarNavItem:active, .priorityPickerOption:active, .datePickerOption:active, .menuItem:active, .toggleButton:active, .taskCalendarNavigationButton:active, .pageMenuButton:active, .sidebarToggleButton:active, .calendarNavButton:active, .menuButton:active, .deleteButton:active, .iconButton:active, .taskCardCloseButton:active, .projectEditorCloseButton:active, .settingsCloseButton:active {
   transform: scale(0.97);
 }
 
@@ -112,7 +113,7 @@ h6 {
   background: var(--color-hover);
 }
 
-.taskCalendarTodayButton, .addCategoryButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .timerControl .timerButton, .sidebarHeader .sidebarUserButton, .authSwitch, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton {
+.taskCalendarTodayButton, .timesheetDateButton, .addCategoryButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton {
   margin: 0;
   padding: 0;
   font: inherit;
@@ -124,7 +125,7 @@ h6 {
           appearance: none;
 }
 
-.taskCalendarTodayButton, .addCategoryButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .timerControl .timerButton, .sidebarHeader .sidebarUserButton, .authSwitch, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton {
+.taskCalendarTodayButton, .timesheetDateButton, .addCategoryButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1154,6 +1155,26 @@ textarea.textEditor.taskTitle {
   resize: vertical;
 }
 
+.timerControl {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.timerControl .timerButton {
+  padding: 0;
+}
+.timerControl .timerButton span {
+  font-size: 17px;
+  line-height: 1;
+  color: var(--color-text-secondary);
+}
+.timerControl .timerButton:hover, .timerControl .timerButton.is-running {
+  color: var(--color-accent);
+}
+.timerControl .timerButton:hover span, .timerControl .timerButton.is-running span {
+  color: inherit;
+}
+
 .authPage {
   min-height: 100vh;
   display: flex;
@@ -1697,26 +1718,6 @@ body:not(.is-dragging) .task:hover .menuButton {
   white-space: nowrap;
 }
 
-.timerControl {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-}
-.timerControl .timerButton {
-  padding: 0;
-}
-.timerControl .timerButton span {
-  font-size: 17px;
-  line-height: 1;
-  color: var(--color-text-secondary);
-}
-.timerControl .timerButton:hover {
-  color: var(--color-accent);
-}
-.timerControl .timerButton:hover span {
-  color: inherit;
-}
-
 .taskAssignee {
   gap: 6px;
   border-radius: 4px;
@@ -1789,24 +1790,6 @@ body:not(.is-dragging) .task:hover {
 .task.is-running .taskDurationProperty .timerButton span {
   color: var(--color-accent);
   font-weight: 500;
-}
-
-.tasksContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-width: 0;
-  min-height: 0;
-  flex: 1;
-  font-size: 14px;
-  overflow: hidden;
-}
-
-.trackerView {
-  min-width: 0;
-  min-height: 0;
-  flex: 1;
-  overflow: auto;
 }
 
 .tasksHeader {
@@ -2145,6 +2128,203 @@ body:not(.is-dragging) .task:hover {
     font-size: 14px;
   }
 }
+.tasksContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex: 1;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+.trackerView {
+  min-width: 0;
+  min-height: 0;
+  flex: 1;
+  overflow: auto;
+}
+
+.timesheetView {
+  width: 100%;
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-inline: 10px;
+  padding-top: 14px;
+}
+
+.timesheetFilters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.timesheetPeriod {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.timesheetDateButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-size: 14px;
+}
+.timesheetDateButton span.material-symbols-rounded {
+  font-size: 17px;
+  color: var(--color-text-secondary);
+}
+.timesheetDateButton:hover {
+  background: var(--color-hover);
+}
+
+.timesheetPeriodSeparator {
+  color: var(--color-text-secondary);
+}
+
+.timesheetProjectSelect {
+  height: 34px;
+  min-width: 180px;
+  padding: 0 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-background);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+}
+.timesheetProjectSelect:hover {
+  border-color: var(--color-text-secondary);
+}
+.timesheetProjectSelect:focus {
+  border-color: var(--color-accent);
+}
+
+.timesheetContent {
+  width: 100%;
+}
+
+.timesheetTable {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.timesheetTable th,
+.timesheetTable td {
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+}
+.timesheetTable th {
+  font-weight: 700;
+  border-bottom: 1px solid var(--color-border);
+}
+.timesheetTable td {
+  font-size: 14px;
+}
+.timesheetTable th:nth-child(1),
+.timesheetTable td:nth-child(1) {
+  width: 15%;
+}
+.timesheetTable th:nth-child(2),
+.timesheetTable td:nth-child(2) {
+  width: 27%;
+}
+.timesheetTable th:nth-child(3),
+.timesheetTable td:nth-child(3) {
+  width: 10%;
+}
+.timesheetTable th:nth-child(4),
+.timesheetTable td:nth-child(4) {
+  width: 11%;
+}
+.timesheetTable th:nth-child(5),
+.timesheetTable td:nth-child(5) {
+  width: 11%;
+}
+.timesheetTable th:nth-child(6),
+.timesheetTable td:nth-child(6) {
+  width: 26%;
+}
+
+.timesheetDayRow td {
+  padding-top: 10px;
+  padding-bottom: 6px;
+  background: var(--color-surface-secondary);
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-border);
+}
+.timesheetDayRow td:nth-child(5) {
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+.timesheetEntryRow td {
+  border-bottom: 1px solid var(--color-border);
+}
+.timesheetEntryRow:hover td {
+  background: var(--color-hover);
+}
+.timesheetEntryRow td:nth-child(3),
+.timesheetEntryRow td:nth-child(4),
+.timesheetEntryRow td:nth-child(5) {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.timesheetEntryRow td:nth-child(2),
+.timesheetEntryRow td:nth-child(6) {
+  overflow-wrap: anywhere;
+}
+.timesheetEntryRow td:nth-child(6) {
+  color: var(--color-text-secondary);
+}
+
+.timesheetEmptyRow td {
+  padding: 8px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.timesheetTotal {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.timesheetNoteCell {
+  color: var(--color-text-secondary);
+  cursor: text;
+}
+.timesheetNoteCell.is-editing {
+  padding: 0;
+}
+
+.timesheetNoteInput {
+  width: 100%;
+  min-width: 0;
+  padding: 8px;
+  color: var(--color-text);
+  background: var(--color-background);
+  border: 1px solid var(--color-accent);
+  border-radius: 4px;
+  font: inherit;
+  outline: none;
+}
+
 .listView {
   width: 100%;
   padding-inline: 10px;
