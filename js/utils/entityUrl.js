@@ -3,6 +3,10 @@ const ENTITY_URL = {
     TASK: "task"
 };
 
+const PAGE_URL = {
+    TIMESHEET: "timesheet"
+};
+
 const BASE_PATH =
     window.location.hostname.endsWith(".github.io")
         ? "/tracker"
@@ -12,6 +16,16 @@ const BASE_PATH =
 function createEntityUrl(type, id) {
     const path =
         `${BASE_PATH}/${type}/${id}`;
+
+    return new URL(
+        path,
+        window.location.origin
+    ).toString();
+}
+
+function createPageUrl(type) {
+    const path =
+        `${BASE_PATH}/${type}`;
 
     return new URL(
         path,
@@ -69,6 +83,16 @@ function setEntityUrl(type, id) {
     );
 }
 
+function setPageUrl(type) {
+    const url = createPageUrl(type);
+
+    history.pushState(
+        null,
+        "",
+        url
+    );
+}
+
 
 function clearEntityUrl() {
     history.pushState(
@@ -90,10 +114,10 @@ async function copyEntityUrl(type, id) {
     return url;
 }
 
-function restoreEntityUrl() {
+function restoreUrl() {
     const redirectPath =
         sessionStorage.getItem(
-            "redirectPath"
+            REDIRECT_URL_KEY
         );
 
     if (!redirectPath) {
@@ -101,7 +125,7 @@ function restoreEntityUrl() {
     }
 
     sessionStorage.removeItem(
-        "redirectPath"
+        REDIRECT_URL_KEY
     );
 
     history.replaceState(

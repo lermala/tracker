@@ -9,6 +9,11 @@ function initToolbarUI() {
 }
 
 function renderToolbarUI() {
+    if (currentPage.type === PAGE.TIMESHEET) {
+        trackerToolbar.hidden = true;
+        return;
+    }
+
     updateViewButtons();
     renderPageSettingsUI();
 }

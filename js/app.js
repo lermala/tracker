@@ -14,7 +14,7 @@ let viewSettings = getViewSettings();
 let pageSettings = getPageSettings(currentPage);
 
 applyAppearance(getAppearance());
-restoreEntityUrl();
+restoreUrl();
 initApp();
 
 async function initApp() {
@@ -49,7 +49,7 @@ async function loadTracker() {
 
     await loadTimeEntries();
 
-    const initialTask = await handleInitialEntityUrl();
+    const initialTask = await handleInitialUrl();
 
     await startTracker();
 
@@ -119,7 +119,12 @@ function selectPage(page) {
     }
 
     currentPage = page;
-    pageSettings = getPageSettings(currentPage);
+
+    if (currentPage.type === PAGE.TIMESHEET) {
+        pageSettings = null;
+    } else {
+        pageSettings = getPageSettings(currentPage);
+    }
 
     renderNavigation();
     renderToolbarUI();

@@ -1,8 +1,9 @@
 const PAGE_SETTINGS_KEY = "tracker-page-settings";
 
 const PAGE = {
-    PROJECT: "project",
-    MY_TASKS: "myTasks"
+    MY_TASKS: "myTasks",
+    TIMESHEET: "timesheet",
+    PROJECT: "project"
 };
 
 const VIEW = {

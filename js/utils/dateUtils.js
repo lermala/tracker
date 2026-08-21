@@ -120,31 +120,42 @@ function getEndOfWeek(date) {
     return result;
 }
 
-/* function getTimeFromDate(value) {
-    if (!value) return null;
+function getStartOfWeek(date = new Date()) {
+    const result = new Date(date);
 
-    if (typeof value === "number") {
-        const date = new Date(value);
+    const day = result.getDay();
 
-        const hours = String(
-            date.getHours()
-        ).padStart(2, "0");
+    const diff =
+        day === 0
+            ? -6
+            : 1 - day;
 
-        const minutes = String(
-            date.getMinutes()
-        ).padStart(2, "0");
+    result.setDate(
+        result.getDate() + diff
+    );
 
-        return `${hours}:${minutes}`;
-    }
+    result.setHours(0, 0, 0, 0);
 
-    if (!value.includes("T")) {
-        return null;
-    }
+    return result;
+}
 
-    return value
-        .split("T")[1]
-        .slice(0, 5);
-} */
+function getEndOfWeekDate(date = new Date()) {
+    const result =
+        getStartOfWeek(date);
+
+    result.setDate(
+        result.getDate() + 6
+    );
+
+    result.setHours(
+        23,
+        59,
+        59,
+        999
+    );
+
+    return result;
+}
 
 function normalizeTime(value) {
     const input = value.trim();
@@ -230,4 +241,14 @@ function formatDuration(seconds) {
             String(value).padStart(2, "0")
         )
         .join(":");
+}
+
+function formatTime(date) {
+    return date.toLocaleTimeString(
+        "ru-RU",
+        {
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
 }

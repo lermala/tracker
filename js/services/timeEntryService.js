@@ -130,6 +130,32 @@ function clearTimeEntries() {
 }
 
 
+function getTimeEntriesByPeriod(
+    from,
+    to
+) {
+    const fromTime =
+        from instanceof Date
+            ? from.getTime()
+            : from;
+
+    const toTime =
+        to instanceof Date
+            ? to.getTime()
+            : to;
+
+    return timeEntries.filter(entry => {
+        const entryEnd =
+            entry.endedAt ?? Date.now();
+
+        return (
+            entry.startedAt <= toTime &&
+            entryEnd >= fromTime
+        );
+    });
+}
+
+
 
 
 function getTaskDuration(taskId) {

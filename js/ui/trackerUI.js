@@ -20,6 +20,12 @@ function initTaskUI() {
 function renderCurrentView() {
     renderTasksHeader();
 
+    if (currentPage.type === PAGE.TIMESHEET) {
+        setViewClass("timesheetView");
+        renderTimesheetView();
+        return;
+    }
+
     switch (pageSettings.view) {
         case VIEW.LIST:
             setViewClass("listView");
@@ -46,7 +52,8 @@ function setViewClass(viewClass) {
     trackerView.classList.remove(
         "listView",
         "boardView",
-        "calendarView"
+        "calendarView",
+        "timesheetView"
     );
 
     trackerView.classList.add(viewClass);
@@ -107,14 +114,23 @@ function createAddCategoryButton() {
 function renderTasksHeader() {
     switch (currentPage.type) {
         case PAGE.MY_TASKS:
-            tasksHeaderTitle.textContent = "Мои задачи";
+            tasksHeaderTitle.textContent =
+                "Мои задачи";
             break;
 
         case PAGE.PROJECT:
-            const project = getProjectById(currentPage.id);
+            const project =
+                getProjectById(
+                    currentPage.id
+                );
 
-            tasksHeaderTitle.textContent = project?.title ?? "";
+            tasksHeaderTitle.textContent =
+                project?.title ?? "";
+            break;
 
+        case PAGE.TIMESHEET:
+            tasksHeaderTitle.textContent =
+                "История выполнения";
             break;
     }
 }

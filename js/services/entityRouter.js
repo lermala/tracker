@@ -1,4 +1,5 @@
 let entityRouterInitialized = false;
+const REDIRECT_URL_KEY = "redirectAfterAuth";
 
 function initEntityRouter() {
     if (entityRouterInitialized) {
@@ -7,14 +8,28 @@ function initEntityRouter() {
 
     window.addEventListener(
         "popstate",
-        handleEntityPopState
+        handlePopState
     );
 
     entityRouterInitialized = true;
 }
 
-function handleEntityPopState() {
-    const entity = getEntityFromUrl();
+function handlePopState() {
+    const page =
+        getPageFromUrl();
+
+    if (page) {
+        closeTaskCard({
+            updateUrl: false
+        });
+
+        selectPage(page);
+
+        return;
+    }
+
+    const entity =
+        getEntityFromUrl();
 
     if (!entity) {
         closeTaskCard({
@@ -41,9 +56,8 @@ function handleEntityPopState() {
             break;
 
         case ENTITY_URL.TASK:
-            const task = getTaskById(
-                entity.id
-            );
+            const task =
+                getTaskById(entity.id);
 
             if (!task) {
                 return;
@@ -64,11 +78,22 @@ function handleEntityPopState() {
     }
 }
 
-async function handleInitialEntityUrl() {
-    const entity = getEntityFromUrl();
+async function handleInitialUrl() {
+    const page =
+        getPageFromUrl();
+
+    if (page) {
+        currentPage = page;
+        pageSettings = null;
+
+        return null;
+    }
+
+    const entity =
+        getEntityFromUrl();
 
     if (!entity) {
-        return;
+        return null;
     }
 
     switch (entity.type) {
@@ -82,11 +107,12 @@ async function handleInitialEntityUrl() {
             return prepareTaskFromUrl(
                 entity.id
             );
-            break;
 
         default:
             return null;
     }
+
+    return null;
 }
 
 async function prepareProjectFromUrl(projectId) {
@@ -176,14 +202,44 @@ function syncUrlWithCurrentPage() {
 }
 
 function saveUrlBeforeAuth() {
-    const entity = getEntityFromUrl();
-
-    if (!entity) {
-        return;
-    }
-
     sessionStorage.setItem(
-        "redirectAfterAuth",
+        REDIRECT_URL_KEY,
         window.location.pathname
     );
+}
+
+function setTimesheetUrl() {
+    history.pushState(
+        null,
+        "",
+        `${BASE_PATH}/timesheet`
+    );
+}
+
+function getPageFromUrl() {
+    let pathname =
+        window.location.pathname;
+
+    if (
+        BASE_PATH &&
+        pathname.startsWith(BASE_PATH)
+    ) {
+        pathname =
+            pathname.slice(BASE_PATH.length);
+    }
+
+    const parts = pathname
+        .split("/")
+        .filter(Boolean);
+
+    if (
+        parts.length === 1 &&
+        parts[0] === PAGE_URL.TIMESHEET
+    ) {
+        return {
+            type: PAGE.TIMESHEET
+        };
+    }
+
+    return null;
 }

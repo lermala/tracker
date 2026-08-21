@@ -1,10 +1,16 @@
 const myTasksButton = document.getElementById("myTasksButton");
+const timesheetButton = document.getElementById("timesheetButton");
 const projectList = document.getElementById("projectList");
 
 function initNavigationUI() {
     myTasksButton.addEventListener(
         "click",
         selectMyTasks
+    );
+
+    timesheetButton.addEventListener(
+        "click",
+        selectTimesheet
     );
 
     renderNavigation();
@@ -16,6 +22,11 @@ function renderNavigation() {
     myTasksButton.classList.toggle(
         "is-active",
         page.type === PAGE.MY_TASKS
+    );
+
+    timesheetButton.classList.toggle(
+        "is-active",
+        page.type === PAGE.TIMESHEET
     );
 
     renderProjectsNavigation();
@@ -96,6 +107,32 @@ function createProjectElementNavigation(project) {
     return item;
 }
 
+function selectMyTasks({
+    updateUrl = true
+} = {}) {
+    selectPage({
+        type: PAGE.MY_TASKS
+    });
+
+    if (updateUrl) {
+        clearEntityUrl();
+    }
+}
+
+function selectTimesheet({
+    updateUrl = true
+} = {}) {
+    selectPage({
+        type: PAGE.TIMESHEET
+    });
+
+    if (updateUrl) {
+        setPageUrl(
+            PAGE_URL.TIMESHEET
+        );
+    }
+}
+
 function selectProject(
     projectId,
     {
@@ -115,45 +152,6 @@ function selectProject(
     }
 }
 
-function selectMyTasks({
-    updateUrl = true
-} = {}) {
-    selectPage({
-        type: PAGE.MY_TASKS
-    });
-
-    if (updateUrl) {
-        clearEntityUrl();
-    }
-}
-
 function selectFallbackPage() {
     selectMyTasks();
-}
-
-window.addEventListener("popstate", () => {
-    handleCurrentUrl();
-});
-
-function handleCurrentUrl() {
-    const entity = getEntityFromUrl();
-
-    if (!entity) {
-        selectMyTasks({
-            updateUrl: false
-        });
-
-        return;
-    }
-
-    switch (entity.type) {
-        case ENTITY_URL.PROJECT:
-            selectProject(
-                entity.id,
-                {
-                    updateUrl: false
-                }
-            );
-            break;
-    }
 }
