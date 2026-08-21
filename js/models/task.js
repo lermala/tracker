@@ -18,13 +18,11 @@ function createTaskModel({
 
     priority = TASK_PRIORITY.NONE,
 
-    duration = 0,
     order = 0,
 
     createdAt,
     updatedAt,
 
-    startedAt = null,
     completedAt = null,
     dueDate = null,
     dueTime = null
@@ -43,13 +41,11 @@ function createTaskModel({
 
         priority,
 
-        duration,
         order,
 
         createdAt,
         updatedAt,
 
-        startedAt,
         completedAt,
         
         dueDate,

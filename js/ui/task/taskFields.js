@@ -78,9 +78,10 @@ function bindTaskDueDate(
 
 function fillTaskDuration(duration, timerButtonIcon, task) {
     duration.textContent = getCurrentDuration(task);
+    const isRunning = getActiveTimeEntry()?.taskId === task.id;
 
     timerButtonIcon.textContent =
-        task.startedAt === null
+        isRunning
             ? "play_circle"
             : "pause_circle";
 }
@@ -94,13 +95,21 @@ function bindTaskDuration(
         event.stopPropagation();
 
         const task = getTask();
-
         if (!task) return;
 
         await toggleTaskTimer(task);
 
         onUpdate?.();
     });
+
+/*     timerButton.addEventListener(
+        "click",
+        async event => {
+            event.stopPropagation();
+            await toggleTaskTimer(task);
+            renderCurrentView();
+        }
+    ); */
 }
 
 function fillTaskCheckbox(status, task) {
@@ -113,22 +122,24 @@ function fillTaskCheckbox(status, task) {
 }
 
 function bindTaskCheckbox(status, getTask, onToggle) {
-    status.addEventListener("click", (event) => {
+    status.addEventListener("click", event => {
         event.stopPropagation();
 
         const task = getTask();
 
         if (!task) return;
 
-        const toggle = () => {
-            const promise = toggleTask(task.id);
+        const toggle = async () => {
+            const updatedTask = await toggleTask(task.id);
 
-            fillTaskCheckbox(
-                status,
-                task
-            );
+            if (updatedTask) {
+                fillTaskCheckbox(
+                    status,
+                    updatedTask
+                );
+            }
 
-            return promise;
+            return updatedTask;
         };
 
         onToggle(toggle);

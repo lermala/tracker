@@ -132,13 +132,11 @@ create table public.tasks (
 
     priority text not null default 'none',
 
-    duration integer not null default 0,
     position integer not null default 0,
 
     created_at timestamptz not null default now(),
     updated_at timestamptz not null default now(),
 
-    started_at timestamptz,
     completed_at timestamptz,
     due_date date,
     due_time time,
@@ -152,9 +150,6 @@ create table public.tasks (
                 'high'
             )
         ),
-
-    constraint tasks_duration_check
-        check (duration >= 0),
 
     constraint tasks_position_check
         check (position >= 0)

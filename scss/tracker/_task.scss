@@ -197,32 +197,7 @@
 // Buttons
 // ======================================
 
-.timerControl {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
 
-    .timerButton {
-        @extend %button;
-
-        padding: 0;
-
-        span {
-            font-size: 17px;
-            line-height: 1;
-
-            color: var(--color-text-secondary);
-        }
-
-        &:hover {
-            color: var(--color-accent);
-
-            span {
-                color: inherit;
-            }
-        }
-    }
-}
 
 .taskAssignee {
     gap: $space-xs;

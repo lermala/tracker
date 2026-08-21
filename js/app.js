@@ -5,8 +5,6 @@ let projects = [];
 let tasks = [];
 let categories = [];
 
-let timerInterval = null;
-
 let currentPage = {
     type: PAGE.MY_TASKS
 };
@@ -49,6 +47,8 @@ async function loadTracker() {
         getTasksFromDb()
     ]);
 
+    await loadTimeEntries();
+
     const initialTask = await handleInitialEntityUrl();
 
     await startTracker();
@@ -70,12 +70,7 @@ async function startTracker() {
     initUI();
     initEntityRouter();
 
-    if (timerInterval === null) {
-        timerInterval = setInterval(
-            updateRunningTimers,
-            1000
-        );
-    }
+    startTaskTimerUI();
 }
 
 async function logout() {
@@ -91,10 +86,8 @@ async function logout() {
 }
 
 function stopTracker() {
-    if (timerInterval !== null) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-    }
+    stopTaskTimerUI();
+    clearTimeEntries();
 
     currentUser = null;
     currentProfile = null;

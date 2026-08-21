@@ -40,15 +40,15 @@ function bindTaskEvents(item, elements, task) {
         taskCheckbox,
         () => task,
         toggle => {
-            animateTaskReorder(() => {
-                toggle().catch(error => {
+            animateTaskReorder(async () => {
+                try {
+                    await toggle();
+                } catch (error) {
                     console.error(
                         "TOGGLE TASK ERROR:",
                         error
                     );
-
-                    renderCurrentView();
-                });
+                }
 
                 renderCurrentView();
             });
@@ -119,9 +119,10 @@ function updateTaskUI(task, item, elements) {
         task
     );
 
+    const isRunning = getActiveTimeEntry()?.taskId === task.id;
     // Состояния задачи
     item.classList.toggle("is-completed", task.isCompleted);
-    item.classList.toggle("is-running", task.startedAt !== null);
+    item.classList.toggle("is-running", isRunning);
 }
 
 function renderTaskDescription(

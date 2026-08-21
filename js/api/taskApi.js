@@ -15,15 +15,10 @@ function taskFromDb(row) {
 
         priority: row.priority,
 
-        duration: row.duration,
         order: row.position,
 
         createdAt: new Date(row.created_at).getTime(),
         updatedAt: new Date(row.updated_at).getTime(),
-
-        startedAt: row.started_at
-            ? new Date(row.started_at).getTime()
-            : null,
 
         completedAt: row.completed_at
             ? new Date(row.completed_at).getTime()
@@ -50,10 +45,8 @@ function taskToDb(task) {
 
         priority: task.priority,
 
-        duration: task.duration,
         position: task.order,
 
-        started_at: toIsoOrNull(task.startedAt),
         completed_at: toIsoOrNull(task.completedAt),
         
         due_date: task.dueDate,

@@ -48,10 +48,6 @@ function getTaskById(id) {
     return tasks.find(task => task.id === id);
 }
 
-function getRunningTask() {
-    return tasks.find(task => task.startedAt !== null);
-}
-
 function getTasksByCategory(projectId, categoryId) {
     return tasks
         .filter(task =>
@@ -114,33 +110,29 @@ async function updateTask(id, changes) {
     }
 }
 
-function toggleTask(id) {
+async function toggleTask(id) {
     const task = getTaskById(id);
 
     if (!task) {
-        return Promise.resolve(null);
+        return null;
     }
 
-    const changes = {};
+    const shouldComplete = !task.isCompleted;
 
-    // Если завершаем запущенную задачу —
-    // фиксируем накопленное время и останавливаем таймер
-    if (!task.isCompleted && task.startedAt !== null) {
-        changes.duration =
-            task.duration +
-            Math.floor(
-                (Date.now() - task.startedAt) / 1000
-            );
+    if (shouldComplete) {
+        const activeEntry =
+            getActiveTimeEntryByTask(id);
 
-        changes.startedAt = null;
+        if (activeEntry) {
+            await stopTimeEntry(activeEntry.id);
+        }
     }
 
-    changes.completedAt =
-        task.isCompleted
-            ? null
-            : Date.now();
-
-    return updateTask(id, changes);
+    return updateTask(id, {
+        completedAt: shouldComplete
+            ? Date.now()
+            : null
+    });
 }
 
 async function updateTaskOrder(taskIds) {

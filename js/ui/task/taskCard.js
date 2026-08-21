@@ -53,8 +53,10 @@ function bindTaskCardEvents() {
     bindTaskCheckbox(
         checkbox,
         () => getTaskById(currentTaskId),
-        toggle => {
-            toggle().catch(error => {
+        async toggle => {
+            try {
+                await toggle();
+            } catch (error) {
                 console.error(
                     "TOGGLE TASK ERROR:",
                     error
@@ -69,9 +71,7 @@ function bindTaskCardEvents() {
                         task
                     );
                 }
-
-                renderCurrentView();
-            });
+            }
 
             renderCurrentView();
         }
