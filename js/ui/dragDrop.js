@@ -132,6 +132,11 @@ function initCalendarSortable() {
             group: "calendarTasks",
             animation: 150,
 
+            fallbackTolerance: 5,
+            delay: 300,
+            delayOnTouchOnly: true,
+            touchStartThreshold: 5,
+
             draggable: ".taskCalendarTask",
 
             ghostClass: "is-dragging",

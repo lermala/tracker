@@ -1,5 +1,4 @@
-const viewSwitcher =
-    document.getElementById("viewSwitcher");
+const viewSwitcher = document.getElementById("viewSwitcher");
 
 function initToolbarUI() {
     bindTaskToolbarEvents();
@@ -13,6 +12,7 @@ function renderToolbarUI() {
         trackerToolbar.hidden = true;
         return;
     }
+    trackerToolbar.hidden = false;
 
     updateViewButtons();
     renderPageSettingsUI();
@@ -22,13 +22,10 @@ function bindTaskToolbarEvents() {
     viewSwitcher.addEventListener(
         "click",
         event => {
-            const button =
-                event.target.closest("[data-view]");
-
+            const button = event.target.closest("[data-view]");
             if (!button) return;
 
-            pageSettings.view =
-                button.dataset.view;
+            pageSettings.view = button.dataset.view;
 
             saveCurrentPageSettings();
 

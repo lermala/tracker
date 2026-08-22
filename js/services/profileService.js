@@ -1,3 +1,5 @@
+const profileCache = new Map();
+
 async function getCurrentProfile() {
     if (!currentUser) {
         return null;
@@ -9,15 +11,19 @@ async function getCurrentProfile() {
 }
 
 async function getProfileById(profileId) {
-    if (!profileId) {
-        return null;
+    if (!profileId) return null;
+
+    if (!profileCache.has(profileId)) {
+        const promise = getProfileByIdFromDb(profileId)
+            .catch(error => {
+                profileCache.delete(profileId);
+                throw error;
+            });
+
+        profileCache.set(profileId, promise);
     }
 
-    if (currentProfile?.id === profileId) {
-        return currentProfile;
-    }
-
-    return getProfileByIdFromDb(profileId);
+    return profileCache.get(profileId);
 }
 
 async function updateCurrentProfile(changes) {
@@ -28,6 +34,11 @@ async function updateCurrentProfile(changes) {
     currentProfile = await updateProfileInDb(
         currentProfile.id,
         changes
+    );
+
+    profileCache.set(
+        currentProfile.id,
+        Promise.resolve(currentProfile)
     );
 
     return currentProfile;
