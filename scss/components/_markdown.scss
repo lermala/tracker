@@ -64,7 +64,7 @@
     }
 
     li {
-        margin: 1px 0;
+        margin: $space-xxs 0;
     }
 
     blockquote {
@@ -122,6 +122,13 @@
 
     strong {
         font-weight: 600;
+    }
+
+    .markdownCheckbox {
+        @extend %checkbox;
+
+        margin-right: $space-xs;
+        //vertical-align: -3px;
     }
 }
 

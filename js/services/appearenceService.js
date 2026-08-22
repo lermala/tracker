@@ -24,8 +24,9 @@ function saveAppearance(appearance) {
 }
 
 function applyAppearance(appearance) {
-    document.documentElement.dataset.theme =
-        appearance.theme;
+    const root = document.documentElement;
+    root.dataset.theme = appearance.theme;
+    root.style.colorScheme = appearance.theme;
 
     applyAccent(appearance.accent);
 }

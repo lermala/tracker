@@ -259,7 +259,7 @@ function groupTasksByCategory(tasks) {
     const emptyGroup = {
         field: "categoryId",
         value: null,
-        title: "(Без категории)",
+        title: "Без раздела",
 
         tasks: tasks.filter(
             task => !task.categoryId
@@ -300,7 +300,7 @@ function groupTasksByProject(tasks) {
     const emptyGroup = {
         field: "projectId",
         value: null,
-        title: "(Без проекта)",
+        title: "Без проекта",
 
         tasks: tasks.filter(
             task => !task.projectId
@@ -341,7 +341,7 @@ function groupTasksByDueDate(tasks) {
         {
             field: "dueDate",
             value: "empty",
-            title: "(Без срока)",
+            title: "Без срока",
 
             newTaskData: {
                 dueDate: null

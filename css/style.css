@@ -144,6 +144,42 @@ h6 {
   background: color-mix(in srgb, var(--badge-color) 18%, transparent);
 }
 
+.markdownContent .markdownCheckbox, .checkbox {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: inline-grid;
+  place-content: center;
+  margin: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.markdownContent .markdownCheckbox::before, .checkbox::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  transform: scale(0);
+  transition: transform 0.1s;
+  background: var(--color-on-accent);
+  clip-path: polygon(14% 44%, 0 59%, 40% 100%, 100% 20%, 84% 5%, 38% 70%);
+}
+.markdownContent .markdownCheckbox:hover, .checkbox:hover {
+  border-color: var(--color-accent);
+}
+.markdownContent .markdownCheckbox:checked, .checkbox:checked {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+.markdownContent .markdownCheckbox:checked::before, .checkbox:checked::before {
+  transform: scale(1);
+}
+
 .authForm, .taskCard, .projectEditor, .settingsModal, .globalSearchModal, .sidebarUserMenu, .priorityPicker, .datePicker, .dropdown {
   color: var(--color-text);
   background: var(--color-surface);
@@ -285,42 +321,6 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 20px;
-}
-
-.checkbox {
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-  display: inline-grid;
-  place-content: center;
-  margin: 0;
-  border: 1px solid var(--color-border-strong);
-  border-radius: 4px;
-  background: transparent;
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-}
-.checkbox::before {
-  content: "";
-  width: 10px;
-  height: 10px;
-  transform: scale(0);
-  transition: transform 0.1s;
-  background: white;
-  clip-path: polygon(14% 44%, 0 59%, 40% 100%, 100% 20%, 84% 5%, 38% 70%);
-}
-.checkbox:hover {
-  border-color: var(--color-accent);
-}
-.checkbox:checked {
-  border-color: var(--color-accent);
-  background: var(--color-accent);
-}
-.checkbox:checked::before {
-  transform: scale(1);
 }
 
 .hidden,
@@ -1099,7 +1099,7 @@ textarea.textEditor.taskTitle {
   padding-left: 20px;
 }
 .markdownContent li {
-  margin: 1px 0;
+  margin: 4px 0;
 }
 .markdownContent blockquote {
   margin: 6px 0;
@@ -1139,6 +1139,9 @@ textarea.textEditor.taskTitle {
 }
 .markdownContent strong {
   font-weight: 600;
+}
+.markdownContent .markdownCheckbox {
+  margin-right: 6px;
 }
 
 .markdownEditor {

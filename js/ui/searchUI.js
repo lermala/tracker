@@ -94,7 +94,7 @@ function renderGlobalSearchResults(
 
     renderSearchSection(
         container,
-        "Категории",
+        "Разделы",
         results.categories,
         createCategorySearchResult
     );

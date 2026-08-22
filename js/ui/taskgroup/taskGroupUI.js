@@ -57,7 +57,7 @@ function bindTaskGroupEvents(item, elements, group) {
         group.field === "categoryId" &&
         group.value !== null;
 
-    // Редактирование категории
+    // Редактирование раздела
     if (isCategory) {
         elements.title.addEventListener("click", () => {
             startEditTaskGroup(item);
@@ -86,7 +86,7 @@ function bindTaskGroupEvents(item, elements, group) {
                     onDelete: async () => {
                         const confirmed =
                             confirm(
-                                `Удалить категорию «${group.title}»? Все задачи в ней перейдут в «Без категории».`
+                                `Удалить раздел «${group.title}»? Все задачи в нем перейдут в «Без раздела».`
                             );
 
                         if (!confirmed) {

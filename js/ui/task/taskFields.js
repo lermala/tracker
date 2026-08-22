@@ -102,14 +102,14 @@ function bindTaskDuration(
         onUpdate?.();
     });
 
-/*     timerButton.addEventListener(
-        "click",
-        async event => {
-            event.stopPropagation();
-            await toggleTaskTimer(task);
-            renderCurrentView();
-        }
-    ); */
+    /*     timerButton.addEventListener(
+            "click",
+            async event => {
+                event.stopPropagation();
+                await toggleTaskTimer(task);
+                renderCurrentView();
+            }
+        ); */
 }
 
 function fillTaskCheckbox(status, task) {
@@ -167,7 +167,14 @@ function fillTaskDescription(
 
     renderMarkdown(
         description,
-        task.description
+        task.description,
+        {
+            onChange: description => {
+                updateTask(task.id, {
+                    description
+                });
+            }
+        }
     );
 }
 
@@ -496,7 +503,7 @@ function fillTaskCategory(
         element,
         getCategoryById(task.categoryId),
         {
-            emptyText: "Без категории",
+            emptyText: "Без раздела",
             ...options
         }
     );
@@ -571,19 +578,19 @@ function bindTaskCategory(
                 emptyItem: {
                     render: () =>
                         createEmptyBadge(
-                            "Без категории"
+                            "Без раздела"
                         )
                 },
 
                 action: {
                     text:
-                        "Создать категорию",
+                        "Создать раздел",
 
                     icon:
                         "add",
 
                     placeholder:
-                        "Название категории",
+                        "Название раздела",
 
                     onCreate:
                         async title => {

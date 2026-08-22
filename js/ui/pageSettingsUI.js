@@ -20,7 +20,7 @@ const GROUP_OPTIONS = [
     },
     {
         value: GROUP.CATEGORY,
-        label: "Категория"
+        label: "Раздел"
     },
     {
         value: GROUP.DUE_DATE,

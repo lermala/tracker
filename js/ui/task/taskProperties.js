@@ -25,7 +25,7 @@ const TASK_PROPERTY_CONFIG = {
     },
 
     [TASK_PROPERTY.CATEGORY]: {
-        label: "Категория",
+        label: "Раздел",
         create: createTaskCategoryProperty
     }
 };
