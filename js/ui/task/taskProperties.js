@@ -266,7 +266,7 @@ function createTaskDescription(task) {
     const element = document.createElement("div");
     element.className = "taskDescription";
     element.textContent =
-        getTaskDescriptionPreview(
+        getDescriptionPreview(
             description
         );
 

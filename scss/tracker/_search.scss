@@ -1,0 +1,180 @@
+.globalSearchOverlay {
+    @extend %modal-overlay;
+
+    align-items: flex-start;
+    padding-top: 12vh;
+}
+
+.globalSearchModal {
+    @extend %modal;
+
+    width: min(600px, calc(100vw - 32px));
+    min-height: 0;
+    max-height: min(600px, 75vh);
+}
+
+.globalSearchHeader {
+    display: flex;
+    align-items: center;
+    gap: $space-s;
+
+    padding: $space-m;
+
+    border-bottom: 1px solid var(--color-border);
+}
+
+.globalSearchIcon {
+    flex-shrink: 0;
+
+    color: var(--color-text-secondary);
+    font-size: 20px;
+}
+
+.globalSearchTaskCheckbox {
+    flex-shrink: 0;
+    margin-top: 0;
+
+    pointer-events: none;
+}
+
+.globalSearchInput {
+    flex: 1;
+    min-width: 0;
+
+    padding: 0;
+
+    border: none;
+    outline: none;
+
+    color: var(--color-text);
+    background: transparent;
+
+    font: inherit;
+    font-size: 14px;
+
+    &::placeholder {
+        color: var(--color-text-secondary);
+    }
+
+    &::-webkit-search-cancel-button {
+        display: none;
+    }
+}
+
+.globalSearchCloseButton {
+    @extend %modal-close-button;
+}
+
+.globalSearchResults {
+    min-height: 0;
+    overflow-y: auto;
+
+    padding: $space-s;
+}
+
+.globalSearchSection {
+    & + & {
+        margin-top: $space-s;
+    }
+}
+
+.globalSearchSection + .globalSearchSection {
+    margin-top: $space-s;
+    padding-top: $space-s;
+
+    border-top: 1px solid var(--color-border);
+}
+
+.globalSearchSectionTitle {
+    padding: $space-xs $space-s;
+
+    color: var(--color-text-secondary);
+
+    font-size: 14px;
+}
+
+.globalSearchResult {
+    width: 100%;
+    min-width: 0;
+
+    display: flex;
+    align-items: flex-start;
+    gap: $space-s;
+
+    padding: $space-s;
+
+    border: none;
+    border-radius: $bd-radius;
+
+    color: var(--color-text);
+    background: transparent;
+
+    font: inherit;
+    text-align: left;
+
+    cursor: pointer;
+
+    &:hover {
+        background: var(--color-hover);
+    }
+
+    &.is-completed {
+        .globalSearchResultTitle {
+            color: var(--color-text-secondary);
+            text-decoration: line-through;
+        }
+    }
+}
+
+.globalSearchResultIcon {
+    flex-shrink: 0;
+
+    margin-top: 1px;
+
+    color: var(
+        --search-result-color,
+        var(--color-text-secondary)
+    );
+
+    font-size: 18px;
+}
+
+.globalSearchResultContent {
+    flex: 1;
+    min-width: 0;
+}
+
+.globalSearchResultTitle {
+    overflow: hidden;
+    min-height: 20px;
+
+    font-size: 14px;
+    line-height: 20px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.globalSearchResultDescription {
+    overflow: hidden;
+
+    margin-top: 2px;
+
+    color: var(--color-text-secondary);
+
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.globalSearchEmpty {
+    padding: $space-xl $space-m;
+
+    color: var(--color-text-secondary);
+
+    font-size: 14px;
+    text-align: center;
+}

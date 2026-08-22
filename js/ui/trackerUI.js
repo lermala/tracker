@@ -10,6 +10,8 @@ tasksHeaderTitle.addEventListener("click", () => {
 function initUI() {
     initSidebarUI();
     initToolbarUI();
+    initGlobalSearch();
+
     initTaskUI();
 }
 

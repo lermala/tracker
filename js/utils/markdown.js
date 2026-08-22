@@ -9,9 +9,7 @@ function renderMarkdown(
         DOMPurify.sanitize(html);
 }
 
-function getTaskDescriptionPreview(
-    description
-) {
+function getDescriptionPreview(description) {
     return description
         .replace(/^#{1,6}\s+/gm, "")
         .replace(/^\s*[-*+]\s+/gm, "")

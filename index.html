@@ -37,6 +37,17 @@
 
             <div class="sidebarContent">
                 <div class="sidebarTitle">Личное</div>
+
+                <button class="sidebarNavItem" id="searchButton" type="button">
+                    <span class="material-symbols-rounded sidebarNavIcon">
+                        search
+                    </span>
+
+                    <span class="sidebarNavTitle">
+                        Поиск
+                    </span>
+                </button>
+
                 <button class="sidebarNavItem" id="myTasksButton">
                     <span class="material-symbols-rounded sidebarNavIcon">
                         checklist
@@ -153,6 +164,31 @@
             <div id="trackerView" class="trackerView"></div>
         </div>
     </div>
+
+
+
+    <template id="globalSearchTemplate">
+        <div class="globalSearchOverlay">
+            <div class="globalSearchModal">
+                <div class="globalSearchHeader">
+                    <span class="material-symbols-rounded globalSearchIcon">
+                        search
+                    </span>
+
+                    <input class="globalSearchInput" type="search" placeholder="Поиск" autocomplete="off">
+
+                    <button class="globalSearchCloseButton" type="button">
+                        <span class="material-symbols-rounded">
+                            close
+                        </span>
+                    </button>
+                </div>
+
+                <div class="globalSearchResults"></div>
+            </div>
+        </div>
+    </template>
+
 
     <template id="taskTemplate">
         <div class="task">
@@ -393,6 +429,7 @@
 
 
 <!-- ===== Constants ===== -->
+<script src="js/constants/constants.js"></script>
 <script src="js/constants/limits.js"></script>
 
 
@@ -432,6 +469,7 @@
 <script src="js/services/categoryService.js"></script>
 <script src="js/services/taskService.js"></script>
 <script src="js/services/taskQuery.js"></script>
+<script src="js/services/searchService.js"></script>
 <script src="js/services/timeEntryService.js"></script>
 <script src="js/services/timesheetService.js"></script>
 
@@ -457,6 +495,7 @@
 <script src="js/ui/sidebarUI.js"></script>
 <script src="js/ui/sidebarSettingsUI.js"></script>
 <script src="js/ui/settingsUI.js"></script>
+<script src="js/ui/searchUI.js"></script>
 <script src="js/ui/projectEditorUI.js"></script>
 <script src="js/ui/projectMenuUI.js"></script>
 <script src="js/ui/projectUI.js"></script>
