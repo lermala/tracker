@@ -8,6 +8,10 @@ const ACCENT_COLOR_PALETTE = [
         value: "#cf6957"
     },
     {
+        label: "Малиновый",
+        value: "#c84f72"
+    },
+    {
         label: "Зелёный",
         value: "#3f805d"
     },
@@ -24,12 +28,8 @@ const ACCENT_COLOR_PALETTE = [
         value: "#6264a7"
     },
     {
-        label: "Фиолетовый",
-        value: "#8265ad"
-    },
-    {
-        label: "Розовый",
-        value: "#c65387"
+        label: "Коричневый",
+        value: "#8a6348"
     },
     {
         label: "Графитовый",
@@ -51,8 +51,16 @@ const ENTITY_COLOR_PALETTE = [
         value: "#d97843"
     },
     {
+        label: "Коричневый",
+        value: "#8a6348"
+    },
+    {
         label: "Янтарный",
         value: "#d6a600"
+    },
+    {
+        label: "Жёлтый",
+        value: "#d8b84c"
     },
     {
         label: "Лаймовый",
@@ -67,28 +75,20 @@ const ENTITY_COLOR_PALETTE = [
         value: "#3f8f7d"
     },
     {
-        label: "Бирюзовый",
-        value: "#3c8c9e"
-    },
-    {
         label: "Голубой",
-        value: "#4c8bb5"
+        value: "#4a9bc4"
     },
     {
         label: "Синий",
         value: "#5074a6"
     },
     {
-        label: "Индиго",
-        value: "#5968a8"
-    },
-    {
         label: "Фиолетовый",
         value: "#8067b7"
     },
     {
-        label: "Сиреневый",
-        value: "#9a68b4"
+        label: "Сливовый",
+        value: "#87566f"
     },
     {
         label: "Розовый",

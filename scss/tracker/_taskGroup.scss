@@ -53,6 +53,44 @@
     font-weight: 500;
 }
 
+.taskGroupCollapseButton {
+    @extend %button;
+
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+
+    padding: 0;
+
+    color: var(--color-text-secondary);
+    background: transparent;
+
+    .material-symbols-rounded {
+        font-size: 18px;
+        transition: transform .15s ease;
+    }
+
+    &:hover {
+        color: var(--color-text);
+    }
+}
+
+.taskGroup.is-collapsed {
+    .taskGroupItems,
+    .taskGroupAddButton,
+    .taskGroupDropZone {
+        display: none;
+    }
+
+    .taskGroupCollapseButton {
+        .material-symbols-rounded {
+            transform: rotate(-90deg);
+        }
+    }
+}
+
+
+
 .taskGroupItems {
     display: flex;
     flex-direction: column;

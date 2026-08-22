@@ -1,4 +1,5 @@
 const taskGroupTemplate = document.getElementById("taskGroupTemplate");
+const collapsedTaskGroups = new Set();
 
 
 function createTaskGroup(group) {
@@ -12,6 +13,23 @@ function createTaskGroup(group) {
         elements,
         group
     );
+
+    // кнопка Свернуть
+    const canCollapse = pageSettings.view === VIEW.LIST;
+    elements.collapseButton.hidden = !canCollapse;
+    if (canCollapse) {
+        const collapseKey =
+            getTaskGroupCollapseKey(group);
+
+        const isCollapsed =
+            collapsedTaskGroups.has(collapseKey);
+
+        setTaskGroupCollapsed(
+            item,
+            elements,
+            isCollapsed
+        );
+    }
 
     const isCategory =
         group.field === "categoryId" &&
@@ -41,9 +59,7 @@ function createTaskGroup(group) {
 
     elements.items.taskGroup = group;
 
-    if (
-        group.field === "categoryId"
-    ) {
+    if (group.field === "categoryId") {
         initTaskSortable(
             elements.items
         );
@@ -56,6 +72,29 @@ function bindTaskGroupEvents(item, elements, group) {
     const isCategory =
         group.field === "categoryId" &&
         group.value !== null;
+
+    // сворачивание
+    if (pageSettings.view === VIEW.LIST) {
+        elements.collapseButton.addEventListener(
+            "pointerdown",
+            event => {
+                event.stopPropagation();
+            }
+        );
+
+        elements.collapseButton.addEventListener(
+            "click",
+            event => {
+                event.stopPropagation();
+
+                toggleTaskGroup(
+                    item,
+                    elements,
+                    group
+                );
+            }
+        );
+    }
 
     // Редактирование раздела
     if (isCategory) {
@@ -154,6 +193,7 @@ function getTaskGroupElements(item) {
     return {
         title: item.querySelector(".taskGroupTitle"),
         counter: item.querySelector(".taskGroupCounter"),
+        collapseButton: item.querySelector(".taskGroupCollapseButton"),
         items: item.querySelector(".taskGroupItems"),
         addButton: item.querySelector(".addButton"),
         menuButton: item.querySelector(".taskGroupMenuButton")
@@ -310,4 +350,44 @@ function getDueDateGroupColor(value) {
         default:
             return null;
     }
+}
+
+function getTaskGroupCollapseKey(group) {
+    return `${group.field ?? "none"}:${group.value ?? "none"}`;
+}
+
+function toggleTaskGroup(
+    item,
+    elements,
+    group
+) {
+    const key = getTaskGroupCollapseKey(group);
+    const collapsed = !item.classList.contains("is-collapsed");
+
+    if (collapsed) {
+        collapsedTaskGroups.add(key);
+    } else {
+        collapsedTaskGroups.delete(key);
+    }
+
+    setTaskGroupCollapsed(
+        item,
+        elements,
+        collapsed
+    );
+}
+
+function setTaskGroupCollapsed(
+    item,
+    elements,
+    collapsed
+) {
+    item.classList.toggle(
+        "is-collapsed",
+        collapsed
+    );
+
+    elements.collapseButton.title = collapsed
+        ? "Развернуть"
+        : "Свернуть";
 }
