@@ -167,6 +167,7 @@ function createTimesheetContent(days) {
                 <th>Окончание</th>
                 <th>Время</th>
                 <th>Примечание</th>
+                <th></th>
             </tr>
         </thead>
     `;
@@ -201,8 +202,8 @@ function createTimesheetRow(segment) {
     const endedAt = new Date(segment.endedAt);
 
     row.append(
-        createTimesheetCell(project?.title),
-        createTimesheetCell(task?.title),
+        createTimesheetCell(project?.title ?? "—"),
+        createTimesheetCell(task?.title ?? "—"),
         createTimesheetCell(formatTime(startedAt)),
         createTimesheetCell(
             segment.isRunning
@@ -212,7 +213,8 @@ function createTimesheetRow(segment) {
         createTimesheetCell(
             formatDuration(segment.duration)
         ),
-        createTimesheetNoteCell(entry)
+        createTimesheetNoteCell(entry),
+        createTimesheetActionsCell(entry)
     );
 
     return row;
@@ -272,14 +274,15 @@ function createTimesheetDayRow(day) {
     dateCell.colSpan = 4;
     dateCell.textContent = formatDateWithWeekday(day.date);
 
-    const totalLabelCell = document.createElement("td");
-    totalLabelCell.textContent = formatDuration(day.totalDuration);
+    const totalCell = document.createElement("td");
+    totalCell.textContent = formatDuration(day.totalDuration);
 
     const emptyCell = document.createElement("td");
+    emptyCell.colSpan = 2;
 
     row.append(
         dateCell,
-        totalLabelCell,
+        totalCell,
         emptyCell
     );
 
@@ -291,7 +294,7 @@ function createTimesheetEmptyRow() {
     row.className = "timesheetEmptyRow";
 
     const cell = document.createElement("td");
-    cell.colSpan = 6;
+    cell.colSpan = 7;
     cell.textContent = "Нет записей";
 
     row.append(cell);
@@ -376,4 +379,42 @@ function startEditTimesheetNote(cell, entry) {
     });
 
     input.addEventListener("blur", save);
+}
+
+function createTimesheetActionsCell(entry) {
+    const cell = document.createElement("td");
+    cell.className = "timesheetActionsCell";
+
+    if (entry.endedAt === null) {
+        return cell;
+    }
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "timesheetDeleteButton";
+    button.title = "Удалить запись";
+
+    const icon = document.createElement("span");
+    icon.className = "material-symbols-rounded";
+    icon.textContent = "delete";
+
+    button.append(icon);
+
+    button.addEventListener("click", async event => {
+        event.stopPropagation();
+
+        try {
+            await deleteTimeEntry(entry.id);
+            renderTimesheetView();
+        } catch (error) {
+            console.error(
+                "DELETE TIME ENTRY ERROR:",
+                error
+            );
+        }
+    });
+
+    cell.append(button);
+
+    return cell;
 }

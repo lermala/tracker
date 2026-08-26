@@ -101,11 +101,11 @@ h6 {
   
 }
 
-.badge.is-interactive, .taskDueDate, .taskPriority, .taskCheckbox, .addButtonIcon, .taskCalendarTodayButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
+.badge.is-interactive, .taskDueDate, .taskPriority, .taskCheckbox, .addButtonIcon, .taskCalendarTodayButton, .timesheetDeleteButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
-.badge.is-interactive:active, .taskDueDate:active, .taskPriority:active, .taskCheckbox:active, .addButtonIcon:active, .taskCalendarTodayButton:active, .timesheetDateButton:active, .addCategoryButton:active, .taskGroupCollapseButton:active, .segmentedControlButton:active, .toolbarButton:active, .toolbarAction:active, .sidebarHeader .sidebarUserButton:active, .authRecoveryBack:active, .authSwitch:active, .timerControl .timerButton:active, .colorPickerOption:active, .calendarDay:active, .projectEditorCancelButton:active, .settingsAvatarDeleteButton:active, .settingsAvatarChangeButton:active, .settingsCancelButton:active, .projectEditorSaveButton:active, .settingsSaveButton:active, .authRecoverySubmit:active, .authSubmit:active, .addButton:active, .settingsNavItem:active, .sidebarNavItem:active, .priorityPickerOption:active, .datePickerOption:active, .menuItem:active, .toggleButton:active, .taskCalendarNavigationButton:active, .pageMenuButton:active, .sidebarToggleButton:active, .calendarNavButton:active, .menuButton:active, .deleteButton:active, .iconButton:active, .taskCardCloseButton:active, .projectEditorCloseButton:active, .settingsCloseButton:active, .globalSearchCloseButton:active {
+.badge.is-interactive:active, .taskDueDate:active, .taskPriority:active, .taskCheckbox:active, .addButtonIcon:active, .taskCalendarTodayButton:active, .timesheetDeleteButton:active, .timesheetDateButton:active, .addCategoryButton:active, .taskGroupCollapseButton:active, .segmentedControlButton:active, .toolbarButton:active, .toolbarAction:active, .sidebarHeader .sidebarUserButton:active, .authRecoveryBack:active, .authSwitch:active, .timerControl .timerButton:active, .colorPickerOption:active, .calendarDay:active, .projectEditorCancelButton:active, .settingsAvatarDeleteButton:active, .settingsAvatarChangeButton:active, .settingsCancelButton:active, .projectEditorSaveButton:active, .settingsSaveButton:active, .authRecoverySubmit:active, .authSubmit:active, .addButton:active, .settingsNavItem:active, .sidebarNavItem:active, .priorityPickerOption:active, .datePickerOption:active, .menuItem:active, .toggleButton:active, .taskCalendarNavigationButton:active, .pageMenuButton:active, .sidebarToggleButton:active, .calendarNavButton:active, .menuButton:active, .deleteButton:active, .iconButton:active, .taskCardCloseButton:active, .projectEditorCloseButton:active, .settingsCloseButton:active, .globalSearchCloseButton:active {
   transform: scale(0.97);
 }
 
@@ -113,7 +113,7 @@ h6 {
   background: var(--color-hover);
 }
 
-.taskCalendarTodayButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
+.taskCalendarTodayButton, .timesheetDeleteButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
   margin: 0;
   padding: 0;
   font: inherit;
@@ -125,7 +125,7 @@ h6 {
           appearance: none;
 }
 
-.taskCalendarTodayButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
+.taskCalendarTodayButton, .timesheetDeleteButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2538,6 +2538,12 @@ body:not(.is-dragging) .task:hover {
 .timesheetTable td:nth-child(6) {
   width: 26%;
 }
+.timesheetTable th:last-child,
+.timesheetTable td:last-child {
+  width: 36px;
+  padding-left: 0;
+  padding-right: 0;
+}
 
 .timesheetDayRow td {
   padding-top: 10px;
@@ -2605,6 +2611,28 @@ body:not(.is-dragging) .task:hover {
   border-radius: 4px;
   font: inherit;
   outline: none;
+}
+
+.timesheetActionsCell {
+  text-align: center;
+}
+
+.timesheetDeleteButton {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  opacity: 0;
+}
+.timesheetDeleteButton .material-symbols-rounded {
+  font-size: 18px;
+  color: var(--color-text-secondary);
+}
+.timesheetDeleteButton:hover .material-symbols-rounded {
+  color: var(--color-danger);
+}
+
+.timesheetEntryRow:hover .timesheetDeleteButton {
+  opacity: 1;
 }
 
 .listView {

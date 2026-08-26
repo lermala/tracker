@@ -96,7 +96,7 @@
     th {
         // color: var(--color-text-secondary);
         // // font-size: 12px;
-        font-weight: 700; 
+        font-weight: 700;
         border-bottom: 1px solid var(--color-border);
     }
 
@@ -139,6 +139,14 @@
     td:nth-child(6) {
         width: 26%;
     }
+
+    // кнопка удаления
+    th:last-child,
+    td:last-child {
+        width: 36px;
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 
 .timesheetDayRow {
@@ -147,7 +155,7 @@
         padding-bottom: $space-xs;
 
         background: var(--color-surface-secondary);
-        font-weight: 500; 
+        font-weight: 500;
 
         border-bottom: 1px solid var(--color-border);
     }
@@ -176,6 +184,7 @@
 }
 
 .timesheetEntryRow {
+
     td:nth-child(2),
     td:nth-child(6) {
         overflow-wrap: anywhere;
@@ -229,4 +238,35 @@
 
     font: inherit;
     outline: none;
+}
+
+.timesheetActionsCell {
+    text-align: center;
+}
+
+.timesheetDeleteButton {
+    @extend %button;
+
+    width: 28px;
+    height: 28px;
+    padding: 0;
+
+    opacity: 0;
+
+    .material-symbols-rounded {
+        font-size: 18px;
+        color: var(--color-text-secondary);
+    }
+
+    &:hover {
+        .material-symbols-rounded {
+            color: var(--color-danger);
+        }
+    }
+}
+
+.timesheetEntryRow:hover {
+    .timesheetDeleteButton {
+        opacity: 1;
+    }
 }

@@ -192,3 +192,22 @@ async function updateTimeEntry(id, changes) {
 function getTimeEntryById(id) {
     return timeEntries.find(entry => entry.id === id);
 }
+
+async function deleteTimeEntry(id) {
+    const index = timeEntries.findIndex(
+        entry => entry.id === id
+    );
+
+    if (index === -1) return;
+
+    const entry = timeEntries[index];
+
+    timeEntries.splice(index, 1);
+
+    try {
+        await deleteTimeEntryFromDb(id);
+    } catch (error) {
+        timeEntries.splice(index, 0, entry);
+        throw error;
+    }
+}
