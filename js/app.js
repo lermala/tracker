@@ -24,9 +24,7 @@ async function initApp() {
         if (!session) {
             saveUrlBeforeAuth();
 
-            window.location.replace(
-                `${BASE_PATH}/auth.html`
-            );
+            window.location.replace(AUTH_PATH);
 
             return;
         }
@@ -68,7 +66,7 @@ async function startTracker() {
     await renderUser();
 
     initUI();
-    initEntityRouter();
+    initRouter();
 
     startTaskTimerUI();
 }
@@ -79,7 +77,7 @@ async function logout() {
 
         stopTracker();
 
-        window.location.href = "auth.html";
+        window.location.replace(AUTH_PATH);
     } catch (error) {
         console.error("SIGN OUT ERROR:", error);
     }

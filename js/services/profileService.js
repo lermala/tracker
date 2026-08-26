@@ -70,6 +70,11 @@ async function updateCurrentProfileAvatar(file) {
         await deleteAvatarFromDb(oldAvatarPath);
     }
 
+    profileCache.set(
+        currentProfile.id,
+        Promise.resolve(currentProfile)
+    );
+
     return currentProfile;
 }
 
@@ -86,6 +91,11 @@ async function removeCurrentProfileAvatar() {
     );
 
     await deleteAvatarFromDb(avatarPath);
+
+    profileCache.set(
+        currentProfile.id,
+        Promise.resolve(currentProfile)
+    );
 
     return currentProfile;
 }

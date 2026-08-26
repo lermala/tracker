@@ -7,11 +7,6 @@ const PAGE_URL = {
     TIMESHEET: "timesheet"
 };
 
-const BASE_PATH =
-    window.location.hostname.endsWith(".github.io")
-        ? "/tracker"
-        : "";
-
 
 function createEntityUrl(type, id) {
     const path =

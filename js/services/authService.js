@@ -3,11 +3,17 @@
 // test123
 
 
-async function signUp(email, password) {
+async function signUp(email, password, name) {
     const { data, error } =
         await supabaseClient.auth.signUp({
             email,
-            password
+            password,
+            options: {
+                emailRedirectTo: getAuthUrl(),
+                data: {
+                    name
+                }
+            }
         });
 
     if (error) {
@@ -25,7 +31,7 @@ async function signIn(email, password) {
         });
 
     if (error) {
-        throw error; 
+        throw error;
     }
 
     return data;
@@ -60,4 +66,18 @@ async function getCurrentSession() {
     }
 
     return data.session;
+}
+
+async function requestPasswordReset(email) {
+    const { error } =
+        await supabaseClient.auth.resetPasswordForEmail(
+            email,
+            {
+                redirectTo: getAuthUrl()
+            }
+        );
+
+    if (error) {
+        throw error;
+    }
 }

@@ -13,48 +13,116 @@
 <body class="authPage">
 
     <main class="authForm">
-        <div class="authHeader">
-            <h1 class="authTitle">Вход</h1>
+        <div class="authContent">
+            <div class="authHeader">
+                <h1 class="authTitle">Вход</h1>
 
-            <p class="authSubtitle">
-                Войдите, чтобы продолжить работу
-            </p>
+                <p class="authSubtitle">
+                    Войдите, чтобы продолжить работу
+                </p>
+            </div>
+
+            <form class="authFormFields">
+                <div class="authFields">
+                    <label class="authField authNameField" hidden>
+                        <span class="authLabel">Имя</span>
+
+                        <input class="authInput authName" type="text" placeholder="Введите имя" autocomplete="name">
+                    </label>
+
+                    <label class="authField">
+                        <span class="authLabel">Email</span>
+
+                        <input class="authInput authEmail" type="email" placeholder="name@example.com"
+                            autocomplete="email">
+                    </label>
+
+                    <label class="authField">
+                        <span class="authLabel">Пароль</span>
+
+                        <div class="authPasswordField">
+                            <input class="authInput authPassword" type="password" placeholder="Введите пароль"
+                                autocomplete="current-password">
+
+                            <button class="authPasswordToggle" type="button" title="Показать пароль"
+                                aria-label="Показать пароль">
+                                <span class="material-symbols-rounded">
+                                    visibility
+                                </span>
+                            </button>
+                        </div>
+                    </label>
+
+                    <button class="authForgotPassword" type="button">
+                        Забыли пароль?
+                    </button>
+                </div>
+
+                <div class="authError"></div>
+
+                <button class="authSubmit" type="submit">
+                    Войти
+                </button>
+            </form>
+
+            <button class="authSwitch" type="button">
+                Нет аккаунта? Зарегистрироваться
+            </button>
         </div>
 
-        <div class="authFields">
+        <div class="authSuccess" hidden>
+            <span class="material-symbols-rounded authSuccessIcon">
+                mark_email_read
+            </span>
+
+            <h1 class="authSuccessTitle">
+                Проверьте почту
+            </h1>
+
+            <p class="authSuccessText"></p>
+
+            <button class="authSuccessButton" type="button">
+                Вернуться ко входу
+            </button>
+        </div>
+
+        <div class="authRecovery" hidden>
+            <div class="authHeader">
+                <h1 class="authTitle">
+                    Восстановление пароля
+                </h1>
+
+                <p class="authSubtitle">
+                    Укажите email, на который зарегистрирован аккаунт
+                </p>
+            </div>
+
             <label class="authField">
                 <span class="authLabel">Email</span>
 
-                <input class="authInput authEmail" type="email" placeholder="name@example.com" autocomplete="email">
+                <input class="authInput authRecoveryEmail" type="email" placeholder="name@example.com"
+                    autocomplete="email">
             </label>
 
-            <label class="authField">
-                <span class="authLabel">Пароль</span>
+            <div class="authRecoveryError authError"></div>
 
-                <input class="authInput authPassword" type="password" placeholder="Введите пароль"
-                    autocomplete="current-password">
-            </label>
+            <button class="authRecoverySubmit" type="button">
+                Отправить ссылку
+            </button>
+
+            <button class="authRecoveryBack" type="button">
+                Вернуться ко входу
+            </button>
         </div>
-
-        <div class="authError"></div>
-
-        <button class="authSubmit" type="button">
-            Войти
-        </button>
-
-        <button class="authSwitch" type="button">
-            Нет аккаунта? Зарегистрироваться
-        </button>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+    <script src="js/constants/config.js"></script>
     <script src="js/supabaseClient.js"></script>
     <script src="js/services/authService.js"></script>
-
     <script src="js/ui/authUI.js"></script>
     <script src="js/authApp.js"></script>
-
 </body>
 
 </html>

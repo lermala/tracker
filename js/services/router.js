@@ -1,8 +1,7 @@
-let entityRouterInitialized = false;
-const REDIRECT_URL_KEY = "redirectAfterAuth";
+let routerInitialized = false;
 
-function initEntityRouter() {
-    if (entityRouterInitialized) {
+function initRouter() {
+    if (routerInitialized) {
         return;
     }
 
@@ -11,7 +10,7 @@ function initEntityRouter() {
         handlePopState
     );
 
-    entityRouterInitialized = true;
+    routerInitialized = true;
 }
 
 function handlePopState() {
@@ -201,13 +200,6 @@ function syncUrlWithCurrentPage() {
     }
 }
 
-function saveUrlBeforeAuth() {
-    sessionStorage.setItem(
-        REDIRECT_URL_KEY,
-        window.location.pathname
-    );
-}
-
 function setTimesheetUrl() {
     history.pushState(
         null,
@@ -242,4 +234,18 @@ function getPageFromUrl() {
     }
 
     return null;
+}
+
+
+// ============= AUTH ==============
+function saveUrlBeforeAuth() {
+    const url =
+        window.location.pathname +
+        window.location.search +
+        window.location.hash;
+
+    sessionStorage.setItem(
+        REDIRECT_URL_KEY,
+        url
+    );
 }

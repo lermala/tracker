@@ -98,13 +98,14 @@ h6 {
   --color-tomorrow: #6aab7b;
   --color-this-week: #6f91c7;
   --color-later: #8b8b8b;
+  
 }
 
-.badge.is-interactive, .taskDueDate, .taskPriority, .taskCheckbox, .addButtonIcon, .taskCalendarTodayButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
+.badge.is-interactive, .taskDueDate, .taskPriority, .taskCheckbox, .addButtonIcon, .taskCalendarTodayButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
-.badge.is-interactive:active, .taskDueDate:active, .taskPriority:active, .taskCheckbox:active, .addButtonIcon:active, .taskCalendarTodayButton:active, .timesheetDateButton:active, .addCategoryButton:active, .taskGroupCollapseButton:active, .segmentedControlButton:active, .toolbarButton:active, .toolbarAction:active, .sidebarHeader .sidebarUserButton:active, .authSwitch:active, .timerControl .timerButton:active, .colorPickerOption:active, .calendarDay:active, .projectEditorCancelButton:active, .settingsAvatarDeleteButton:active, .settingsAvatarChangeButton:active, .settingsCancelButton:active, .projectEditorSaveButton:active, .settingsSaveButton:active, .authSubmit:active, .addButton:active, .settingsNavItem:active, .sidebarNavItem:active, .priorityPickerOption:active, .datePickerOption:active, .menuItem:active, .toggleButton:active, .taskCalendarNavigationButton:active, .pageMenuButton:active, .sidebarToggleButton:active, .calendarNavButton:active, .menuButton:active, .deleteButton:active, .iconButton:active, .taskCardCloseButton:active, .projectEditorCloseButton:active, .settingsCloseButton:active, .globalSearchCloseButton:active {
+.badge.is-interactive:active, .taskDueDate:active, .taskPriority:active, .taskCheckbox:active, .addButtonIcon:active, .taskCalendarTodayButton:active, .timesheetDateButton:active, .addCategoryButton:active, .taskGroupCollapseButton:active, .segmentedControlButton:active, .toolbarButton:active, .toolbarAction:active, .sidebarHeader .sidebarUserButton:active, .authRecoveryBack:active, .authSwitch:active, .timerControl .timerButton:active, .colorPickerOption:active, .calendarDay:active, .projectEditorCancelButton:active, .settingsAvatarDeleteButton:active, .settingsAvatarChangeButton:active, .settingsCancelButton:active, .projectEditorSaveButton:active, .settingsSaveButton:active, .authRecoverySubmit:active, .authSubmit:active, .addButton:active, .settingsNavItem:active, .sidebarNavItem:active, .priorityPickerOption:active, .datePickerOption:active, .menuItem:active, .toggleButton:active, .taskCalendarNavigationButton:active, .pageMenuButton:active, .sidebarToggleButton:active, .calendarNavButton:active, .menuButton:active, .deleteButton:active, .iconButton:active, .taskCardCloseButton:active, .projectEditorCloseButton:active, .settingsCloseButton:active, .globalSearchCloseButton:active {
   transform: scale(0.97);
 }
 
@@ -112,7 +113,7 @@ h6 {
   background: var(--color-hover);
 }
 
-.taskCalendarTodayButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
+.taskCalendarTodayButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
   margin: 0;
   padding: 0;
   font: inherit;
@@ -124,7 +125,7 @@ h6 {
           appearance: none;
 }
 
-.taskCalendarTodayButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
+.taskCalendarTodayButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -757,12 +758,12 @@ a:hover {
   width: 26px;
   height: 26px;
 }
-.projectEditorSaveButton, .settingsSaveButton, .authSubmit {
+.projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit {
   padding: 6px 12px;
   color: var(--color-on-accent);
   background: var(--color-accent);
 }
-.projectEditorSaveButton:hover, .settingsSaveButton:hover, .authSubmit:hover {
+.projectEditorSaveButton:hover, .settingsSaveButton:hover, .authRecoverySubmit:hover, .authSubmit:hover {
   opacity: 0.9;
 }
 
@@ -1177,6 +1178,10 @@ textarea.textEditor.taskTitle {
   color: inherit;
 }
 
+.authContent {
+  display: contents;
+}
+
 .authPage {
   min-height: 100vh;
   display: flex;
@@ -1213,10 +1218,24 @@ textarea.textEditor.taskTitle {
   line-height: 1.5;
 }
 
+.authFields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.authField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .authSubmit {
   height: 40px;
   margin-top: 6px;
   font-weight: 500;
+  width: 100%;
 }
 
 .authSwitch {
@@ -1227,6 +1246,106 @@ textarea.textEditor.taskTitle {
   font-size: 13px;
 }
 .authSwitch:hover {
+  text-decoration: underline;
+}
+
+.authPasswordField {
+  position: relative;
+  width: 100%;
+}
+
+.authPasswordField .authInput {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.authPasswordToggle {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+.authPasswordToggle .material-symbols-rounded {
+  font-size: 20px;
+}
+.authPasswordToggle:hover {
+  color: var(--color-text);
+}
+
+.authError {
+  display: none;
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  color: #e06c75;
+  background: rgba(224, 108, 117, 0.08);
+  font-size: 13px;
+  line-height: 18px;
+}
+.authError:not(:empty) {
+  display: block;
+}
+
+.authSubmit:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.authInput:disabled {
+  cursor: default;
+}
+
+.authSwitch:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.authRecovery {
+  width: 100%;
+}
+.authRecovery .authField {
+  margin-bottom: 10px;
+}
+
+.authForgotPassword {
+  align-self: flex-end;
+  margin-top: 6px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-accent);
+  font-size: 13px;
+  cursor: pointer;
+}
+.authForgotPassword:hover {
+  text-decoration: underline;
+}
+
+.authRecoverySubmit {
+  height: 40px;
+  margin-top: 8px;
+  font-weight: 500;
+  width: 100%;
+}
+
+.authRecoveryBack {
+  align-self: center;
+  vertical-align: middle;
+  width: 100%;
+  margin-top: 20px;
+  padding: 4px;
+  color: var(--color-accent);
+  font-size: 13px;
+}
+.authRecoveryBack:hover {
   text-decoration: underline;
 }
 
