@@ -36,29 +36,46 @@ async function initApp() {
 }
 
 async function loadTracker() {
-    currentUser = await getCurrentUser();
-    currentProfile = await getCurrentProfile();
+    console.time("LOAD TRACKER");
 
-    [projects, categories, tasks] = await Promise.all([
+    currentUser = await getCurrentUser();
+
+    const [
+        profile,
+        loadedProjects,
+        loadedCategories,
+        loadedTasks
+    ] = await Promise.all([
+        getCurrentProfile(),
         getProjectsFromDb(),
         getCategoriesFromDb(),
         getTasksFromDb()
     ]);
 
-    await loadTimeEntries();
+    currentProfile = profile;
+    projects = loadedProjects;
+    categories = loadedCategories;
+    tasks = loadedTasks;
 
+    console.time("TIME ENTRIES");
+    // await loadTimeEntries();
+    console.timeEnd("TIME ENTRIES");
+
+    console.time("INITIAL URL");
     const initialTask = await handleInitialUrl();
+    console.timeEnd("INITIAL URL");
 
+    console.time("START TRACKER");
     await startTracker();
+    console.timeEnd("START TRACKER");
 
     if (initialTask) {
-        openTaskCard(
-            initialTask,
-            {
-                updateUrl: false
-            }
-        );
+        openTaskCard(initialTask, {
+            updateUrl: false
+        });
     }
+
+    console.timeEnd("LOAD TRACKER");
 }
 
 async function startTracker() {
@@ -108,7 +125,7 @@ function saveCurrentPageSettings() {
     );
 }
 
-function selectPage(page) {
+async function selectPage(page) {
     if (
         currentPage.type === page.type &&
         currentPage.id === page.id
@@ -120,6 +137,7 @@ function selectPage(page) {
 
     if (currentPage.type === PAGE.TIMESHEET) {
         pageSettings = null;
+        await loadTimeEntries();
     } else {
         pageSettings = getPageSettings(currentPage);
     }

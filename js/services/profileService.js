@@ -5,9 +5,7 @@ async function getCurrentProfile() {
         return null;
     }
 
-    return getProfileByIdFromDb(
-        currentUser.id
-    );
+    return getProfileById(currentUser.id);
 }
 
 async function getProfileById(profileId) {

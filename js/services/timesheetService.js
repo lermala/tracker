@@ -1,10 +1,3 @@
-{
-    entry,
-        startedAt,
-        endedAt,
-        duration
-}
-
 function splitTimeEntryByDay(entry) {
     const segments = [];
     let segmentStart = entry.startedAt;
