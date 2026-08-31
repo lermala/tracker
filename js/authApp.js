@@ -1,6 +1,8 @@
 initAuthApp();
 
 async function initAuthApp() {
+    showAppLoading();
+    
     try {
         const session = await getCurrentSession();
 
@@ -12,6 +14,8 @@ async function initAuthApp() {
             "AUTH INIT ERROR:",
             error
         );
+    } finally {
+        hideAppLoading();
     }
 }
 

@@ -98,7 +98,6 @@ h6 {
   --color-tomorrow: #6aab7b;
   --color-this-week: #6f91c7;
   --color-later: #8b8b8b;
-  
 }
 
 .badge.is-interactive, .taskDueDate, .taskPriority, .taskCheckbox, .addButtonIcon, .taskCalendarTodayButton, .timesheetDeleteButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
@@ -1178,6 +1177,37 @@ textarea.textEditor.taskTitle {
   color: inherit;
 }
 
+.appLoading {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--color-background);
+}
+
+.appLoadingSpinner {
+  width: 26px;
+  height: 26px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: appLoadingSpin 1.4s linear infinite;
+}
+
+.appLoadingText {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+@keyframes appLoadingSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 .authContent {
   display: contents;
 }

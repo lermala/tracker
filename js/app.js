@@ -18,20 +18,22 @@ restoreUrl();
 initApp();
 
 async function initApp() {
+    showAppLoading();
+    
     try {
         const session = await getCurrentSession();
 
         if (!session) {
             saveUrlBeforeAuth();
-
             window.location.replace(AUTH_PATH);
-
             return;
         }
 
         await loadTracker();
     } catch (error) {
         console.error("APP INIT ERROR:", error);
+    } finally {
+        hideAppLoading();
     }
 }
 
@@ -137,9 +139,12 @@ async function selectPage(page) {
 
     if (currentPage.type === PAGE.TIMESHEET) {
         pageSettings = null;
-        await loadTimeEntries();
     } else {
         pageSettings = getPageSettings(currentPage);
+    }
+
+        if (currentPage.type === PAGE.TIMESHEET) {
+        await loadTimeEntries();
     }
 
     renderNavigation();

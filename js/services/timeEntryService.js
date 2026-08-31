@@ -1,4 +1,5 @@
 let timeEntries = [];
+let timeEntriesLoaded = false;
 
 function createTimeEntry({
     taskId,
@@ -22,8 +23,12 @@ function createTimeEntry({
 }
 
 async function loadTimeEntries() {
-    timeEntries =
-        await getTimeEntriesFromDb();
+    if (timeEntriesLoaded) {
+        return timeEntries;
+    }
+
+    timeEntries = await getTimeEntriesFromDb();
+    timeEntriesLoaded = true;
 
     return timeEntries;
 }
@@ -127,6 +132,7 @@ function stopActiveTimeEntry() {
 
 function clearTimeEntries() {
     timeEntries = [];
+    timeEntriesLoaded = false;
 }
 
 
