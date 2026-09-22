@@ -1,5 +1,14 @@
 let currentTaskId = null;
 let taskCardElements = null;
+let taskCardSaving = false;
+
+function getTaskCardTask() {
+    return getTaskById(currentTaskId);
+}
+
+async function saveTaskCardChanges(id, changes) {
+    return updateTask(id, changes);
+}
 
 async function initTaskCard() {
     const response = await fetch(
@@ -39,6 +48,43 @@ function bindTaskCardEvents() {
         duration
     } = taskCardElements;
 
+    bindTaskMenu(taskCardElements.menuButton, getTaskCardTask, {
+        onEdit: () => title.click(),
+        onDelete: async () => {
+            const task = getTaskCardTask();
+            if (!task) return;
+            try {
+                await deleteTask(task.id);
+                if (currentTaskId === task.id) closeTaskCard();
+            } catch (error) {
+                console.error("DELETE TASK ERROR:", error);
+            }
+            renderCurrentView();
+        },
+        onUpdate: () => {
+            const task = getTaskCardTask();
+            if (!task) return;
+            fillTaskDueDate(dueDate, task);
+            fillTaskPriority(priority, task);
+            fillTaskCheckbox(checkbox, task);
+            fillTaskProject(project, task);
+            fillTaskCategory(category, task);
+            fillTaskAssignee(taskCardElements.assignee, task);
+        }
+    });
+
+
+    project.addEventListener("click", () => {
+        const task = getTaskCardTask();
+        if (!task) return;
+        openTaskProjectPicker(project, task, () => {
+            if (currentTaskId !== task.id) return;
+            fillTaskProject(project, task);
+            fillTaskCategory(category, task);
+            fillTaskAssignee(taskCardElements.assignee, task);
+        });
+    });
+
     closeButton.addEventListener(
         "click",
         closeTaskCard
@@ -52,7 +98,7 @@ function bindTaskCardEvents() {
 
     bindTaskCheckbox(
         checkbox,
-        () => getTaskById(currentTaskId),
+        () => getTaskCardTask(),
         async toggle => {
             try {
                 await toggle();
@@ -63,7 +109,7 @@ function bindTaskCardEvents() {
                 );
 
                 const task =
-                    getTaskById(currentTaskId);
+                    getTaskCardTask();
 
                 if (task) {
                     fillTaskCheckbox(
@@ -79,7 +125,7 @@ function bindTaskCardEvents() {
 
     title.addEventListener("click", () => {
         const task =
-            getTaskById(currentTaskId);
+            getTaskCardTask();
 
         if (!task) return;
 
@@ -91,10 +137,8 @@ function bindTaskCardEvents() {
             className: "taskCardTitle",
 
             onSave: (value) => {
-                if (!value) return;
-
-                updateTask(task.id, {
-                    title: value
+                saveTaskCardChanges(task.id, {
+                    title: value || "Новая задача"
                 }).catch(error => {
                     console.error(
                         "UPDATE TASK TITLE ERROR:",
@@ -102,13 +146,13 @@ function bindTaskCardEvents() {
                     );
 
                     title.textContent =
-                        task.title;
+                        task.title || "Название задачи";
 
                     renderCurrentView();
                 });
 
                 title.textContent =
-                    task.title;
+                    task.title || "Название задачи";
 
                 renderCurrentView();
             }
@@ -117,33 +161,37 @@ function bindTaskCardEvents() {
 
     bindTaskDescription(
         description,
-        () => getTaskById(currentTaskId),
-        renderCurrentView
+        () => getTaskCardTask(),
+        renderCurrentView,
+        saveTaskCardChanges
     );
 
     bindTaskDueDate(
         dueDate,
-        () => getTaskById(currentTaskId),
-        renderCurrentView
+        () => getTaskCardTask(),
+        renderCurrentView,
+        saveTaskCardChanges
     );
 
     bindTaskPriority(
         priority,
-        () => getTaskById(currentTaskId),
-        renderCurrentView
+        () => getTaskCardTask(),
+        renderCurrentView,
+        saveTaskCardChanges
     );
 
     bindTaskAssignee(
         taskCardElements.assignee,
-        () => getTaskById(currentTaskId)
+        () => getTaskCardTask(),
+        { saveTask: saveTaskCardChanges }
     );
 
     bindTaskDuration(
         taskCardElements.timerControl.button,
-        () => getTaskById(currentTaskId),
+        () => getTaskCardTask(),
         () => {
             const task =
-                getTaskById(currentTaskId);
+                getTaskCardTask();
 
             if (!task) return;
 
@@ -159,11 +207,10 @@ function bindTaskCardEvents() {
 
     bindTaskCategory(
         category,
-        () => getTaskById(
-            currentTaskId
-        ),
+        getTaskCardTask,
 
         {
+            saveTask: saveTaskCardChanges,
             onUpdate: () => {
                 renderCurrentView();
             }
@@ -174,6 +221,8 @@ function bindTaskCardEvents() {
 function openTaskCard(task, {
     updateUrl = true
 } = {}) {
+    if (taskCardSaving) return;
+    document.activeElement?.blur();
     const {
         overlay,
         closeButton,
@@ -206,7 +255,7 @@ function openTaskCard(task, {
     }
 
     overlay.classList.remove("hidden");
-    title.textContent = task.title;
+    title.textContent = task.title || "Название задачи";
 
     fillTaskAssignee(taskCardElements.assignee, task);
     fillTaskUser(
@@ -217,7 +266,7 @@ function openTaskCard(task, {
         }
     );
     fillTaskCheckbox(checkbox, task);
-    fillTaskDescription(description, task);
+    fillTaskDescription(description, task, saveTaskCardChanges);
     fillTaskDueDate(dueDate, task);
     fillTaskPriority(priority, task);
 
@@ -245,6 +294,8 @@ function openTaskCard(task, {
 function closeTaskCard({
     updateUrl = true
 } = {}) {
+    if (taskCardSaving) return;
+    document.activeElement?.blur();
     const overlay = document.getElementById("taskCardOverlay");
 
     if (currentTaskId) {
@@ -265,6 +316,7 @@ function closeTaskCard({
 function getTaskCardElements() {
     return {
         overlay: document.getElementById("taskCardOverlay"),
+        menuButton: document.getElementById("taskCardMenuButton"),
         closeButton: document.getElementById("taskCardCloseButton"),
 
         checkbox: document.getElementById("taskCardCheckbox"),
@@ -290,4 +342,26 @@ function initTaskCardDuration() {
     );
 
     taskCardElements.timerControl = duration;
+}
+async function openCreateTaskCard({
+    projectId = getCurrentProjectId(),
+    categoryId = null,
+    dueDate = null,
+    dueTime = null
+} = {}) {
+    if (taskCardSaving) return;
+    taskCardSaving = true;
+    const task = createTask({ projectId, categoryId, dueDate, dueTime });
+    // task.title = "Новая задача";
+    try {
+        await addTask(task);
+    } catch (error) {
+        console.error("CREATE TASK ERROR:", error);
+        return;
+    } finally {
+        taskCardSaving = false;
+        renderCurrentView();
+    }
+    openTaskCard(task);
+    taskCardElements.title.click();
 }

@@ -110,6 +110,18 @@ async function updateTask(id, changes) {
     }
 }
 
+async function moveTaskToProject(id, projectId) {
+    const task = getTaskById(id);
+    if (!task || task.projectId === projectId) return task;
+
+    return updateTask(id, {
+        projectId,
+        categoryId: null,
+        assigneeId: null,
+        order: getNextTaskOrder(projectId, null)
+    });
+}
+
 async function toggleTask(id) {
     const task = getTaskById(id);
 

@@ -87,6 +87,7 @@
 }
 
 .taskCalendarDay {
+    position: relative;
     min-width: 0;
     min-height: 130px;
     padding: 6px;
@@ -120,6 +121,33 @@
     }
 }
 
+
+.taskCalendarDayAddButton {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 26px;
+    height: 26px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.taskCalendarDayAddButton span {
+    font-size: 18px;
+}
+
+.taskCalendarDay:hover .taskCalendarDayAddButton,
+.taskCalendarDay:focus-within .taskCalendarDayAddButton {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@media (hover: none) {
+    .taskCalendarDayAddButton {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
 
 // Day number
 

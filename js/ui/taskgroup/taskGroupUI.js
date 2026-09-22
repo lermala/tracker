@@ -176,15 +176,11 @@ function bindTaskGroupEvents(item, elements, group) {
     // Добавление задачи
     if (group.newTaskData != null) {
         elements.addButton.addEventListener("click", () => {
-            const task = createTask({
+            openCreateTaskCard({
                 projectId: getCurrentProjectId(),
                 ...group.newTaskData
             });
 
-            const taskElement = createTaskUI(task);
-
-            elements.items.append(taskElement);
-            startEditTask(taskElement, task, true);
         });
     }
 }

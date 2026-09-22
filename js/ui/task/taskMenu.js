@@ -3,7 +3,8 @@ function bindTaskMenu(
     getTask,
     {
         onEdit = null,
-        onDelete = null
+        onDelete = null,
+        onUpdate = null
     } = {}
 ) {
     menuButton.addEventListener(
@@ -19,7 +20,8 @@ function bindTaskMenu(
                 anchor: menuButton,
                 task,
                 onEdit,
-                onDelete
+                onDelete,
+                onUpdate
             });
         }
     );
@@ -29,7 +31,8 @@ function openTaskMenu({
     anchor,
     task,
     onEdit,
-    onDelete
+    onDelete,
+    onUpdate
 }) {
     const dropdown =
         document.createElement("div");
@@ -60,12 +63,14 @@ function openTaskMenu({
 
         createTaskMenuDueDate(
             task,
-            anchor
+            anchor,
+            onUpdate
         ),
 
         createTaskMenuPriority(
             task,
-            anchor
+            anchor,
+            onUpdate
         ),
 
         createDropdownDivider(),
@@ -75,7 +80,7 @@ function openTaskMenu({
             icon: "drive_file_move",
 
             onClick: () => {
-                // следующий шаг
+                openTaskProjectPicker(anchor, task, onUpdate);
             }
         }),
 
@@ -114,6 +119,30 @@ function openTaskMenu({
     });
 }
 
+function openTaskProjectPicker(anchor, task, onUpdate) {
+    openSelectDropdown({
+        anchor,
+        items: getProjects(),
+        selectedId: task.projectId,
+        getId: project => project.id,
+        renderItem: project => createBadge({
+            text: project.title,
+            color: project.color
+        }),
+        onSelect: async projectId => {
+            if (task.projectId === projectId) return;
+            try {
+                await moveTaskToProject(task.id, projectId);
+            } catch (error) {
+                console.error("MOVE TASK ERROR:", error);
+            }
+            renderCurrentView();
+            onUpdate?.();
+        },
+        width: "220px"
+    });
+}
+
 function createTaskMenuAction({
     text,
     icon,
@@ -145,7 +174,8 @@ function createTaskMenuAction({
 
 function createTaskMenuDueDate(
     task,
-    menuAnchor
+    menuAnchor,
+    onUpdate
 ) {
     return createDropdownItem({
         text: "Срок",
@@ -177,6 +207,7 @@ function createTaskMenuDueDate(
                         );
 
                         renderCurrentView();
+                        onUpdate?.();
                     }
             });
         }
@@ -185,7 +216,8 @@ function createTaskMenuDueDate(
 
 function createTaskMenuPriority(
     task,
-    menuAnchor
+    menuAnchor,
+    onUpdate
 ) {
     return createDropdownItem({
         text: "Приоритет",
@@ -210,6 +242,7 @@ function createTaskMenuPriority(
                         );
 
                         renderCurrentView();
+                        onUpdate?.();
                     }
             });
         }

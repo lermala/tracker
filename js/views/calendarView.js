@@ -24,13 +24,16 @@ function createCalendarHeader() {
     const title = document.createElement("div");
     title.className = "taskCalendarTitle";
 
-    title.textContent = calendarDate.toLocaleDateString(
+    title.textContent = new Intl.DateTimeFormat(
         "ru-RU",
         {
             month: "long",
             year: "numeric"
         }
-    );
+    ).formatToParts(calendarDate)
+        .filter(part => part.type === "month" || part.type === "year")
+        .map(part => part.value)
+        .join(" ");
 
     const navigation = document.createElement("div");
     navigation.className = "taskCalendarNavigation";
@@ -204,6 +207,26 @@ function createCalendarDay(
 
     day.dataset.date = dateValue;
 
+    const addButton = document.createElement("button");
+    addButton.type = "button";
+    addButton.className = "taskCalendarDayAddButton iconButton";
+    addButton.title = "Добавить задачу";
+    addButton.setAttribute("aria-label", `Добавить задачу на ${date.toLocaleDateString("ru-RU")}`);
+
+    const addIcon = document.createElement("span");
+    addIcon.className = "material-symbols-rounded";
+    addIcon.textContent = "add";
+    addIcon.setAttribute("aria-hidden", "true");
+    addButton.append(addIcon);
+
+    addButton.addEventListener("click", event => {
+        event.stopPropagation();
+        openCreateTaskCard({
+            dueDate: dateValue,
+            projectId: getCurrentProjectId()
+        });
+    });
+
     const number = document.createElement("div");
     number.className = "taskCalendarDayNumber";
     number.textContent = date.getDate();
@@ -227,6 +250,7 @@ function createCalendarDay(
     });
 
     day.append(
+        addButton,
         number,
         tasksContainer
     );

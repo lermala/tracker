@@ -40,7 +40,8 @@ function fillTaskDueDate(dueDate, task) {
 function bindTaskDueDate(
     dueDateElement,
     getTask,
-    onUpdate
+    onUpdate,
+    saveTask = updateTask
 ) {
     dueDateElement.addEventListener("click", (event) => {
         event.stopPropagation();
@@ -60,7 +61,7 @@ function bindTaskDueDate(
             allowTime: true,
 
             onChange: ({ date, time }) => {
-                updateTask(task.id, {
+                saveTask(task.id, {
                     dueDate: date,
                     dueTime: time
                 });
@@ -148,7 +149,8 @@ function bindTaskCheckbox(status, getTask, onToggle) {
 
 function fillTaskDescription(
     description,
-    task
+    task,
+    saveTask = updateTask
 ) {
     if (!task.description) {
         description.textContent =
@@ -170,7 +172,7 @@ function fillTaskDescription(
         task.description,
         {
             onChange: description => {
-                updateTask(task.id, {
+                saveTask(task.id, {
                     description
                 });
             }
@@ -181,7 +183,8 @@ function fillTaskDescription(
 function bindTaskDescription(
     description,
     getTask,
-    onUpdate
+    onUpdate,
+    saveTask = updateTask
 ) {
     description.addEventListener(
         "click",
@@ -212,7 +215,7 @@ function bindTaskDescription(
 
                     onSave:
                         async value => {
-                            await updateTask(
+                            await saveTask(
                                 task.id,
                                 {
                                     description:
@@ -222,7 +225,8 @@ function bindTaskDescription(
 
                             fillTaskDescription(
                                 description,
-                                task
+                                task,
+                                saveTask
                             );
 
                             onUpdate?.();
@@ -260,7 +264,8 @@ function fillTaskPriority(priorityElement, task) {
 function bindTaskPriority(
     priorityElement,
     getTask,
-    onUpdate
+    onUpdate,
+    saveTask = updateTask
 ) {
     priorityElement.addEventListener("click", event => {
         event.stopPropagation();
@@ -273,7 +278,7 @@ function bindTaskPriority(
             value: task.priority,
 
             onChange: priority => {
-                updateTask(task.id, {
+                saveTask(task.id, {
                     priority
                 });
 
@@ -366,7 +371,8 @@ function bindTaskAssignee(
     getTask,
     {
         compact = false,
-        onUpdate = null
+        onUpdate = null,
+        saveTask = updateTask
     } = {}
 ) {
     assigneeElement.addEventListener(
@@ -427,7 +433,7 @@ function bindTaskAssignee(
 
                     onSelect:
                         async assigneeId => {
-                            await updateTask(
+                            await saveTask(
                                 task.id,
                                 {
                                     assigneeId
@@ -514,7 +520,8 @@ function bindTaskCategory(
     getTask,
     {
         hideEmpty = false,
-        onUpdate = null
+        onUpdate = null,
+        saveTask = updateTask
     } = {}
 ) {
     categoryElement.addEventListener(
@@ -534,7 +541,7 @@ function bindTaskCategory(
             async function setCategory(
                 categoryId
             ) {
-                await updateTask(
+                await saveTask(
                     task.id,
                     {
                         categoryId

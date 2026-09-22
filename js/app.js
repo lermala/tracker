@@ -19,7 +19,7 @@ initApp();
 
 async function initApp() {
     showAppLoading();
-    
+
     try {
         const session = await getCurrentSession();
 
@@ -58,6 +58,8 @@ async function loadTracker() {
     projects = loadedProjects;
     categories = loadedCategories;
     tasks = loadedTasks;
+
+    updateDocumentTitle();
 
     console.time("TIME ENTRIES");
     // await loadTimeEntries();
@@ -143,11 +145,40 @@ async function selectPage(page) {
         pageSettings = getPageSettings(currentPage);
     }
 
-        if (currentPage.type === PAGE.TIMESHEET) {
+    if (currentPage.type === PAGE.TIMESHEET) {
         await loadTimeEntries();
     }
 
     renderNavigation();
     renderToolbarUI();
     renderCurrentView();
+    updateDocumentTitle();
+}
+
+function updateDocumentTitle() {
+    let title = "Трекер";
+
+    switch (currentPage.type) {
+        case PAGE.MY_TASKS:
+            title = "Мои задачи";
+            break;
+
+        case PAGE.TIMESHEET:
+            title = "История выполнения";
+            break;
+
+        case PAGE.PROJECT:
+            const project = getProjectById(currentPage.id);
+            console.log("PROJECT:", project);
+
+            if (project?.title) {
+                title = `${project.title} | Трекер`;
+            }
+            break;
+
+        default:
+            title = "Трекер";
+    }
+
+    document.title = title;
 }
