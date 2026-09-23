@@ -159,13 +159,6 @@ function bindTaskCardEvents() {
         });
     });
 
-    bindTaskDescription(
-        description,
-        () => getTaskCardTask(),
-        renderCurrentView,
-        saveTaskCardChanges
-    );
-
     bindTaskDueDate(
         dueDate,
         () => getTaskCardTask(),
@@ -218,10 +211,11 @@ function bindTaskCardEvents() {
     );
 }
 
-function openTaskCard(task, {
+async function openTaskCard(task, {
     updateUrl = true
 } = {}) {
     if (taskCardSaving) return;
+    if (activeMarkdownEditor && !await finishMarkdownEdit()) return;
     document.activeElement?.blur();
     const {
         overlay,
@@ -291,10 +285,11 @@ function openTaskCard(task, {
     );
 }
 
-function closeTaskCard({
+async function closeTaskCard({
     updateUrl = true
 } = {}) {
     if (taskCardSaving) return;
+    if (activeMarkdownEditor && !await finishMarkdownEdit()) return;
     document.activeElement?.blur();
     const overlay = document.getElementById("taskCardOverlay");
 
@@ -306,6 +301,7 @@ function closeTaskCard({
     }
 
     overlay.classList.add("hidden");
+    taskCardElements.description.markdownControl?.destroy();
     currentTaskId = null;
 
     if (updateUrl) {
@@ -350,6 +346,8 @@ async function openCreateTaskCard({
     dueTime = null
 } = {}) {
     if (taskCardSaving) return;
+    if (activeMarkdownEditor && !await finishMarkdownEdit()) return;
+    if (taskCardSaving) return;
     taskCardSaving = true;
     const task = createTask({ projectId, categoryId, dueDate, dueTime });
     // task.title = "Новая задача";
@@ -362,6 +360,6 @@ async function openCreateTaskCard({
         taskCardSaving = false;
         renderCurrentView();
     }
-    openTaskCard(task);
+    await openTaskCard(task);
     taskCardElements.title.click();
 }

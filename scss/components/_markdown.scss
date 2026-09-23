@@ -1,4 +1,5 @@
-.markdownContent {
+.markdownContent,
+.descriptionEditor .toastui-editor-contents {
     line-height: 1.5;
 
     // Убираем браузерные margin
@@ -132,22 +133,273 @@
     }
 }
 
-.markdownEditor {
-    @extend %input;
-
-    display: block;
-
-    width: 100%;
-    min-height: 32px;
-    margin: 0;
-    padding: 0;
-
+.descriptionEditor .toastui-editor-defaultUI {
+    position: relative;
     border: none;
-
-    background: transparent;
-
-    font: inherit;
-    line-height: inherit;
-
-    resize: vertical;
+    border-radius: 0;
+    font-family: inherit;
 }
+
+.descriptionEditor .toastui-editor-defaultUI-toolbar {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 30px;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+}
+
+.descriptionEditor .toastui-editor-toolbar {
+    height: 0;
+}
+
+.descriptionEditor:not(.is-editing) .toastui-editor-popup,
+.descriptionEditor:not(.is-editing) .toastui-editor-context-menu,
+.toastui-editor-tooltip {
+    display: none !important;
+}
+
+.descriptionEditor .toastui-editor-toolbar-group {
+    margin: 0;
+}
+
+.descriptionEditor .toastui-editor-toolbar-divider {
+    margin: 7px 2px;
+    height: 14px;
+    background: var(--color-border);
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons {
+    width: 26px;
+    height: 26px;
+    margin: 1px 2px 1px 0;
+    border: none;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    background-image: none !important;
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons {
+    position: relative;
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    font-family: "Material Symbols Rounded";
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 26px;
+    text-indent: 0;
+    letter-spacing: normal;
+    text-transform: none;
+    pointer-events: none;
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.active,
+.descriptionEditor .toastui-editor-toolbar-icons[aria-pressed="true"] {
+    color: var(--color-accent);
+    background-color: var(--color-accent-soft);
+    border: none;
+}
+
+.descriptionEditor .toastui-editor-popup,
+.descriptionEditor .toastui-editor-dropdown-toolbar,
+.descriptionEditor .toastui-editor-context-menu {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+.descriptionEditor .toastui-editor-popup-body :is(h1, h2, h3, h4, h5, h6, label, p) {
+    color: var(--color-text);
+}
+
+.descriptionEditor .toastui-editor-popup-body li:hover,
+.descriptionEditor .toastui-editor-context-menu li:hover {
+    background: var(--color-hover);
+}
+
+.descriptionEditor .toastui-editor-popup input {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+.descriptionEditor .toastui-editor-popup .toastui-editor-ok-button {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+}
+
+.descriptionEditor .toastui-editor-table-selection-layer {
+    border-color: var(--color-accent);
+    background: var(--color-accent-soft);
+}
+
+.descriptionEditor .toastui-editor-contents :is(td, th).toastui-editor-cell-selected {
+    background: var(--color-accent-soft);
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons:hover {
+    background-color: var(--color-hover);
+    border: none;
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons,
+.descriptionEditor .toastui-editor-toolbar-icons:hover,
+.descriptionEditor .toastui-editor-toolbar-icons:active,
+.descriptionEditor .toastui-editor-toolbar-icons:focus {
+    margin: 1px 2px 1px 0;
+    padding: 0;
+    border: none;
+    transform: none;
+    transition: color .15s, background-color .15s;
+}
+
+.descriptionEditor .toastui-editor-main,
+.descriptionEditor .toastui-editor-ww-container {
+    background: transparent;
+    overflow: visible;
+}
+
+.descriptionEditor .toastui-editor-contents {
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.5;
+}
+
+.descriptionEditor .toastui-editor-contents * {
+    line-height: inherit;
+    box-sizing: border-box;
+}
+
+.descriptionEditor .toastui-editor-contents :is(p, ul, ol, li, h1, h2, h3, h4, h5, h6) {
+    color: inherit;
+}
+
+.descriptionEditor .toastui-editor-contents :is(h1, h2, h3, h4, h5, h6) {
+    padding: 0;
+    border: none;
+    line-height: 1.3;
+}
+
+.descriptionEditor .toastui-editor-contents li > p {
+    margin: 0;
+}
+
+.descriptionEditor .toastui-editor-contents .task-list-item::before {
+    box-sizing: border-box;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 4px;
+    background: transparent;
+    transition: background .15s, border-color .15s;
+}
+
+.descriptionEditor .toastui-editor-contents .task-list-item.checked::before {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+}
+
+.descriptionEditor .toastui-editor-contents .task-list-item::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 4px;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    background: var(--color-on-accent);
+    clip-path: polygon(14% 44%, 0 59%, 40% 100%, 100% 20%, 84% 5%, 38% 70%);
+    transform: scale(0);
+    transition: transform .1s;
+}
+
+.descriptionEditor .toastui-editor-contents .task-list-item.checked::after {
+    transform: scale(1);
+}
+
+.descriptionEditor .toastui-editor-ww-container .toastui-editor-contents {
+    padding: 0;
+    min-height: 32px;
+}
+
+.taskCardDescriptionWrapper {
+    // Reserve the toolbar space in both viewing and editing modes.
+    padding-top: 22px;
+}
+
+.descriptionEditorStatus {
+    margin-top: 4px;
+    color: var(--color-text-secondary);
+    font-size: 12px;
+}
+
+.descriptionEditorStatus:empty {
+    display: none;
+}
+
+// Use the same native list markers and geometry in both modes.
+:is(.markdownContent, .descriptionEditor .toastui-editor-contents) ul > li {
+    list-style: disc outside;
+}
+
+:is(.markdownContent, .descriptionEditor .toastui-editor-contents) ol > li {
+    list-style: decimal outside;
+}
+
+.descriptionEditor .toastui-editor-contents li:not(.task-list-item)::before {
+    content: none;
+}
+
+:is(.markdownContent, .descriptionEditor .toastui-editor-contents) li > p {
+    margin: 0;
+}
+
+:is(.markdownContent, .descriptionEditor .toastui-editor-contents) :is(ul, ol) :is(ul, ol) {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+:is(.markdownContent, .descriptionEditor .toastui-editor-contents) li.task-list-item {
+    position: relative;
+    list-style: none;
+    margin-left: -20px;
+    padding-left: 24px;
+}
+
+:is(.markdownContent, .descriptionEditor .toastui-editor-contents) p {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.markdownContent li.task-list-item .markdownCheckbox {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    margin: 0;
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.heading::after { content: "format_size"; }
+.descriptionEditor .toastui-editor-toolbar-icons.bold::after { content: "format_bold"; }
+.descriptionEditor .toastui-editor-toolbar-icons.italic::after { content: "format_italic"; }
+.descriptionEditor .toastui-editor-toolbar-icons.strike::after { content: "format_strikethrough"; }
+.descriptionEditor .toastui-editor-toolbar-icons.bullet-list::after { content: "format_list_bulleted"; }
+.descriptionEditor .toastui-editor-toolbar-icons.ordered-list::after { content: "format_list_numbered"; }
+.descriptionEditor .toastui-editor-toolbar-icons.task-list::after { content: "checklist"; }
+.descriptionEditor .toastui-editor-toolbar-icons.quote::after { content: "format_quote"; }
+.descriptionEditor .toastui-editor-toolbar-icons.link::after { content: "link"; }
+.descriptionEditor .toastui-editor-toolbar-icons.code::after { content: "code"; }
+.descriptionEditor .toastui-editor-toolbar-icons.codeblock::after { content: "terminal"; }
+.descriptionEditor .toastui-editor-toolbar-icons.table::after { content: "table"; }
+.descriptionEditor .toastui-editor-toolbar-icons.more::after { content: "more_horiz"; }

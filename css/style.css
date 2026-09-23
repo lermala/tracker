@@ -144,7 +144,8 @@ h6 {
   background: color-mix(in srgb, var(--badge-color) 18%, transparent);
 }
 
-.markdownContent .markdownCheckbox, .checkbox {
+.markdownContent .markdownCheckbox,
+.descriptionEditor .toastui-editor-contents .markdownCheckbox, .checkbox {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -160,7 +161,8 @@ h6 {
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
 }
-.markdownContent .markdownCheckbox::before, .checkbox::before {
+.markdownContent .markdownCheckbox::before,
+.descriptionEditor .toastui-editor-contents .markdownCheckbox::before, .checkbox::before {
   content: "";
   width: 10px;
   height: 10px;
@@ -169,14 +171,17 @@ h6 {
   background: var(--color-on-accent);
   clip-path: polygon(14% 44%, 0 59%, 40% 100%, 100% 20%, 84% 5%, 38% 70%);
 }
-.markdownContent .markdownCheckbox:hover, .checkbox:hover {
+.markdownContent .markdownCheckbox:hover,
+.descriptionEditor .toastui-editor-contents .markdownCheckbox:hover, .checkbox:hover {
   border-color: var(--color-accent);
 }
-.markdownContent .markdownCheckbox:checked, .checkbox:checked {
+.markdownContent .markdownCheckbox:checked,
+.descriptionEditor .toastui-editor-contents .markdownCheckbox:checked, .checkbox:checked {
   border-color: var(--color-accent);
   background: var(--color-accent);
 }
-.markdownContent .markdownCheckbox:checked::before, .checkbox:checked::before {
+.markdownContent .markdownCheckbox:checked::before,
+.descriptionEditor .toastui-editor-contents .markdownCheckbox:checked::before, .checkbox:checked::before {
   transform: scale(1);
 }
 
@@ -779,7 +784,7 @@ a:hover {
     opacity: 1;
   }
 }
-.projectEditorName, .settingsNameInput, .authInput, .markdownEditor, .projectEditorDescription, .dropdownSearchInput, .dropdownCreateInput {
+.projectEditorName, .settingsNameInput, .authInput, .projectEditorDescription, .dropdownSearchInput, .dropdownCreateInput {
   width: 100%;
   min-width: 0;
   height: 32px;
@@ -792,16 +797,16 @@ a:hover {
   outline: none;
   transition: border-color 0.15s ease;
 }
-.projectEditorName:hover, .settingsNameInput:hover, .authInput:hover, .markdownEditor:hover, .projectEditorDescription:hover, .dropdownSearchInput:hover, .dropdownCreateInput:hover {
+.projectEditorName:hover, .settingsNameInput:hover, .authInput:hover, .projectEditorDescription:hover, .dropdownSearchInput:hover, .dropdownCreateInput:hover {
   border-color: var(--color-border-strong);
 }
-.projectEditorName:focus, .settingsNameInput:focus, .authInput:focus, .markdownEditor:focus, .projectEditorDescription:focus, .dropdownSearchInput:focus, .dropdownCreateInput:focus {
+.projectEditorName:focus, .settingsNameInput:focus, .authInput:focus, .projectEditorDescription:focus, .dropdownSearchInput:focus, .dropdownCreateInput:focus {
   border-color: var(--color-border-strong);
 }
-.projectEditorName::-moz-placeholder, .settingsNameInput::-moz-placeholder, .authInput::-moz-placeholder, .markdownEditor::-moz-placeholder, .projectEditorDescription::-moz-placeholder, .dropdownSearchInput::-moz-placeholder, .dropdownCreateInput::-moz-placeholder {
+.projectEditorName::-moz-placeholder, .settingsNameInput::-moz-placeholder, .authInput::-moz-placeholder, .projectEditorDescription::-moz-placeholder, .dropdownSearchInput::-moz-placeholder, .dropdownCreateInput::-moz-placeholder {
   color: var(--color-text-secondary);
 }
-.projectEditorName::placeholder, .settingsNameInput::placeholder, .authInput::placeholder, .markdownEditor::placeholder, .projectEditorDescription::placeholder, .dropdownSearchInput::placeholder, .dropdownCreateInput::placeholder {
+.projectEditorName::placeholder, .settingsNameInput::placeholder, .authInput::placeholder, .projectEditorDescription::placeholder, .dropdownSearchInput::placeholder, .dropdownCreateInput::placeholder {
   color: var(--color-text-secondary);
 }
 
@@ -1047,16 +1052,20 @@ textarea.textEditor.taskTitle {
   border: 1px solid var(--color-control);
 }
 
-.markdownContent {
+.markdownContent,
+.descriptionEditor .toastui-editor-contents {
   line-height: 1.5;
 }
-.markdownContent > :first-child {
+.markdownContent > :first-child,
+.descriptionEditor .toastui-editor-contents > :first-child {
   margin-top: 0;
 }
-.markdownContent > :last-child {
+.markdownContent > :last-child,
+.descriptionEditor .toastui-editor-contents > :last-child {
   margin-bottom: 0;
 }
-.markdownContent p {
+.markdownContent p,
+.descriptionEditor .toastui-editor-contents p {
   margin: 0 0 6px;
 }
 .markdownContent h1,
@@ -1064,97 +1073,422 @@ textarea.textEditor.taskTitle {
 .markdownContent h3,
 .markdownContent h4,
 .markdownContent h5,
-.markdownContent h6 {
+.markdownContent h6,
+.descriptionEditor .toastui-editor-contents h1,
+.descriptionEditor .toastui-editor-contents h2,
+.descriptionEditor .toastui-editor-contents h3,
+.descriptionEditor .toastui-editor-contents h4,
+.descriptionEditor .toastui-editor-contents h5,
+.descriptionEditor .toastui-editor-contents h6 {
   margin: 10px 0 6px;
   line-height: 1.3;
   font-weight: 600;
 }
 .markdownContent h1,
-.markdownContent h2 {
+.markdownContent h2,
+.descriptionEditor .toastui-editor-contents h1,
+.descriptionEditor .toastui-editor-contents h2 {
   margin-top: 20px;
 }
 .markdownContent h3,
 .markdownContent h4,
 .markdownContent h5,
-.markdownContent h6 {
+.markdownContent h6,
+.descriptionEditor .toastui-editor-contents h3,
+.descriptionEditor .toastui-editor-contents h4,
+.descriptionEditor .toastui-editor-contents h5,
+.descriptionEditor .toastui-editor-contents h6 {
   margin-top: 10px;
 }
-.markdownContent h1 {
+.markdownContent h1,
+.descriptionEditor .toastui-editor-contents h1 {
   font-size: 1.3em;
 }
-.markdownContent h2 {
+.markdownContent h2,
+.descriptionEditor .toastui-editor-contents h2 {
   font-size: 1.2em;
 }
-.markdownContent h3 {
+.markdownContent h3,
+.descriptionEditor .toastui-editor-contents h3 {
   font-size: 1.1em;
 }
 .markdownContent h4,
 .markdownContent h5,
-.markdownContent h6 {
+.markdownContent h6,
+.descriptionEditor .toastui-editor-contents h4,
+.descriptionEditor .toastui-editor-contents h5,
+.descriptionEditor .toastui-editor-contents h6 {
   font-size: 1em;
 }
 .markdownContent ul,
-.markdownContent ol {
+.markdownContent ol,
+.descriptionEditor .toastui-editor-contents ul,
+.descriptionEditor .toastui-editor-contents ol {
   margin: 6px 0;
   padding-left: 20px;
 }
-.markdownContent li {
+.markdownContent li,
+.descriptionEditor .toastui-editor-contents li {
   margin: 4px 0;
 }
-.markdownContent blockquote {
+.markdownContent blockquote,
+.descriptionEditor .toastui-editor-contents blockquote {
   margin: 6px 0;
   padding-left: 8px;
   border-left: 2px solid var(--color-border);
   color: var(--color-text-secondary);
 }
-.markdownContent code {
+.markdownContent code,
+.descriptionEditor .toastui-editor-contents code {
   padding: 1px 4px;
   border-radius: 4px;
   background: var(--color-hover);
   font-family: monospace;
   font-size: 0.9em;
 }
-.markdownContent pre {
+.markdownContent pre,
+.descriptionEditor .toastui-editor-contents pre {
   overflow-x: auto;
   margin: 6px 0;
   padding: 8px;
   border-radius: 4px;
   background: var(--color-hover);
 }
-.markdownContent pre code {
+.markdownContent pre code,
+.descriptionEditor .toastui-editor-contents pre code {
   padding: 0;
   background: transparent;
 }
-.markdownContent a {
+.markdownContent a,
+.descriptionEditor .toastui-editor-contents a {
   color: var(--color-accent);
   text-decoration: none;
 }
-.markdownContent a:hover {
+
+.markdownContent a:hover,
+.descriptionEditor .toastui-editor-contents a:hover {
   text-decoration: underline;
 }
-.markdownContent hr {
+.markdownContent hr,
+.descriptionEditor .toastui-editor-contents hr {
   margin: 8px 0;
   border: 0;
   border-top: 1px solid var(--color-border);
 }
-.markdownContent strong {
+.markdownContent strong,
+.descriptionEditor .toastui-editor-contents strong {
   font-weight: 600;
 }
-.markdownContent .markdownCheckbox {
+.markdownContent .markdownCheckbox,
+.descriptionEditor .toastui-editor-contents .markdownCheckbox {
   margin-right: 6px;
 }
 
-.markdownEditor {
-  display: block;
+.descriptionEditor .toastui-editor-defaultUI {
+  position: relative;
+  border: none;
+  border-radius: 0;
+  font-family: inherit;
+}
+
+.descriptionEditor .toastui-editor-defaultUI-toolbar {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
   width: 100%;
-  min-height: 32px;
-  margin: 0;
+  max-width: 100%;
+  height: 30px;
   padding: 0;
   border: none;
+  border-radius: 4px;
   background: transparent;
-  font: inherit;
+}
+
+.descriptionEditor .toastui-editor-toolbar {
+  height: 0;
+}
+
+.descriptionEditor:not(.is-editing) .toastui-editor-popup,
+.descriptionEditor:not(.is-editing) .toastui-editor-context-menu,
+.toastui-editor-tooltip {
+  display: none !important;
+}
+
+.descriptionEditor .toastui-editor-toolbar-group {
+  margin: 0;
+}
+
+.descriptionEditor .toastui-editor-toolbar-divider {
+  margin: 7px 2px;
+  height: 14px;
+  background: var(--color-border);
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons {
+  width: 26px;
+  height: 26px;
+  margin: 1px 2px 1px 0;
+  border: none;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  background-image: none !important;
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons {
+  position: relative;
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  font-family: "Material Symbols Rounded";
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 26px;
+  text-indent: 0;
+  letter-spacing: normal;
+  text-transform: none;
+  pointer-events: none;
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.active,
+.descriptionEditor .toastui-editor-toolbar-icons[aria-pressed=true] {
+  color: var(--color-accent);
+  background-color: var(--color-accent-soft);
+  border: none;
+}
+
+.descriptionEditor .toastui-editor-popup,
+.descriptionEditor .toastui-editor-dropdown-toolbar,
+.descriptionEditor .toastui-editor-context-menu {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.descriptionEditor .toastui-editor-popup-body :is(h1, h2, h3, h4, h5, h6, label, p) {
+  color: var(--color-text);
+}
+
+.descriptionEditor .toastui-editor-popup-body li:hover,
+.descriptionEditor .toastui-editor-context-menu li:hover {
+  background: var(--color-hover);
+}
+
+.descriptionEditor .toastui-editor-popup input {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.descriptionEditor .toastui-editor-popup .toastui-editor-ok-button {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.descriptionEditor .toastui-editor-table-selection-layer {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.descriptionEditor .toastui-editor-contents :is(td, th).toastui-editor-cell-selected {
+  background: var(--color-accent-soft);
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons:hover {
+  background-color: var(--color-hover);
+  border: none;
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons,
+.descriptionEditor .toastui-editor-toolbar-icons:hover,
+.descriptionEditor .toastui-editor-toolbar-icons:active,
+.descriptionEditor .toastui-editor-toolbar-icons:focus {
+  margin: 1px 2px 1px 0;
+  padding: 0;
+  border: none;
+  transform: none;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.descriptionEditor .toastui-editor-main,
+.descriptionEditor .toastui-editor-ww-container {
+  background: transparent;
+  overflow: visible;
+}
+
+.descriptionEditor .toastui-editor-contents {
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.5;
+}
+
+.descriptionEditor .toastui-editor-contents * {
   line-height: inherit;
-  resize: vertical;
+  box-sizing: border-box;
+}
+
+.descriptionEditor .toastui-editor-contents :is(p, ul, ol, li, h1, h2, h3, h4, h5, h6) {
+  color: inherit;
+}
+
+.descriptionEditor .toastui-editor-contents :is(h1, h2, h3, h4, h5, h6) {
+  padding: 0;
+  border: none;
+  line-height: 1.3;
+}
+
+.descriptionEditor .toastui-editor-contents li > p {
+  margin: 0;
+}
+
+.descriptionEditor .toastui-editor-contents .task-list-item::before {
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 4px;
+  background: transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.descriptionEditor .toastui-editor-contents .task-list-item.checked::before {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+.descriptionEditor .toastui-editor-contents .task-list-item::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  background: var(--color-on-accent);
+  clip-path: polygon(14% 44%, 0 59%, 40% 100%, 100% 20%, 84% 5%, 38% 70%);
+  transform: scale(0);
+  transition: transform 0.1s;
+}
+
+.descriptionEditor .toastui-editor-contents .task-list-item.checked::after {
+  transform: scale(1);
+}
+
+.descriptionEditor .toastui-editor-ww-container .toastui-editor-contents {
+  padding: 0;
+  min-height: 32px;
+}
+
+.taskCardDescriptionWrapper {
+  padding-top: 22px;
+}
+
+.descriptionEditorStatus {
+  margin-top: 4px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+.descriptionEditorStatus:empty {
+  display: none;
+}
+
+:is(.markdownContent, .descriptionEditor .toastui-editor-contents) ul > li {
+  list-style: disc outside;
+}
+
+:is(.markdownContent, .descriptionEditor .toastui-editor-contents) ol > li {
+  list-style: decimal outside;
+}
+
+.descriptionEditor .toastui-editor-contents li:not(.task-list-item)::before {
+  content: none;
+}
+
+:is(.markdownContent, .descriptionEditor .toastui-editor-contents) li > p {
+  margin: 0;
+}
+
+:is(.markdownContent, .descriptionEditor .toastui-editor-contents) :is(ul, ol) :is(ul, ol) {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+:is(.markdownContent, .descriptionEditor .toastui-editor-contents) li.task-list-item {
+  position: relative;
+  list-style: none;
+  margin-left: -20px;
+  padding-left: 24px;
+}
+
+:is(.markdownContent, .descriptionEditor .toastui-editor-contents) p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.markdownContent li.task-list-item .markdownCheckbox {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  margin: 0;
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.heading::after {
+  content: "format_size";
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.bold::after {
+  content: "format_bold";
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.italic::after {
+  content: "format_italic";
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.strike::after {
+  content: "format_strikethrough";
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.bullet-list::after {
+  content: "format_list_bulleted";
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.ordered-list::after {
+  content: "format_list_numbered";
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.task-list::after {
+  content: "checklist";
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.quote::after {
+  content: "format_quote";
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.link::after {
+  content: "link";
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.code::after {
+  content: "code";
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.codeblock::after {
+  content: "terminal";
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.table::after {
+  content: "table";
+}
+
+.descriptionEditor .toastui-editor-toolbar-icons.more::after {
+  content: "more_horiz";
 }
 
 .timerControl {
@@ -2932,7 +3266,6 @@ body:not(.is-dragging) .task:hover {
     pointer-events: auto;
   }
 }
-
 .taskCalendarDayNumber {
   width: 26px;
   height: 26px;

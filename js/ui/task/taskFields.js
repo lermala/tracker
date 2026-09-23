@@ -147,94 +147,15 @@ function bindTaskCheckbox(status, getTask, onToggle) {
     });
 }
 
-function fillTaskDescription(
-    description,
-    task,
-    saveTask = updateTask
-) {
-    if (!task.description) {
-        description.textContent =
-            "Добавить описание";
-
-        description.classList.add(
-            "is-empty"
-        );
-
-        return;
-    }
-
-    description.classList.remove(
-        "is-empty"
-    );
-
-    renderMarkdown(
-        description,
-        task.description,
-        {
-            onChange: description => {
-                saveTask(task.id, {
-                    description
-                });
-            }
+function fillTaskDescription(description, task, saveTask = updateTask) {
+    createMarkdownDescription(description, {
+        value: task.description || "",
+        maxLength: TASK_LIMITS.DESCRIPTION,
+        onSave: async value => {
+            await saveTask(task.id, { description: value });
+            renderCurrentView();
         }
-    );
-}
-
-function bindTaskDescription(
-    description,
-    getTask,
-    onUpdate,
-    saveTask = updateTask
-) {
-    description.addEventListener(
-        "click",
-        event => {
-            if (
-                event.target.closest("a")
-            ) {
-                return;
-            }
-
-            const task =
-                getTask();
-
-            if (!task) return;
-
-            startTextEdit(
-                description,
-                {
-                    value:
-                        task.description || "",
-
-                    multiline: true,
-                    maxLength: TASK_LIMITS.DESCRIPTION,
-                    enterToSave: false,
-
-                    className:
-                        "markdownEditor",
-
-                    onSave:
-                        async value => {
-                            await saveTask(
-                                task.id,
-                                {
-                                    description:
-                                        value
-                                }
-                            );
-
-                            fillTaskDescription(
-                                description,
-                                task,
-                                saveTask
-                            );
-
-                            onUpdate?.();
-                        }
-                }
-            );
-        }
-    );
+    });
 }
 
 const TASK_PRIORITY_LABELS = {
