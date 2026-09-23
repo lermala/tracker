@@ -3330,3 +3330,22 @@ body:not(.is-dragging) .task:hover {
   flex-wrap: wrap;
   gap: 4px;
 }
+
+.toolbarActions { min-width: 0; margin-left: auto; }
+.toolbarActions > .toolbarAction { width: 32px; height: 32px; padding: 0; flex-shrink: 0; }
+.trackerToolbar.is-searching .toolbarActions { flex: 1; justify-content: flex-end; }
+.taskSearch { display: flex; align-items: center; gap: 4px; flex: 0 1 240px; min-width: 0; height: 32px; padding-left: 6px; border: 1px solid var(--color-border); border-radius: 4px; background: var(--color-surface); }
+.taskSearch:focus-within { border-color: var(--color-border-strong); }
+.taskSearchIcon { color: var(--color-text-secondary); font-size: 18px; flex-shrink: 0; }
+.taskSearchInput { flex: 1; width: 100%; min-width: 0; padding: 0; border: none; outline: none; background: transparent; color: var(--color-text); font: inherit; }
+.taskSearchInput::placeholder { color: var(--color-text-secondary); }
+.taskSearchInput::-webkit-search-cancel-button { display: none; }
+.taskSearch .iconButton { width: 26px; height: 26px; }
+.taskSearch .iconButton .material-symbols-rounded { font-size: 18px; }
+.taskSearchStatus { color: var(--color-text-secondary); font-size: 14px; flex-shrink: 0; }
+.taskSearchStatus:empty { display: none; }
+@media (max-width: 768px) {
+    .trackerToolbar.is-searching .viewSwitcher { display: none; }
+    .taskSearch { flex: 1; }
+    .taskSearchInput { font-size: 16px; }
+}

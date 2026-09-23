@@ -22,7 +22,7 @@ function createTaskGroup(group) {
             getTaskGroupCollapseKey(group);
 
         const isCollapsed =
-            collapsedTaskGroups.has(collapseKey);
+            !getPageTaskSearchQuery() && collapsedTaskGroups.has(collapseKey);
 
         setTaskGroupCollapsed(
             item,

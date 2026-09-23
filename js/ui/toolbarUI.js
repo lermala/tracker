@@ -1,6 +1,7 @@
 const viewSwitcher = document.getElementById("viewSwitcher");
 
 function initToolbarUI() {
+    initTaskSearch();
     bindTaskToolbarEvents();
     bindPageSettingsEvents();
 
@@ -8,6 +9,7 @@ function initToolbarUI() {
 }
 
 function renderToolbarUI() {
+    renderTaskSearch();
     if (currentPage.type === PAGE.TIMESHEET) {
         trackerToolbar.hidden = true;
         return;

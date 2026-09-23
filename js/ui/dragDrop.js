@@ -1,4 +1,6 @@
 function initTaskSortable(container) {
+    // Reordering a filtered subset would overwrite positions of hidden tasks.
+    if (getPageTaskSearchQuery()) return;
     const sortable = new Sortable(container, {
         group: "tasks",
         animation: 150,

@@ -171,6 +171,8 @@ function compareTaskPriority(a, b) {
 
 function filterTasks(tasks) {
     let result = filterTasksByPage(tasks);
+    const query = getPageTaskSearchQuery();
+    if (query) result = result.filter(task => matchesTaskSearch(task, query));
 
     // Скрыть завершённые
     if (pageSettings.hideCompleted) {

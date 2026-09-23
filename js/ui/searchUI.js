@@ -1,3 +1,69 @@
+function initTaskSearch() {
+    const input = document.getElementById("taskSearchInput");
+    const button = document.getElementById("taskSearchButton");
+
+    function closeSearch() {
+        pageTaskSearch.open = false;
+        pageTaskSearch.query = "";
+        renderTaskSearch();
+        renderCurrentView();
+        button.focus();
+    }
+
+    button.addEventListener("click", () => {
+        if (pageTaskSearch.open) {
+            closeSearch();
+            return;
+        }
+        pageTaskSearch.pageKey = getTaskSearchPageKey();
+        pageTaskSearch.open = true;
+        renderTaskSearch();
+        renderTaskSearchStatus();
+        input.focus();
+    });
+    input.addEventListener("input", () => {
+        pageTaskSearch.query = input.value;
+        renderCurrentView();
+    });
+    input.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            event.preventDefault();
+            closeSearch();
+        }
+    });
+    document.getElementById("taskSearchClose").addEventListener("click", closeSearch);
+}
+
+function renderTaskSearch() {
+    const pageKey = getTaskSearchPageKey();
+    if (pageTaskSearch.pageKey !== pageKey) {
+        Object.assign(pageTaskSearch, { pageKey, query: "", open: false });
+    }
+    const supported = currentPage.type === PAGE.PROJECT || currentPage.type === PAGE.MY_TASKS;
+    const open = supported && pageTaskSearch.open;
+    document.getElementById("taskSearchPanel").classList.toggle("hidden", !open);
+    const button = document.getElementById("taskSearchButton");
+    button.classList.toggle("active", open);
+    button.classList.toggle("hidden", open);
+    document.getElementById("trackerToolbar").classList.toggle("is-searching", open);
+    button.setAttribute("aria-expanded", String(open));
+    const input = document.getElementById("taskSearchInput");
+    input.value = pageTaskSearch.query;
+    input.placeholder = currentPage.type === PAGE.PROJECT
+        ? "Поиск в проекте…"
+        : "Поиск в моих задачах…";
+}
+
+function renderTaskSearchStatus() {
+    if (!pageTaskSearch.open || currentPage.type === PAGE.TIMESHEET) return;
+    const count = getVisibleTasks().length;
+    const status = document.getElementById("taskSearchStatus");
+    const searching = Boolean(getPageTaskSearchQuery());
+    status.textContent = searching ? String(count) : "";
+    status.setAttribute("aria-label", searching ? `Найдено задач: ${count}` : "");
+    status.title = searching ? `Найдено задач: ${count}` : "";
+}
+
 function initGlobalSearch() {
     const button = document.getElementById("searchButton");
 

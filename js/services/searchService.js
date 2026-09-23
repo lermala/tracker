@@ -1,5 +1,22 @@
 
 
+const pageTaskSearch = { pageKey: null, query: "", open: false };
+
+function getTaskSearchPageKey() {
+    return `${currentPage.type}:${currentPage.id ?? ""}`;
+}
+
+function getPageTaskSearchQuery() {
+    return pageTaskSearch.pageKey === getTaskSearchPageKey()
+        ? normalizeSearchText(pageTaskSearch.query)
+        : "";
+}
+
+function matchesTaskSearch(task, query) {
+    return normalizeSearchText(task.title).includes(query) ||
+        normalizeSearchText(getDescriptionPreview(task.description || "")).includes(query);
+}
+
 function searchEntities(query) {
     const normalizedQuery =
         normalizeSearchText(query);
@@ -25,16 +42,7 @@ function searchEntities(query) {
 }
 
 function searchTasks(query) {
-    return tasks.filter(task =>
-        matchesSearch(
-            task,
-            query,
-            [
-                "title",
-                "description"
-            ]
-        )
-    );
+    return tasks.filter(task => matchesTaskSearch(task, query));
 }
 
 function searchProjects(query) {

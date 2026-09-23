@@ -21,6 +21,7 @@ function initTaskUI() {
 
 function renderCurrentView() {
     renderTasksHeader();
+    renderTaskSearchStatus();
 
     if (currentPage.type === PAGE.TIMESHEET) {
         setViewClass("timesheetView");

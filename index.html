@@ -112,12 +112,20 @@
                 </div>
 
                 <div class="toolbarActions">
+                    <button class="toolbarAction" id="taskSearchButton" type="button" title="Поиск на странице" aria-label="Поиск на странице" aria-expanded="false" aria-controls="taskSearchPanel">
+                        <span class="material-symbols-rounded" aria-hidden="true">search</span>
+                    </button>
+                    <div class="taskSearch hidden" id="taskSearchPanel" role="search" aria-label="Поиск задач на странице">
+                        <span class="material-symbols-rounded taskSearchIcon" aria-hidden="true">search</span>
+                        <input class="taskSearchInput" id="taskSearchInput" type="search" placeholder="Поиск по названию и описанию" aria-label="Поиск по названию и описанию" autocomplete="off">
+                        <span class="taskSearchStatus" id="taskSearchStatus" role="status" aria-live="polite"></span>
+                        <button class="iconButton" id="taskSearchClose" type="button" title="Закрыть поиск" aria-label="Закрыть поиск">
+                            <span class="material-symbols-rounded" aria-hidden="true">close</span>
+                        </button>
+                    </div>
                     <button class="toolbarAction" id="propertiesButton" type="button" title="Теги" aria-label="Теги">
                         <span class="material-symbols-rounded">
                             label
-                        </span>
-                        <span class="toolbarActionText">
-                            Теги
                         </span>
                     </button>
 
@@ -126,17 +134,11 @@
                         <span class="material-symbols-rounded">
                             view_column
                         </span>
-                        <span class="toolbarActionText">
-                            Группировка
-                        </span>
                     </button>
 
                     <button class="toolbarAction" id="filterButton" type="button" title="Фильтр" aria-label="Фильтр">
                         <span class="material-symbols-rounded">
                             filter_alt
-                        </span>
-                        <span class="toolbarActionText">
-                            Фильтр
                         </span>
                     </button>
 
@@ -144,9 +146,6 @@
                         aria-label="Сортировка">
                         <span class="material-symbols-rounded">
                             sort
-                        </span>
-                        <span class="toolbarActionText">
-                            Сортировка
                         </span>
                     </button>
                 </div>
