@@ -142,7 +142,7 @@
 
 .descriptionEditor .toastui-editor-defaultUI-toolbar {
     position: absolute;
-    bottom: calc(100% + 6px);
+    bottom: 100%;
     left: 0;
     width: 100%;
     max-width: 100%;
@@ -244,7 +244,7 @@
     background: var(--color-accent-soft);
 }
 
-.descriptionEditor .toastui-editor-contents :is(td, th).toastui-editor-cell-selected {
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-contents :is(td, th).toastui-editor-cell-selected {
     background: var(--color-accent-soft);
 }
 
@@ -253,15 +253,40 @@
     border: none;
 }
 
-.descriptionEditor .toastui-editor-toolbar-icons,
-.descriptionEditor .toastui-editor-toolbar-icons:hover,
-.descriptionEditor .toastui-editor-toolbar-icons:active,
-.descriptionEditor .toastui-editor-toolbar-icons:focus {
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-defaultUI-toolbar button.toastui-editor-toolbar-icons,
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-defaultUI-toolbar button.toastui-editor-toolbar-icons:is(:hover, :active, :focus) {
+    box-sizing: border-box;
+    width: 26px;
+    height: 26px;
     margin: 1px 2px 1px 0;
     padding: 0;
     border: none;
     transform: none;
     transition: color .15s, background-color .15s;
+}
+
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-defaultUI-toolbar button.toastui-editor-toolbar-icons:hover {
+    background-color: var(--color-hover);
+    box-shadow: none;
+}
+
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-contents table {
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-contents table :is(th, td) {
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-contents table th {
+    background: var(--color-surface-secondary);
+    font-weight: 600;
+}
+
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-contents table :is(th, td) p {
+    color: inherit;
 }
 
 .descriptionEditor .toastui-editor-main,

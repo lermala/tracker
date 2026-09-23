@@ -100,11 +100,11 @@ h6 {
   --color-later: #8b8b8b;
 }
 
-.badge.is-interactive, .taskDueDate, .taskPriority, .taskCheckbox, .addButtonIcon, .taskCalendarTodayButton, .timesheetDeleteButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
+.badge.is-interactive, .taskDueDate, .taskPriority, .taskCheckbox, .addButtonIcon, .taskCalendarTodayButton, .timesheetDeleteButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
-.badge.is-interactive:active, .taskDueDate:active, .taskPriority:active, .taskCheckbox:active, .addButtonIcon:active, .taskCalendarTodayButton:active, .timesheetDeleteButton:active, .timesheetDateButton:active, .addCategoryButton:active, .taskGroupCollapseButton:active, .segmentedControlButton:active, .toolbarButton:active, .toolbarAction:active, .sidebarHeader .sidebarUserButton:active, .authRecoveryBack:active, .authSwitch:active, .timerControl .timerButton:active, .colorPickerOption:active, .calendarDay:active, .projectEditorCancelButton:active, .settingsAvatarDeleteButton:active, .settingsAvatarChangeButton:active, .settingsCancelButton:active, .projectEditorSaveButton:active, .settingsSaveButton:active, .authRecoverySubmit:active, .authSubmit:active, .addButton:active, .settingsNavItem:active, .sidebarNavItem:active, .priorityPickerOption:active, .datePickerOption:active, .menuItem:active, .toggleButton:active, .taskCalendarNavigationButton:active, .pageMenuButton:active, .sidebarToggleButton:active, .calendarNavButton:active, .menuButton:active, .deleteButton:active, .iconButton:active, .taskCardCloseButton:active, .projectEditorCloseButton:active, .settingsCloseButton:active, .globalSearchCloseButton:active {
+.badge.is-interactive:active, .taskDueDate:active, .taskPriority:active, .taskCheckbox:active, .addButtonIcon:active, .taskCalendarTodayButton:active, .timesheetDeleteButton:active, .timesheetDateButton:active, .addCategoryButton:active, .taskGroupCollapseButton:active, .toolbarAction:active, .sidebarHeader .sidebarUserButton:active, .authRecoveryBack:active, .authSwitch:active, .timerControl .timerButton:active, .colorPickerOption:active, .calendarDay:active, .projectEditorCancelButton:active, .settingsAvatarDeleteButton:active, .settingsAvatarChangeButton:active, .settingsCancelButton:active, .projectEditorSaveButton:active, .settingsSaveButton:active, .authRecoverySubmit:active, .authSubmit:active, .addButton:active, .settingsNavItem:active, .sidebarNavItem:active, .priorityPickerOption:active, .datePickerOption:active, .menuItem:active, .toggleButton:active, .taskCalendarNavigationButton:active, .pageMenuButton:active, .sidebarToggleButton:active, .calendarNavButton:active, .menuButton:active, .deleteButton:active, .iconButton:active, .taskCardCloseButton:active, .projectEditorCloseButton:active, .settingsCloseButton:active, .globalSearchCloseButton:active {
   transform: scale(0.97);
 }
 
@@ -112,7 +112,7 @@ h6 {
   background: var(--color-hover);
 }
 
-.taskCalendarTodayButton, .timesheetDeleteButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
+.taskCalendarTodayButton, .timesheetDeleteButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
   margin: 0;
   padding: 0;
   font: inherit;
@@ -124,7 +124,7 @@ h6 {
           appearance: none;
 }
 
-.taskCalendarTodayButton, .timesheetDeleteButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .segmentedControlButton, .toolbarButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
+.taskCalendarTodayButton, .timesheetDeleteButton, .timesheetDateButton, .addCategoryButton, .taskGroupCollapseButton, .toolbarAction, .sidebarHeader .sidebarUserButton, .authRecoveryBack, .authSwitch, .timerControl .timerButton, .colorPickerOption, .calendarDay, .projectEditorCancelButton, .settingsAvatarDeleteButton, .settingsAvatarChangeButton, .settingsCancelButton, .projectEditorSaveButton, .settingsSaveButton, .authRecoverySubmit, .authSubmit, .addButton, .settingsNavItem, .sidebarNavItem, .priorityPickerOption, .datePickerOption, .menuItem, .toggleButton, .taskCalendarNavigationButton, .pageMenuButton, .sidebarToggleButton, .calendarNavButton, .menuButton, .deleteButton, .iconButton, .taskCardCloseButton, .projectEditorCloseButton, .settingsCloseButton, .globalSearchCloseButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1164,7 +1164,6 @@ textarea.textEditor.taskTitle {
   color: var(--color-accent);
   text-decoration: none;
 }
-
 .markdownContent a:hover,
 .descriptionEditor .toastui-editor-contents a:hover {
   text-decoration: underline;
@@ -1193,7 +1192,7 @@ textarea.textEditor.taskTitle {
 
 .descriptionEditor .toastui-editor-defaultUI-toolbar {
   position: absolute;
-  bottom: calc(100% + 6px);
+  bottom: 100%;
   left: 0;
   width: 100%;
   max-width: 100%;
@@ -1295,7 +1294,7 @@ textarea.textEditor.taskTitle {
   background: var(--color-accent-soft);
 }
 
-.descriptionEditor .toastui-editor-contents :is(td, th).toastui-editor-cell-selected {
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-contents :is(td, th).toastui-editor-cell-selected {
   background: var(--color-accent-soft);
 }
 
@@ -1304,15 +1303,40 @@ textarea.textEditor.taskTitle {
   border: none;
 }
 
-.descriptionEditor .toastui-editor-toolbar-icons,
-.descriptionEditor .toastui-editor-toolbar-icons:hover,
-.descriptionEditor .toastui-editor-toolbar-icons:active,
-.descriptionEditor .toastui-editor-toolbar-icons:focus {
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-defaultUI-toolbar button.toastui-editor-toolbar-icons,
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-defaultUI-toolbar button.toastui-editor-toolbar-icons:is(:hover, :active, :focus) {
+  box-sizing: border-box;
+  width: 26px;
+  height: 26px;
   margin: 1px 2px 1px 0;
   padding: 0;
   border: none;
   transform: none;
   transition: color 0.15s, background-color 0.15s;
+}
+
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-defaultUI-toolbar button.toastui-editor-toolbar-icons:hover {
+  background-color: var(--color-hover);
+  box-shadow: none;
+}
+
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-contents table {
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-contents table :is(th, td) {
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-contents table th {
+  background: var(--color-surface-secondary);
+  font-weight: 600;
+}
+
+.descriptionEditor .toastui-editor-defaultUI .toastui-editor-contents table :is(th, td) p {
+  color: inherit;
 }
 
 .descriptionEditor .toastui-editor-main,
@@ -2452,10 +2476,8 @@ body:not(.is-dragging) .task:hover {
 }
 
 .toolbarAction {
-  display: inline-flex;
-  align-items: center;
   gap: 6px;
-  padding: 4px 4px;
+  padding: 4px 6px;
   color: var(--color-text-secondary);
 }
 .toolbarAction .material-symbols-rounded {
@@ -2467,66 +2489,11 @@ body:not(.is-dragging) .task:hover {
   background: var(--color-hover);
 }
 
-.segmentedControl {
-  display: inline-flex;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-}
-
-.segmentedControlButton, .toolbarButton {
-  color: var(--color-text-secondary);
-  font-weight: 500;
-  padding: 6px 12px;
-}
-.segmentedControlButton:hover, .toolbarButton:hover {
-  background: var(--color-accent-soft);
-}
-.segmentedControlButton.active, .active.toolbarButton {
-  color: var(--color-accent);
-  background: var(--color-accent-soft);
-}
-
-.toolbarButton {
-  border: 1px solid var(--color-border);
-}
-
-/* .toolbarMenu {
-    @extend %popover;
-
-    position: fixed;
-    z-index: 10000;
-
-    min-width: 220px;
-} */
-/* .propertyMenuItem {
-    @extend %menu-option;
-
-    display: flex;
-    align-items: center;
-
-    width: 100%;
-
-    cursor: pointer;
-} */
-/* .menuSetting {
-    @extend %menu-option;
-
-    display: flex;
-    align-items: center;
-
-    width: 100%;
-
-    cursor: pointer;
-}
-
-.menuSettingLabel {
-    flex: 1;
-} */
+.viewSwitcher,
 .toolbarActions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 4px;
 }
 
 @media (max-width: 768px) {
@@ -2534,6 +2501,7 @@ body:not(.is-dragging) .task:hover {
     gap: 8px;
     padding: 10px;
   }
+  .viewSwitcher,
   .toolbarActions {
     gap: 4px;
   }
@@ -2551,6 +2519,16 @@ body:not(.is-dragging) .task:hover {
     display: none;
   }
 }
+.toolbarAction.active {
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.toolbarAction:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
 .taskGroup {
   min-width: 0;
   padding: 8px;

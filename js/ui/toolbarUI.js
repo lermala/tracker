@@ -40,6 +40,7 @@ function updateViewButtons() {
     viewSwitcher
         .querySelectorAll("[data-view]")
         .forEach(button => {
+            button.setAttribute("aria-pressed", String(button.dataset.view === pageSettings.view));
             button.classList.toggle(
                 "active",
                 button.dataset.view ===

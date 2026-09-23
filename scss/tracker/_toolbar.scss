@@ -50,10 +50,8 @@
 .toolbarAction {
     @extend %button;
 
-    display: inline-flex;
-    align-items: center;
     gap: $space-xs;
-    padding: $space-xxs $space-xxs;
+    padding: $space-xxs $space-xs;
 
     color: var(--color-text-secondary);
 
@@ -68,95 +66,11 @@
     }
 }
 
-
-
-
-.segmentedControl {
-    display: inline-flex;
-    overflow: hidden;
-
-    border: 1px solid var(--color-border);
-    border-radius: $bd-radius;
-}
-
-.segmentedControlButton {
-    @extend %button;
-    color: var(--color-text-secondary);
-    font-weight: 500;
-
-    padding: $space-xs $space-md;
-
-    &:hover {
-        background: var(--color-accent-soft);
-    }
-
-    &.active {
-        color: var(--color-accent);
-        background: var(--color-accent-soft);
-    }
-}
-
-.toolbarButton {
-    @extend .segmentedControlButton;
-
-    border: 1px solid var(--color-border);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .toolbarMenu {
-    @extend %popover;
-
-    position: fixed;
-    z-index: 10000;
-
-    min-width: 220px;
-} */
-
-/* .propertyMenuItem {
-    @extend %menu-option;
-
-    display: flex;
-    align-items: center;
-
-    width: 100%;
-
-    cursor: pointer;
-} */
-
-/* .menuSetting {
-    @extend %menu-option;
-
-    display: flex;
-    align-items: center;
-
-    width: 100%;
-
-    cursor: pointer;
-}
-
-.menuSettingLabel {
-    flex: 1;
-} */
-
+.viewSwitcher,
 .toolbarActions {
     display: flex;
     align-items: center;
-    gap: $space-l;
+    gap: $space-xxs;
 }
 
 
@@ -164,9 +78,9 @@
     .trackerToolbar {
         gap: $space-s;
         padding: $space-m;
-        // flex-wrap: wrap;
     }
 
+    .viewSwitcher,
     .toolbarActions {
         gap: $space-xxs;
     }
@@ -188,4 +102,14 @@
     .toolbarActionText {
         display: none;
     }
+}
+
+.toolbarAction.active {
+    color: var(--color-accent);
+    background: var(--color-accent-soft);
+}
+
+.toolbarAction:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
 }

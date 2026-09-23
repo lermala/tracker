@@ -94,17 +94,20 @@
             </div>
 
             <div class="trackerToolbar" id="trackerToolbar">
-                <div class="segmentedControl" id="viewSwitcher">
-                    <button class="segmentedControlButton" data-view="list">
-                        Список
+                <div class="viewSwitcher" id="viewSwitcher" role="group" aria-label="Вид задач">
+                    <button type="button" class="toolbarAction" data-view="list" title="Список" aria-label="Список">
+                        <span class="material-symbols-rounded" aria-hidden="true">view_list</span>
+                        <span class="toolbarActionText">Список</span>
                     </button>
 
-                    <button class="segmentedControlButton" data-view="board">
-                        Доска
+                    <button type="button" class="toolbarAction" data-view="board" title="Доска" aria-label="Доска">
+                        <span class="material-symbols-rounded" aria-hidden="true">view_kanban</span>
+                        <span class="toolbarActionText">Доска</span>
                     </button>
 
-                    <button class="segmentedControlButton" data-view="calendar">
-                        Календарь
+                    <button type="button" class="toolbarAction" data-view="calendar" title="Календарь" aria-label="Календарь">
+                        <span class="material-symbols-rounded" aria-hidden="true">calendar_month</span>
+                        <span class="toolbarActionText">Календарь</span>
                     </button>
                 </div>
 
